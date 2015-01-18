@@ -59,7 +59,7 @@ mvn spring-boot:run
 # Technology Stack
 The webapp was initially generated using [JHipster](http://jhipster.github.io/creating_an_entity.html).
 Significant changes to the project structure and software modules were made, which means there will be complications if you try to
-use yeoman code generation.
+use the Yeoman code generation tool.
 
 ### Version control
 - **source**: [GIT](http://git-scm.com/)
@@ -78,7 +78,7 @@ use yeoman code generation.
 - **Spreadsheets & PDF**: [JasperReports] (https://community.jaspersoft.com/project/jasperreports-library)
 
 ### Front-end
-- **Frameworks**: [AngularJS](https://angularjs.org/) 1.2.x, [JQuery](http://jquery.com),
+- **Frameworks**: [AngularJS](https://angularjs.org/) 1.2.28 (upgrading to 1.3 is pending on angular-translate), [JQuery](http://jquery.com),
 [JQuery-UI](http://jqueryui.com/), [Swagger](https://github.com/swagger-api/swagger-ui)<br/>
 - **Design/CSS**: [Bootstrap](http://getbootstrap.com/)
 

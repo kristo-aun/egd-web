@@ -19,14 +19,14 @@ keeping this in mind. If you wish to apply this software to another language pai
 to make significant changes to the source code.
 
 
-This dictionary has some value to Japanese speakers as it enables translating in Estonian -> Japanese direction.
+This dictionary has some value to Japanese natives as it enables translating in Estonian -> Japanese direction.
 Switching to Japanese mode replaces Japanese study aids to those of Estonian. For instance, example sentences in Estonian appear instead of Japanese and 
 translations are complemented with links to ÕS.
 However, in order to qualify as a professional ET-JP dictionary, it should be based on an Estonian language specific data structure.
 It is our belief that such a structure should be developed in joint collaboration of EKI and heavy-weight Japanese linguists.
 Recommendations on how to provide more value to Japanese speakers are welcome.
 
-Hopefully this project will be an inspiration for the emergence of heavyweight Chinese-Estonian and Korean-Estonian dictionaries.
+Hopefully this project will be an inspiration too for the emergence of heavyweight Chinese-Estonian and Korean-Estonian dictionaries.
 
 # Resources
 - Live address: <a href="http://momo.koodur.com">momo.koodur.com</a>
@@ -108,7 +108,7 @@ Faculty of Information Technology, Monash University. The detail data copyright 
 ## Sentences
 - **Japanese**: [Core 2k/6k/10k](https://ankiweb.net/shared/decks/japanese),
 [Tanaka corpus](http://www.edrdg.org/wiki/index.php/Tanaka_Corpus),
-[E. Feldberg's "Jaapani keele grammatika"](http://www.rahvaraamat.ee/p/jaapani-keele-grammatika/25242/et?isbn=9789949170593)
+[Elli Feldberg's "Jaapani keele grammatika"](http://www.rahvaraamat.ee/p/jaapani-keele-grammatika/25242/et?isbn=9789949170593)
 - **Estonian**: [TEKSaurus](http://www.cl.ut.ee/ressursid/teksaurus/index.php?lang=en),
 [Estonian Reference Corpus](http://www.cl.ut.ee/korpused/segakorpus/)
 
@@ -132,9 +132,6 @@ Faculty of Information Technology, Monash University. The detail data copyright 
 
 ## API documentation
 - **Javadoc**: [Javadoc]
-
-## Database
-- **Design**: [Class diagram]
 
 # Licensing
 GNUv2

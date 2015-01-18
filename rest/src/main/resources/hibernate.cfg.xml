@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration SYSTEM
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!--
+        <property name="hibernate.connection.datasource">java:comp/env/jdbc/egd</property>
+        -->
+
+        <property name="hibernate.connection.url">jdbc:postgresql://localhost:55432/egd</property>
+
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL9Dialect</property>
+        <property name="hibernate.hbm2ddl.auto">validate</property>
+        <property name="hibernate.current_session_context_class">thread</property>
+        <property name="hibernate.generate_statistics">false</property>
+        <property name="hibernate.show_sql">false</property>
+        <property name="connection.driver_class">org.postgresql.Driver</property>
+        <property name="connection.username">postgres</property>
+        <property name="connection.password">redherring</property>
+    </session-factory>
+</hibernate-configuration>

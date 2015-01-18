@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>ee.esutoniagodesu</groupId>
+    <artifactId>parent</artifactId>
+    <packaging>pom</packaging>
+    <name>EsutoniaGoDesu</name>
+    <version>0.1-SNAPSHOT</version>
+
+    <url>http://momo.koodur.com</url>
+
+    <organization>
+        <name>EsutoniaGoDesu</name>
+        <url>https://twitter.com/EsutoniaGoDesu</url>
+    </organization>
+
+    <issueManagement>
+        <url>https://github.com/EsutoniaGoDesu/egd-web/issues</url>
+        <system>GitHub Issues</system>
+    </issueManagement>
+
+    <licenses>
+        <license>
+            <name>GPLv2</name>
+            <url>http://www.gnu.org/licenses/gpl-2.0.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <email>EsutoniaGoDesu@gmail.com</email>
+            <name>Kristo Aun</name>
+            <url>https://github.com/EsutoniaGoDesu</url>
+            <id>esutoniagodesu</id>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/EsutoniaGoDesu/egd-web</connection>
+        <url>scm:git:git://github.com/EsutoniaGoDesu/egd-web</url>
+        <developerConnection>scm:git:git://github.com/EsutoniaGoDesu/egd-web</developerConnection>
+    </scm>
+
+    <prerequisites>
+        <maven>3.0.0</maven>
+    </prerequisites>
+
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Project dependencies -->
+        <com.vividsolutions.jts>1.13</com.vividsolutions.jts>
+        <dynamicjasper>4.0.3</dynamicjasper>
+        <jasperreports>5.6.1</jasperreports>
+        <commons-codec>1.9</commons-codec>
+        <commons-beanutils>1.9.2</commons-beanutils>
+        <org.apache.poi>3.10.1</org.apache.poi>
+        <commons-io.version>2.4</commons-io.version>
+        <commons-lang.version>2.6</commons-lang.version>
+        <hibernate.version>4.3.8.Final</hibernate.version>
+        <postgresql.version>9.3-1102-jdbc41</postgresql.version>
+        <com.google.guava>18.0</com.google.guava>
+        <org.atilika.kuromoji>0.7.7</org.atilika.kuromoji>
+        <com.kawao.kakasi>0.4.0</com.kawao.kakasi>
+        <javax.persistence.api>1.0.2</javax.persistence.api>
+        <joda-time>2.3</joda-time>
+        <gson.version>2.3.1</gson.version>
+        <cglib.version>3.1</cglib.version>
+        <genericdao.version>1.2.0</genericdao.version>
+        <hibernate-validator.version>5.1.3.Final</hibernate-validator.version>
+        <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
+        <log4j.version>1.7.8</log4j.version>
+        <!-- JHipster dependencies -->
+        <spring.version>4.1.4.RELEASE</spring.version>
+        <tomcat.version>8.0.17</tomcat.version>
+        <junit.version>4.11</junit.version>
+        <jackson.version>2.4.4</jackson.version>
+        <spring-boot.version>1.2.1.RELEASE</spring-boot.version>
+        <HikariCP.version>2.2.5</HikariCP.version>
+        <assertj-core.version>1.6.1</assertj-core.version>
+        <awaitility.version>1.4.0</awaitility.version>
+        <javax.inject.version>1</javax.inject.version>
+        <joda-time-hibernate.version>1.3</joda-time-hibernate.version>
+        <json-path.version>0.9.1</json-path.version>
+        <maven-enforcer-plugin.version>1.3.1</maven-enforcer-plugin.version>
+        <maven-sortpom-plugin.version>2.3.0</maven-sortpom-plugin.version>
+        <metrics-spring.version>3.0.3</metrics-spring.version>
+        <run.addResources>false</run.addResources>
+        <sonar-maven-plugin.version>2.2</sonar-maven-plugin.version>
+        <swagger-springmvc.version>0.8.8</swagger-springmvc.version>
+        <usertype-core.version>3.2.0.GA</usertype-core.version>
+
+    </properties>
+
+    <repositories>
+        <repository>
+            <id>mvn-public</id>
+            <name>MVNRepository</name>
+            <url>http://mvnrepository.com</url>
+        </repository>
+        <repository>
+            <id>Jenabean</id>
+            <url>http://jenabean.googlecode.com/svn/repo</url>
+        </repository>
+        <repository>
+            <id>codelds</id>
+            <url>https://code.lds.org/nexus/content/groups/main-repo</url>
+        </repository>
+        <repository>
+            <id>Atilika Open Source repository</id>
+            <url>http://www.atilika.org/nexus/content/repositories/atilika</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>sonatype-snapshots</id>
+            <name>Sonatype Snapshots</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <modules>
+        <module>jc-api</module>
+        <module>rest</module>
+    </modules>
+</project>

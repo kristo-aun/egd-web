@@ -1,0 +1,42 @@
+<img onclick="jcqtip(this, 'tipTestCompoundHints')" src="proj/egd/qtip/info.gif"/>
+<div id="tipTestCompoundHints" style="display:none;width: 400px">
+    <ul>
+        <li>
+            <p>
+                <b>Näita joonte arvu</b>
+                - mitmest joonetõmbest kanji kirjapilt koosneb.
+            </p>
+            <p>
+                Joonte arvud
+                <a href="#" target="_blank" class="tip-link">KANJIDIC2</a>
+                järgi.
+            </p>
+        </li>
+        <li>
+            <p>
+                <b>Paku radikaale vihjeks</b>
+                - koostab nimekirja primitiividest,
+                millest kanji koosneb ning lisab teatud arvu juhuslikke juurde.
+                Primitiivide nägemine võib testi tegijal aidata meelde tuletada lugu või mnemoonikat.
+            </p>
+            <p>
+                Nimekirja lisatakse juhuslikke primitiive ning järjestus on juhuslik.
+                Vihje luuakse alati juhuslikult,
+                ent ühe testi piires korduvatel kanjidel on sama vihje.
+            </p>
+            <p>
+                Nimekirja pikkus sõltub õigete primitiivide arvust kanjis
+                ning arvutatakse valemiga: primitiive * 2 + (10 - (primitiive * 2 moodul 10)).
+                Teisisõnu, korruta primitiivide arv 2-ga ja suurenda lähima kümnega jaguva arvuni.
+                Näiteks, 2 primitiiviga kanji vihje sisaldab 10 primitiivi,
+                6 primitiiviga kanji vihje sisaldab 20 primitiivi.
+            </p>
+            <p>
+                Primitiivide süsteemina on kasutusel
+                <a href="#" target="_blank" class="tip-link">KANJIDIC2</a>
+                nimekiri.
+                Iga kanji sisaldab 1 kuni 14 primitiivi.
+            </p>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,17 @@
+server:
+    port: 8080
+
+spring:
+    profiles:
+        active: prod
+
+    datasource:
+        jndi: java:comp/env/jdbc/egd
+
+    mail:
+        baseUrl: http://localhost:8080
+
+    thymeleaf:
+        mode: XHTML
+        cache: true
+        viewNames: error

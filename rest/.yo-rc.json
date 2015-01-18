@@ -1,0 +1,18 @@
+{
+    "generator-jhipster": {
+        "baseName": "egd",
+        "packageName": "ee.esutoniagodesu",
+        "packageFolder": "ee/esutoniagodesu",
+        "authenticationType": "cookie",
+        "hibernateCache": "no",
+        "clusteredHttpSession": "no",
+        "websocket": "no",
+        "databaseType": "sql",
+        "devDatabaseType": "postgresql",
+        "prodDatabaseType": "postgresql",
+        "useCompass": false,
+        "buildTool": "maven",
+        "frontendBuilder": "grunt",
+        "javaVersion": "7"
+    }
+}

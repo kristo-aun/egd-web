@@ -122,7 +122,7 @@ Faculty of Information Technology, Monash University. The detail data copyright 
 [Kyōiku](http://en.wikipedia.org/wiki/Ky%C5%8Diku_kanji)
 - **Stroke diagrams**: [KanjiVG](http://kanjivg.tagaini.net/)
 
-## Tests
+## Language tests
 - **Compounds**: 
 [ILO Jaapani-Eesti taskusõnastik](https://kirjastus.tea.ee/est/Tootekataloog/sonaraamatud/?productID=1603),
 [Core 2k/6k/10k](https://ankiweb.net/shared/decks/japanese)
@@ -139,6 +139,3 @@ Faculty of Information Technology, Monash University. The detail data copyright 
 
 # Licensing
 GNUv2
-
-# Community
-- [Discussion Group/Mailing List](https://groups.google.com/forum/#!forum/restsec)

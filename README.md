@@ -16,7 +16,7 @@ to provide Estonian speakers with various study aids and accurate contextualized
 
 Presumably this solution can be applied to any JP-X language pair, but the development is not being done
 keeping this in mind. If you wish to apply this software to another language pair you should be prepared
-to make significant changes in the source code.
+to make significant changes to the source code.
 
 
 This dictionary has some value to Japanese speakers as it enables translating in Estonian -> Japanese direction.
@@ -29,13 +29,12 @@ Recommendations on how to provide more value to Japanese speakers are welcome.
 Hopefully this project will be an inspiration for the emergence of heavyweight Chinese-Estonian and Korean-Estonian dictionaries.
 
 # Resources
-- Live address: <a href="https://momo.koodur.com">momo.koodur.com</a>
+- Live address: <a href="http://momo.koodur.com">momo.koodur.com</a>
 - Aternative address: (<a href="http://EsutoniaGoDesu.ddns.net/">EsutoniaGoDesu.ddns.net</a>, which redirects port 80 to
 <a href="213.168.13.40:54680">213.168.13.40:54680</a>.
 This address is managed at noip.com and has to be updated once a month as as we don't have a paid subscription there.
 
 - <a href="https://twitter.com/EsutoniaGoDesu">Twitter</a>
-- <a href="https://facebook.com/EsutoniaGoDesu">Facebook</a>
 
 # Quick Start
 Database schema is hosted in another project called egd-db, but the data is not. 

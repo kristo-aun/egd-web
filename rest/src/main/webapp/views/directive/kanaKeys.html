@@ -97,7 +97,8 @@
         <td colspan="8"></td>
     </tr>
     <tr>
-        <td colspan="8" class="singleKana" style="text-align: left;"><a href="javascript:void(0)" ng-click="onLetterClick('ん')" class="mw-redirect">ん</a></td>
+        <td class="singleKana" style="text-align: left;"><a href="javascript:void(0)" ng-click="onLetterClick('ん')" class="mw-redirect">ん</a></td>
+        <td colspan="7"></td>
     </tr>
     <tr>
         <td colspan="8"></td>
@@ -167,11 +168,17 @@
     table#hiraganaTable tr td {
         text-align: center;
         vertical-align: middle;
+        *width: 12%;
     }
 
     table#hiraganaTable tr td a {
         text-decoration: none;
         font-size: 1.4em;
+        display: block;
+    }
+
+    table#hiraganaTable tr td a:hover {
+        background-color: #428bca;
     }
 
     td.singleKana a {

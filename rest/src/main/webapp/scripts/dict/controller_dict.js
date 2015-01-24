@@ -6,9 +6,9 @@ egdApp.controller('DictController', function($scope, $route, $routeParams, $loca
     $scope.radioLang = "ja";
 
     $scope.showResult = function() {
-        $log.debug("DictController.showResult: phrase=" + $scope.phrase);
+        $log.debug("DictController.showResult: phrase=" + $scope.phrase, ", radioLang=", $scope.radioLang);
         $scope.resultVisible = true;
-        $scope.gridJaVisible = $scope.lang === 'et';
+        $scope.gridJaVisible = $scope.lang === 'et' || $scope.lang === 'en';
 
         DictService.japest($scope.radioLang, $scope.phrase).then(function (result) {
             if (result.data.length > 0) {

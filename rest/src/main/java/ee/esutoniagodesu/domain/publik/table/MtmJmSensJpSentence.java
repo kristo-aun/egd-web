@@ -5,10 +5,10 @@ import java.io.Serializable;
 
 @Table(name = "mtm_jm_sens_jp_sentence", schema = "public", catalog = "egd")
 @Entity
-public final class MtmJmSensJpSentence implements Serializable {
+public class MtmJmSensJpSentence implements Serializable {
 
     private static final long serialVersionUID = 548311792671552112L;
-    
+
     private Integer id;
     private int sens;
     private String rdng;

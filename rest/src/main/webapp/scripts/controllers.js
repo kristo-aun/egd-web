@@ -3,12 +3,12 @@
 /* Controllers */
 
 //Binds with xhr feedback messages section. Shows messages in a modal popup at the page header
-egdApp.controller('alertCtrl', function ($scope, $translate, $log) {
+egdApp.controller('AlertController', function ($scope, $translate, $log) {
 
     var pushAlert = function(type, translation) {
         $scope.alerts = $scope.alerts || [];
         $scope.alerts.push({type: type, msg: translation});
-        $log.debug("alertCtrl.pushAlert: alerts=", $scope.alerts);
+        $log.debug("AlertController.pushAlert: alerts=", $scope.alerts);
     };
 
     var translate = function(type, alertId, whenTranslated) {

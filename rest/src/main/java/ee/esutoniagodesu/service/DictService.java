@@ -46,7 +46,7 @@ public class DictService {
                     p -> new IntIDStringTitleImpl(p.getValue(), p.getKey())).collect(Collectors.toList()));
                 break;
             }
-            case "jp": {
+            case "ja": {
                 result.addAll(phraseJpDB.getIdAndJapaneseByRightOpen(q, _limitAutocompleteSize).entrySet().stream().map(
                     p -> new IntIDStringTitleImpl(p.getValue(), p.getKey())).collect(Collectors.toList()));
                 break;
@@ -67,6 +67,7 @@ public class DictService {
      * @see <a href="http://google.com">http://google.com</a>
      */
     public List<JapEst> japest(String lang, String query) {
+        log.debug("japest: lang=" + lang + ", query=" + query);
         List<JapEst> result = new ArrayList<>();
         JapEst item;
         switch (lang) {
@@ -75,10 +76,10 @@ public class DictService {
                     item = jmDictDB.getEntryDataForJapEst(p);
                     if (item != null) result.add(item);
                 }
-                phraseEtDB.recordSearch(query, result.size(), "jp");
+                phraseEtDB.recordSearch(query, result.size(), "ja");
                 break;
             }
-            case "jp": {
+            case "ja": {
                 List<Integer> entrIds = jmDictDB.findEntrIdsByKanjOrKana(query);
 
                 for (int p : entrIds) {
@@ -92,7 +93,7 @@ public class DictService {
                     }
                 }
 
-                phraseJpDB.recordSearch(query, result.size(), "jp");
+                phraseJpDB.recordSearch(query, result.size(), "ja");
                 break;
             }
             default:
@@ -124,7 +125,7 @@ public class DictService {
                 phraseEtDB.recordSearch(query, result.size(), "et");
                 break;
             }
-            case "jp": {//otsingusõna jaapani keeles
+            case "ja": {//otsingusõna jaapani keeles
                 List<Integer> entrids = jmDictDB.findEntrIdsByKanjOrKana(query);
                 for (int i : entrids) {
                     for (String gloss : jmDictDB.getGlossByEntr(i)) {

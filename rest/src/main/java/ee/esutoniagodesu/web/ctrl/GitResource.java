@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/app")
+@RequestMapping("/app/rest/")
 public class GitResource {
 
     @Autowired
     private GitRepositoryState gitProperties;
 
-    @RequestMapping(value = "/rest/git",
+    @RequestMapping(value = "git",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     public GitRepositoryState git() {

@@ -143,28 +143,14 @@ directives.directive('showValidation', function () {
     };
 });
 
-directives.directive('gridJp', function (DictService, $log) {
+directives.directive('gridJa', function () {
     return {
         restrict: 'E',
         scope: {
-            lang: '@',
-            q: '@'
+            rows: '@',
+            phrase: '@'
         },
-        link: function (scope, element, attrs) {
-            scope.gridVisible = false;
-            scope.searchNotInProgress = false;
-
-            DictService.japest(scope.lang, scope.q).then(function (result) {
-                $log.debug("directives.gridJp.link: result=", result);
-                if (result.errors) throw result.errors;
-                if (result.data.length > 0) {
-                    scope.gridVisible = true;
-                    scope.entrList = result.data;
-                }
-                scope.searchNotInProgress = true;
-            });
-        },
-        templateUrl: 'views/directive/gridJp.html'
+        templateUrl: 'views/directive/gridJa.html'
     }
 });
 

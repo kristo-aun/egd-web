@@ -1,57 +1,76 @@
-<div ng-cloak id="request">
-    <div id="dictSearchWR" ng-controller="DictController">
-        <form ng-submit="showResult()">
-            <div id="dictPhraseWR">
-                <input type="text"
-                       class="k-textbox"
-                       placeholder="{{'global.label.word' | translate}}"
-                       phrase-autocomplete
-                       ng-model="phrase"
-                       lang="{{slng}}"
-                       value="{{phrase}}"
-                       on-select="setPhrase(q)"
-                       min-length="2"/>
-                <button id="dictSearchSubmit" class="k-button" translate="global.label.search" type="submit"></button>
-                <button id="dictSearchClear" class="k-button" ng-click="onPhraseClear()">←</button>
-            </div>
-            <div id="phraseLangWR">
-                <div style="margin-left:5px">
-                    <label for="dictSearchLangEt" translate="dictionary.search.et"></label>
-                    <input type="radio" ng-model="slng" id="dictSearchLangEt" value="et"/>
-                </div>
+<div ng-controller="DictController" ng-cloak>
+    <div class="col-lg-3" style="width:300px" >
+        <form class="form egd-dict-search-form" role="form" ng-submit="showResult()">
+            <div class="row">
                 <div>
-                    <label for="dictSearchLangJp" translate="dictionary.search.jp"></label>
-                    <input type="radio" ng-model="slng" id="dictSearchLangJp" value="jp" checked/>
+                    <div class="input-group">
+                        <div class="input-group-btn">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                    tabindex="-1">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Action</a></li>
+                            </ul>
+                        </div>
+                        <input type="text"
+                               class="form-control"
+                               placeholder="{{'global.label.word' | translate}}"
+                               phrase-autocomplete
+                               ng-model="phrase"
+                               lang="{{slng}}"
+                               value="{{phrase}}"
+                               on-select="setPhrase(q)"
+                               min-length="2"/>
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" translate="global.label.search" style="width: 65px;" type="submit"></button>
+                            <button class="btn btn-default" type="button" ng-click="onPhraseClear()">←</button>
+                       </span>
+                    </div>
                 </div>
             </div>
-            <div ng-if="slng == 'jp'" id="hiraganaKeysWR" kana-keys on-click="appendToPhrase(letter)"></div>
-            <div ng-if="slng == 'et'" id="estonianKeysWR" estonian-keys on-click="appendToPhrase(letter)"></div>
+            <div class="row" style="padding-left:11px">
+                <label class="radio-inline">
+                    <input type="radio" ng-model="radioLang" value="et"/>
+                    {{'global.label.alphabet' | translate}}
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="radioLang" value="ja" checked/>
+                    {{'global.label.hiragana' | translate}}
+                </label>
+            </div>
+            <div class="row" ng-if="radioLang == 'ja'" kana-keys on-click="appendToPhrase(letter)"></div>
+            <div class="row" ng-if="radioLang == 'et'" estonian-keys on-click="appendToPhrase(letter)"></div>
         </form>
     </div>
-</div>
 
-<div class="response" ng-if="gridJpMode">
-    <grid-jp  lang="{{slng}}" q="{{phrase}}"/>
+    <div class="col-lg-7" ng-if="resultVisible">
+        <grid-ja ng-if="gridJaVisible" rows="{{rows}}"/>
+        <grid-et ng-if="!gridJaVisible" rows="{{rows}}"/>
+    </div>
 </div>
-
-<div class="response" ng-if="gridEtMode">
-    <grid-et lang="{{slng}}" q="{{phrase}}"/>
-</div>
-
 <style>
-    button#dictSearchSubmit, button#dictSearchClear {
-        height: 34px;
-        margin-left:5px;
+    form.egd-dict-search-form div + div {
+        margin-top:8px;
     }
+
+
+    /*
+    button#dictSearchSubmit, button#dictSearchClear {
+        *height: 34px;
+        *margin-left: 5px;
+    }
+
     div#phraseLangWR {
         margin-top: 15px;
         clear: both;
-        width:100%;
+        width: 100%;
     }
 
-    div#request {
-        float:left;
-        width:300px;
+    div.egd-dict-search {
+        *float: left;
+        width: 300px;
     }
 
     div.response {
@@ -65,59 +84,67 @@
     }
 
     div#statisticsWR table tr td {
-        width:250px;
+        width: 250px;
         height: 25px;
     }
 
     div#requestLang {
-        float:right;
-        margin-top:4px;
+        float: right;
+        margin-top: 4px;
     }
 
     div#requestWordWR div#requestLang div {
-        margin-right:10px;
+        margin-right: 10px;
     }
 
     div#dictionary {
-        width:100%;
+        width: 100%;
         min-height: 600px;
     }
+
     div#dictionary div#settings {
         height: 20px;
-        width:100%;
+        width: 100%;
         text-align: right;
     }
+
     div#dictionary div#request {
-        float:left;
+        float: left;
         width: 380px;
-        margin-top:16px;
+        margin-top: 16px;
     }
+
     div#request div {
-        float:left;
+        float: left;
     }
+
     div#verveYesNo {
         margin-left: 10px;
     }
 
     div#dictionary div#response {
-        float:left;
-        width:70%;
+        float: left;
+        width: 70%;
     }
+
     div.verveCheckbox {
-        float:right;
+        float: right;
     }
+
     div.verveCheckbox + div.verveCheckbox {
         margin-left: 10px;
     }
 
     div#requestWordWR {
-        float:left;
+        float: left;
     }
+
     div#responseListWR {
         min-height: 300px;
         margin-right: 0;
         margin-left: 0;
     }
+
     .k-autocomplete {
         vertical-align: middle;
         width: 300px;
@@ -127,5 +154,6 @@
         margin-top: 10px;
         margin-left: 5px;
     }
+    */
 
 </style>

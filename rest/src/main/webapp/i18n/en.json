@@ -36,7 +36,9 @@
             "usage": "Kasutus",
             "level": "Tase",
             "index": "Indeks",
-            "http500": "Viga"
+            "http500": "Viga",
+            "alphabet": "Tähestik",
+            "hiragana": "Hiragana"
         },
         "form": {
             "username": "Login",
@@ -438,10 +440,6 @@
         "countStrokeDiagrams": "Joondiagramme"
     },
     "dictionary": {
-        "search": {
-            "et": "Eesti",
-            "jp": "日本語"
-        },
         "notTranslated": "ei ole tõlgitud",
         "unknownWord": "sõna puudub"
     },

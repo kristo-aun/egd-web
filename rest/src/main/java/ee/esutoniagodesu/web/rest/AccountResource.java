@@ -61,7 +61,7 @@ public class AccountResource {
     private MailService mailService;
 
     /**
-     * POST  /rest/register -> register the user.
+     * register the user.
      */
     @RequestMapping(value = "/rest/register",
         method = RequestMethod.POST,
@@ -70,10 +70,10 @@ public class AccountResource {
                                              HttpServletResponse response) {
         User user = userRepository.findOne(userDTO.getLogin());
         if (user != null) {
-            return new ResponseEntity<String>("login already in use", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("login already in use", HttpStatus.BAD_REQUEST);
         } else {
             if (userRepository.findOneByEmail(userDTO.getEmail()) != null) {
-                return new ResponseEntity<String>("e-mail address already in use", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>("e-mail address already in use", HttpStatus.BAD_REQUEST);
             }
             user = userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(), userDTO.getFirstName(),
                 userDTO.getLastName(), userDTO.getEmail().toLowerCase(), userDTO.getLangKey());
@@ -85,7 +85,7 @@ public class AccountResource {
     }
 
     /**
-     * GET  /rest/activate -> activate the registered user.
+     * activate the registered user.
      */
     @RequestMapping(value = "/rest/activate",
         method = RequestMethod.GET,
@@ -95,11 +95,11 @@ public class AccountResource {
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<String>(user.getLogin(), HttpStatus.OK);
+        return new ResponseEntity<>(user.getLogin(), HttpStatus.OK);
     }
 
     /**
-     * GET  /rest/authenticate -> check if the user is authenticated, and return its login.
+     * check if the user is authenticated, and return its login.
      */
     @RequestMapping(value = "/rest/authenticate",
         method = RequestMethod.GET,
@@ -110,7 +110,7 @@ public class AccountResource {
     }
 
     /**
-     * GET  /rest/account -> get the current user.
+     * get the current user.
      */
     @RequestMapping(value = "/rest/account",
         method = RequestMethod.GET,
@@ -137,7 +137,7 @@ public class AccountResource {
     }
 
     /**
-     * POST  /rest/account -> update the current user information.
+     * update the current user information.
      */
     @RequestMapping(value = "/rest/account",
         method = RequestMethod.POST,
@@ -145,14 +145,14 @@ public class AccountResource {
     public ResponseEntity<?> saveAccount(@RequestBody UserDTO userDTO) {
         User userHavingThisEmail = userRepository.findOneByEmail(userDTO.getEmail());
         if (userHavingThisEmail != null && !userHavingThisEmail.getLogin().equals(SecurityUtils.getCurrentLogin())) {
-            return new ResponseEntity<String>("e-mail address already in use", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("e-mail address already in use", HttpStatus.BAD_REQUEST);
         }
         userService.updateUserInformation(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     /**
-     * POST  /rest/change_password -> changes the current user's password
+     * changes the current user's password
      */
     @RequestMapping(value = "/rest/account/change_password",
         method = RequestMethod.POST,
@@ -166,7 +166,7 @@ public class AccountResource {
     }
 
     /**
-     * GET  /rest/account/sessions -> get the current open sessions.
+     * get the current open sessions.
      */
     @RequestMapping(value = "/rest/account/sessions",
         method = RequestMethod.GET,

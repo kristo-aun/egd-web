@@ -103,7 +103,7 @@ public class SentenceDB extends AbstractProjectRepository {
 		log.debug(msg.toString());
 
         try {
-            String sql = "SELECT * from MtmJmSensJpSentence where kanj=?1 and rdng=?2 and sens=?3";
+            String sql = "SELECT * from mtm_jm_sens_jp_sentence where kanj=?1 and rdng=?2 and sens=?3";
             Query q = em.createNativeQuery(sql, MtmJmSensJpSentence.class);
             q.setParameter(1, kanj);
             q.setParameter(2, rdng);

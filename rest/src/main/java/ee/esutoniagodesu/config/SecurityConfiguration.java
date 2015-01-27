@@ -99,7 +99,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .disable()
             .authorizeRequests()
             .antMatchers("/app/rest/git").permitAll()
-            .antMatchers("/app/dict").permitAll()
+            .antMatchers("/app/rest/dict/**").permitAll()
             .antMatchers("/app/rest/register").permitAll()
             .antMatchers("/app/rest/activate").permitAll()
             .antMatchers("/app/rest/authenticate").permitAll()

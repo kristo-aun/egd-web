@@ -1,5 +1,5 @@
-<div id="gridJpWR">
-    <div class="gridEntr" ng-if="gridVisible" ng-repeat="item in entrList">
+<div id="gridJaWR">
+    <div class="gridEntr" ng-repeat="item in rows">
         <div class="entrHeader">
             <span ng-if="item.rdng != null" class="gridRdng" ng-repeat="rdng in item.rdng">
                 <span ng-if="$index > 0">・</span>{{rdng}}
@@ -44,7 +44,7 @@
     div#noResponse {
         margin-top: 8px;
     }
-    div#gridJpWR {
+    div#gridJaWR {
         width:600px;
     }
     span.kanj span.jpSulg {

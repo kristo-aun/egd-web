@@ -4,6 +4,7 @@
         "browsehappy": "Internetilehitseja on <strong>aegunud</strong>. Parima kasutuskogemuse saamiseks uuendage <a href=\"http://browsehappy.com/?locale=en\">lehitseja versiooni</a>.",
         "menu": {
             "home": "Sõnastik",
+            "poll": "Küsitlus",
             "entities": {
                 "main": "Domeenid"
             },

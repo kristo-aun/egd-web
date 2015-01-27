@@ -22,7 +22,7 @@
                            typeahead-wait-ms="200"
                            class="form-control">
 
-                    <ul class="dropdown-menu" style="left:33px">
+                    <ul ng-if="toggleButtonDisabled" class="dropdown-menu" style="left:33px">
                         <li ng-repeat="item in phrases track by $index">
                             <a tabindex="-1" ng-click="onPhraseSelect(item)">{{item}}</a>
                         </li>

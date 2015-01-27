@@ -4,8 +4,10 @@ egdApp.controller('DictController', function($scope, $route, $routeParams, $loca
 
     $scope.lang = $translate.use();
     $scope.radioLang = "ja";
+    $scope.phrases = [];
 
     $scope.toggleButtonDisabled = true;
+
 
     $scope.getPhrase = function() {
         return $scope.phrase;
@@ -27,9 +29,12 @@ egdApp.controller('DictController', function($scope, $route, $routeParams, $loca
 
     $scope.toggled = function(open) {
         if (open) {
-            $scope.phrases = $scope.phrases = $scope.getAutocomplete($scope.phrase);
+            $scope.getAutocomplete($scope.phrase).then(function(data) {
+                $log.log('Dropdown is now: data=', data);
+                $scope.phrases = data;
+            });
         }
-        $log.log('Dropdown is now: ', open);
+
     };
 
     $scope.onPhraseClear = function() {
@@ -41,12 +46,11 @@ egdApp.controller('DictController', function($scope, $route, $routeParams, $loca
     $scope.getAutocomplete = function(phrase) {
         if (phrase && phrase.length > 0) {
             var context = "app/rest/dict/autocomplete?lang=" + "et" + "&q=" + phrase;
-            var promise = $http.get(context).then(function (response) {
+            return $http.get(context).then(function (response) {
                 $log.debug("DictService.autocomplete: response=", response);
                 $scope.toggleButtonDisabled = false;
                 return response.data;
             });
-            return promise;
         } else {
             return [];
         }

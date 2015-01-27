@@ -1,6 +1,7 @@
 package ee.esutoniagodesu.service;
 
 import com.jc.hibernate.ProjectDAO;
+import ee.esutoniagodesu.domain.core.view.VCoreStats;
 import ee.esutoniagodesu.domain.publik.view.VStats;
 import ee.esutoniagodesu.repository.project.ReportDB;
 import org.slf4j.Logger;
@@ -73,4 +74,8 @@ public class StatsService {
 	public List<Map<String, ?>> getCountGlossToSumFreqRatio() {
 		return reportDB.getCountGlossToSumFreqRatio();
 	}
+
+    public List<VCoreStats> getCoreStats() {
+        return dao.findAll(VCoreStats.class);
+    }
 }

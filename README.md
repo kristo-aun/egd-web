@@ -37,24 +37,29 @@ This address is managed at noip.com and has to be updated once a month as as we 
 - <a href="https://twitter.com/EsutoniaGoDesu">Twitter</a>
 
 # Quick Start
-Database schema is hosted in another project called egd-db, but the data is not. 
+Database schema is hosted in another project called [egd-db](https://github.com/esutoniagodesu/egd-db), but the data is not.
 If you wish to have the full databse dump, please write at esutoniagodesu[at]gmail.com.
 Full dump is too large to host on github and there are some licensing constraints. 
 
 Required: jkd8, maven3, node, bower, grunt
 
-Download dependencies via bower and maven<br/>
+Install kakasi.jar manually<br/>
 ```
-mvn clean package -Pprod -Dmaven.test.skip=true
+mvn install:install-file -Dfile=lib/kakasi.jar -DgroupId=com.kawao.kakasi -DartifactId=kakasi -Dversion=0.4.0 -Dpackaging=jar
 ```
 
+Download dependencies and run in Spring Boot<br/>
 ```
-mvn spring-boot:run
+cd rest && mvn spring-boot:run
 ```
 
 - **next**: open localhost:8080 in your browser
 
 
+To compile into war<br/>
+```
+mvn clean package -Pprod -Dmaven.test.skip=true
+```
 
 # Technology Stack
 The webapp was initially generated using [JHipster](http://jhipster.github.io/creating_an_entity.html).
@@ -89,7 +94,7 @@ use the Yeoman code generation tool.
 [rest-assured](http://code.google.com/p/rest-assured/) <br/>
 
 ## Hosting
-- **Web container**: [Tomcat](http://tomcat.apache.org/tomcat-8.0-doc/index.html) 8.0
+- **Web container**: [Tomcat 8.0](http://tomcat.apache.org/tomcat-8.0-doc/index.html), [Tomcat setup guide](TOMCAT.md)
 - **Monitoring**: Cacti, PSI Probe
 
 # Data sources

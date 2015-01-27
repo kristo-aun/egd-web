@@ -10,9 +10,9 @@ egdApp.controller('DictController', function($scope, $route, $routeParams, $loca
         $scope.resultVisible = true;
         $scope.gridJaVisible = $scope.lang === 'et' || $scope.lang === 'en';
 
-        DictService.japest($scope.radioLang, $scope.phrase).then(function (result) {
-            if (result.data.length > 0) {
-                $scope.rows = result.data;
+        DictService.japest($scope.radioLang, $scope.phrase).then(function (data) {
+            if (data.length > 0) {
+                $scope.rows = data;
             }
         });
     };

@@ -193,11 +193,10 @@ directives.directive('phraseAutocomplete', function (DictService, $timeout, $log
                 source: function (request, response) {
                     $log.debug("phraseAutocomplete.term=", request.term);
 
-                    DictService.autocomplete(scope.lang, request.term).then(function (result) {
-                        $log.debug("phraseAutocomplete.autocomplete: result=", result);
-                        if (result.errors) throw result.errors;
+                    DictService.autocomplete(scope.lang, request.term).then(function (data) {
+                        $log.debug("phraseAutocomplete.autocomplete: data=", data);
                         response(
-                            $.map(result.data, function (item) {
+                            $.map(data, function (item) {
                                 return {
                                     label: item.title,
                                     value: item.title

@@ -3,7 +3,7 @@
         "title": "エストニア語です",
         "browsehappy": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
         "menu": {
-            "home": "Home",
+            "home": "Dictionary",
             "entities": {
                 "main": "Entities"
             },
@@ -26,6 +26,20 @@
             "admin": "Administration",
             "language": "Language"
         },
+        "label": {
+            "tapsustatud": "Täpsustatud",
+            "search": "Otsi",
+            "kanji_details": "Kanji detailid",
+            "word": "Sõna",
+            "dictionary": "Sõnastik",
+            "kanjis": "Kanjid",
+            "usage": "Kasutus",
+            "level": "Tase",
+            "index": "Indeks",
+            "http500": "Viga",
+            "alphabet": "Tähestik",
+            "hiragana": "Hiragana"
+        },
         "form": {
             "username": "Login",
             "username.placeholder": "Your login",
@@ -33,7 +47,7 @@
             "newpassword.placeholder": "New password",
             "confirmpassword": "New password confirmation",
             "confirmpassword.placeholder": "Confirm the new password",
-            "email": "メアド",
+            "email": "E-mail",
             "email.placeholder": "Your e-mail"
         },
         "messages": {
@@ -42,7 +56,7 @@
                 "register": "You don't have an account yet? <a href=\"#/register\">Register a new account</a>"
             },
             "error": {
-                "dontmatch" : "The password and its confirmation do not match!"
+                "dontmatch": "The password and its confirmation do not match!"
             },
             "validate": {
                 "newpassword": {
@@ -66,20 +80,9 @@
         }
     },
     "main": {
-        "title": "Welcome, Java Hipster!",
-        "subtitle": "This is your homepage",
         "logged": {
             "message": "You are logged in as user \"{{username}}\"."
-        },
-        "question": "If you have any question on JHipster:",
-        "link": {
-            "homepage": "JHipster homepage",
-            "stackoverflow": "JHipster on Stack Overflow",
-            "bugtracker": "JHipster bug tracker",
-            "contact": "contact @java_hipster on Twitter"
-        },
-        "like": "If you like JHipster, don't forget to give us a star on",
-        "github": "Github"
+        }
     },
     "activate": {
         "title": "Activation",
@@ -159,7 +162,7 @@
             "button": "Save"
         },
         "messages": {
-            "error":  "<strong>An error has occurred!</strong> The password could not be changed.",
+            "error": "<strong>An error has occurred!</strong> The password could not be changed.",
             "success": "<strong>Password changed!</strong>"
         }
     },
@@ -266,7 +269,7 @@
             "mean": "Mean get time (ms)"
         },
         "datasource": {
-        	"usage": "Usage",
+            "usage": "Usage",
             "title": "DataSource statistics (time in millisecond)",
             "name": "Pool usage",
             "count": "Count",
@@ -339,11 +342,375 @@
                 "remoteAddress": "Remote Address:"
             }
         }
-
     },
     "errors": {
         "title": "Error page!",
         "403": "You are not authorized to access the page."
     },
-    "footer": "This is your footer"
+    "footer": {
+        "last-updated": "Last updated"
+    },
+    "alert": {
+        "http": {
+            "timeout": "Puudub ühendus",
+            "404": "Server ei tagastanud vastust",
+            "500": "Viga programmis. Viga on logitud ja arendajale raporteeritud."
+        },
+        "article": {
+            "changing-articles-you-dont-own-not-allowed": "Teiste loodud artikleid ei ole lubatud muuta",
+            "article-not-public": "Artikkel ei ole avalik",
+            "delete-not-allowed-if-not-owner": "Teiste loodud artikleid ei ole lubatud kustutada"
+        }
+    },
+    "index": {
+        "mainTabstrip": {
+            "dictionary": "Sõnastik",
+            "jpet": "Jaapani keel",
+            "etjp": "Eesti keel",
+            "report": "Lae alla",
+            "classifier": "Terminid",
+            "about": "Rakendusest",
+            "links": "Lingid",
+            "feedback": "Tagasiside",
+            "blog": "Blogi",
+            "heisig": "Heisig RTK",
+            "test": {
+                "compound": "Kanji test"
+            }
+        },
+        "footer": {
+            "info": "2014"
+        }
+    },
+    "test": {
+        "compound": {
+            "defaultFormMap": "Eeltäidetud vormid",
+            "filterType": "Testitavad kanjid",
+            "intervalType": "intervalli määramine:",
+            "intervalByLevel": "taseme järgi",
+            "intervalByIndex": "indeksi järgi",
+            "dictSelect": "Sõnade kogum",
+            "generateCount": "Testitavate sõnade arv",
+            "compLengthInterval": "Mitu kanjit võib sõna sisaldada",
+            "hints": "Vihjed",
+            "strokeCountHint": "Näita joonte arvu",
+            "radicalHint": "Paku radikaale vihjeks",
+            "orderByType": "Sõnade järjestus",
+            "meaningComponents": "Sõna tähenduse esitamine",
+            "notesVisible": "Koos sõnaliikide ja märgenditega",
+            "noEnIfHasEt": "Peida inglisekeelne tõlge kui eestikeelne on olemas",
+            "export": "Ekspordifail",
+            "generatePdf": "Genereeri PDF",
+            "grade": "Grade",
+            "jlpt": "JLPT",
+            "jouyou": "Jōjō",
+            "heisig4": "Heisig 4",
+            "heisig6": "Heisig 6",
+            "submit": "Koosta test"
+        }
+    },
+    "statistics": {
+        "jmdictVersion": "JMDictのバージョン",
+        "countJpEntry": "日本の言葉",
+        "countTranslatedEntries": "訳していました",
+        "_countTranslatedEntries": "yakushite imashita",
+
+
+        "countEtTranslations": "エストニア語の訳書",
+        "_countEtTranslations": "esutoniago no yakusho",
+
+        "countSentencePairs": "例文",
+        "_countSentencePairs": "reibun",
+
+        "countEstwnExamples": "エストニアワードネットの例文",
+        "_countEstwnExamples": "esutoniago waadonetto no reibun",
+
+        "etTransOrigin": "発生源はどこから来ました",
+        "_etTransOrigin": "hasseigen",
+
+        "countOriginJatik": "JATIK",
+        "countOriginIlo": "　ILOの黄色いのポケット辞書",
+        "_countOriginIlo": "ilo no kiiroi no poketto jisho",
+
+        "countOriginEgd": "エストニア語です",
+
+        "countJpSearchWords": "Jaapanikeelseid päringuid tehtud",
+        "countJpSearchWithResults": "- neist tulemusega",
+        "countEtSearchWords": "Eestikeelseid päringuid tehtud",
+        "countEtSearchWithResults": "- neist tulemusega",
+
+        "countKanjiInDb": "漢字の数",
+        "_countKanjiInDb": "kanji no kazu",
+        "countKanjisDescribedWithHeisig": "- Heisigが鮮明した方法です",
+        "_countKanjisDescribedWithHeisig": "heisig ga senmeishita houhou desu",
+        "countStrokeDiagrams": "漢字筆順の数",
+        "_countStrokeDiagrams": "kanji hitsujun no kazu"
+    },
+
+    "dictionary": {
+        "search": {
+            "et": "エストニア語",
+            "jp": "日本語"
+        },
+        "notTranslated": "訳出ことがありません",
+        "_notTranslated": "yakushutsu koto ga arimasen",
+
+        "unknownWord": "ありません"
+    },
+
+    "heisig": {
+        "find_kanjis_v6": "バージョン６で",
+        "_find_kanjis_v6": "baajon 6 de",
+        "find_kanjis_v4": "バージョン４で",
+        "_find_kanjis_v4": "baajon 4 de",
+        "query": "文か見出し語かイド",
+        "_query": "bun to midashigo to ido",
+        "no_results": "得られなかった",
+
+        "frame": {
+            "frameNo" : "V6 kaardi nr.",
+            "keyword" : "見出し語",
+            "_keyword" : "midashigo",
+
+            "lessonNo" : "H6 õppetükk nr.",
+            "constituent" : "Primitiivid",
+            "strokeCount" : "Jooni",
+            "onYomi" : "音読み",
+            "kunYomi" : "訓読み",
+            "frameNo4" : "V4 kaardi nr.",
+            "exampleWords": "言葉"
+        }
+    },
+
+    "links": {
+        "jpResources": "日本語のためのサイト",
+        "_jpResources": "nihongo no tame no saito",
+
+        "etResources": "エストニア語のためのサイト",
+        "_etResources": "esutoniago no tame no saito",
+
+        "jp": {
+            "romajidesu": "ローマ字です（英語・日本語）",
+            "_romajidesu": "roumajidesu (eigo-nihongo)",
+
+            "kanji_dictionary": "Kanji sõnastik",
+            "verbconjugator": "Verbi konjugatsioon",
+            "wwwjdic": "Jim Breeni Inglise-Jaapani sõnastik",
+            "lang8": "Lang-8 (kogukondlik keeleõpe)",
+            "jmdict": "JMDICT tehnoloogiad",
+            "jatik": "JATIK",
+            "linuxjp": "Linux + Jaapani keel",
+            "windowsjp": "Windows + Jaapani keel"
+        },
+        "et": {
+            "qs": "Eesti õigekeelsussõnaraamat",
+            "ekss": "Eesti keele seletav sõnaraamat",
+            "eten": "Eesti-Inglise sõnastik",
+            "eki": "Eesti Keele Instituut",
+            "emakeeleselts": "Emakeele Selts",
+            "koondkorpus": "Keeletehnoloogia",
+            "ressursid": "Eesti Keeleressursside Keskus",
+            "festart": "Festart Eesti-Inglise"
+        }
+    },
+
+    "grid": {
+        "edit": "Muuda",
+        "addtranslation": "Lisa tõlge",
+        "delete": "Kustuta",
+        "cancel": "キャンセル",
+        "add": "Lisa"
+    },
+
+    "global": {
+        "tapsustatud": "Täpsustatud",
+        "search": "検索",
+        "kanji_details": "Kanji detailid",
+        "word": "言葉",
+        "dictionary": "辞書",
+        "kanjis": "漢字",
+        "usage": "使い"
+    },
+
+    "tip": {
+        "studyMode": {
+            "modeJapest": "日本語: kasutusel Jaapani-Eesti sõnasti",
+            "japHasPos": "sõnaliigid ja märgendid jaapanikeelsetele sõnadele",
+            "japHasAudio": "audio jaapani keelele",
+            "japHasSentences": "jaapanikeelne näitelause eespool",
+            "estUI": "kasutajaliides eestikeelne",
+            "modeEstjap": "ET: kasutusel Eesti-Jaapani sõnastik",
+            "estHasPos": "sõnaliigid eestikeelsetele sõnadele",
+            "estHasAudio": "audio eesti keelele",
+            "estHasSentences": "eestikeelne näitelause eespool",
+            "japUI": "kasutajaliides jaapanikeelne"
+        }
+    },
+    "classifier": {
+        "tabstrip": {
+            "cfJpCategory": "Sõnaliigid (JP, liht)",
+            "cfEtSonaLiik": "Sõnaliigid (EE)",
+            "cfVocaTransQuality": "Tõlke kvaliteet",
+            "cfOrigin": "Sõna algallikas",
+            "cfAudioQuality": "Heli kvaliteet"
+        },
+        "cfJpCategory": {
+            "n": "nimisõna",
+            "n_": "nimisõna, mida saab kasutada koos verbiga suru",
+            "compd": "komposiitum e liitsõna",
+            "v1": "I grupi verb",
+            "v2": "II grupi verb",
+            "v3": "III grupi verb",
+            "adj1": "i-omadussõna",
+            "adj2": "na-omadussõna",
+            "pron": "pronomeen e asesõna",
+            "adv": "adverb",
+            "conj": "konjuktsioon e sidesõna",
+            "part": "partikkel e abisõna",
+            "interj": "interjektsioon e hüüdsõna",
+            "pref": "prefiks e eesliide",
+            "suf": "sufiks e järelliide",
+            "fr": "fraas e väljend",
+            "atrib": "atributiivne",
+            "kn": "kohanimi",
+            "mn": "mehe nimi",
+            "nn": "naise nimi",
+            "pn": "perekonnanimi",
+            "slang": "släng",
+            "ling": "lingvistika",
+            "mat": "matemaatika",
+            "med": "meditsiin",
+            "sport": "sport"
+        },
+        "cfEtSonaliik": {
+            "n": "nimisõna",
+            "arvs": "arvsõna",
+            "adj": "omadussõna",
+            "ases": "asesõna",
+            "v": "tegusõna",
+            "kaas": "kaassõna",
+            "huud": "hüüdsõna",
+            "side": "sidesõna",
+            "adv": "määrsõna"
+        }
+    },
+
+    "dictAbbr": {
+        "jp": {
+            "pos": {
+                "adj-i": "i-adjective (keiyoushi)",
+                "adj-na": "na-adjectival nouns or quasi-adjectives (keiyoudoushi)",
+                "adj-shiku": "`shiku' adjective (archaic)",
+                "aux": "auxiliary",
+                "exp": "Expressions (phrases, clauses, etc.)",
+                "n-p": "proper noun",
+                "prt": "particle",
+                "v2a-s, v2k-k, etc.": "Nidan verb (lower/upper) with 'u', `ku', etc. endings (archaic)",
+                "v5aru": "Godan verb - -aru special class",
+                "vs-i": "expression using the aux. verb suru",
+                "vz": "Ichidan verb - -zuru special class (alternative form of -jiru verbs)",
+                "adj-kari": "`kari' adjective (archaic)",
+                "adj-nari": "archaic/formal form of na-adjective",
+                "adj-t": "`taru' adjective",
+                "aux-v": "auxiliary verb",
+                "id": "idiomatic expression",
+                "n-adv": "adverbial noun (fukushitekimeishi)",
+                "pref": "prefix",
+                "v4k, v4r, etc.": "Yodan verb with `ku', `ru', etc. endings (archaic)",
+                "vi": "intransitive verb",
+                "vs-s": "suru verb - special class",
+                "v-unspec": "verb - uspecified (usu. archaic)",
+                "adj-ku": "`ku' adjective (archaic)",
+                "adj-no": "nouns which may take the genitive case particle 'no'",
+                "adv": "adverb (fukushi)",
+                "conj": "conjunction",
+                "int": "interjection (kandoushi)",
+                "n-t": "noun (temporal) (jisoumeishi)",
+                "suf": "suffix",
+                "v5u, v5k, etc.": "Godan verb with `u', `ku', etc. endings",
+                "vs": "noun or participle which takes the aux. verb suru",
+                "vk": "Kuru verb - special class",
+                "adj-f": "noun, verb, etc. acting prenominally (incl. rentaikei)",
+                "adj-pn": "pre-noun adjectival (rentaishi)",
+                "adv-to": "adverb (with particle 'to')",
+                "ctr": "counter",
+                "n": "noun (common) (futsuumeishi)",
+                "pn": "pronoun",
+                "v1": "Ichidan verb",
+                "v5k-s": "Godan verb - Iku/Yuku special class",
+                "vs-c": "su verb - precursor to the modern suru",
+                "vt": "transitive verb"
+            },
+            "misc": {
+                "abbr": "abbreviation",
+                "col": "colloquialism",
+                "hon": "honorific or respectful (sonkeigo) language",
+                "io": "irregular okurigana usage",
+                "obs": "obsolete term",
+                "on-mim": "onomatopoeic or mimetic word",
+                "uK": "word usually written using kanji alone",
+                "X": "rude or X-rated term (not displayed in educational software)",
+                "arch": "archaism",
+                "fam": "familiar language",
+                "hum": "humble (kenjougo) language",
+                "joc": "jocular or humorous term",
+                "obsc": "obscure term",
+                "pol": "polite (teineigo) language",
+                "uk": "word usually written using kana alone",
+                "ateji": "kanji used as phonetic symbol(s)",
+                "fem": "female term or language",
+                "iK": "word containing irregular kanji usage",
+                "male": "male term or language",
+                "oK": "word containing out-dated kanji",
+                "sl": "slang",
+                "vulg": "vulgar expression or word",
+                "chn": "children's language",
+                "gikun": "gikun (meaning) reading",
+                "ik": "word containing irregular kana usage",
+                "m-sl": "manga slang",
+                "ok": "out-dated or obsolete kana usage",
+                "sens": "term with some sensitivity about its usage",
+                "P": "'Priority' entry, i.e. among approx. 20,000 words deemed to be common in Japanese"
+            },
+            "domain": {
+                "archit": "architecture",
+                "astron": "astronomy, space, astronautics, etc.",
+                "Buddh": "Buddhism",
+                "baseb": "baseball",
+                "biol": "biology",
+                "bot": "botany",
+                "bus": "business",
+                "comp": "computing/telecommunications",
+                "econ": "economics",
+                "eng": "engineering",
+                "fin": "finance",
+                "food": "food",
+                "geol": "geology, earth sciences, geophysics, etc.",
+                "geom": "geometry",
+                "law": "law, legal studies, etc.",
+                "ling": "linguistics",
+                "MA": "martial arts",
+                "math": "mathematics",
+                "med": "medicine, anatomy, pathology, etc.",
+                "mil": "military",
+                "music": "music",
+                "physics": "physics",
+                "Shinto": "Shinto",
+                "sports": "sports"
+            }
+        },
+        "et": {
+            "pos": {
+                "n": "nimisõna",
+                "p.arv": "põhiarvsõna",
+                "adj": "omadussõna",
+                "ases": "asesõna",
+                "v": "tegusõna",
+                "kaas": "kaassõna",
+                "hüüd": "hüüdsõna",
+                "side": "sidesõna",
+                "adv": "määrsõna"
+            }
+        }
+    }
 }

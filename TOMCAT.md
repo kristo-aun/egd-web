@@ -26,22 +26,22 @@ sudo chown -R my_username:my_username /usr/local/tomcat/
 ```
 
 ## Securing HTTP
-Secring a site requires creating an SSL certificate and securing your Tomcat server. 
+Securing a site requires creating an SSL certificate and installing it to your Tomcat server.
 
-
+Lets create a folder for the neccessary files under tomcat/conf because it's good to have all configuration files at one place.<br/>
 ```
 cd /usr/local/tomcat/
 mkdir conf/ssl/ && cd conf/ssl/
 ```
  
 ### Private key & keystore
-Generate a private key. Make sure you keep this file secret at all times.<br/>
+Generate a private key. Make sure you keep this file secret at all times. You need openssl and keytool to execute the following commands in terminal. <br/>
 ```
 openssl genrsa -out rootCA.key 2048
 ```
 
 Lets create a CA certificate based on the private key.
-Normally, the certificate would have to be authorized by a proper CA, but for testing purposes it's a great way to secure sites.
+Normally, the certificate would have to be authorized by a proper CA, but for testing purposes it's a great way to secure your sites.
 It seems that this practice is quite popular with internal corporate websites as well.<br/>
 ```
 openssl req -x509 -new -nodes -key rootCA.key -out rootCA.crt -days 1825 "CN=*.koodur.com, OU=Development, O=Mintal, L=Tallinn, S=Harju, C=EE"
@@ -77,7 +77,7 @@ Install CA reply to keystore<br/>
 keytool -import -alias tomcat -keystore momo-dev.keystore -file momo-dev.crt
 ```
  
-### Install your root CA
+### Install your CA certificate to browsers
 To make your browsers trust the site, you need to manually install
 either tomcat's certificate or your CA certificate to the browsers. 
 It is preferrable to install the CA, because then you'll be able to secure other sites as well without

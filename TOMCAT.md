@@ -1,13 +1,13 @@
 # Tomcat
-This guide on how to set up Tomcat 8.0 web container is Linux specific. 
-If you want to install to windows or some other OS, you should have enough
-sysadmin knowledge to get tomcat set up and secure.
+This guide describes how to set up and secure Tomcat 8.0 for EsutoniaGoDesu purposes.
+Keep in mind that this guide is Linux-specific and if you need to install Tomcat on Windows or some other OS, you should have enough
+sysadmin knowledge to get it set up and secure.
 
-These guides might be helpful
+These guides might be helpful as well:
 
 - **Java**: [Setting up Oracle Java in Debian](https://www.digitalocean.com/community/tutorials/how-to-manually-install-oracle-java-on-a-debian-or-ubuntu-vps)
-- **Tomcat**:
-- **Certificate**
+- **Tomcat**: [setup](http://tomcat.apache.org/tomcat-8.0-doc/setup.html)
+- **Certificate** [configuring identity and trust](http://docs.oracle.com/cd/E13222_01/wls/docs103/secmanage/identity_trust.html)
 
 ## Setting up Tomcat
 Download and install Tomcat manually<br/>
@@ -76,21 +76,17 @@ either tomcat's certificate or your CA certificate to the browsers.
 It is preferrable to install the CA, because then you'll be able to secure other sites as well without
 installing their certificates each time.
 
-- **Chrome**: 
-- **Firefox**:
-- **Windows**: IE uses Windows's own management
+- **Chrome**: [guide](http://portal.threatpulse.com/docs/sol/Content/03Solutions/ManagePolicy/SSL/ssl_chrome_cert_ta.htm)
+- **Firefox**: [guide](http://wiki.wmtransfer.com/projects/webmoney/wiki/Installing_root_certificate_in_Mozilla_Firefox)
+- **Windows**: IE uses Windows's own authority management, [guide](https://msdn.microsoft.com/en-us/library/cc750534.aspx)
 
 
 
 ## JNDI
 
+
 ## PSI Probe
+Currently the one psi-probe fork that seems to be working properly on Tomcat 8 is [Andresol's psi-probe-plus](https://github.com/andresol/psi-probe-plus).
+You can get rid of excessive connectors by removing them from pom.xml as we only need Tomcat 8 connector.
 
-## Gochas
-The following is just a few notes that might be useful to some people.
-
-If you have a proxy between your server and the outside world you might find useful to 
-do some rerouting.
-sudo iptables -t nat -A PREROUTING -p tcp --dport 443 -j REDIRECT --to-port 9443
-sudo iptables -t nat -A PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 9080
-
+PS! Global datasource monitoring is still not working. The latest version of Tomcat that shows datasources is 7.0.53.

@@ -62,7 +62,7 @@ mvn clean package -Pprod -Dmaven.test.skip=true
 ```
 
 # Technology Stack
-The webapp was initially generated using [JHipster](http://jhipster.github.io/creating_an_entity.html).
+This webapp was initially generated using [JHipster](http://jhipster.github.io/creating_an_entity.html).
 Significant changes to the project structure and software modules were made, which means there will be complications if you try to
 use the Yeoman code generation tool.
 

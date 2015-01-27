@@ -8,9 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public class PhraseJpDB extends AbstractProjectRepository {
@@ -51,14 +49,14 @@ public class PhraseJpDB extends AbstractProjectRepository {
 		return result;
 	}
 
-	public Map<String, Integer> getIdAndJapaneseByRightOpen(String example, int limit) {
+	public List<String> getIdAndJapaneseByRightOpen(String example, int limit) {
 		StringBuilder msg = new StringBuilder("getIdAndJapaneseByRightOpen: example=" + example);
 		if (example == null || limit < 1) throw new IllegalArgumentException(msg.toString());
 
 		Connection con = null;
 		CallableStatement s = null;
 		ResultSet rs = null;
-		Map<String, Integer> result = new LinkedHashMap<>();
+        List<String> result = new ArrayList<>();
 
 		try {
 			long ms = System.currentTimeMillis();
@@ -73,7 +71,7 @@ public class PhraseJpDB extends AbstractProjectRepository {
 			rs = (ResultSet) s.getObject(1);
 
 			while (rs.next()) {
-				result.put(rs.getString(1), rs.getInt(2));
+				result.add(rs.getString(1));
 			}
 
 			if (log.isDebugEnabled()) log.debug(msg.append(", result.size=").append(result.size())

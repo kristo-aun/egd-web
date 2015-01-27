@@ -1,6 +1,5 @@
 package ee.esutoniagodesu.web.rest;
 
-import com.jc.structure.pojo.IntIDStringTitle;
 import ee.esutoniagodesu.pojo.entity.EstJap;
 import ee.esutoniagodesu.pojo.entity.JapEst;
 import ee.esutoniagodesu.service.DictService;
@@ -11,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
+import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -23,7 +23,7 @@ public class DictResource {
     @RequestMapping(value = "/rest/dict/autocomplete",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<IntIDStringTitle> autocomplete(@RequestParam("lang") String lang, @RequestParam("q") String q) {
+    public Collection<String> autocomplete(@RequestParam("lang") String lang, @RequestParam("q") String q) {
         return service.autocomplete(lang, q);
     }
 

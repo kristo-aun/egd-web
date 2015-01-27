@@ -15,14 +15,14 @@ import java.util.Map;
 @Repository
 public class PhraseEtDB extends AbstractProjectRepository {
 
-	public Map<String, Integer> getIdAndEtByRightOpen(String example, int limit) {
+	public List<String> getIdAndEtByRightOpen(String example, int limit) {
 		StringBuilder msg = new StringBuilder("getIdAndEtByRightOpen: example=" + example);
 		if (example == null || limit < 1) throw new IllegalArgumentException(msg.toString());
 
 		Connection con = null;
 		CallableStatement s = null;
 		ResultSet rs = null;
-		Map<String, Integer> result = new LinkedHashMap<>();
+        List<String> result = new ArrayList<>();
 
 		try {
 			long ms = System.currentTimeMillis();
@@ -37,7 +37,7 @@ public class PhraseEtDB extends AbstractProjectRepository {
 			rs = (ResultSet) s.getObject(1);
 
 			while (rs.next()) {
-				result.put(rs.getString(1), rs.getInt(2));
+				result.add(rs.getString(1));
 			}
 
 			if (log.isDebugEnabled()) log.debug(msg.append(", result.size=").append(result.size())

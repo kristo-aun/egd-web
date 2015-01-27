@@ -1,7 +1,5 @@
 package ee.esutoniagodesu.service;
 
-import com.jc.structure.pojo.IntIDStringTitle;
-import com.jc.structure.pojo.IntIDStringTitleImpl;
 import ee.esutoniagodesu.pojo.entity.EstJap;
 import ee.esutoniagodesu.pojo.entity.JapEst;
 import ee.esutoniagodesu.repository.project.JMDictDB;
@@ -15,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Sõnaraamatu lehe teenindamine
@@ -38,24 +36,17 @@ public class DictService {
 
     private static final int _limitAutocompleteSize = 100;
 
-    public List<IntIDStringTitle> autocomplete(String lang, String q) {
-        List<IntIDStringTitle> result = new ArrayList<>();
+    public Collection<String> autocomplete(String lang, String q) {
         switch (lang) {
             case "et": {
-                result.addAll(phraseEtDB.getIdAndEtByRightOpen(q, _limitAutocompleteSize).entrySet().stream().map(
-                    p -> new IntIDStringTitleImpl(p.getValue(), p.getKey())).collect(Collectors.toList()));
-                break;
+                return phraseEtDB.getIdAndEtByRightOpen(q, _limitAutocompleteSize);
             }
             case "ja": {
-                result.addAll(phraseJpDB.getIdAndJapaneseByRightOpen(q, _limitAutocompleteSize).entrySet().stream().map(
-                    p -> new IntIDStringTitleImpl(p.getValue(), p.getKey())).collect(Collectors.toList()));
-                break;
+                return phraseJpDB.getIdAndJapaneseByRightOpen(q, _limitAutocompleteSize);
             }
             default:
                 throw new IllegalArgumentException("Language not available: " + lang);
         }
-        log.debug("autocomplete: result.size=" + result.size());
-        return result;
     }
 
     /**

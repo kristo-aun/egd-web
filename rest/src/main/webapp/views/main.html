@@ -2,31 +2,34 @@
     <div class="col-lg-3" style="width:300px" >
         <form class="form egd-dict-search-form" role="form" ng-submit="showResult()">
             <div class="row">
-                <div>
-                    <div class="input-group">
-                        <div class="input-group-btn">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                <div class="dropdown input-group" dropdown>
+                    <div class="input-group-btn">
+                        <div class="btn-group">
+                            <button class="btn btn-default dropdown-toggle"
+                                    dropdown-toggle
+                                    ng-disabled="disabled"
                                     tabindex="-1">
                                 <span class="caret"></span>
                                 <span class="sr-only">Toggle Dropdown</span>
                             </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                            </ul>
                         </div>
-                        <input type="text"
-                               class="form-control"
-                               placeholder="{{'global.label.word' | translate}}"
-                               phrase-autocomplete
-                               ng-model="phrase"
-                               lang="{{radioLang}}"
-                               value="{{phrase}}"
-                               on-select="setPhrase(q)"
-                               min-length="2"/>
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary" translate="global.label.search" style="width: 65px;" type="submit"></button>
-                            <button class="btn btn-default" type="button" ng-click="onPhraseClear()">←</button>
-                       </span>
+                    </div>
+                    <input type="text"
+                           ng-model="phrase"
+                           placeholder="{{'global.label.word' | translate}}"
+                           typeahead="title for title in getAutocomplete($viewValue)"
+                           typeahead-min-length="2"
+                           typeahead-wait-ms="200"
+                           class="form-control">
+
+                    <ul class="dropdown-menu" role="menu">
+                        <li ng-repeat="item in phrases track by $index">
+                            <a href ng-click="onPhraseSelect(item)">{{item}}</a>
+                        </li>
+                    </ul>
+                    <div class="input-group-btn">
+                        <button class="btn btn-primary" translate="global.label.search" style="width:50px;border-radius:0;" type="submit"></button>
+                        <button class="btn btn-default" type="button" ng-click="onPhraseClear()">←</button>
                     </div>
                 </div>
             </div>
@@ -50,6 +53,21 @@
         <grid-et ng-if="!gridJaVisible" rows="{{rows}}"/>
     </div>
 </div>
+<script>
+
+    $(document).ready(function() {
+
+        $( ".selector" ).autocomplete( "close" );
+
+        $("#phrase-autocomplete-toggle").click(function() {
+            $( "#phrase-autocomplete" ).autocomplete("search");
+        });
+    });
+
+
+
+</script>
+
 <style>
     form.egd-dict-search-form div + div {
         margin-top:8px;

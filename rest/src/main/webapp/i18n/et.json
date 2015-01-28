@@ -410,24 +410,30 @@
             "submit": "Koosta test"
         }
     },
-    "statistics": {
-        "jmdictVersion": "JMDict versioon",
-        "countJpEntry": "Jaapanikeelseid mõisteid",
-        "countTranslatedEntries": "Tõlgitud mõisteid",
-        "countEtTranslations": "Eestikeelseid tõlkeid",
-        "countSentencePairs": "Näitelausete paare",
-        "countEstwnExamples": "Eesti Wordnet näitelauseid",
-        "etTransOrigin": "Eestikeelsete tõlgete päritolu",
-        "countOriginJatik": "JATIK",
-        "countOriginIlo": "ILO kollane taskusõnastik",
-        "countOriginEgd": "EsutoniaGoDesu",
-        "countJpSearchWords": "Jaapanikeelseid päringuid tehtud",
-        "countJpSearchWithResults": "- neist tulemusega",
-        "countEtSearchWords": "Eestikeelseid päringuid tehtud",
-        "countEtSearchWithResults": "- neist tulemusega",
-        "countKanjiInDb": "Kanjisid andmebaasis",
-        "countKanjisDescribedWithHeisig": "- neist Heisigi metoodikaga kirjeldatud",
-        "countStrokeDiagrams": "Joondiagramme"
+    "stats": {
+        "counters": {
+            "jmdictVersion": "JMDict versioon",
+            "countJpEntry": "Jaapanikeelseid mõisteid",
+            "countTranslatedEntries": "Tõlgitud mõisteid",
+            "countEtTranslations": "Eestikeelseid tõlkeid",
+            "countSentencePairs": "Näitelausete paare",
+            "countEstwnExamples": "Eesti Wordnet näitelauseid",
+            "etTransOrigin": "Eestikeelsete tõlgete päritolu",
+            "countOriginJatik": "JATIK",
+            "countOriginIlo": "ILO kollane taskusõnastik",
+            "countOriginEgd": "EsutoniaGoDesu",
+            "countJpSearchWords": "Jaapanikeelseid päringuid tehtud",
+            "countJpSearchWithResults": "- neist tulemusega",
+            "countEtSearchWords": "Eestikeelseid päringuid tehtud",
+            "countEtSearchWithResults": "- neist tulemusega",
+            "countKanjiInDb": "Kanjisid andmebaasis",
+            "countKanjisDescribedWithHeisig": "- neist Heisigi metoodikaga kirjeldatud",
+            "countStrokeDiagrams": "Joondiagramme"
+        },
+        "core": {
+
+
+        }
     },
     "dictionary": {
         "notTranslated": "ei ole tõlgitud",

@@ -82,6 +82,20 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav nav-pills navbar-right" style="float: right;">
+                <li ng-switch-when="true" ng-show="isAuthorized(userRoles.user)" class="dropdown pointer" ng-controller="StatsController">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                        <span>
+                            <span class="glyphicon glyphicon-tower"></span>
+                            <span class="hidden-tablet" translate="global.menu.overview">Overview</span>
+                            <b class="caret"></b>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#/stats"><span class="glyphicon glyphicon-heart"></span>
+                            &#xA0;<span translate="global.menu.stats.statistics">Statistics</span></a></li>
+                    </ul>
+                </li>
+
                 <li ng-switch-when="true" ng-show="isAuthorized(userRoles.admin)" class="dropdown pointer"
                     ng-controller="AdminController">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">
@@ -227,6 +241,11 @@
 <script src="scripts/article/router_article.js"></script>
 <script src="scripts/article/controller_article.js"></script>
 <script src="scripts/article/service_article.js"></script>
+
+<script src="scripts/stats/router_stats.js"></script>
+<script src="scripts/stats/controller_stats.js"></script>
+<script src="scripts/stats/service_stats.js"></script>
+
 <script src="scripts/audio/router_audio.js"></script>
 <script src="scripts/audio/controller_audio.js"></script>
 <script src="scripts/audio/service_audio.js"></script>

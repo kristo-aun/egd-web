@@ -411,44 +411,51 @@
             "submit": "Koosta test"
         }
     },
-    "statistics": {
-        "jmdictVersion": "JMDictのバージョン",
-        "countJpEntry": "日本の言葉",
-        "countTranslatedEntries": "訳していました",
-        "_countTranslatedEntries": "yakushite imashita",
+
+    "stats": {
+        "counters": {
+            "jmdictVersion": "JMDictのバージョン",
+            "countJpEntry": "日本の言葉",
+            "countTranslatedEntries": "訳していました",
+            "_countTranslatedEntries": "yakushite imashita",
 
 
-        "countEtTranslations": "エストニア語の訳書",
-        "_countEtTranslations": "esutoniago no yakusho",
+            "countEtTranslations": "エストニア語の訳書",
+            "_countEtTranslations": "esutoniago no yakusho",
 
-        "countSentencePairs": "例文",
-        "_countSentencePairs": "reibun",
+            "countSentencePairs": "例文",
+            "_countSentencePairs": "reibun",
 
-        "countEstwnExamples": "エストニアワードネットの例文",
-        "_countEstwnExamples": "esutoniago waadonetto no reibun",
+            "countEstwnExamples": "エストニアワードネットの例文",
+            "_countEstwnExamples": "esutoniago waadonetto no reibun",
 
-        "etTransOrigin": "発生源はどこから来ました",
-        "_etTransOrigin": "hasseigen",
+            "etTransOrigin": "発生源はどこから来ました",
+            "_etTransOrigin": "hasseigen",
 
-        "countOriginJatik": "JATIK",
-        "countOriginIlo": "　ILOの黄色いのポケット辞書",
-        "_countOriginIlo": "ilo no kiiroi no poketto jisho",
+            "countOriginJatik": "JATIK",
+            "countOriginIlo": "　ILOの黄色いのポケット辞書",
+            "_countOriginIlo": "ilo no kiiroi no poketto jisho",
 
-        "countOriginEgd": "エストニア語です",
+            "countOriginEgd": "エストニア語です",
 
-        "countJpSearchWords": "Jaapanikeelseid päringuid tehtud",
-        "countJpSearchWithResults": "- neist tulemusega",
-        "countEtSearchWords": "Eestikeelseid päringuid tehtud",
-        "countEtSearchWithResults": "- neist tulemusega",
+            "countJpSearchWords": "Jaapanikeelseid päringuid tehtud",
+            "countJpSearchWithResults": "- neist tulemusega",
+            "countEtSearchWords": "Eestikeelseid päringuid tehtud",
+            "countEtSearchWithResults": "- neist tulemusega",
 
-        "countKanjiInDb": "漢字の数",
-        "_countKanjiInDb": "kanji no kazu",
-        "countKanjisDescribedWithHeisig": "- Heisigが鮮明した方法です",
-        "_countKanjisDescribedWithHeisig": "heisig ga senmeishita houhou desu",
-        "countStrokeDiagrams": "漢字筆順の数",
-        "_countStrokeDiagrams": "kanji hitsujun no kazu"
+            "countKanjiInDb": "漢字の数",
+            "_countKanjiInDb": "kanji no kazu",
+            "countKanjisDescribedWithHeisig": "- Heisigが鮮明した方法です",
+            "_countKanjisDescribedWithHeisig": "heisig ga senmeishita houhou desu",
+            "countStrokeDiagrams": "漢字筆順の数",
+            "_countStrokeDiagrams": "kanji hitsujun no kazu"
+        },
+        "core": {
+
+
+        }
+
     },
-
     "dictionary": {
         "search": {
             "et": "エストニア語",

@@ -5,8 +5,12 @@
         "menu": {
             "home": "Dictionary",
             "poll": "Poll",
+            "overview": "Overview",
             "entities": {
                 "main": "Entities"
+            },
+            "stats": {
+                "statistics": "Dictionary statistics"
             },
             "account": {
                 "main": "Account",
@@ -410,24 +414,38 @@
             "submit": "Koosta test"
         }
     },
-    "statistics": {
-        "jmdictVersion": "JMDict versioon",
-        "countJpEntry": "Jaapanikeelseid mõisteid",
-        "countTranslatedEntries": "Tõlgitud mõisteid",
-        "countEtTranslations": "Eestikeelseid tõlkeid",
-        "countSentencePairs": "Näitelausete paare",
-        "countEstwnExamples": "Eesti Wordnet näitelauseid",
-        "etTransOrigin": "Eestikeelsete tõlgete päritolu",
-        "countOriginJatik": "JATIK",
-        "countOriginIlo": "ILO kollane taskusõnastik",
-        "countOriginEgd": "EsutoniaGoDesu",
-        "countJpSearchWords": "Jaapanikeelseid päringuid tehtud",
-        "countJpSearchWithResults": "- neist tulemusega",
-        "countEtSearchWords": "Eestikeelseid päringuid tehtud",
-        "countEtSearchWithResults": "- neist tulemusega",
-        "countKanjiInDb": "Kanjisid andmebaasis",
-        "countKanjisDescribedWithHeisig": "- neist Heisigi metoodikaga kirjeldatud",
-        "countStrokeDiagrams": "Joondiagramme"
+
+    "stats": {
+        "counters": {
+            "header": "Dictionary statistics",
+            "jmdictVersion": "JMDict versioon",
+            "countJpEntry": "Jaapanikeelseid mõisteid",
+            "countTranslatedEntries": "Tõlgitud mõisteid",
+            "countEtTranslations": "Eestikeelseid tõlkeid",
+            "countSentencePairs": "Näitelausete paare",
+            "countEstwnExamples": "Eesti Wordnet näitelauseid",
+            "etTransOrigin": "Eestikeelsete tõlgete päritolu",
+            "countOriginJatik": "JATIK",
+            "countOriginIlo": "ILO kollane taskusõnastik",
+            "countOriginEgd": "EsutoniaGoDesu",
+            "countJpSearchWords": "Jaapanikeelseid päringuid tehtud",
+            "countJpSearchWithResults": "- neist tulemusega",
+            "countEtSearchWords": "Eestikeelseid päringuid tehtud",
+            "countEtSearchWithResults": "- neist tulemusega",
+            "countKanjiInDb": "Kanjisid andmebaasis",
+            "countKanjisDescribedWithHeisig": "- neist Heisigi metoodikaga kirjeldatud",
+            "countStrokeDiagrams": "Joondiagramme"
+        },
+        "core": {
+            "header": "Vocabulary statistics",
+
+            "resource": "Ressursi nimi",
+            "wordCount": "Sõnu kokku",
+            "wordsWithKanjiCount": "Kanjidega sõnu",
+            "kanjiCount": "Kanjide arv sõnas",
+            "withJmdictCount": "JMDict kanne olemas",
+            "withJmdictShare": "JMDict kande olemas koguhulgast"
+        }
     },
     "dictionary": {
         "notTranslated": "ei ole tõlgitud",

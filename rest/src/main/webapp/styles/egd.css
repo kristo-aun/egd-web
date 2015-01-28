@@ -21,8 +21,11 @@ div.footer {
     text-align: center;
     margin-bottom:10px;
     font-size: 0.7em;
+    padding-bottom: 12px;
 }
 
 div.footer span + span {
     margin-left:25px;
 }
+
+

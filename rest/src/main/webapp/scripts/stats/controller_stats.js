@@ -20,12 +20,26 @@ egdApp.controller('StatsController', function ($scope, $log, StatsService) {
     $scope.translatedEntrRatioChartOpts = {
 
         title: 'Bar Chart with Point Labels',
-        seriesDefaults: {renderer: $.jqplot.BarRenderer},
-        axes: {
+        seriesDefaults: {
+            showMarker:true,
+            lineWidth:1,
+            pointLabels: {
+                show: true,
+                edgeTolerance: 0
+            }},
+        axes:{
             xaxis: {
-                renderer:$.jqplot.CategoryAxisRenderer
+                min:1, max:16,
+                label: "X Axis",
+                // Turn off "padding".  This will allow data point to lie on the
+                // edges of the grid.  Default padding is 1.2 and will keep all
+                // points inside the bounds of the grid.
+                pad: 0
             },
-            yaxis: {padMax: 1}
+            yaxis: {
+                label: "Y Axis",
+                min:1, max:8000
+            }
         }
     };
 

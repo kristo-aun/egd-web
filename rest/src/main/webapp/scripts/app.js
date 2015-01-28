@@ -12,6 +12,7 @@ var egdApp = angular.module('egdApp', [
     'pascalprecht.translate',
     'truncate',
     'ui.bootstrap',
+    'ui.chart',
     'ngCacheBuster'
 ]);
 

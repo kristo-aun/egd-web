@@ -445,6 +445,13 @@
             "kanjiCount": "Kanjide arv sõnas",
             "withJmdictCount": "JMDict kanne olemas",
             "withJmdictShare": "JMDict kande olemas koguhulgast"
+        },
+        "jmdict": {
+            "header": "JMDict statistics",
+            "translatedEntrRatio": "Translation count per entry"
+        },
+        "freq": {
+            "header": "Frequency indexes"
         }
     },
     "dictionary": {

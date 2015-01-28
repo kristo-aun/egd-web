@@ -78,9 +78,17 @@
 <div class="row">
     <div class="col-md-6">
         <h4 translate="stats.jmdict.translatedEntrRatio"></h4>
-        <div ui-chart="data" chart-options="chartOptions"></div>
+        <div id="translatedEntrRatioChart" ui-chart="translatedEntrRatio" chart-options="translatedEntrRatioChartOpts"></div>
     </div>
 </div>
+
+<style type="text/css">
+    #translatedEntrRatioChart .jqplot-point-label {
+        border: 1.5px solid #aaaaaa;
+        padding: 1px 3px;
+        background-color: #eeccdd;
+    }
+</style>
 
 <h3 translate="stats.freq.header"></h3>
 

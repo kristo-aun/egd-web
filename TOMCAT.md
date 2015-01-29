@@ -79,7 +79,7 @@ keytool -import -alias tomcat -keystore momo-dev.keystore -file momo-dev.crt
  
 ### Install your CA certificate to browsers
 To make your browsers trust the site, you need to manually install
-either tomcat's certificate or your CA certificate to the browsers. 
+either tomcat's certificate or your CA certificate to your browsers.
 It is preferrable to install the CA, because then you'll be able to secure other sites as well without
 installing their certificate each time.
 
@@ -93,7 +93,8 @@ installing their certificate each time.
 
 
 ## PSI Probe
-Currently the one [psi-probe](https://github.com/testdriven/psi-probe) fork that seems to be working properly on Tomcat 8 is [Andresol's psi-probe-plus](https://github.com/andresol/psi-probe-plus).
-You can get rid of the excessive connectors by removing them from pom.xml as we only need a connector for Tomcat 8.
+Only [Andresol's psi-probe-plus](https://github.com/andresol/psi-probe-plus) fork from the [psi-probe](https://github.com/testdriven/psi-probe) seems to be working properly on Tomcat 8.
+Before compiling you might want to get rid of the excessive connectors (5,6,7) by removing them from pom.xml.
 
-PS! Global datasource monitoring is still not working. The latest version of Tomcat that shows them is 7.0.53.
+PS! Global datasource monitoring is still not working in this version of PSI Probe.
+If you can't live without, install Tomcat 7.0.53 or earlier.

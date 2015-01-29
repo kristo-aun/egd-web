@@ -61,13 +61,13 @@
                 </li>
                 <li ng-switch-when="true" class="dropdown pointer">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">
-                                <span>
-                                    <span class="glyphicon glyphicon-th-list"></span>
-                                    <span class="hidden-tablet" translate="global.menu.entities.main">
-                                        Entities
-                                    </span>
-                                    <b class="caret"></b>
-                                </span>
+                        <span>
+                            <span class="glyphicon glyphicon-th-list"></span>
+                            <span class="hidden-tablet" translate="global.menu.entities.main">
+                                Entities
+                            </span>
+                            <b class="caret"></b>
+                        </span>
                     </a>
                     <ul class="dropdown-menu" ng-controller="MenuController">
                         <li ng-switch-when="true"><a href="#/article"><span class="glyphicon glyphicon-asterisk"></span>&nbsp;article</a>
@@ -187,7 +187,9 @@
             {{'global.form.email' | translate}}:
             <a href="mailto:EsutoniaGoDesu@gmail.com?Subject=EsutoniaGoDesu website feedback" target="_top">EsutoniaGoDesu@gmail.com</a>
         </span>
-        <span style="float:right">{{'footer.last-updated' | translate}}: {{buildTime}}</span>
+        <span style="float:right">
+            <a href="#/changelog">{{'footer.last-updated' | translate}}: {{buildTime}}</a>
+        </span>
     </div>
 </div>
 

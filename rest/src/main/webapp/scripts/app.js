@@ -47,6 +47,13 @@ egdApp
                     authorizedRoles: [USER_ROLES.all]
                 }
             })
+            .when('/changelog', {
+                templateUrl: 'views/changelog.html',
+                controller: 'ChangelogController',
+                access: {
+                    authorizedRoles: [USER_ROLES.all]
+                }
+            })
             .when('/error', {
                 templateUrl: 'views/error.html',
                 access: {

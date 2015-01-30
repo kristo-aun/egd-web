@@ -5,8 +5,13 @@
         "menu": {
             "home": "Sõnastik",
             "poll": "Küsitlus",
+            "overview": "Ülevaade",
+            "rtk": "Kirjamärgid",
             "entities": {
                 "main": "Domeenid"
+            },
+            "stats": {
+                "statistics": "Sõnastiku statistika"
             },
             "account": {
                 "main": "Konto",
@@ -431,8 +436,13 @@
             "countStrokeDiagrams": "Joondiagramme"
         },
         "core": {
-
-
+            "header": "Vocabulary statistics",
+            "resource": "Ressursi nimi",
+            "wordCount": "Sõnu kokku",
+            "wordsWithKanjiCount": "Kanjidega sõnu",
+            "kanjiCount": "Kanjide arv sõnas",
+            "withJmdictCount": "JMDict kanne olemas",
+            "withJmdictShare": "JMDict kande olemas koguhulgast"
         }
     },
     "dictionary": {

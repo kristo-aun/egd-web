@@ -415,7 +415,6 @@
             "submit": "Koosta test"
         }
     },
-
     "stats": {
         "counters": {
             "header": "Dictionary statistics",
@@ -439,7 +438,6 @@
         },
         "core": {
             "header": "Vocabulary statistics",
-
             "resource": "Ressursi nimi",
             "wordCount": "Sõnu kokku",
             "wordsWithKanjiCount": "Kanjidega sõnu",

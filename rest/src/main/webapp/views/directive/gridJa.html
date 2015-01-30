@@ -1,7 +1,6 @@
 <div id="gridJaWR">
-    <div class="gridEntr" ng-repeat="item in rows  track by $index">
+    <div class="gridEntr" ng-repeat="item in rows">
            {{item}}
-
     </div>
     <div id="noResponse" ng-if="!gridVisible && searchNotInProgress">
         <i>{{'dictionary.unknownWord' | translate}}</i>

@@ -2,22 +2,22 @@
 
 egdApp.factory('DictService', function ($http, $log) {
     return {
-        autocomplete: function (lang, q) {
-            var context = "app/rest/dict/autocomplete?lang=" + lang + "&q=" + q;
+        autocomplete: function (phrasepart) {
+            var context = "app/rest/dict/autocomplete/" + phrasepart;
             return $http.get(context).then(function (response) {
                 $log.debug("DictService.autocomplete: response=", response);
                 return response.data;
             });
         },
-        japest: function (lang, q) {
-            var context = "app/rest/dict/japest?lang=" + lang + "&q=" + q;
+        japest: function (phrase) {
+            var context = "app/rest/dict/japest/" + phrase;
             return $http.get(context).then(function (response) {
                 $log.debug("DictService.japest: response=", response);
                 return response.data;
             });
         },
-        estjap: function (lang, q) {
-            var context = "app/rest/dict/estjap?lang=" + lang + "&q=" + q;
+        estjap: function (phrase) {
+            var context = "app/rest/dict/estjap/" + phrase;
             return $http.get(context).then(function (response) {
                 $log.debug("DictService.estjap: response=", response);
                 return response.data;
@@ -25,4 +25,3 @@ egdApp.factory('DictService', function ($http, $log) {
         }
     }
 });
-

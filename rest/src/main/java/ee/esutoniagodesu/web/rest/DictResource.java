@@ -4,12 +4,11 @@ import ee.esutoniagodesu.pojo.entity.EstJap;
 import ee.esutoniagodesu.pojo.entity.JapEst;
 import ee.esutoniagodesu.service.DictService;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.LocaleResolver;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Collection;
 import java.util.List;
 
@@ -20,24 +19,29 @@ public class DictResource {
     @Inject
     private DictService service;
 
-    @RequestMapping(value = "/rest/dict/autocomplete",
+    @Inject
+    private LocaleResolver localeResolver;
+
+    @RequestMapping(value = "/rest/dict/autocomplete/{phrasepart}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public Collection<String> autocomplete(@RequestParam("lang") String lang, @RequestParam("q") String q) {
-        return service.autocomplete(lang, q);
+    public Collection<String> autocomplete(@PathVariable("phrasepart") String phrasepart) {
+        return service.autocomplete(phrasepart);
     }
 
-    @RequestMapping(value = "/rest/dict/japest",
+    @RequestMapping(value = "/rest/dict/japest/{phrase}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<JapEst> japest(@RequestParam("lang") String lang, @RequestParam("q") String query) {
-        return service.japest(lang, query);
+    public List<JapEst> japest(@PathVariable("phrase") String phrase, HttpServletRequest request) {
+        String locale = localeResolver.resolveLocale(request).toString();
+        return service.japest(locale, phrase);
     }
 
-    @RequestMapping(value = "/rest/dict/estjap",
+    @RequestMapping(value = "/rest/dict/estjap/{phrase}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<EstJap> estjap(@RequestParam("lang") String lang, @RequestParam("q") String query) {
-        return service.estjap(lang, query);
+    public List<EstJap> estjap(@PathVariable("phrase") String phrase, HttpServletRequest request) {
+        String locale = localeResolver.resolveLocale(request).toString();
+        return service.estjap(locale, phrase);
     }
 }

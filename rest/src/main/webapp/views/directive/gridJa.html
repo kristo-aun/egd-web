@@ -1,8 +1,42 @@
-<div id="gridJaWR">
+<div id="gridJpWR">
     <div class="gridEntr" ng-repeat="item in rows">
-           {{item}}
+        <div class="entrHeader">
+            <span ng-if="item.rdng != null" class="gridRdng" ng-repeat="rdng in item.rdng">
+                <span ng-if="$index > 0">・</span>{{rdng}}
+            </span>
+
+            <span class="kanj" ng-if="item.kanj != null">
+                <span class="jpSulg">【</span>
+                <span ng-repeat="kanj in item.kanj">
+                    <span ng-if="$index > 0">・</span>
+                    <a class="clean"
+                       href="http://www.romajidesu.com/dictionary/meaning-of-{{kanj}}.html"
+                       target="_blank">{{kanj}}</a>
+                </span>
+                <span class="jpSulg">】</span>
+            </span>
+        </div>
+        <div class="glossWR" ng-if="item.sens.length > 0">
+            <div class="gridGloss" ng-repeat="sens in item.sens">
+                <span class="rownum">{{$index + 1}}.</span>
+                <span>{{sens.gloss}}</span>
+
+                <div class="sensSentenceWR" ng-if="sens.sentences.length > 0">
+                    <div class="gridSentence" ng-repeat="sentence in sens.sentences">
+                        <span class="jpSentence">{{sentence.jpSentence.jp}}</span>
+                        <span class="enSentence">{{sentence.jpSentence.enSentence.en}}</span>
+                        <audio controls preload="auto">
+                            <source ng-src="{{'/app/rest/audio/' + sentence.jpSentence.audio.id + '.mp3'}}" type="audio/mpeg">
+                        </audio>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="glossWR" ng-if="item.sens.length < 1">
+            <i>{{'dictionary.notTranslated' | translate}}</i>
+        </div>
     </div>
-    <div id="noResponse" ng-if="!gridVisible && searchNotInProgress">
+    <div id="noResponse">
         <i>{{'dictionary.unknownWord' | translate}}</i>
     </div>
 </div>
@@ -10,7 +44,7 @@
     div#noResponse {
         margin-top: 8px;
     }
-    div#gridJaWR {
+    div#gridJpWR {
         width:600px;
     }
     span.kanj span.jpSulg {

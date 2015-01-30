@@ -147,7 +147,7 @@ directives.directive('gridJa', function () {
     return {
         restrict: 'E',
         scope: {
-            rows: '@'
+            rows: '='
         },
         templateUrl: 'views/directive/gridJa.html'
     }

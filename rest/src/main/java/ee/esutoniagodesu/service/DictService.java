@@ -1,5 +1,6 @@
 package ee.esutoniagodesu.service;
 
+import com.jc.lang.alphab.JCCharacter;
 import ee.esutoniagodesu.pojo.entity.EstJap;
 import ee.esutoniagodesu.pojo.entity.JapEst;
 import ee.esutoniagodesu.repository.project.JMDictDB;
@@ -36,7 +37,8 @@ public class DictService {
 
     private static final int _limitAutocompleteSize = 100;
 
-    public Collection<String> autocomplete(String lang, String q) {
+    public Collection<String> autocomplete(String q) {
+        String lang = JCCharacter.isLatin(q.charAt(0)) ? "et": "ja";
         switch (lang) {
             case "et": {
                 return phraseEtDB.getIdAndEtByRightOpen(q, _limitAutocompleteSize);

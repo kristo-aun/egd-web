@@ -2,6 +2,7 @@
 
 egdApp.controller('DictController', function($scope, $route, $routeParams, $location, $translate, $log, DictService, $http) {
 
+    if ($routeParams.phrase) $scope.phrase = $routeParams.phrase;
     $scope.lang = $translate.use();
     $scope.radioLang = "ja";
     $scope.phrases = [];
@@ -43,9 +44,9 @@ egdApp.controller('DictController', function($scope, $route, $routeParams, $loca
         $scope.toggleButtonDisabled = true;
     };
 
-    $scope.getAutocomplete = function(phrase) {
-        if (phrase && phrase.length > 0) {
-            var context = "app/rest/dict/autocomplete?lang=" + "et" + "&q=" + phrase;
+    $scope.getAutocomplete = function(phrasepart) {
+        if (phrasepart && phrasepart.length > 1) {
+            var context = "app/rest/dict/autocomplete/" + phrasepart;
             return $http.get(context).then(function (response) {
                 $log.debug("DictService.autocomplete: response=", response);
                 $scope.toggleButtonDisabled = false;
@@ -61,11 +62,11 @@ egdApp.controller('DictController', function($scope, $route, $routeParams, $loca
     };
 
     $scope.showResult = function() {
-        $log.debug("DictController.showResult: phrase=" + $scope.phrase, ", radioLang=", $scope.radioLang);
+        $log.debug("DictController.showResult: phrase=" + $scope.phrase);
         $scope.resultVisible = true;
-        $scope.gridJaVisible = $scope.lang === 'et' || $scope.lang === 'en';
+        $scope.gridJaVisible = $translate.use() === 'et' || $translate.use() === 'en';
 
-        DictService.japest($scope.radioLang, $scope.phrase).then(function (data) {
+        DictService.japest($scope.phrase).then(function (data) {
             if (data.length > 0) {
                 $scope.rows = data;
             }

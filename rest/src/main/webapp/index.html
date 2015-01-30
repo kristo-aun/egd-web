@@ -19,12 +19,13 @@
     <link rel="stylesheet" href="styles/bootstrap.css">
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/egd.css">
+    <link rel="stylesheet" href="styles/twitter.css">
     <!-- endbuild -->
 
     <!--
     Thank you very much for viewing the source code.
-    If you like any part of this, please feel free to copy and use anywhere you want.
-    If you find any bugs or other mistakes, we would appreciate to get your feedback.
+    If you like this software, please feel free to copy and use it under GNUv2 terms.
+    Should you find any bugs or other misfunctionality, please send us your feedback.
     -->
 </head>
 <body ng-app="egdApp" ng-controller="MainController">
@@ -60,13 +61,13 @@
                 </li>
                 <li ng-switch-when="true" class="dropdown pointer">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">
-                                <span>
-                                    <span class="glyphicon glyphicon-th-list"></span>
-                                    <span class="hidden-tablet" translate="global.menu.entities.main">
-                                        Entities
-                                    </span>
-                                    <b class="caret"></b>
-                                </span>
+                        <span>
+                            <span class="glyphicon glyphicon-th-list"></span>
+                            <span class="hidden-tablet" translate="global.menu.entities.main">
+                                Entities
+                            </span>
+                            <b class="caret"></b>
+                        </span>
                     </a>
                     <ul class="dropdown-menu" ng-controller="MenuController">
                         <li ng-switch-when="true"><a href="#/article"><span class="glyphicon glyphicon-asterisk"></span>&nbsp;article</a>
@@ -175,15 +176,26 @@
     </div>
 </nav>
 <div class="container">
-    <div class="well" ng-view="" style="float: left;width: 100%;"></div>
+    <div id="egd-content" class="well" ng-view=""></div>
     <div class="footer">
-        <span style="float: left">© {{date | date:'yyyy'}}</span>
+        <span style="float: left">
+            <iframe src="http://ghbtns.com/github-btn.html?user=esutoniagodesu&amp;repo=egd-web&amp;type=watch&amp;count=true"
+                    style="float:left;"
+                    allowtransparency="true" frameborder="0" scrolling="0" width="95" height="20"></iframe>
+           <div class="custom-follow-button" style="float:left;">
+               <a href="https://twitter.com/intent/user?screen_name=esutoniagodesu" target="_blank" alt="Follow esutoniagodesu">
+                   <i class="btn-icon"></i>
+                   <span class="btn-text">Twitter</span>
+               </a>
+           </div>
+        </span>
         <span>
             {{'global.form.email' | translate}}:
             <a href="mailto:EsutoniaGoDesu@gmail.com?Subject=EsutoniaGoDesu website feedback" target="_top">EsutoniaGoDesu@gmail.com</a>
         </span>
-        <span><a target="_blank" href="https://twitter.com/EsutoniaGoDesu">Twitter</a></span>
-        <span style="float:right">{{'footer.last-updated' | translate}}: {{buildTime}}</span>
+        <span style="float:right">
+            <a href="#/changelog">{{'footer.last-updated' | translate}}: {{buildTime}}</a>
+        </span>
     </div>
 </div>
 
@@ -208,6 +220,10 @@
 <script src="bower_components/modernizr/modernizr.js"></script>
 <script src="bower_components/jquery/dist/jquery.js"></script>
 <script src="bower_components/jqplot/jquery.jqplot.js"></script>
+<script src="bower_components/jqplot/plugins/jqplot.barRenderer.js"></script>
+<script src="bower_components/jqplot/plugins/jqplot.categoryAxisRenderer.js"></script>
+<link rel="stylesheet" href="bower_components/jqplot/jquery.jqplot.css"/>
+
 <script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
 <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
@@ -245,6 +261,8 @@
 <script src="bower_components/bootstrap-sass/vendor/assets/javascripts/bootstrap/scrollspy.js"></script>
 <script src="bower_components/bootstrap-sass/vendor/assets/javascripts/bootstrap/collapse.js"></script>
 <script src="bower_components/bootstrap-sass/vendor/assets/javascripts/bootstrap/tab.js"></script>
+<script src="bower_components/angular-ui-chart/src/chart.js"></script>
+<script src="bower_components/google-code-prettify/bin/prettify.min.js"></script>
 
 <script src="scripts/article/router_article.js"></script>
 <script src="scripts/article/controller_article.js"></script>

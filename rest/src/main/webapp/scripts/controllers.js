@@ -76,6 +76,9 @@ egdApp.controller('LoginController', function ($scope, $location, Authentication
     }
 });
 
+egdApp.controller('ChangelogController', function ($scope) {
+});
+
 egdApp.controller('LogoutController', function ($location, AuthenticationSharedService) {
     AuthenticationSharedService.logout();
 });

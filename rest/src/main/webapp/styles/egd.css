@@ -1,3 +1,10 @@
+div#egd-content {
+    background: #f5f5f5 url("../images/flowers-left.png") no-repeat right bottom;
+    float: left;
+    width: 100%;
+    min-height: 570px;
+}
+
 div#alert-wr {
     margin-left: 30%;
     margin-right: 30%;
@@ -8,7 +15,7 @@ div#alert-wr {
 }
 
 div.container {
-    width:100%;
+    width: 100%;
 }
 
 .navbar {
@@ -19,10 +26,13 @@ div.container {
 div.footer {
     width: 100%;
     text-align: center;
-    margin-bottom:10px;
+    margin-bottom: 10px;
     font-size: 0.7em;
+    padding-bottom: 12px;
 }
 
 div.footer span + span {
-    margin-left:25px;
+    margin-left: 25px;
 }
+
+

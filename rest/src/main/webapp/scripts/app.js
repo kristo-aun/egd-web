@@ -12,7 +12,7 @@ var egdApp = angular.module('egdApp', [
     'pascalprecht.translate',
     'truncate',
     'ui.bootstrap',
-    //'ui.chart',
+    'ui.chart',
     'ngCacheBuster'
 ]);
 
@@ -43,6 +43,13 @@ egdApp
             .when('/login', {
                 templateUrl: 'views/login.html',
                 controller: 'LoginController',
+                access: {
+                    authorizedRoles: [USER_ROLES.all]
+                }
+            })
+            .when('/changelog', {
+                templateUrl: 'views/changelog.html',
+                controller: 'ChangelogController',
                 access: {
                     authorizedRoles: [USER_ROLES.all]
                 }

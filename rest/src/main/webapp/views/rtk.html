@@ -13,7 +13,7 @@
 
 <div id="sentenceDismantleResult" nf-if="frames.length > 0">
     <div class="heisig6Data" ng-repeat="item in frames">
-        <span class="kanji">【{{item.kanji}}】</span>
+        <span class="kanji japanese">【{{item.kanji}}】</span>
         <article>
             <img ng-if="item.strokeImageId > 0" alt="{{item.kanji}}"
                  title="{{item.kanji}}" class="t-widget"
@@ -97,7 +97,6 @@
 
     span.kanji {
         font-size: 40px;
-        font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
     }
 
     div#sentenceDismantleResult {
@@ -142,6 +141,7 @@
         -moz-border-radius: 3px;
         -webkit-border-radius: 3px;
         border-radius: 3px;
+        max-width: 800px;
     }
 
     div.heisig6Data h4 {

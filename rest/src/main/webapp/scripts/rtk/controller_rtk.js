@@ -4,10 +4,10 @@ egdApp.controller('RTKController', function ($scope, $location, $routeParams, $l
     $log.debug("RTKController");
 
     var book = $routeParams.book;
-    var query = $routeParams.query;
+    if ($routeParams.query) $scope.query = $routeParams.query;
 
-    if (book && query) {
-        RTKService.search(book, query).then(function(data) {
+    if (book && $scope.query) {
+        RTKService.search(book, $scope.query).then(function(data) {
             $scope.frames = data;
         });
     }

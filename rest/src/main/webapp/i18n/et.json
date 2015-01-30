@@ -445,6 +445,20 @@
             "withJmdictShare": "JMDict kande olemas koguhulgast"
         }
     },
+    "changelog": {
+        "title": "Muudatuste ajalugu",
+        "legend": {
+            "title": "Ikoonide tähendused",
+            "add": "Uus funktsionaalsus",
+            "add.descr": "test, nupp, lehekülg vms.",
+            "fix": "Veaparandus",
+            "fix.descr": "soovituslikult koos Github'i pileti ID'ga.",
+            "update":"Töö andmetega",
+            "update.descr":"tõlgete parandamine, uued näitelaused, artiklid, testid, sõnavara vms.",
+            "code": "Muudatus koodis",
+            "code.descr": "ei mõjuta funktsionaalsust (formaatimine, muutujate ühtlustamine, algoritmi parandamine, komponentide uuendamine)."
+        }
+    },
     "dictionary": {
         "notTranslated": "ei ole tõlgitud",
         "unknownWord": "sõna puudub"

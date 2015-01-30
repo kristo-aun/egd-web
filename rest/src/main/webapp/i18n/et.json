@@ -465,7 +465,7 @@
     },
     "heisig": {
         "find_kanjis": "Leia kanjid",
-        "query": "Lause, en/et märksõna, ID või primitiiv",
+        "query": "Sõna, lause, Heisigi märksõna, Heisigi ID või primitiiv",
         "find_kanjis_v6": "6. raamatu järgi",
         "find_kanjis_v4": "4. raamatu järgi",
         "no_results": "Puudub",

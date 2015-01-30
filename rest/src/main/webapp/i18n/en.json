@@ -6,6 +6,7 @@
             "home": "Dictionary",
             "poll": "Poll",
             "overview": "Overview",
+            "rtk": "Kanji",
             "entities": {
                 "main": "Entities"
             },

@@ -133,7 +133,6 @@ public class HeisigService {
 	}
 
 	private List<VHeisig6Custom> findByFrame(int book, int frame) {
-		StringBuilder msg = new StringBuilder("findByFrame: book=" + book + ", frame=" + frame);
 		Character kanji = null;
 		if (book == 6) {
 			kanji = heisig6DB.findKanjiByFrame(frame);
@@ -141,7 +140,9 @@ public class HeisigService {
 			kanji = heisig4DB.findKanjiByFrame(frame);
 		}
 
-		if (kanji == null) throw new IllegalStateException(msg.append(", no kanji was found").toString());
+		if (kanji == null) {
+            return new ArrayList<>();
+        }
 
 		return addExampleWords(kanjiToHeisig(kanji));
 	}

@@ -29,7 +29,7 @@ public class Heisig6DB extends AbstractProjectRepository {
 		}
 	}
 
-	public char findKanjiByFrame(int frameNo) {
+	public Character findKanjiByFrame(int frameNo) {
 		StringBuilder msg = new StringBuilder("findKanjiByFrame: frameNo=" + frameNo);
 
 		Connection con = null;

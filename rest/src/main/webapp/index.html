@@ -80,6 +80,12 @@
                         <span translate="global.menu.poll"></span>
                     </a>
                 </li>
+                <li>
+                    <a href="#/rtk">
+                        <span class="glyphicon glyphicon-home"></span>
+                        <span translate="global.menu.rtk"></span>
+                    </a>
+                </li>
             </ul>
             <ul class="nav navbar-nav nav-pills navbar-right" style="float: right;">
                 <li ng-switch-when="true" ng-show="isAuthorized(userRoles.user)" class="dropdown pointer" ng-controller="StatsController">
@@ -239,9 +245,14 @@
 <script src="bower_components/bootstrap-sass/vendor/assets/javascripts/bootstrap/scrollspy.js"></script>
 <script src="bower_components/bootstrap-sass/vendor/assets/javascripts/bootstrap/collapse.js"></script>
 <script src="bower_components/bootstrap-sass/vendor/assets/javascripts/bootstrap/tab.js"></script>
+
 <script src="scripts/article/router_article.js"></script>
 <script src="scripts/article/controller_article.js"></script>
 <script src="scripts/article/service_article.js"></script>
+
+<script src="scripts/rtk/service_rtk.js"></script>
+<script src="scripts/rtk/router_rtk.js"></script>
+<script src="scripts/rtk/controller_rtk.js"></script>
 
 <script src="scripts/stats/router_stats.js"></script>
 <script src="scripts/stats/controller_stats.js"></script>

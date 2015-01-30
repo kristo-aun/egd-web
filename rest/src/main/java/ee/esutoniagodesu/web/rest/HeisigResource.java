@@ -15,26 +15,26 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/app")
-public class HeisigResource extends AbstractRestResource<VHeisig6Custom, Integer> {
+public class HeisigResource {
 
     @Inject
     private HeisigService service;
 
-    @RequestMapping(value = "/rest/heisigs/{book}/{query}",
+    @RequestMapping(value = "/rest/rtk/search/{book}/{query}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<VHeisig6Custom> heisigs(@PathVariable("book") int book, @PathVariable("query") String query) {
+    public List<VHeisig6Custom> search(@PathVariable("book") int book, @PathVariable("query") String query) {
         return service.getCollection(book, query);
     }
 
-    @RequestMapping(value = "/rest/heisigs",
+    @RequestMapping(value = "/rest/rtk",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     public List<VHeisig6Custom> getAll() {
         return service.getAll();
     }
 
-    @RequestMapping(value = "/rest/heisigs/{id}",
+    @RequestMapping(value = "/rest/rtk/{id}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<VHeisig6Custom> get(@PathVariable Integer id) {
@@ -44,13 +44,5 @@ public class HeisigResource extends AbstractRestResource<VHeisig6Custom, Integer
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(entity, HttpStatus.OK);
-    }
-
-    public void save(VHeisig6Custom entity) {
-        throw new RuntimeException("not implemented");
-    }
-
-    public void delete(Integer integer) {
-        throw new RuntimeException("not implemented");
     }
 }

@@ -1,0 +1,177 @@
+<div class="row center-block" style="width:650px">
+    <form class="form" role="form" ng-submit="search(6)">
+        <div class="input-group">
+            <input type="text" class="form-control"
+                   ng-model="query" placeholder="{{'heisig.query' | translate}}"/>
+            <div class="input-group-btn">
+                <button class="btn btn-primary" translate="heisig.find_kanjis_v6" type="submit"></button>
+                <button class="btn btn-primary" ng-click="search(4)" translate="heisig.find_kanjis_v4"></button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div id="sentenceDismantleResult" nf-if="frames.length > 0">
+    <div class="heisig6Data" ng-repeat="item in frames">
+        <span class="kanji">【{{item.kanji}}】</span>
+        <article>
+            <img ng-if="item.strokeImageId > 0" alt="{{item.kanji}}"
+                 title="{{item.kanji}}" class="t-widget"
+                 ng-src="{{imageLocation(item.strokeImageId)}}"/>
+
+            <div class="heisig6Table">
+                <ul>
+                    <li>
+                        <label translate="heisig.frame.frameNo"></label>
+                        <span>{{item.id}}</span>
+                    </li>
+
+                    <li>
+                        <label translate="heisig.frame.keyword"></label>
+                        <span>
+                            {{item.keywordEn}}
+                            <span ng-if="item.keywordEt">
+                                / {{item.keywordEt}}
+                            </span>
+                        </span>
+                    </li>
+
+                    <li>
+                        <label translate="heisig.frame.lessonNo"></label>
+                        <span>{{item.lessonNo}}</span>
+                    </li>
+
+                    <li ng-if="item.constituent">
+                        <label translate="heisig.frame.constituent"></label>
+                        <span>{{item.constituents}}</span>
+                    </li>
+
+                    <li ng-if="item.strokeCount">
+                        <label translate="heisig.frame.strokeCount"></label>
+                        <span>{{item.strokeCount}}</span>
+                    </li>
+
+                    <li ng-if="item.onYomi">
+                        <label translate="heisig.frame.onYomi"></label>
+                        <span>{{item.onYomi}}</span>
+                    </li>
+
+                    <li ng-if="item.kunYomi">
+                        <label translate="heisig.frame.kunYomi"></label>
+                        <span>{{item.kunYomi}}</span>
+                    </li>
+
+                    <li ng-if="item.frameNo4">
+                        <label translate="heisig.frame.frameNo4"></label>
+                        <span>{{item.frameNo4}}</span>
+                    </li>
+
+                    <li ng-if="item.exampleWords.length > 0">
+                        <label translate="heisig.frame.exampleWords"></label>
+                        <span class="kanjiExampleWord" ng-repeat="q in item.exampleWords">
+                            {{q[1]}}
+                            【<span style="color: darkred">{{q[0]}}</span>】
+                            <i>{{q[2]}}</i>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </article>
+    </div>
+    <div class="rtk-no-results" ng-if="frames.length == 0">
+        <i>{{'heisig.no_results' | translate}}</i>
+    </div>
+</div>
+
+<style scoped>
+
+    span.kanjiExampleWord {
+        width:100%;
+        float:left;
+        margin-left:10px;
+    }
+
+    span.kanjiExampleWord + span.kanjiExampleWord {
+        margin-top:10px;
+    }
+
+    span.kanji {
+        font-size: 40px;
+        font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+    }
+
+    div#sentenceDismantleResult {
+        float: left;
+        width: 99.5%;
+        margin-top: 10px;
+        background: transparent;
+        border: none;
+    }
+
+    div#sentenceDismantleWR {
+        width: 100%;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    input#sentenceDismantleTF {
+        width: 500px;
+    }
+
+    button#dismantleSubmitBT {
+        height: 34px;
+    }
+
+    div.heisig6Data {
+        vertical-align: top;
+        margin: 10px;
+        padding: 3px 15px 2px 15px;
+        min-height: 200px;
+        border: 2px solid #888888;
+        float: left;
+        position: relative;
+        max-width: 500px;
+        width: 300px;
+        background: white;
+        display: inline-table;
+    }
+
+    div.heisig6Data img {
+        margin: 0 14px 0 0;
+        border: 3px solid #dedede;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+    }
+
+    div.heisig6Data h4 {
+        font-size: 9px;
+        font-weight: normal;
+        text-transform: uppercase;
+        color: #8d8d8d;
+        margin-top: 3px;
+        width: 100%;
+    }
+
+    div.heisig6Data h4 strong {
+        color: #ed662e;
+    }
+
+    div.heisig6Data p {
+        margin-left: 93px;
+    }
+
+    div.heisig6Table ul li label {
+        font-weight: bold;
+        width: 100px;
+    }
+
+    div.heisig6Table ul li span {
+        word-wrap: break-word;
+    }
+
+    div.heisig6Table ul {
+        list-style: disc outside none;
+        padding-left: 22px;
+    }
+</style>

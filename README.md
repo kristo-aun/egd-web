@@ -26,7 +26,7 @@ However, in order to qualify as a professional ET-JP dictionary, it should be ba
 It is our belief that such a structure should be developed in joint collaboration of EKI and heavy-weight Japanese linguists.
 Recommendations on how to provide more value to Japanese speakers are welcome.
 
-Hopefully this project will be an inspiration too for the emergence of heavyweight Chinese-Estonian and Korean-Estonian dictionaries.
+Hopefully this project will be an inspiration too for the emergence of Chinese-Estonian and Korean-Estonian dictionaries.
 
 # Resources
 - Live address: <a href="http://momo.koodur.com">momo.koodur.com</a>
@@ -64,7 +64,7 @@ mvn clean package -Pprod -Dmaven.test.skip=true
 # Technology Stack
 This webapp was initially generated using [JHipster](http://jhipster.github.io/creating_an_entity.html).
 Significant changes to the project structure and software modules were made, which means there will be complications if you try to
-use the Yeoman code generation tool.
+use the JHipster code generation tool.
 
 ### Version control
 - **source**: [GIT](http://git-scm.com/)

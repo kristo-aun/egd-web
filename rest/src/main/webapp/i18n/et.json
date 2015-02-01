@@ -485,6 +485,16 @@
             "exampleWords": "Näited"
         }
     },
+    "article": {
+        "create_a_new_article": "Lisa uus artikkel",
+        "grid": {
+            "author": "Autor",
+            "copyright": "Autoriõigused",
+            "title": "Pealkiri",
+            "transcriptLang": "Tõlke keel"
+        }
+    },
+
     "links": {
         "jpResources": "Jaapani keele ressursid",
         "etResources": "Eesti keele ressursid",
@@ -515,6 +525,7 @@
         "addtranslation": "Lisa tõlge",
         "delete": "Kustuta",
         "cancel": "Tühista",
+        "save": "Salvesta",
         "add": "Lisa"
     },
 

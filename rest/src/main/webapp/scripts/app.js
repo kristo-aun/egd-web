@@ -13,6 +13,7 @@ var egdApp = angular.module('egdApp', [
     'truncate',
     'ui.bootstrap',
     'ui.chart',
+    'ui.select',
     'ngCacheBuster'
 ]);
 

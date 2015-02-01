@@ -5,7 +5,7 @@
         {{'article.create_a_new_article' | translate}}
     </button>
     <div class="modal fade" id="saveArticleModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog" style="width: 95%;">
             <div class="modal-content">
                 <form name="form" role="form" novalidate
                       class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
@@ -16,24 +16,39 @@
                                 ng-click="clear()">&times;</button>
                     </div>
                     <div class="modal-body">
-                        <div class="form-group">
-                            <label translate="article.grid.author"></label>
-                            <input type="text" class="form-control" ng-model="article.author">
+                        <div id="articleModalArticle" class="form-inline">
+                            <div class="row">
+                                <div class="form-group">
+                                    <label translate="article.grid.title"></label>
+                                    <input type="text" class="form-control"
+                                           ng-model="article.title">
+                                </div>
+                                <div class="form-group">
+                                    <label translate="article.grid.author"></label>
+                                    <input type="text" class="form-control" ng-model="article.author">
+                                </div>
+                                <div class="form-group">
+                                    <label translate="article.grid.transcriptLang"></label>
+
+                                    <ui-select ng-model="article.transcriptLang" theme="selectize" style="width: 50px;">
+                                        <ui-select-match placeholder="Select or search in the list...">{{$select.selected.value}}</ui-select-match>
+                                        <ui-select-choices repeat="item in transcriptLangs | filter: $select.search">
+                                            <span ng-bind-html="item.value | highlight: $select.search"></span>
+                                        </ui-select-choices>
+                                    </ui-select>
+
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:10px;">
+                                <div class="form-group" style="width:100%">
+                                    <label translate="article.grid.copyright"></label>
+                                    <textarea class="form-control" style="width: 50%;"
+                                              ng-model="article.copyright"></textarea>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label translate="article.grid.copyright"></label>
-                            <input type="text" class="form-control"
-                                   ng-model="article.copyright">
-                        </div>
-                        <div class="form-group">
-                            <label translate="article.grid.title"></label>
-                            <input type="text" class="form-control"
-                                   ng-model="article.title">
-                        </div>
-                        <div class="form-group">
-                            <label translate="article.grid.transcriptLang"></label>
-                            <input type="text" class="form-control"
-                                   ng-model="article.transcriptLang">
+                        <div id="articleModalParagraphs">
+
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -55,18 +70,18 @@
             <thead>
                 <tr>
                     <th translate="article.grid.author"></th>
-                    <th translate="article.grid.copyright"></th>
                     <th translate="article.grid.title"></th>
                     <th translate="article.grid.transcriptLang"></th>
+                    <th translate="article.grid.copyright"></th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="article in articles">
-                    <td>{{article.author}}</td>
-                    <td>{{article.copyright}}</td>
                     <td>{{article.title}}</td>
+                    <td>{{article.author}}</td>
                     <td>{{article.transcriptLang}}</td>
+                    <td>{{article.copyright}}</td>
                     <td>
                         <button ng-if="isArticleUpdateAllowed(article)" type="submit"
                                 ng-click="update(article.id)"
@@ -86,3 +101,14 @@
         </table>
     </div>
 </div>
+
+<style>
+    div#articleModalArticle div.form-group label {
+        width:100px;
+        text-align: right;
+        margin-right: 5px;
+    }
+    div#articleModalArticle div.form-group input {
+        width:300px;
+    }
+</style>

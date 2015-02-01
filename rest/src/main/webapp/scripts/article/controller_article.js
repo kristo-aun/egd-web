@@ -4,6 +4,9 @@ egdApp.controller('ArticleController', function ($rootScope, $scope, $log, resol
     $log.debug("ArticleController");
     $scope.articles = resolvedArticle;
 
+    $scope.transcriptLangs = [{id: "et", value: "Eesti"}, {id: "en", value: "Inglise"}];
+
+
     $scope.create = function () {
         Article.save($scope.article,
             function () {

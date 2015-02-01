@@ -3,6 +3,7 @@ package ee.esutoniagodesu.service;
 import com.jc.commons.JCIOUtils;
 import com.jc.hibernate.ProjectDAO;
 import com.jc.jasperreports.JSGeneratorType;
+import ee.esutoniagodesu.domain.ac.table.User;
 import ee.esutoniagodesu.domain.publik.table.Audio;
 import ee.esutoniagodesu.domain.test.table.Article;
 import ee.esutoniagodesu.domain.test.table.ArticleParagraph;
@@ -58,23 +59,23 @@ public class ArticleService {
      * Lubatud on muuta ainult enda loodud artikleid.
      * Administraatoril on lubatud kõiki muuta.
      */
-    public void save(Article article, String login) {
+    public void save(Article article, User user) {
         log.debug("save: article=" + article);
-        dao.save(article);
-        if (!article.isCreatedBy(login))
+        if (!user.hasRoleAdmin() && !article.isCreatedBy(user.getLogin()))
             throw new IllegalAccessError("alert.article.changing-articles-you-dont-own-not-allowed");
 
+        dao.save(article);
     }
 
     /**
      * Kasutajale näidatakse tema enda loodud ja avalikke artikleid.
      */
-    public List<Article> getArticlesByUser(String login) {
-        return testRepository.findUserArticles(login);
+    public List<Article> getArticlesByUser(User user) {
+        return testRepository.findUserArticles(user.getLogin());
     }
 
-    public Article getArticle(int id, String login) {
-        return getArticle(id, login, false);
+    public Article getArticle(int id, User user) {
+        return getArticle(id, user, false);
     }
 
     /**
@@ -86,10 +87,10 @@ public class ArticleService {
      * Kui võimalik, siis ka sõna hääldus.
      * JALUS: Sõnavara tabelit saab alla laadida XMS/ODS faili.
      */
-    public Article getArticle(int id, String login, boolean withVocabulary) {
+    public Article getArticle(int id, User user, boolean withVocabulary) {
         log.debug("get: id=", id);
         Article article = dao.find(Article.class, id);
-        if (!article.isShared() && !article.isCreatedBy(login))
+        if (!user.hasRoleAdmin() && !article.isShared() && !article.isCreatedBy(user.getLogin()))
             throw new IllegalAccessError("alert.article.article-not-public");
 
         /**
@@ -110,9 +111,9 @@ public class ArticleService {
      * Lubatud on kustutada ainult enda loodud artikleid.
      * Administraatoril on lubatud kõiki kustutada.
      */
-    public void deleteArticle(int id, String login) {
+    public void deleteArticle(int id, User user) {
         log.debug("delete: id=", id);
-        if (!getArticle(id, login).isCreatedBy(login))
+        if (!getArticle(id, user).isCreatedBy(user.getLogin()))
             throw new IllegalAccessError("alert.article.delete-not-allowed-if-not-owner");
 
         dao.removeById(Article.class, id);
@@ -144,8 +145,8 @@ public class ArticleService {
      * XLS/ODS/PDF - ainult tekstilõigud.
      */
 
-    public Map.Entry<String, byte[]> getZip(int id, String login) throws Exception {
-        Article article = getArticle(id, login);
+    public Map.Entry<String, byte[]> getZip(int id, User user) throws Exception {
+        Article article = getArticle(id, user);
 
         Map.Entry<String, byte[]> report = jasperService.getReport(ECfReportType.ARTICLE,
             JSGeneratorType.CSV, article.getArticleParagraphs());

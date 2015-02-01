@@ -6,6 +6,7 @@ import ee.esutoniagodesu.domain.ac.table.User;
 import ee.esutoniagodesu.repository.domain.ac.AuthorityRepository;
 import ee.esutoniagodesu.repository.domain.ac.PersistentTokenRepository;
 import ee.esutoniagodesu.repository.domain.ac.UserRepository;
+import ee.esutoniagodesu.security.AuthoritiesConstants;
 import ee.esutoniagodesu.security.SecurityUtils;
 import ee.esutoniagodesu.service.util.RandomUtil;
 import org.joda.time.DateTime;
@@ -60,7 +61,7 @@ public class UserService {
     public User createUserInformation(String login, String password, String firstName, String lastName, String email,
                                       String langKey) {
         User newUser = new User();
-        Authority authority = authorityRepository.findOne("ROLE_USER");
+        Authority authority = authorityRepository.findOne(AuthoritiesConstants.USER);
         Set<Authority> authorities = new HashSet<>();
         String encryptedPassword = passwordEncoder.encode(password);
         newUser.setLogin(login);

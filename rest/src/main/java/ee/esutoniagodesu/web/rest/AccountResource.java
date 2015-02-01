@@ -29,6 +29,7 @@ import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * REST controller for managing the current user's account.
@@ -70,10 +71,10 @@ public class AccountResource {
                                              HttpServletResponse response) {
         User user = userRepository.findOne(userDTO.getLogin());
         if (user != null) {
-            return new ResponseEntity<>("login already in use", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("alert.account.login_already_in_use", HttpStatus.BAD_REQUEST);
         } else {
             if (userRepository.findOneByEmail(userDTO.getEmail()) != null) {
-                return new ResponseEntity<>("e-mail address already in use", HttpStatus.BAD_REQUEST);
+                return new ResponseEntity<>("alert.account.email_address_already_in_use", HttpStatus.BAD_REQUEST);
             }
             user = userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(), userDTO.getFirstName(),
                 userDTO.getLastName(), userDTO.getEmail().toLowerCase(), userDTO.getLangKey());
@@ -120,10 +121,7 @@ public class AccountResource {
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        List<String> roles = new ArrayList<>();
-        for (Authority authority : user.getAuthorities()) {
-            roles.add(authority.getName());
-        }
+        List<String> roles = user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toList());
         return new ResponseEntity<>(
             new UserDTO(
                 user.getLogin(),
@@ -145,7 +143,7 @@ public class AccountResource {
     public ResponseEntity<?> saveAccount(@RequestBody UserDTO userDTO) {
         User userHavingThisEmail = userRepository.findOneByEmail(userDTO.getEmail());
         if (userHavingThisEmail != null && !userHavingThisEmail.getLogin().equals(SecurityUtils.getCurrentLogin())) {
-            return new ResponseEntity<>("e-mail address already in use", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("alert.account.email_address_already_in_use", HttpStatus.BAD_REQUEST);
         }
         userService.updateUserInformation(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail());
         return new ResponseEntity<>(HttpStatus.OK);

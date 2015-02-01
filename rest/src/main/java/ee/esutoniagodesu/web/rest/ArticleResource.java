@@ -24,7 +24,7 @@ public class ArticleResource extends AbstractRestResource<Article, Integer> {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed(AuthoritiesConstants.USER)
     public void save(@RequestBody Article article) {
-        service.save(article, getLoggedUserName());
+        service.save(article, getSessionUser());
     }
 
     @RequestMapping(value = "/rest/articles",
@@ -32,7 +32,7 @@ public class ArticleResource extends AbstractRestResource<Article, Integer> {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed(AuthoritiesConstants.USER)
     public List<Article> getAll() {
-        return service.getArticlesByUser(getLoggedUserName());
+        return service.getArticlesByUser(getSessionUser());
     }
 
     @RequestMapping(value = "/rest/articles/{id}",
@@ -40,7 +40,7 @@ public class ArticleResource extends AbstractRestResource<Article, Integer> {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed(AuthoritiesConstants.USER)
     public ResponseEntity<Article> get(@PathVariable Integer id) {
-        Article article = service.getArticle(id, getLoggedUserName(), true);
+        Article article = service.getArticle(id, getSessionUser(), true);
 
         if (article == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -53,6 +53,6 @@ public class ArticleResource extends AbstractRestResource<Article, Integer> {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed(AuthoritiesConstants.USER)
     public void delete(@PathVariable Integer id) {
-        service.deleteArticle(id, getLoggedUserName());
+        service.deleteArticle(id, getSessionUser());
     }
 }

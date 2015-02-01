@@ -1,6 +1,6 @@
 'use strict';
 
-egdApp.controller('ArticleController', function ($scope, $log, resolvedArticle, Article) {
+egdApp.controller('ArticleController', function ($rootScope, $scope, $log, resolvedArticle, Article, Session) {
     $log.debug("ArticleController");
     $scope.articles = resolvedArticle;
 
@@ -33,5 +33,12 @@ egdApp.controller('ArticleController', function ($scope, $log, resolvedArticle, 
             transcriptLang: null,
             id: null
         };
+    };
+
+    $scope.isArticleUpdateAllowed = function(article) {
+        return Session.hasRoleAdmin() || article.createdBy == Session.login;
+    };
+    $scope.isArticleDeleteAllowed = function(article) {
+        return Session.hasRoleAdmin() || article.createdBy == Session.login;
     };
 });

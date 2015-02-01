@@ -60,7 +60,6 @@
             </div>
         </div>
     </div>
-
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
@@ -81,12 +80,12 @@
                     <td>{{article.title}}</td>
                     <td>{{article.transcriptLang}}</td>
                     <td>
-                        <button type="submit"
+                        <button ng-if="isArticleUpdateAllowed(article)" type="submit"
                                 ng-click="update(article.id)"
                                 class="btn btn-default">
                             <span class="glyphicon glyphicon-pencil"></span> Edit
                         </button>
-                        <button type="submit"
+                        <button ng-if="isArticleDeleteAllowed(article)" type="submit"
                                 ng-click="delete(article.id)"
                                 class="btn btn-danger">
                             <span class="glyphicon glyphicon-remove-circle"></span> Delete

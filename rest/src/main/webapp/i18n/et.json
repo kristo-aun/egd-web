@@ -366,6 +366,10 @@
             "changing-articles-you-dont-own-not-allowed": "Teiste loodud artikleid ei ole lubatud muuta",
             "article-not-public": "Artikkel ei ole avalik",
             "delete-not-allowed-if-not-owner": "Teiste loodud artikleid ei ole lubatud kustutada"
+        },
+        "account": {
+            "login_already_in_use": "Kasutajanimi on juba kasutusel",
+            "email_address_already_in_use": "E-posti aadress on juba kasutusel"
         }
     },
     "index": {

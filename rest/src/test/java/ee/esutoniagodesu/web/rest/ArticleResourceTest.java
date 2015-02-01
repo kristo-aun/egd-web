@@ -134,7 +134,7 @@ public class ArticleResourceTest extends WebappTestEnvironment {
 
     @Test
     public void t2_getAllArticles() throws Exception {
-        Article first = articleService.getArticlesByUser(USERNAME).get(0);
+        Article first = articleService.getArticlesByUser(null).get(0);
         // Get all the articles
         mockMvc.perform(get("/app/rest/articles").session(session))
             .andExpect(status().isOk())

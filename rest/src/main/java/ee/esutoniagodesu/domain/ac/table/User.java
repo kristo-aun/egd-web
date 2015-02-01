@@ -1,7 +1,9 @@
 package ee.esutoniagodesu.domain.ac.table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import ee.esutoniagodesu.config.Constants;
 import ee.esutoniagodesu.domain.util.AbstractAuditingEntity;
+import ee.esutoniagodesu.security.AuthoritiesConstants;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
@@ -89,6 +91,26 @@ public final class User extends AbstractAuditingEntity implements Serializable {
 
     public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
+    }
+
+    @Transient
+    private boolean hasRole(String authority) {
+        return authority.contains(authority);
+    }
+
+    @Transient
+    public boolean hasRoleAdmin() {
+        return hasRole(AuthoritiesConstants.ADMIN);
+    }
+
+    @Transient
+    public boolean hasRoleUser() {
+        return hasRole(AuthoritiesConstants.USER);
+    }
+
+    @Transient
+    public boolean hasRoleSensei() {
+        return hasRole(AuthoritiesConstants.SENSEI);
     }
 
     public String getEmail() {

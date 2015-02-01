@@ -163,7 +163,7 @@ egdApp.factory('AuditsService', function ($http) {
     }
 });
 
-egdApp.factory('Session', function () {
+egdApp.factory('Session', function (USER_ROLES) {
     this.create = function (login, firstName, lastName, email, userRoles) {
         this.login = login;
         this.firstName = firstName;
@@ -177,6 +177,18 @@ egdApp.factory('Session', function () {
         this.lastName = null;
         this.email = null;
         this.userRoles = null;
+    };
+    this.hasRole = function(authorizedRole) {
+        return this.userRoles && this.userRoles.indexOf(authorizedRole) !== -1;
+    };
+    this.hasRoleAdmin = function() {
+        return this.hasRole(USER_ROLES.admin);
+    };
+    this.hasRoleSensei = function() {
+        return this.hasRole(USER_ROLES.sensei);
+    };
+    this.hasRoleUser = function() {
+        return this.hasRole(USER_ROLES.user);
     };
     return this;
 });

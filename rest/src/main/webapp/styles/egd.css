@@ -39,4 +39,19 @@ div.footer span + span {
     margin-left: 25px;
 }
 
+.select2 > .select2-choice.ui-select-match {
+    /* Because of the inclusion of Bootstrap */
+    height: 29px;
+}
 
+.selectize-control > .selectize-dropdown {
+    top: 36px;
+}
+div.selectize-control > div.selectize-input {
+    height: 34px;
+    position: initial;
+}
+div.ui-select-container {
+    display: inline-block;
+    vertical-align: middle;
+}

@@ -1,8 +1,11 @@
 package ee.esutoniagodesu.web.rest;
 
+import ee.esutoniagodesu.domain.ac.table.User;
 import ee.esutoniagodesu.domain.test.table.Article;
+import ee.esutoniagodesu.pojo.dto.ArticleDTO;
 import ee.esutoniagodesu.security.AuthoritiesConstants;
 import ee.esutoniagodesu.service.ArticleService;
+import ee.esutoniagodesu.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +17,17 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/app")
-public class ArticleResource extends AbstractRestResource<Article, Integer> {
+public class ArticleResource {
 
     @Inject
     private ArticleService service;
+
+    @Inject
+    private UserService userService;
+
+    private User getSessionUser() {
+        return userService.getUserWithAuthorities();
+    }
 
     @RequestMapping(value = "/rest/articles",
         method = RequestMethod.POST,
@@ -31,7 +41,7 @@ public class ArticleResource extends AbstractRestResource<Article, Integer> {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed(AuthoritiesConstants.USER)
-    public List<Article> getAll() {
+    public List<ArticleDTO> getAll() {
         return service.getArticlesByUser(getSessionUser());
     }
 
@@ -40,7 +50,7 @@ public class ArticleResource extends AbstractRestResource<Article, Integer> {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed(AuthoritiesConstants.USER)
     public ResponseEntity<Article> get(@PathVariable Integer id) {
-        Article article = service.getArticle(id, getSessionUser(), true);
+        Article article = service.getArticle(id, getSessionUser());
 
         if (article == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

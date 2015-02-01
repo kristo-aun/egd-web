@@ -12,4 +12,13 @@ public class VocabularyDTO implements Serializable {
     public String pos;
     public String gloss;
 
+    public String toString() {
+        return "VocabularyDTO{" +
+            "txt='" + txt + '\'' +
+            ", rdng='" + rdng + '\'' +
+            ", romaji='" + romaji + '\'' +
+            ", pos='" + pos + '\'' +
+            ", gloss='" + gloss + '\'' +
+            '}';
+    }
 }

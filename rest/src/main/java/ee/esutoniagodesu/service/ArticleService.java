@@ -8,6 +8,7 @@ import ee.esutoniagodesu.domain.publik.table.Audio;
 import ee.esutoniagodesu.domain.test.table.Article;
 import ee.esutoniagodesu.domain.test.table.ArticleParagraph;
 import ee.esutoniagodesu.pojo.cf.ECfReportType;
+import ee.esutoniagodesu.pojo.dto.ArticleDTO;
 import ee.esutoniagodesu.repository.project.TestRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,12 +71,8 @@ public class ArticleService {
     /**
      * Kasutajale näidatakse tema enda loodud ja avalikke artikleid.
      */
-    public List<Article> getArticlesByUser(User user) {
+    public List<ArticleDTO> getArticlesByUser(User user) {
         return testRepository.findUserArticles(user.getLogin());
-    }
-
-    public Article getArticle(int id, User user) {
-        return getArticle(id, user, false);
     }
 
     /**
@@ -87,22 +84,11 @@ public class ArticleService {
      * Kui võimalik, siis ka sõna hääldus.
      * JALUS: Sõnavara tabelit saab alla laadida XMS/ODS faili.
      */
-    public Article getArticle(int id, User user, boolean withVocabulary) {
+    public Article getArticle(int id, User user) {
         log.debug("get: id=", id);
         Article article = dao.find(Article.class, id);
         if (!user.hasRoleAdmin() && !article.isShared() && !article.isCreatedBy(user.getLogin()))
             throw new IllegalAccessError("alert.article.article-not-public");
-
-        /**
-         * Lisab sõna ainult ühe korra
-         * Hääldus on hiraganas
-         *
-         */
-        if (withVocabulary) {
-            for (ArticleParagraph p : article.getArticleParagraphs()) {
-                p.setVocabulary(kuromojiService.asDTO(p.getTxt()));
-            }
-        }
 
         return article;
     }

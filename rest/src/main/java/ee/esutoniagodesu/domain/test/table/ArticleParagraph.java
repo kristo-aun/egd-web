@@ -20,15 +20,15 @@ public final class ArticleParagraph {
     @JsonIgnore
     private Article article;
 
-    private List<VocabularyDTO> vocabulary;
-
-    @Transient
-    public List<VocabularyDTO> getVocabulary() {
-        return vocabulary;
+    @Id
+    @SequenceGenerator(name = "seq", sequenceName = "test.article_paragraph_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
+    public Integer getId() {
+        return id;
     }
 
-    public void setVocabulary(List<VocabularyDTO> vocabulary) {
-        this.vocabulary = vocabulary;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     @ManyToOne
@@ -49,17 +49,6 @@ public final class ArticleParagraph {
 
     public void setAudio(Audio audio) {
         this.audio = audio;
-    }
-
-    @Id
-    @SequenceGenerator(name = "seq", sequenceName = "test.article_paragraph_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     @Basic

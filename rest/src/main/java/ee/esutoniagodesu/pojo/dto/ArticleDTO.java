@@ -1,47 +1,19 @@
-package ee.esutoniagodesu.domain.test.table;
+package ee.esutoniagodesu.pojo.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import ee.esutoniagodesu.domain.util.AbstractAuditingEntity;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
- * A Article.
- */
-@Entity
-@Table(name = "article", schema = "test")
-public final class Article extends AbstractAuditingEntity implements Serializable {
+ * Kasutusel ainult artiklite nimekirja transportimisel, et vältida paragrahvide serialiseerimist.
+ * */
+public class ArticleDTO extends AbstractAuditingEntity implements Serializable {
 
-    private static final Logger log = LoggerFactory.getLogger(Article.class);
-
-    public Article() {
-        log.info("New instance of " + getClass() + ", @=" + toString());
-    }
-
-    @Id
-    @SequenceGenerator(name = "seq", sequenceName = "test.article_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
     private Integer id;
-    @Column(name = "author")
     private String author;
-    @Column(name = "copyright")
     private String copyright;
-    @Column(name = "title")
     private String title;
-    @Size(min = 2, max = 2)
-    @Column(name = "transcript_lang")
     private String transcriptLang;
-
-    @OneToMany(mappedBy = "article")
-    private Set<ArticleParagraph> articleParagraphs = new HashSet<>();
-
-    @Column(name = "shared")
     private boolean shared;
 
     public boolean isShared() {
@@ -50,14 +22,6 @@ public final class Article extends AbstractAuditingEntity implements Serializabl
 
     public void setShared(boolean shared) {
         this.shared = shared;
-    }
-
-    public Set<ArticleParagraph> getArticleParagraphs() {
-        return articleParagraphs;
-    }
-
-    public void setArticleParagraphs(Set<ArticleParagraph> articleParagraphs) {
-        this.articleParagraphs = articleParagraphs;
     }
 
     public String getAuthor() {
@@ -104,7 +68,7 @@ public final class Article extends AbstractAuditingEntity implements Serializabl
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Article article = (Article) o;
+        ArticleDTO article = (ArticleDTO) o;
 
         if (id != null ? !id.equals(article.id) : article.id != null) return false;
 
@@ -122,7 +86,6 @@ public final class Article extends AbstractAuditingEntity implements Serializabl
                 ", copyright='" + copyright + '\'' +
                 ", title='" + title + '\'' +
                 ", transcriptLang='" + transcriptLang + '\'' +
-                ", articleParagraphs=" + articleParagraphs +
                 ", shared=" + shared +
                 ", createdBy='" + createdBy + '\'' +
                 ", createdDate=" + createdDate +

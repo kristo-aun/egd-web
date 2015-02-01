@@ -30,12 +30,7 @@
                                 <div class="form-group">
                                     <label translate="article.grid.transcriptLang"></label>
 
-                                    <ui-select ng-model="article.transcriptLang" theme="selectize" style="width: 50px;">
-                                        <ui-select-match placeholder="Select or search in the list...">{{$select.selected.value}}</ui-select-match>
-                                        <ui-select-choices repeat="item in transcriptLangs | filter: $select.search">
-                                            <span ng-bind-html="item.value | highlight: $select.search"></span>
-                                        </ui-select-choices>
-                                    </ui-select>
+
 
                                 </div>
                             </div>

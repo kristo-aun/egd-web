@@ -529,6 +529,12 @@
         "add": "Lisa"
     },
 
+    "language": {
+        "et": "Eesti",
+        "en": "Inglise",
+        "ja": "Japaani"
+    },
+
     "factForm": {
         "from": "alates",
         "to": "kuni"

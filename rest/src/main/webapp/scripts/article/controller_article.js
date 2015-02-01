@@ -1,11 +1,17 @@
 'use strict';
 
-egdApp.controller('ArticleController', function ($rootScope, $scope, $log, resolvedArticle, Article, Session) {
+egdApp.controller('ArticleController', function ($rootScope, $scope, $log, resolvedArticle, Article, Session, $translate) {
     $log.debug("ArticleController");
     $scope.articles = resolvedArticle;
 
-    $scope.transcriptLangs = [{id: "et", value: "Eesti"}, {id: "en", value: "Inglise"}];
+    $scope.transcriptLangs = [];
 
+    $translate("language.et").then(function(translation) {
+        $scope.transcriptLangs.push({id:"et", value: translation});
+    });
+    $translate("language.en").then(function(translation) {
+        $scope.transcriptLangs.push({id:"en", value: translation});
+    });
 
     $scope.create = function () {
         Article.save($scope.article,
@@ -18,6 +24,7 @@ egdApp.controller('ArticleController', function ($rootScope, $scope, $log, resol
 
     $scope.update = function (id) {
         $scope.article = Article.get({id: id});
+        $log.debug();
         $('#saveArticleModal').modal('show');
     };
 
@@ -38,10 +45,12 @@ egdApp.controller('ArticleController', function ($rootScope, $scope, $log, resol
         };
     };
 
-    $scope.isArticleUpdateAllowed = function(article) {
+    $scope.isArticleUpdateAllowed = function (article) {
         return Session.hasRoleAdmin() || article.createdBy == Session.login;
     };
-    $scope.isArticleDeleteAllowed = function(article) {
+    $scope.isArticleDeleteAllowed = function (article) {
         return Session.hasRoleAdmin() || article.createdBy == Session.login;
     };
+
+
 });

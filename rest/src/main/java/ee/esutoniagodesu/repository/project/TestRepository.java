@@ -1,28 +1,63 @@
 package ee.esutoniagodesu.repository.project;
 
-import ee.esutoniagodesu.domain.test.table.Article;
+import com.jc.util.JDBCUtil;
+import ee.esutoniagodesu.pojo.dto.ArticleDTO;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.Query;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class TestRepository extends AbstractProjectRepository {
 
-    public List<Article> findUserArticles(String login) {
+    public List<ArticleDTO> findUserArticles(String login) {
         StringBuilder msg = new StringBuilder("findUserArticles: login=" + login);
 
-        try {
-            String sql = "SELECT * FROM test.article where created_by=?1 or shared = true ORDER BY id desc";
-            Query q = em.createNativeQuery(sql, Article.class);
-            q.setParameter(1, login);
+        Connection con = null;
+        PreparedStatement s = null;
+        ResultSet rs = null;
+        List<ArticleDTO> result = new ArrayList<>();
 
-            List<Article> result  = q.getResultList();
-            log.debug(msg.append(", result.size=").append(result.size()).toString());
-            return result;
-        } catch (Exception e) {
+        try {
+            long ms = System.currentTimeMillis();
+            con = dao.getConnection();
+
+            String sql = "SELECT * FROM test.article where created_by=? or shared = true ORDER BY id desc";
+
+            s = con.prepareCall(sql);
+            s.setString(1, login);
+            rs = s.executeQuery();
+            while (rs.next()) {
+                ArticleDTO item = new ArticleDTO();
+
+                item.setId(rs.getInt("id"));
+                item.setTitle(rs.getString("title"));
+                item.setAuthor(rs.getString("author"));
+                item.setTranscriptLang(rs.getString("transcript_lang"));
+                item.setCopyright(rs.getString("copyright"));
+                item.setShared(rs.getBoolean("shared"));
+                item.setCreatedBy(rs.getString("created_by"));
+
+                item.setCreatedBy(rs.getString("created_date"));
+                item.setLastModifiedBy(rs.getString("last_modified_by"));
+                //item.setLastModifiedDate(rs.getDate("last_modified_date"));
+
+                result.add(item);
+            }
+
+            log.debug(msg.append(", result.size=").append(result.size())
+                .append(", time=").append(System.currentTimeMillis() - ms).toString());
+        } catch (SQLException e) {
             log.error(msg.append(", msg=").append(e.getMessage()).toString(), e);
-            throw e;
+            throw new RuntimeException(e);
+        } finally {
+            JDBCUtil.close(rs, s, con);
         }
+
+        return result;
     }
 }

@@ -3,6 +3,7 @@ package ee.esutoniagodesu.web.rest;
 import com.jc.hibernate.ProjectDAO;
 import ee.esutoniagodesu.Application;
 import ee.esutoniagodesu.domain.test.table.Article;
+import ee.esutoniagodesu.pojo.dto.ArticleDTO;
 import ee.esutoniagodesu.repository.project.TestRepository;
 import ee.esutoniagodesu.service.ArticleService;
 import ee.esutoniagodesu.service.JasperService;
@@ -134,7 +135,7 @@ public class ArticleResourceTest extends WebappTestEnvironment {
 
     @Test
     public void t2_getAllArticles() throws Exception {
-        Article first = articleService.getArticlesByUser(null).get(0);
+        ArticleDTO first = articleService.getArticlesByUser(null).get(0);
         // Get all the articles
         mockMvc.perform(get("/app/rest/articles").session(session))
             .andExpect(status().isOk())

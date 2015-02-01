@@ -51,12 +51,16 @@ public class KuromojiService {
         List<VocabularyDTO> result = new ArrayList<>();
 
         for (Token p : tokens) {
-            VocabularyDTO dto = new VocabularyDTO();
-            dto.txt = p.getBaseForm();
-            dto.rdng = toHiragana(p.getReading());
-            List<EN_Essum> essums = jmDictEnDB.getEssumByKanjAndRdng(dto.txt, toHiragana(dto.rdng));
-            List<String> glosses = essums.stream().map(EN_Essum::getGloss).collect(Collectors.toList());
-            dto.gloss = Joiner.on("; ").join(glosses);
+            //ei töötle lühikesi hiraganas lõike
+            if (p.getBaseForm() != null && (JapaneseCharacter.isKanji(p.getBaseForm().charAt(0)) || p.getBaseForm().length() > 2)) {
+                VocabularyDTO dto = new VocabularyDTO();
+                dto.txt = p.getBaseForm();
+                dto.rdng = toHiragana(p.getReading());
+                List<EN_Essum> essums = jmDictEnDB.getEssumByKanjAndRdng(dto.txt, dto.rdng);
+                List<String> glosses = essums.stream().map(EN_Essum::getGloss).collect(Collectors.toList());
+                dto.gloss = Joiner.on("; ").join(glosses);
+                result.add(dto);
+            }
         }
 
         return result;

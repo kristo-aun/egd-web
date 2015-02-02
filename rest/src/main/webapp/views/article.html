@@ -31,9 +31,18 @@
                 </div>
             </div>
         </div>
-        <div id="articleModalParagraphs">
 
+        <div class="table-responsive" id="articleModalParagraphs">
+            <table class="table table-striped">
+                <tbody>
+                <tr ng-repeat="item in article.articleParagraphs">
+                    <td><textarea auto-grow style="height:100%" class="form-control" ng-model="item.txt"></textarea></td>
+                    <td><textarea auto-grow style="height:100%" class="form-control" ng-model="item.transcript"></textarea></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
+
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
@@ -56,5 +65,8 @@
     }
     div#articleModalArticle div.form-group input {
         width:300px;
+    }
+    div#articleModalParagraphs {
+        margin-top:10px;
     }
 </style>

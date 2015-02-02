@@ -2,6 +2,7 @@ package ee.esutoniagodesu.domain.ac.table;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import ee.esutoniagodesu.config.Constants;
 import org.hibernate.annotations.Type;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
@@ -23,7 +24,6 @@ import java.io.Serializable;
 public final class PersistentToken implements Serializable {
 
     private static final long serialVersionUID = -1044326675149260972L;
-    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormat.forPattern("d MMMM yyyy");
     private static final int MAX_USER_AGENT_LEN = 255;
 
     @Id
@@ -118,7 +118,7 @@ public final class PersistentToken implements Serializable {
 
     @JsonGetter
     public String getFormattedTokenDate() {
-        return DATE_TIME_FORMATTER.print(this.tokenDate);
+        return Constants.DATE_TIME_FORMATTER.print(this.tokenDate);
     }
 
     public void setUserAgent(String userAgent) {

@@ -4,6 +4,10 @@ egdApp.controller('ArticlesController', function ($location, $scope, $log, resol
     $log.debug("ArticlesController");
     $scope.articles = resolvedArticle;
 
+    $scope.create = function() {
+        $location.path("/article/-1");
+    };
+
     $scope.update = function (id) {
         $location.path("/article/" + id);
     };
@@ -26,7 +30,18 @@ egdApp.controller('ArticlesController', function ($location, $scope, $log, resol
 egdApp.controller('ArticleController', function ($routeParams, $location, $scope, $log, ArticleService) {
     $log.debug("ArticleController");
 
-    $scope.article = ArticleService.get({id: $routeParams.id});
+    var id = $routeParams.id;
+    if (id > 0) {
+        $scope.article = ArticleService.get({id: id});
+    } else {
+        $scope.article = {
+            author: null,
+            copyright: null,
+            title: null,
+            transcriptLang: "en",
+            id: null
+        };
+    }
 
     $scope.save = function () {
         ArticleService.save($scope.article,

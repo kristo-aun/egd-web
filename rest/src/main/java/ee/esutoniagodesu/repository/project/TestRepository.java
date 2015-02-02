@@ -2,6 +2,7 @@ package ee.esutoniagodesu.repository.project;
 
 import com.jc.util.JDBCUtil;
 import ee.esutoniagodesu.pojo.dto.ArticleDTO;
+import org.joda.time.DateTime;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
@@ -40,11 +41,12 @@ public class TestRepository extends AbstractProjectRepository {
                 item.setTranscriptLang(rs.getString("transcript_lang"));
                 item.setCopyright(rs.getString("copyright"));
                 item.setShared(rs.getBoolean("shared"));
-                item.setCreatedBy(rs.getString("created_by"));
 
-                item.setCreatedBy(rs.getString("created_date"));
+                item.setCreatedBy(rs.getString("created_by"));
+                item.setCreatedDate(new DateTime(rs.getTimestamp("created_date")));
+
                 item.setLastModifiedBy(rs.getString("last_modified_by"));
-                //item.setLastModifiedDate(rs.getDate("last_modified_date"));
+                item.setLastModifiedDate(new DateTime(rs.getTimestamp("last_modified_date")));
 
                 result.add(item);
             }

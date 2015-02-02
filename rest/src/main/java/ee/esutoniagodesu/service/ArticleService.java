@@ -29,6 +29,9 @@ import java.util.zip.ZipOutputStream;
  * Võib öelda, et ilma vähemalt 1500-t kanjit tundmata ei ole võimalik lugeda.
  * Seejuures ei ole lugemisoskus lineaarses seoses kanjide oskusega.
  * Tekstide moodulisse on koondatud erinevad abivahendid, et lugemist lihtsustada.
+ *
+ * TODO
+ * kasutaja roll ei tohiks näha artiklite admin andmeid
  */
 @Service
 @Transactional
@@ -99,7 +102,7 @@ public class ArticleService {
      */
     public void deleteArticle(int id, User user) {
         log.debug("delete: id=", id);
-        if (!getArticle(id, user).isCreatedBy(user.getLogin()))
+        if (!user.hasRoleAdmin() && !getArticle(id, user).isCreatedBy(user.getLogin()))
             throw new IllegalAccessError("alert.article.delete-not-allowed-if-not-owner");
 
         dao.removeById(Article.class, id);

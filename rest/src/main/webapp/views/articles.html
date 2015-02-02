@@ -1,65 +1,10 @@
 <div>
 
-    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#saveArticleModal" ng-click="clear()">
+    <button class="btn btn-primary" ng-click="create()">
         <span class="glyphicon glyphicon-flash"></span>
         {{'article.create_a_new_article' | translate}}
     </button>
-    <div class="modal fade" id="saveArticleModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" style="width: 95%;">
-            <div class="modal-content">
-                <form name="form" role="form" novalidate
-                      class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
-                      ng-submit="create()">
 
-                    <div class="modal-header" style="height: 45px;">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                                ng-click="clear()">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <div id="articleModalArticle" class="form-inline">
-                            <div class="row">
-                                <div class="form-group">
-                                    <label translate="article.grid.title"></label>
-                                    <input type="text" class="form-control"
-                                           ng-model="article.title">
-                                </div>
-                                <div class="form-group">
-                                    <label translate="article.grid.author"></label>
-                                    <input type="text" class="form-control" ng-model="article.author">
-                                </div>
-                                <div class="form-group">
-                                    <label translate="article.grid.transcriptLang"></label>
-
-
-
-                                </div>
-                            </div>
-                            <div class="row" style="margin-top:10px;">
-                                <div class="form-group" style="width:100%">
-                                    <label translate="article.grid.copyright"></label>
-                                    <textarea class="form-control" style="width: 50%;"
-                                              ng-model="article.copyright"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="articleModalParagraphs">
-
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
-                            <span class="glyphicon glyphicon-ban-circle"></span>
-                            {{'grid.cancel' | translate}}
-                        </button>
-                        <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">
-                            <span class="glyphicon glyphicon-save"></span>
-                            {{'grid.save' | translate}}
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
@@ -68,7 +13,11 @@
                     <th translate="article.grid.title"></th>
                     <th translate="article.grid.transcriptLang"></th>
                     <th translate="article.grid.copyright"></th>
-                    <th></th>
+
+                    <th style="width: 180px;" translate="article.grid.lastModified"></th>
+                    <th style="width: 180px;" translate="article.grid.created"></th>
+
+                    <th style="width: 200px;"></th>
                 </tr>
             </thead>
             <tbody>
@@ -77,6 +26,10 @@
                     <td>{{article.author}}</td>
                     <td>{{'language.' + article.transcriptLang | translate}}</td>
                     <td>{{article.copyright}}</td>
+
+                    <td>{{article.formattedLastModifiedDate}} - {{article.lastModifiedBy}}</td>
+                    <td>{{article.formattedCreatedDate}} - {{article.createdBy}}</td>
+
                     <td>
                         <button ng-if="isArticleUpdateAllowed(article)" type="submit"
                                 ng-click="update(article.id)"
@@ -85,7 +38,8 @@
                             {{'grid.edit' | translate}}
                         </button>
                         <button ng-if="isArticleDeleteAllowed(article)" type="submit"
-                                ng-click="delete(article.id)"
+                                ng-really-message="{{'grid.confirm' | translate}}"
+                                ng-really-click="delete(article.id)"
                                 class="btn btn-danger">
                             <span class="glyphicon glyphicon-remove-circle"></span>
                             {{'grid.delete' | translate}}

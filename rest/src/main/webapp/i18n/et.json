@@ -491,7 +491,9 @@
             "author": "Autor",
             "copyright": "Autoriõigused",
             "title": "Pealkiri",
-            "transcriptLang": "Tõlke keel"
+            "transcriptLang": "Tõlke keel",
+            "created": "Loodud",
+            "lastModified": "Viimati muudetud"
         }
     },
 
@@ -526,7 +528,8 @@
         "delete": "Kustuta",
         "cancel": "Tühista",
         "save": "Salvesta",
-        "add": "Lisa"
+        "add": "Lisa",
+        "confirm": "Kustutamiseks vajutage OK"
     },
 
     "language": {

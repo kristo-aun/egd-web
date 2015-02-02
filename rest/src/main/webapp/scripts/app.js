@@ -10,6 +10,7 @@ var egdApp = angular.module('egdApp', [
     'ngCookies',
     'ngSanitize',
     'ngTouch',
+    'ngAudio',
     'egdAppUtils',
     'pascalprecht.translate',
     'truncate',

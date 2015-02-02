@@ -38,7 +38,16 @@
             <table class="table table-striped">
                 <tbody>
                 <tr ng-repeat="item in article.articleParagraphs">
-                    <td><textarea auto-grow style="height:100%" class="form-control" ng-model="item.txt"></textarea></td>
+                    <td>
+                        <button ng-audio=item.audio.audioFile vol=0.5 start=0.2 > Click me </button>
+
+                        <!--
+                        <audio controls="controls" autobuffer="autobuffer" autoplay="autoplay">
+                            <source ng-src="data:audio/ogg;base64, | item.audio.audioFile" />
+                        </audio>
+                        -->
+
+                        <textarea auto-grow style="height:100%" class="form-control" ng-model="item.txt"></textarea></td>
                     <td><textarea auto-grow style="height:100%" class="form-control" ng-model="item.transcript"></textarea></td>
                 </tr>
                 </tbody>

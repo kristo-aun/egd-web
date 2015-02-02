@@ -15,8 +15,11 @@ public final class Audio implements Serializable {
     private static final long serialVersionUID = -3156175773691906287L;
 
     private Integer id;
+    @JsonIgnore
     private byte[] audioFile;
+    @JsonIgnore
     private String fileName;
+    @JsonIgnore
     private String copyright;
 
     @JsonIgnore

@@ -75,7 +75,7 @@
                 <tr ng-repeat="article in articles">
                     <td>{{article.title}}</td>
                     <td>{{article.author}}</td>
-                    <td>{{article.transcriptLang}}</td>
+                    <td>{{'language.' + article.transcriptLang | translate}}</td>
                     <td>{{article.copyright}}</td>
                     <td>
                         <button ng-if="isArticleUpdateAllowed(article)" type="submit"
@@ -96,14 +96,3 @@
         </table>
     </div>
 </div>
-
-<style>
-    div#articleModalArticle div.form-group label {
-        width:100px;
-        text-align: right;
-        margin-right: 5px;
-    }
-    div#articleModalArticle div.form-group input {
-        width:300px;
-    }
-</style>

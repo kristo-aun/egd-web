@@ -1,48 +1,18 @@
 'use strict';
 
-egdApp.controller('ArticleController', function ($rootScope, $scope, $log, resolvedArticle, Article, Session, $translate) {
-    $log.debug("ArticleController");
+egdApp.controller('ArticlesController', function ($location, $scope, $log, resolvedArticle, ArticleService, Session) {
+    $log.debug("ArticlesController");
     $scope.articles = resolvedArticle;
 
-    $scope.transcriptLangs = [];
-
-    $translate("language.et").then(function(translation) {
-        $scope.transcriptLangs.push({id:"et", value: translation});
-    });
-    $translate("language.en").then(function(translation) {
-        $scope.transcriptLangs.push({id:"en", value: translation});
-    });
-
-    $scope.create = function () {
-        Article.save($scope.article,
-            function () {
-                $scope.articles = Article.query();
-                $('#saveArticleModal').modal('hide');
-                $scope.clear();
-            });
-    };
-
     $scope.update = function (id) {
-        $scope.article = Article.get({id: id});
-        $log.debug();
-        $('#saveArticleModal').modal('show');
+        $location.path("/article/" + id);
     };
 
     $scope.delete = function (id) {
-        Article.delete({id: id},
+        ArticleService.delete({id: id},
             function () {
-                $scope.articles = Article.query();
+                $scope.articles = ArticleService.query();
             });
-    };
-
-    $scope.clear = function () {
-        $scope.article = {
-            author: null,
-            copyright: null,
-            title: null,
-            transcriptLang: null,
-            id: null
-        };
     };
 
     $scope.isArticleUpdateAllowed = function (article) {
@@ -51,6 +21,22 @@ egdApp.controller('ArticleController', function ($rootScope, $scope, $log, resol
     $scope.isArticleDeleteAllowed = function (article) {
         return Session.hasRoleAdmin() || article.createdBy == Session.login;
     };
+});
 
+egdApp.controller('ArticleController', function ($routeParams, $location, $scope, $log, ArticleService) {
+    $log.debug("ArticleController");
 
+    $scope.article = ArticleService.get({id: $routeParams.id});
+
+    $scope.save = function () {
+        ArticleService.save($scope.article,
+            function () {
+                $log.debug("ArticleController.save");
+                $location.path("/article");
+            });
+    };
+
+    $scope.clear = function () {
+        $location.path("/article");
+    };
 });

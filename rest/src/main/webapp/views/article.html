@@ -1,0 +1,60 @@
+<form name="form" role="form" novalidate
+      class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
+      ng-submit="save()">
+
+    <div class="modal-body">
+        <div id="articleModalArticle" class="form-inline">
+            <div class="row">
+                <div class="form-group">
+                    <label translate="article.grid.title"></label>
+                    <input type="text" class="form-control"
+                           ng-model="article.title">
+                </div>
+                <div class="form-group">
+                    <label translate="article.grid.author"></label>
+                    <input type="text" class="form-control" ng-model="article.author">
+                </div>
+                <div class="form-group">
+                    <label translate="article.grid.transcriptLang"></label>
+
+                    <select class="form-control" ng-model="article.transcriptLang">
+                        <option value="et">{{'language.et' | translate}}</option>
+                        <option value="en">{{'language.en' | translate}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row" style="margin-top:10px;">
+                <div class="form-group" style="width:100%">
+                    <label translate="article.grid.copyright"></label>
+                    <textarea class="form-control" style="width: 50%;"
+                              ng-model="article.copyright"></textarea>
+                </div>
+            </div>
+        </div>
+        <div id="articleModalParagraphs">
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>
+            {{'grid.cancel' | translate}}
+        </button>
+        <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>
+            {{'grid.save' | translate}}
+        </button>
+    </div>
+</form>
+
+
+<style>
+    div#articleModalArticle div.form-group label {
+        width:100px;
+        text-align: right;
+        margin-right: 5px;
+    }
+    div#articleModalArticle div.form-group input {
+        width:300px;
+    }
+</style>

@@ -97,7 +97,7 @@
         }
     },
     "register": {
-        "title": "Registreerimine",
+        "title": "Uue konto registreerimine",
         "form": {
             "button": "Registreeri"
         },

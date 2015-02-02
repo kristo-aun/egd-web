@@ -83,7 +83,7 @@ use the JHipster code generation tool.
 - **Spreadsheets & PDF**: [JasperReports] (https://community.jaspersoft.com/project/jasperreports-library)
 
 ### Front-end
-- **Frameworks**: [AngularJS](https://angularjs.org/) 1.2.28 (upgrading to 1.3 is pending on angular-translate), [JQuery](http://jquery.com),
+- **Frameworks**: [AngularJS](https://angularjs.org/) 1.2.28 (upgrading to 1.3 is pending due to bootstrap), [JQuery](http://jquery.com),
 [JQuery-UI](http://jqueryui.com/), [Swagger](https://github.com/swagger-api/swagger-ui)<br/>
 - **Design/CSS**: [Bootstrap](http://getbootstrap.com/)
 

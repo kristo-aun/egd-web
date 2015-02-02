@@ -18,6 +18,8 @@ public final class Audio implements Serializable {
     private byte[] audioFile;
     private String fileName;
     private String copyright;
+
+    @JsonIgnore
     private CfAudioQuality cfAudioQuality;
 
     @JsonIgnore

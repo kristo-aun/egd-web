@@ -14,7 +14,6 @@ public final class ArticleParagraph {
     private Integer id;
     private String txt;
     private String transcript;
-    @JsonIgnore
     private Audio audio;
     private int order;
     @JsonIgnore

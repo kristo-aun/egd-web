@@ -27,12 +27,51 @@ egdApp.controller('ArticlesController', function ($location, $scope, $log, resol
     };
 });
 
-egdApp.controller('ArticleController', function ($routeParams, $location, $scope, $log, ArticleService) {
+egdApp.controller('ArticleController', function ($routeParams, $location, $scope, $log, $timeout, $interval, ArticleService) {
     $log.debug("ArticleController");
+
+    //------------------------------ grid options ------------------------------
+
+    var start = new Date();
+    var sec = $interval(function () {
+        var wait = parseInt(((new Date()) - start) / 1000, 10);
+        $scope.wait = wait + 's';
+    }, 1000);
+
+    var rowTemplate = function() {
+        return $timeout(function() {
+            $scope.waiting = 'Done!';
+            $interval.cancel(sec);
+            $scope.wait = 'waiting';
+            return '<div ng-repeat="col in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ui-grid-cell></div>';
+        }, 0);
+    };
+
+    $scope.waiting = 'Waiting for row template...';
+
+    $scope.gridOptions = {
+        rowTemplate: rowTemplate(),
+        showHeader: false,
+        enableHorizontalScrollbar: 0,
+        enableVerticalScrollbar: 0,
+        enableCellEditOnFocus: true
+    };
+
+    $scope.gridOptions.columnDefs = [
+        { name: 'txt', displayName: 'Jaapani keeles', width: '50%', enableCellEdit: true },
+        { name: 'transcript', displayName: 'Inglise keeles' , width: '50%' }
+    ];
+
+    //------------------------------ get article from xhr ------------------------------
 
     var id = $routeParams.id;
     if (id > 0) {
-        $scope.article = ArticleService.get({id: id});
+        ArticleService.get({id: id}, function(article) {
+            $log.debug("ArticleController.get: article=", article);
+            $scope.article = article;
+            $scope.gridOptions.data = $scope.article.articleParagraphs;
+        });
+
     } else {
         $scope.article = {
             author: null,
@@ -42,6 +81,8 @@ egdApp.controller('ArticleController', function ($routeParams, $location, $scope
             id: null
         };
     }
+
+    //------------------------------ scope helpers ------------------------------
 
     $scope.save = function () {
         ArticleService.save($scope.article,

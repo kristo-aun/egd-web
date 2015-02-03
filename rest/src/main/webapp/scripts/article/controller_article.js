@@ -1,48 +1,22 @@
 'use strict';
 
-egdApp.controller('ArticleController', function ($rootScope, $scope, $log, resolvedArticle, Article, Session, $translate) {
-    $log.debug("ArticleController");
+egdApp.controller('ArticlesController', function ($location, $scope, $log, resolvedArticle, ArticleService, Session) {
+    $log.debug("ArticlesController");
     $scope.articles = resolvedArticle;
 
-    $scope.transcriptLangs = [];
-
-    $translate("language.et").then(function(translation) {
-        $scope.transcriptLangs.push({id:"et", value: translation});
-    });
-    $translate("language.en").then(function(translation) {
-        $scope.transcriptLangs.push({id:"en", value: translation});
-    });
-
-    $scope.create = function () {
-        Article.save($scope.article,
-            function () {
-                $scope.articles = Article.query();
-                $('#saveArticleModal').modal('hide');
-                $scope.clear();
-            });
+    $scope.create = function() {
+        $location.path("/article/-1");
     };
 
     $scope.update = function (id) {
-        $scope.article = Article.get({id: id});
-        $log.debug();
-        $('#saveArticleModal').modal('show');
+        $location.path("/article/" + id);
     };
 
     $scope.delete = function (id) {
-        Article.delete({id: id},
+        ArticleService.delete({id: id},
             function () {
-                $scope.articles = Article.query();
+                $scope.articles = ArticleService.query();
             });
-    };
-
-    $scope.clear = function () {
-        $scope.article = {
-            author: null,
-            copyright: null,
-            title: null,
-            transcriptLang: null,
-            id: null
-        };
     };
 
     $scope.isArticleUpdateAllowed = function (article) {
@@ -51,6 +25,74 @@ egdApp.controller('ArticleController', function ($rootScope, $scope, $log, resol
     $scope.isArticleDeleteAllowed = function (article) {
         return Session.hasRoleAdmin() || article.createdBy == Session.login;
     };
+});
 
+egdApp.controller('ArticleController', function ($routeParams, $location, $scope, $log, $timeout, $interval, ArticleService) {
+    $log.debug("ArticleController");
 
+    //------------------------------ grid options ------------------------------
+
+    var start = new Date();
+    var sec = $interval(function () {
+        var wait = parseInt(((new Date()) - start) / 1000, 10);
+        $scope.wait = wait + 's';
+    }, 1000);
+
+    var rowTemplate = function() {
+        return $timeout(function() {
+            $scope.waiting = 'Done!';
+            $interval.cancel(sec);
+            $scope.wait = 'waiting';
+            return '<div ng-repeat="col in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ui-grid-cell></div>';
+        }, 0);
+    };
+
+    $scope.waiting = 'Waiting for row template...';
+
+    $scope.gridOptions = {
+        rowTemplate: rowTemplate(),
+        showHeader: false,
+        enableHorizontalScrollbar: 0,
+        enableVerticalScrollbar: 0,
+        enableCellEditOnFocus: true
+    };
+
+    $scope.gridOptions.columnDefs = [
+        { name: 'txt', displayName: 'Jaapani keeles', width: '50%', enableCellEdit: true },
+        { name: 'transcript', displayName: 'Inglise keeles' , width: '50%' }
+    ];
+
+    //------------------------------ get article from xhr ------------------------------
+
+    var id = $routeParams.id;
+    if (id > 0) {
+        ArticleService.get({id: id}, function(article) {
+            $log.debug("ArticleController.get: article=", article);
+            $scope.article = article;
+            $scope.gridOptions.data = $scope.article.articleParagraphs;
+        });
+
+    } else {
+        $scope.article = {
+            author: null,
+            copyright: null,
+            title: null,
+            transcriptLang: "en",
+            id: null
+        };
+    }
+
+    //------------------------------ scope helpers ------------------------------
+
+    $scope.save = function () {
+        ArticleService.save($scope.article,
+            function () {
+                $log.debug("ArticleController.save");
+                $location.path("/article");
+            });
+    };
+
+    $scope.clear = function () {
+        $location.path("/article");
+    };
 });

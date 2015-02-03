@@ -1,5 +1,7 @@
 package ee.esutoniagodesu.domain.util;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import ee.esutoniagodesu.config.Constants;
 import org.hibernate.annotations.Type;
 import org.hibernate.envers.Audited;
 import org.joda.time.DateTime;
@@ -70,6 +72,11 @@ public abstract class AbstractAuditingEntity {
         this.createdDate = createdDate;
     }
 
+    @JsonGetter
+    public String getFormattedCreatedDate() {
+        return Constants.DATE_TIME_FORMATTER.print(createdDate);
+    }
+
     public String getLastModifiedBy() {
         return lastModifiedBy;
     }
@@ -84,5 +91,10 @@ public abstract class AbstractAuditingEntity {
 
     public void setLastModifiedDate(DateTime lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
+    }
+
+    @JsonGetter
+    public String getFormattedLastModifiedDate() {
+        return Constants.DATE_TIME_FORMATTER.print(lastModifiedDate);
     }
 }

@@ -101,6 +101,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/app/rest/git").permitAll()
             .antMatchers("/app/rest/dict/**").permitAll()
             .antMatchers("/app/rest/image/*").permitAll()
+            .antMatchers("/app/rest/audio/*").permitAll()
             .antMatchers("/app/rest/rtk/**").permitAll()
             .antMatchers("/app/rest/stats/**").hasAuthority(AuthoritiesConstants.USER)
             .antMatchers("/app/rest/morphology/**").hasAuthority(AuthoritiesConstants.USER)

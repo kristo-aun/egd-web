@@ -5,12 +5,19 @@ egdApp
             $routeProvider
                 .when('/article', {
                     templateUrl: 'views/articles.html',
-                    controller: 'ArticleController',
+                    controller: 'ArticlesController',
                     resolve:{
-                        resolvedArticle: ['Article', function (Article) {
-                            return Article.query().$promise;
+                        resolvedArticle: ['ArticleService', function (ArticleService) {
+                            return ArticleService.query().$promise;
                         }]
                     },
+                    access: {
+                        authorizedRoles: [USER_ROLES.all]
+                    }
+                })
+                .when('/article/:id', {
+                    templateUrl: 'views/article.html',
+                    controller: 'ArticleController',
                     access: {
                         authorizedRoles: [USER_ROLES.all]
                     }

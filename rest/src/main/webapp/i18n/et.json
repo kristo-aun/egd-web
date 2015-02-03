@@ -49,17 +49,16 @@
         "form": {
             "username": "Kasutajanimi",
             "username.placeholder": "Teie kasutajanimi",
-            "newpassword": "Uus parool",
-            "newpassword.placeholder": "Uus parool",
-            "confirmpassword": "Uue parooli kinnitus",
-            "confirmpassword.placeholder": "Uue parooli kinnitus",
+            "newpassword": "Parool",
+            "newpassword.placeholder": "Teie parool",
+            "confirmpassword": "Parooli kinnitus",
+            "confirmpassword.placeholder": "Teie parooli kinnitus",
             "email": "E-mail",
             "email.placeholder": "Teie e-mail"
         },
         "messages": {
             "info": {
-                "authenticated": "If you want to <a href=\"#/login\">authenticate</a>, you can try the default accounts:<br/>- Administrator (login=\"admin\" and password=\"admin\") <br/>- User (login=\"user\" and password=\"user\").",
-                "register": "Kas teil on konto olemas? <a href=\"#/register\">Registreeri uus konto</a>"
+                "register": "<a href=\"#/register\">Registreeri konto</a>"
             },
             "error": {
                 "dontmatch": "Parool ja selle kinnitus ei kattu!"
@@ -98,118 +97,118 @@
         }
     },
     "register": {
-        "title": "Registreerimine",
+        "title": "Uue konto registreerimine",
         "form": {
             "button": "Registreeri"
         },
         "messages": {
             "validate": {
                 "login": {
-                    "required": "Your login is required.",
-                    "minlength": "Your login is required to be at least 1 character",
-                    "maxlength": "Your login cannot be longer than 50 characters",
-                    "pattern": "Your login can only contain lower-case letters and digits"
+                    "required": "Kasutajanime sisestamine on kohustuslik.",
+                    "minlength": "Kasutajanime pikkus peab olema vähemalt 4 tähemärki",
+                    "maxlength": "Kasutajanime suurim lubatud pikkus on 50 tähemärki",
+                    "pattern": "Kasutajanimes on lubatud ainult väiketähed ja numbrid"
                 }
             },
-            "success": "<strong>Registration saved!</strong> Please check your email for confirmation.",
+            "success": "<strong>Registreeritud!</strong> Teie e-posti aadressile on saadetud kinnitusaadress. Vajutage sellel.",
             "error": {
-                "fail": "<strong>Registration failed!</strong> Please try again later.",
-                "userexists": "<strong>Login name already registered!</strong> Please choose another one.",
-                "emailexists": "<strong>E-mail is already in use!</strong> Please choose another one."
+                "fail": "<strong>Viga registreerimisel!</strong> Proovige hiljem uuesti.",
+                "userexists": "<strong>Kasutajanimi on kasutusel!</strong> Valige muu kasutajanimi.",
+                "emailexists": "<strong>E-posti aadress on kasutusel!</strong> Valige muu e-posti aadress."
             }
         }
     },
     "login": {
-        "title": "Authentication",
+        "title": "Logi sisse",
         "form": {
-            "password": "Password",
-            "password.placeholder": "Your password",
-            "rememberme": "Automatic Login",
-            "button": "Authenticate"
+            "password": "Parool",
+            "password.placeholder": "Teie parool",
+            "rememberme": "Automaatne sisselogimine",
+            "button": "Logi sisse"
         },
         "messages": {
             "error": {
-                "authentication": "<strong>Authentication failed!</strong> Please check your credentials and try again."
+                "authentication": "<strong>Viga sisselogimisel!</strong> Kontrollige kasutajanime ja parooli."
             }
         }
     },
     "settings": {
-        "title": "User settings for [<b>{{username}}</b>]",
+        "title": "Kasutaja seadistused [<b>{{username}}</b>]",
         "form": {
-            "firstname": "First Name",
-            "firstname.placeholder": "Your first name",
-            "lastname": "Last Name",
-            "lastname.placeholder": "Your last name",
-            "button": "Save"
+            "firstname": "Eesnimi",
+            "firstname.placeholder": "Teie eesnimi",
+            "lastname": "Perekonnanimi",
+            "lastname.placeholder": "Teie perekonnanimi",
+            "button": "Salvesta"
         },
         "messages": {
             "error": {
-                "fail": "<strong>An error has occurred!</strong> Settings could not be saved.",
-                "emailexists": "<strong>E-mail is already in use!</strong> Please choose another one."
+                "fail": "<strong>Viga!</strong> Ei saanud salvestada.",
+                "emailexists": "<strong>E-posti aadress on kasutusel!</strong> Valige muu e-posti aadress."
             },
-            "success": "<strong>Settings saved!</strong>",
+            "success": "<strong>Salvestatud!</strong>",
             "validate": {
                 "firstname": {
-                    "required": "Your first name is required.",
-                    "minlength": "Your first name is required to be at least 1 character",
-                    "maxlength": "Your first name cannot be longer than 50 characters"
+                    "required": "Eesnime sisestamine on kohustuslik.",
+                    "minlength": "Eesnime pikkus peab olema vähemalt 1 tähemärk",
+                    "maxlength": "Eesnime suurim lubatud pikkus on 50 tähemärki"
                 },
                 "lastname": {
-                    "required": "Your last name is required.",
-                    "minlength": "Your last name is required to be at least 1 character",
-                    "maxlength": "Your last name cannot be longer than 50 characters"
+                    "required": "Perekonnanime sisestamine on kohustuslik.",
+                    "minlength": "Perekonnanime pikkus peab olema vähemalt 1 tähemärk",
+                    "maxlength": "Perekonnanime suurim lubatud pikkus on 50 tähemärki"
                 }
             }
         }
     },
     "password": {
-        "title": "Password for [<b>{{username}}</b>]",
+        "title": "Parool [<b>{{username}}</b>]",
         "form": {
-            "button": "Save"
+            "button": "Salvesta"
         },
         "messages": {
-            "error": "<strong>An error has occurred!</strong> The password could not be changed.",
-            "success": "<strong>Password changed!</strong>"
+            "error": "<strong>Viga!</strong> Ei saanud parooli muuta.",
+            "success": "<strong>Parool muudetud!</strong>"
         }
     },
     "sessions": {
-        "title": "Active sessions for [<b>{{username}}</b>]",
+        "title": "Aktiivsed sessioonid [<b>{{username}}</b>]",
         "table": {
-            "ipaddress": "IP address",
-            "useragent": "User Agent",
-            "date": "Date",
-            "button": "Invalidate"
+            "ipaddress": "IP aadress",
+            "useragent": "Kliendi tarkvara",
+            "date": "Kuupäev",
+            "button": "Annulleeri"
         },
         "messages": {
-            "success": "<strong>Session invalidated!</strong>",
-            "error": "<strong>An error has occurred!</strong> The session could not be invalidated."
+            "success": "<strong>Sessioon annulleeritud!</strong>",
+            "error": "<strong>Viga!</strong> Ei saanud sessiooni annulleerida."
         }
     },
     "tracker": {
-        "title": "Real-time user activities",
+        "title": "Kasutusinfo reaalajas",
         "table": {
-            "userlogin": "User",
-            "ipaddress": "IP Address",
-            "userAgent": "User agent",
-            "page": "Current page",
-            "time": "Time"
+            "userlogin": "Kasutajanimi",
+            "ipaddress": "IP aadress",
+            "userAgent": "Kliendi tarkvara",
+            "page": "Aktiivne leht",
+            "time": "Aeg"
         }
     },
     "metrics": {
-        "title": "Application Metrics",
-        "refresh.button": "Refresh",
-        "updating": "Updating...",
+        "title": "Rakenduse meetrika",
+        "refresh.button": "Uuenda",
+        "updating": "Uuendan...",
         "jvm": {
-            "title": "JVM Metrics",
+            "title": "JVM meetrika",
             "memory": {
-                "title": "Memory",
-                "total": "Total Memory",
-                "heap": "Heap Memory",
-                "nonheap": "Non-Heap Memory"
+                "title": "Mälu",
+                "total": "Kogu mälu",
+                "heap": "Heap mälu",
+                "nonheap": "Non-Heap mälu"
             },
             "threads": {
-                "title": "Threads",
-                "all": "All",
+                "title": "Lõimed",
+                "all": "Kõik",
                 "runnable": "Runnable",
                 "timedwaiting": "Timed waiting",
                 "waiting": "Waiting",
@@ -350,11 +349,11 @@
         }
     },
     "errors": {
-        "title": "Error page!",
-        "403": "You are not authorized to access the page."
+        "title": "Viga!",
+        "403": "Teil puudub lehe vaatamise õigus."
     },
     "footer": {
-        "last-updated": "Last updated"
+        "last-updated": "Viimane uuendus"
     },
     "alert": {
         "http": {
@@ -440,7 +439,7 @@
             "countStrokeDiagrams": "Joondiagramme"
         },
         "core": {
-            "header": "Vocabulary statistics",
+            "header": "Sõnavara loendite statistika",
             "resource": "Ressursi nimi",
             "wordCount": "Sõnu kokku",
             "wordsWithKanjiCount": "Kanjidega sõnu",
@@ -491,7 +490,9 @@
             "author": "Autor",
             "copyright": "Autoriõigused",
             "title": "Pealkiri",
-            "transcriptLang": "Tõlke keel"
+            "transcriptLang": "Tõlke keel",
+            "created": "Loodud",
+            "lastModified": "Viimati muudetud"
         }
     },
 
@@ -526,7 +527,8 @@
         "delete": "Kustuta",
         "cancel": "Tühista",
         "save": "Salvesta",
-        "add": "Lisa"
+        "add": "Lisa",
+        "confirm": "Kustutamiseks vajutage OK"
     },
 
     "language": {
@@ -605,52 +607,52 @@
     "dictAbbr": {
         "jp": {
             "pos": {
-                "adj-i": "i-adjective (keiyoushi)",
+                "adj-i": "i-omadussõna (keiyoushi)",
                 "adj-na": "na-adjectival nouns or quasi-adjectives (keiyoudoushi)",
-                "adj-shiku": "`shiku' adjective (archaic)",
-                "aux": "auxiliary",
-                "exp": "Expressions (phrases, clauses, etc.)",
+                "adj-shiku": "`shiku' omadussõna (arhailine)",
+                "aux": "sekundaarne",
+                "exp": "Väljendid (fraasid, osalaused, jms.)",
                 "n-p": "proper noun",
-                "prt": "particle",
+                "prt": "partikkel",
                 "v2a-s, v2k-k, etc.": "Nidan verb (lower/upper) with 'u', `ku', etc. endings (archaic)",
                 "v5aru": "Godan verb - -aru special class",
                 "vs-i": "expression using the aux. verb suru",
-                "vz": "Ichidan verb - -zuru special class (alternative form of -jiru verbs)",
+                "vz": "Ichidan tegusõna - -zuru special class (alternative form of -jiru verbs)",
                 "adj-kari": "`kari' adjective (archaic)",
                 "adj-nari": "archaic/formal form of na-adjective",
-                "adj-t": "`taru' adjective",
-                "aux-v": "auxiliary verb",
+                "adj-t": "`taru' omadussõna",
+                "aux-v": "auxiliary tegusõna",
                 "id": "idiomatic expression",
                 "n-adv": "adverbial noun (fukushitekimeishi)",
-                "pref": "prefix",
+                "pref": "eesliide",
                 "v4k, v4r, etc.": "Yodan verb with `ku', `ru', etc. endings (archaic)",
-                "vi": "intransitive verb",
-                "vs-s": "suru verb - special class",
-                "v-unspec": "verb - uspecified (usu. archaic)",
+                "vi": "intransitiivne tegusõna",
+                "vs-s": "suru tegusõna - special class",
+                "v-unspec": "tegusõna - uspecified (usu. archaic)",
                 "adj-ku": "`ku' adjective (archaic)",
                 "adj-no": "nouns which may take the genitive case particle 'no'",
                 "adv": "adverb (fukushi)",
                 "conj": "conjunction",
                 "int": "interjection (kandoushi)",
                 "n-t": "noun (temporal) (jisoumeishi)",
-                "suf": "suffix",
+                "suf": "järelliide",
                 "v5u, v5k, etc.": "Godan verb with `u', `ku', etc. endings",
                 "vs": "noun or participle which takes the aux. verb suru",
                 "vk": "Kuru verb - special class",
                 "adj-f": "noun, verb, etc. acting prenominally (incl. rentaikei)",
                 "adj-pn": "pre-noun adjectival (rentaishi)",
                 "adv-to": "adverb (with particle 'to')",
-                "ctr": "counter",
+                "ctr": "loendaja",
                 "n": "noun (common) (futsuumeishi)",
-                "pn": "pronoun",
-                "v1": "Ichidan verb",
-                "v5k-s": "Godan verb - Iku/Yuku special class",
+                "pn": "asesõna",
+                "v1": "Ichidan tegusõna",
+                "v5k-s": "Godan tegusõna - Iku/Yuku special class",
                 "vs-c": "su verb - precursor to the modern suru",
-                "vt": "transitive verb"
+                "vt": "transitiivne tegusõna"
             },
             "misc": {
-                "abbr": "abbreviation",
-                "col": "colloquialism",
+                "abbr": "lühend",
+                "col": "kõnekeelne väljend",
                 "hon": "honorific or respectful (sonkeigo) language",
                 "io": "irregular okurigana usage",
                 "obs": "obsolete term",
@@ -680,30 +682,30 @@
                 "P": "'Priority' entry, i.e. among approx. 20,000 words deemed to be common in Japanese"
             },
             "domain": {
-                "archit": "architecture",
-                "astron": "astronomy, space, astronautics, etc.",
-                "Buddh": "Buddhism",
-                "baseb": "baseball",
-                "biol": "biology",
-                "bot": "botany",
-                "bus": "business",
-                "comp": "computing/telecommunications",
-                "econ": "economics",
-                "eng": "engineering",
-                "fin": "finance",
-                "food": "food",
-                "geol": "geology, earth sciences, geophysics, etc.",
-                "geom": "geometry",
-                "law": "law, legal studies, etc.",
-                "ling": "linguistics",
-                "MA": "martial arts",
-                "math": "mathematics",
-                "med": "medicine, anatomy, pathology, etc.",
-                "mil": "military",
-                "music": "music",
-                "physics": "physics",
+                "archit": "arhitektuur",
+                "astron": "astronomy, space, astronautics, jms.",
+                "Buddh": "Budism",
+                "baseb": "pesapall",
+                "biol": "bioloogia",
+                "bot": "botaanika",
+                "bus": "ettevõtlus",
+                "comp": "IT/telekommunikatsioon",
+                "econ": "majandus",
+                "eng": "inseneriteadus",
+                "fin": "finants",
+                "food": "toit",
+                "geol": "geoloogia, teadus Maast, geofüüsika, jms.",
+                "geom": "geomeetria",
+                "law": "juura, õigusteadus, jms.",
+                "ling": "lingvistika",
+                "MA": "võitluskunstid",
+                "math": "matemaatika",
+                "med": "meditsiin, anatoomia, patoloogia, jms.",
+                "mil": "militaar",
+                "music": "muurika",
+                "physics": "füüsika",
                 "Shinto": "Shinto",
-                "sports": "sports"
+                "sports": "sport"
             }
         },
         "et": {

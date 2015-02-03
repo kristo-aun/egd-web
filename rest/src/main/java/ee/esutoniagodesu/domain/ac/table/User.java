@@ -23,13 +23,13 @@ public final class User extends AbstractAuditingEntity implements Serializable {
     private static final long serialVersionUID = 2721105186064983182L;
 
     @NotNull
-    @Size(min = 0, max = 50)
+    @Size(min = 4, max = 50)
     @Id
     @Column(length = 50)
     private String login;
 
     @JsonIgnore
-    @Size(min = 0, max = 100)
+    @Size(min = 5, max = 100)
     @Column(length = 100)
     private String password;
 
@@ -42,7 +42,7 @@ public final class User extends AbstractAuditingEntity implements Serializable {
     private String lastName;
 
     @Email
-    @Size(min = 0, max = 100)
+    @Size(min = 5, max = 100)
     @Column(length = 100)
     private String email;
 

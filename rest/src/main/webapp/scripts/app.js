@@ -9,13 +9,15 @@ var egdApp = angular.module('egdApp', [
     'ngRoute',
     'ngCookies',
     'ngSanitize',
+    'ngTouch',
+    'ngAudio',
     'egdAppUtils',
     'pascalprecht.translate',
     'truncate',
     'ui.bootstrap',
     'ui.chart',
     'ui.select',
-
+    'ui.grid',
     'ngCacheBuster'
 ]);
 

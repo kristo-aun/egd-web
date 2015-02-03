@@ -1,6 +1,5 @@
 package ee.esutoniagodesu.domain.test.table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import ee.esutoniagodesu.domain.util.AbstractAuditingEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

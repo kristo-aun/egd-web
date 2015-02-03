@@ -81,11 +81,6 @@
             <version>${jackson.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>${com.google.guava}</version>
-        </dependency>
-        <dependency>
             <groupId>com.googlecode.genericdao</groupId>
             <artifactId>dao</artifactId>
             <version>${genericdao.version}</version>

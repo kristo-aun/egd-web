@@ -84,7 +84,6 @@
             <artifactId>kakasi</artifactId>
             <version>${com.kawao.kakasi}</version>
         </dependency>
-
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>

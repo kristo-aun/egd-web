@@ -27,7 +27,7 @@ egdApp.controller('ArticlesController', function ($location, $scope, $log, resol
     };
 });
 
-egdApp.controller('ArticleController', function ($routeParams, $location, $scope, $log, $timeout, $interval, ArticleService) {
+egdApp.controller('ArticleController', function ($rootScope, $routeParams, $location, $scope, $log, $timeout, $interval, ArticleService) {
     $log.debug("ArticleController");
 
     //------------------------------ grid options ------------------------------
@@ -68,6 +68,7 @@ egdApp.controller('ArticleController', function ($routeParams, $location, $scope
     if (id > 0) {
         ArticleService.get({id: id}, function(article) {
             $log.debug("ArticleController.get: article=", article);
+            $rootScope.page.setTitle(article.title);
             $scope.article = article;
             $scope.gridOptions.data = $scope.article.articleParagraphs;
         });

@@ -14,6 +14,7 @@ public class TofuSentence implements Serializable {
     private Integer id;
     private String word;
     private String sentence;
+    private Collection<TofuSentenceTranslation> translations;
 
     @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
     @Id
@@ -23,6 +24,15 @@ public class TofuSentence implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    @OneToMany(mappedBy = "tofuSentence")
+    public Collection<TofuSentenceTranslation> getTranslations() {
+        return translations;
+    }
+
+    public void setTranslations(Collection<TofuSentenceTranslation> translations) {
+        this.translations = translations;
     }
 
     @Column(name = "word", nullable = false, insertable = true, updatable = true, length = 2147483647, precision = 0)

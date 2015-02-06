@@ -143,12 +143,6 @@ egdApp
                     authorizedRoles: [USER_ROLES.all]
                 }
             })
-            .when('/docs', {
-                templateUrl: 'views/docs.html',
-                access: {
-                    authorizedRoles: [USER_ROLES.admin]
-                }
-            })
             .otherwise({
                 templateUrl: 'views/main.html',
                 controller: 'MainController',
@@ -170,7 +164,7 @@ egdApp
         tmhDynamicLocaleProvider.localeLocationPattern('bower_components/angular-i18n/angular-locale_{{locale}}.js');
         tmhDynamicLocaleProvider.useCookieStorage('NG_TRANSLATE_LANG_KEY');
     })
-    .run(function ($rootScope, $location, $http, AuthenticationSharedService, Session, USER_ROLES) {
+    .run(function ($rootScope, $location, $http, $translate, $log, AuthenticationSharedService, Session, USER_ROLES) {
         $rootScope.authenticated = false;
         $rootScope.$on('$routeChangeStart', function (event, next) {
             $rootScope.isAuthorized = AuthenticationSharedService.isAuthorized;
@@ -211,6 +205,27 @@ egdApp
         // Call when the user logs out
         $rootScope.$on('event:auth-loginCancelled', function () {
             $location.path('');
+        });
+
+        //page title i18n
+        var titleSuffix = 'EsutoniaGoDesu';
+
+        $rootScope.page = {
+            setTitle: function(title) {
+                $rootScope.page.title = title + ' | ' + titleSuffix;
+            },
+            setI18nTitle: function(title) {
+                $translate(title).then(function(translation) {
+                    $rootScope.page.title = translation + ' | ' + titleSuffix;
+                }, function(reason) {
+                    $log.debug("rootScope.page.setTitle fallback: title=", title, ", reason=", reason);
+                    $rootScope.page.title = titleSuffix;
+                });
+            }
+        };
+
+        $rootScope.$on('$routeChangeSuccess', function(event, current, previous) {
+            $rootScope.page.setI18nTitle(current.$$route ? current.$$route.title : titleSuffix);
         });
     }
 );

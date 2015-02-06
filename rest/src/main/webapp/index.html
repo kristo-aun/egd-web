@@ -1,16 +1,16 @@
 <!doctype html>
 <!--[if lt IE 7]>
-<html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<html data-ng-app="egdApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>
-<html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<html data-ng-app="egdApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>
-<html class="no-js lt-ie9"> <![endif]-->
+<html data-ng-app="egdApp" class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
-<html class="no-js"> <!--<![endif]-->
+<html data-ng-app="egdApp" class="no-js"> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>EsutoniaGoDesu</title>
+    <title data-ng-bind="page.title"></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -28,7 +28,7 @@
     Should you find any bugs or other misfunctionality, please send us your feedback.
     -->
 </head>
-<body ng-app="egdApp" ng-controller="MainController">
+<body ng-controller="MainController" ng-cloak>
 <!--[if lt IE 10]>
 <p class="browserupgrade">
     You are using an <strong>outdated</strong> browser.
@@ -56,21 +56,23 @@
                 <li>
                     <a href="#/">
                         <span class="glyphicon glyphicon-home"></span>
-                        <span translate="global.menu.home">Dictionary</span>
+                        <span translate="global.menu.home"></span>
                     </a>
                 </li>
                 <li ng-switch-when="true" class="dropdown pointer">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">
                         <span>
                             <span class="glyphicon glyphicon-th-list"></span>
-                            <span class="hidden-tablet" translate="global.menu.entities.main">
-                                Entities
-                            </span>
+                            <span class="hidden-tablet" translate="global.menu.entities.main"></span>
                             <b class="caret"></b>
                         </span>
                     </a>
                     <ul class="dropdown-menu" ng-controller="MenuController">
-                        <li ng-switch-when="true"><a href="#/article"><span class="glyphicon glyphicon-asterisk"></span>&nbsp;article</a>
+                        <li ng-switch-when="true">
+                            <a href="#/article">
+                                <span class="glyphicon glyphicon-asterisk"></span>
+                                <span translate="global.menu.entities.articles"></span>
+                            </a>
                         </li>
                         <!-- JHipster will add entities to the menu here -->
                     </ul>
@@ -89,7 +91,7 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav nav-pills navbar-right" style="float: right;">
-                <li ng-switch-when="true" ng-show="isAuthorized(userRoles.user)" class="dropdown pointer" ng-controller="StatsController">
+                <li ng-switch-when="true" ng-show="isAuthorized(userRoles.user)" class="dropdown pointer">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">
                         <span>
                             <span class="glyphicon glyphicon-tower"></span>
@@ -121,8 +123,6 @@
                             &nbsp;<span translate="global.menu.account.audits">Audits</span></a></li>
                         <li><a href="#/logs"><span class="glyphicon glyphicon-tasks"></span>
                             &nbsp;<span translate="global.menu.account.logs">Logs</span></a></li>
-                        <li><a href="#/docs"><span class="glyphicon glyphicon-book"></span>
-                            &nbsp;<span translate="global.menu.account.apidocs">API Docs</span></a></li>
                     </ul>
                 </li>
                 <li class="dropdown pointer" ng-controller="LanguageController">

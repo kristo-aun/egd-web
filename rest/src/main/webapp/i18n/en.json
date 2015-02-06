@@ -8,7 +8,8 @@
             "overview": "Overview",
             "rtk": "Kanji",
             "entities": {
-                "main": "Entities"
+                "main": "Study materials",
+                "articles": "Articles"
             },
             "stats": {
                 "statistics": "Dictionary statistics"

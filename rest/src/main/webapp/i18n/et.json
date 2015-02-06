@@ -8,7 +8,8 @@
             "overview": "Ülevaade",
             "rtk": "Kirjamärgid",
             "entities": {
-                "main": "Domeenid"
+                "main": "Õppematerjalid",
+                "articles": "Artiklid"
             },
             "stats": {
                 "statistics": "Sõnastiku statistika"

@@ -1,19 +1,21 @@
 package ee.esutoniagodesu.domain.freq.table;
 
+import org.hibernate.annotations.Immutable;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 
 @Table(name = "tofu_sentence", schema = "freq", catalog = "egd")
+@Immutable
 @Entity
 public class TofuSentence implements Serializable {
 
     private Integer id;
     private String word;
     private String sentence;
+    private Collection<TofuSentenceTranslation> translations;
 
-    @SequenceGenerator(name = "seq", sequenceName = "freq.tofu_sentence_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
     @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
     @Id
     public Integer getId() {
@@ -24,7 +26,16 @@ public class TofuSentence implements Serializable {
         this.id = id;
     }
 
-    @Column(name = "kanji", nullable = false, insertable = true, updatable = true, length = 2147483647, precision = 0)
+    @OneToMany(mappedBy = "tofuSentence")
+    public Collection<TofuSentenceTranslation> getTranslations() {
+        return translations;
+    }
+
+    public void setTranslations(Collection<TofuSentenceTranslation> translations) {
+        this.translations = translations;
+    }
+
+    @Column(name = "word", nullable = false, insertable = true, updatable = true, length = 2147483647, precision = 0)
     @Basic
     public String getWord() {
         return word;

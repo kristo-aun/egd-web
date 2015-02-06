@@ -1,11 +1,12 @@
 'use strict';
 
 egdApp
-    .config(function ($routeProvider, $httpProvider, $translateProvider, USER_ROLES) {
+    .config(function ($routeProvider, USER_ROLES) {
             $routeProvider
                 .when('/article', {
                     templateUrl: 'views/articles.html',
                     controller: 'ArticlesController',
+                    title: 'global.menu.entities.articles',
                     resolve:{
                         resolvedArticle: ['ArticleService', function (ArticleService) {
                             return ArticleService.query().$promise;

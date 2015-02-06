@@ -1,0 +1,1 @@
+EsutoniaGoDesu comes with ABSOLUTELY NO WARRANTY.

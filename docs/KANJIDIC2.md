@@ -1,0 +1,1 @@
+Here is some knowhow about KANJIDIC2.

@@ -94,7 +94,7 @@ use the JHipster code generation tool.
 [rest-assured](http://code.google.com/p/rest-assured/) <br/>
 
 ## Hosting
-- **Web container**: [Tomcat 8.0](http://tomcat.apache.org/tomcat-8.0-doc/index.html), [Tomcat setup guide](TOMCAT.md)
+- **Web container**: [Tomcat 8.0](http://tomcat.apache.org/tomcat-8.0-doc/index.html), [Tomcat setup guide](docs/TOMCAT.md)
 - **Monitoring**: Cacti, PSI Probe
 
 # Data sources
@@ -139,4 +139,4 @@ Faculty of Information Technology, Monash University. The detail data copyright 
 - **Javadoc**: [Javadoc]
 
 # Licensing
-GNUv2
+GNUv2. Further information about copying this software is [here](COPYING.md).

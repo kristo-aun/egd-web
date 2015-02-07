@@ -1,23 +1,32 @@
 package ee.esutoniagodesu.domain.freq.table;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import org.hibernate.annotations.Immutable;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collection;
 
-@Table(name = "tofu_sentence", schema = "freq", catalog = "egd")
-@Immutable
 @Entity
-public class TofuSentence implements Serializable {
+@Table(name = "tofu_sentence", schema = "freq", catalog = "egd")
+public final class TofuSentence implements Serializable {
 
-    private Integer id;
-    private String word;
-    private String sentence;
-    private Collection<TofuSentenceTranslation> translations;
+    private static final long serialVersionUID = -1044326675149260942L;
 
     @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
     @Id
+    private Integer id;
+    @Column(name = "word", nullable = false, insertable = true, updatable = true, length = 2147483647, precision = 0)
+    @Basic
+    private String word;
+    @Column(name = "sentence", nullable = false, insertable = true, updatable = true, length = 2147483647, precision = 0)
+    @Basic
+    private String sentence;
+    @Transient
+    @JsonIgnore
+    private TofuSentenceTranslation translation;
+
     public Integer getId() {
         return id;
     }
@@ -26,17 +35,16 @@ public class TofuSentence implements Serializable {
         this.id = id;
     }
 
-    @OneToMany(mappedBy = "tofuSentence")
-    public Collection<TofuSentenceTranslation> getTranslations() {
-        return translations;
+    @JsonGetter
+    public TofuSentenceTranslation getTranslation() {
+        return translation;
     }
 
-    public void setTranslations(Collection<TofuSentenceTranslation> translations) {
-        this.translations = translations;
+    @JsonSetter
+    public void setTranslation(TofuSentenceTranslation translation) {
+        this.translation = translation;
     }
 
-    @Column(name = "word", nullable = false, insertable = true, updatable = true, length = 2147483647, precision = 0)
-    @Basic
     public String getWord() {
         return word;
     }
@@ -45,8 +53,6 @@ public class TofuSentence implements Serializable {
         this.word = word;
     }
 
-    @Column(name = "sentence", nullable = false, insertable = true, updatable = true, length = 2147483647, precision = 0)
-    @Basic
     public String getSentence() {
         return sentence;
     }
@@ -55,7 +61,6 @@ public class TofuSentence implements Serializable {
         this.sentence = sentence;
     }
 
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -69,20 +74,10 @@ public class TofuSentence implements Serializable {
         return true;
     }
 
-    @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (word != null ? word.hashCode() : 0);
         result = 31 * result + (sentence != null ? sentence.hashCode() : 0);
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "TofuSentence{" +
-            "id=" + id +
-            ", word='" + word + '\'' +
-            ", sentence='" + sentence + '\'' +
-            '}';
     }
 }

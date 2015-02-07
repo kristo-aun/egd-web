@@ -6,10 +6,7 @@ import ee.esutoniagodesu.security.AuthoritiesConstants;
 import ee.esutoniagodesu.service.TofuService;
 import ee.esutoniagodesu.service.UserService;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
@@ -41,7 +38,7 @@ public class TofuResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed(AuthoritiesConstants.ADMIN)
-    public List<TofuSentence> getAll() {
-        return service.getTofusByUser(getSessionUser());
+    public List<TofuSentence> getAll(@RequestParam("page") int page, @RequestParam("size") int size) {
+        return service.getTofusByUser(page, size, getSessionUser());
     }
 }

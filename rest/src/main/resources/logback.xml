@@ -27,7 +27,9 @@
     </appender>
 -->
 
-    <logger name="ee.esutoniagodesu" level="DEBUG"/>
+    <logger name="ee.esutoniagodesu" level="WARN"/>
+    <logger name="ee.esutoniagodesu.service" level="DEBUG"/>
+    <logger name="ee.esutoniagodesu.config" level="DEBUG"/>
 
     <logger name="javax.activation" level="WARN"/>
     <logger name="javax.xml.bind" level="WARN"/>

@@ -18,6 +18,7 @@ var egdApp = angular.module('egdApp', [
     'ui.chart',
     'ui.select',
     'ui.grid',
+    'ui.grid.pagination',
     'ngCacheBuster'
 ]);
 

@@ -1,6 +1,7 @@
 package ee.esutoniagodesu.service;
 
 import com.jc.hibernate.ProjectDAO;
+import com.jc.structure.grid.GridUtils;
 import ee.esutoniagodesu.domain.ac.table.User;
 import ee.esutoniagodesu.domain.freq.table.TofuSentence;
 import ee.esutoniagodesu.repository.project.FreqRepository;
@@ -33,7 +34,8 @@ public class TofuService {
         dao.save(tofu);
     }
 
-    public List<TofuSentence> getTofusByUser(User user) {
-        return freqRepository.findUserTofus(user.getLogin());
+    public List<TofuSentence> getTofusByUser(int page, int size, User user) {
+        int[] rows = GridUtils.rowsFromTo(page, size, 4671);
+        return freqRepository.findUserTofus(rows[0], rows[1], user.getLogin());
     }
 }

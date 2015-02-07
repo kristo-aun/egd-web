@@ -9,7 +9,8 @@
             "rtk": "Kirjamärgid",
             "entities": {
                 "main": "Õppematerjalid",
-                "articles": "Artiklid"
+                "articles": "Artiklid",
+                "tofus": "Tofu laused"
             },
             "stats": {
                 "statistics": "Sõnastiku statistika"

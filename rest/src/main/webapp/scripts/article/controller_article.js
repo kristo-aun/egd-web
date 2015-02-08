@@ -25,13 +25,17 @@ egdApp.controller('ArticlesController', function ($location, $scope, $log, resol
     $scope.isArticleDeleteAllowed = function (article) {
         return Session.hasRoleAdmin() || article.createdBy == Session.login;
     };
-    $scope.isArticleViewAllowed = function (article) {
+    $scope.isAnonymous = function () {
         return Session.login ? false : true;
     };
 });
 
 egdApp.controller('ArticleController', function ($rootScope, $routeParams, $location, $scope, $log, $timeout, $interval, ArticleService, ngAudio, Session) {
     $log.debug("ArticleController");
+
+    $scope.isAnonymous = function () {
+        return Session.login ? false : true;
+    };
 
     //------------------------------ grid options ------------------------------
 
@@ -79,10 +83,7 @@ egdApp.controller('ArticleController', function ($rootScope, $routeParams, $loca
                 if (value.audio) {
                     value.audio.ngAudio = ngAudio.load('app/rest/audio/' + value.audio.id);
                 }
-
-
             });
-
         });
 
     } else {

@@ -26,8 +26,8 @@
                         <span class="jpSentence">{{sentence.jpSentence.jp}}</span>
                         <span class="enSentence">{{sentence.jpSentence.enSentence.en}}</span>
 
-                        <div ng-if="sentence.jpSentence.audio">
-                            <egd-audio src="'/app/rest/audio/' + sentence.jpSentence.audio.id"/>
+                        <div ng-if="sentence.jpSentence.audio" style="margin-right: 10px;">
+                            <egd-audio src="getAudioResource(sentence.jpSentence.audio.id)"/>
                         </div>
                     </div>
                 </div>

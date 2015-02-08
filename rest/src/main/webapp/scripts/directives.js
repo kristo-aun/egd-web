@@ -251,6 +251,11 @@ directives.directive('gridJa', function () {
         scope: {
             rows: '='
         },
+        link: function (scope, element, attrs) {
+            scope.getAudioResource = function(audioId) {
+                return  '/app/rest/audio/' + audioId;
+            };
+        },
         templateUrl: 'views/directive/gridJa.html'
     }
 });

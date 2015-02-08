@@ -15,17 +15,28 @@ public final class JpSentence implements Serializable {
     private Integer id;
     private String jp;
     private String asKana;
-    private String asRomaji;    
+    private String asRomaji;
     private String withFurigana;
 
-    private Collection<EnSentence> enSentences;
-    private Collection<EtSentence> etSentences;
-    @JsonIgnore
+    private EnSentence enSentence;
+    private EtSentence etSentence;
     private Audio audio;
     @JsonIgnore
     private CfOrigin cfOrigin;
     @JsonIgnore
     private Collection<MtmJmSensJpSentence> mtmJmSensJpSentences;
+
+    @SequenceGenerator(name = "seq", sequenceName = "public.jp_sentence_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
+    @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
+    @Id
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     @Column(name = "as_kana", nullable = true, insertable = true, updatable = true, length = 2147483647, precision = 0)
     @Basic
@@ -67,34 +78,22 @@ public final class JpSentence implements Serializable {
         this.cfOrigin = cfOrigin;
     }
 
-    @OneToMany(mappedBy = "jpSentence")
-    public Collection<EnSentence> getEnSentences() {
-        return enSentences;
+    @OneToOne(mappedBy = "jpSentence", fetch = FetchType.EAGER)
+    public EnSentence getEnSentence() {
+        return enSentence;
     }
 
-    public void setEnSentences(Collection<EnSentence> enSentences) {
-        this.enSentences = enSentences;
+    public void setEnSentence(EnSentence enSentence) {
+        this.enSentence = enSentence;
     }
 
-    @OneToMany(mappedBy = "jpSentence")
-    public Collection<EtSentence> getEtSentences() {
-        return etSentences;
+    @OneToOne(mappedBy = "jpSentence", fetch = FetchType.EAGER)
+    public EtSentence getEtSentence() {
+        return etSentence;
     }
 
-    public void setEtSentences(Collection<EtSentence> etSentences) {
-        this.etSentences = etSentences;
-    }
-
-    @SequenceGenerator(name = "seq", sequenceName = "public.jp_sentence_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
-    @Id
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+    public void setEtSentence(EtSentence etSentence) {
+        this.etSentence = etSentence;
     }
 
     @Column(name = "jp", nullable = true, insertable = true, updatable = true, length = 2147483647, precision = 0)

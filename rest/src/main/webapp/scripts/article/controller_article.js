@@ -78,10 +78,11 @@ egdApp.controller('ArticleController', function ($rootScope, $routeParams, $loca
             $rootScope.page.setTitle(article.title);
             $scope.article = article;
             $scope.gridOptions.data = $scope.article.articleParagraphs;
+            $scope.ngAudios = {};
 
             $.each($scope.article.articleParagraphs , function(key, value) {
                 if (value.audio) {
-                    value.audio.ngAudio = ngAudio.load('app/rest/audio/' + value.audio.id);
+                    $scope.ngAudios[value.audio.id] = ngAudio.load('app/rest/audio/' + value.audio.id);
                 }
             });
         });

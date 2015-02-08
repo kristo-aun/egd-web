@@ -44,22 +44,25 @@
                 <tr ng-switch="isAnonymous()" ng-repeat="item in article.articleParagraphs">
                     <td>
                         <div ng-if="item.audio">
-                            <div ng-if="!item.audio.ngAudio.canPlay" class=col-md-offset-4>
+                            <div ng-if="!ngAudios[item.audio.id].canPlay" class=col-md-offset-4>
                                 Sound is loading, or you are viewing this on a device that doesn't support the <code>canPlay</code> property.
                             </div>
-                            <div ng-if="item.audio.ngAudio.error" class="col-md-offset-4">
+                            <div ng-if="ngAudios[item.audio.id].error" class="col-md-offset-4">
                                 Error playing this sound.
                             </div>
-                            <div ng-if="!item.audio.ngAudio.error" class="input-group" style="width:100%;;">
+                            <div ng-if="!ngAudios[item.audio.id].error" class="input-group" style="width:100%;;">
                                 <div class="input-group-btn">
-                                    <button class="btn btn-primary btn-xs" style="width: 70px;border-radius: 4px;"
-                                            ng-click="item.audio.ngAudio.paused ? item.audio.ngAudio.play() : item.audio.ngAudio.pause()">
-                                        {{item.audio.ngAudio.paused ? "Play" : "Pause" }}
+                                    <button class="btn btn-primary btn-xs"
+                                            style="width: 70px;border-radius: 4px;"
+                                            type="button"
+                                            ng-click="ngAudios[item.audio.id].paused ? ngAudios[item.audio.id].play() : ngAudios[item.audio.id].pause()">
+                                        {{ngAudios[item.audio.id].paused ? "Play" : "Pause" }}
                                     </button>
                                 </div>
-                                <input class="form-control" type="range" style="margin-left:8px;margin-top: 3px;height: 15px;"
-                                       min="0" max="1" step="0.0001"
-                                       ng-model="item.audio.ngAudio.progress">
+                                <input class="form-control" type="range"
+                                       style="margin-left:8px;margin-top: 3px;height: 15px;width: 100%"
+                                       min="0" max="1" step="0.001"
+                                       ng-model="ngAudios[item.audio.id].progress">
                             </div>
                         </div>
                         <div ng-switch-when="true">
@@ -68,6 +71,7 @@
                         <div ng-switch-when="false">
                             <textarea auto-grow style="height:100%" class="form-control" ng-model="item.txt"></textarea>
                         </div>
+
                     </td>
                     <td ng-switch-when="true">
                         {{item.transcript}}

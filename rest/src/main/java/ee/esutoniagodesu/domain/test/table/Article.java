@@ -7,8 +7,7 @@ import org.slf4j.LoggerFactory;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Collection;
 
 /**
  * A Article.
@@ -37,11 +36,19 @@ public final class Article extends AbstractAuditingEntity implements Serializabl
     @Column(name = "transcript_lang")
     private String transcriptLang;
 
-    @OneToMany(mappedBy = "article")
-    private Set<ArticleParagraph> articleParagraphs = new HashSet<>();
+    @OneToMany(mappedBy = "article", fetch = FetchType.EAGER)
+    private Collection<ArticleParagraph> articleParagraphs;
 
     @Column(name = "shared")
     private boolean shared;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public boolean isShared() {
         return shared;
@@ -51,11 +58,11 @@ public final class Article extends AbstractAuditingEntity implements Serializabl
         this.shared = shared;
     }
 
-    public Set<ArticleParagraph> getArticleParagraphs() {
+    public Collection<ArticleParagraph> getArticleParagraphs() {
         return articleParagraphs;
     }
 
-    public void setArticleParagraphs(Set<ArticleParagraph> articleParagraphs) {
+    public void setArticleParagraphs(Collection<ArticleParagraph> articleParagraphs) {
         this.articleParagraphs = articleParagraphs;
     }
 
@@ -73,14 +80,6 @@ public final class Article extends AbstractAuditingEntity implements Serializabl
 
     public void setCopyright(String copyright) {
         this.copyright = copyright;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getTitle() {

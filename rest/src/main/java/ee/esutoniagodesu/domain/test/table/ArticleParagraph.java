@@ -2,10 +2,8 @@ package ee.esutoniagodesu.domain.test.table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import ee.esutoniagodesu.domain.publik.table.Audio;
-import ee.esutoniagodesu.pojo.dto.VocabularyDTO;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "article_paragraph", schema = "test")
@@ -40,7 +38,7 @@ public final class ArticleParagraph {
         this.article = article;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "audio_id", referencedColumnName = "id")
     public Audio getAudio() {
         return audio;

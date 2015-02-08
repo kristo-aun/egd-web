@@ -88,7 +88,7 @@ public class ArticleService {
      * JALUS: Sõnavara tabelit saab alla laadida XMS/ODS faili.
      */
     public Article getArticle(int id, User user) {
-        log.debug("get: id=", id);
+        log.debug("get: id=" + id);
         Article article = dao.find(Article.class, id);
         if (!user.hasRoleAdmin() && !article.isShared() && !article.isCreatedBy(user.getLogin()))
             throw new IllegalAccessError("alert.article.article-not-public");

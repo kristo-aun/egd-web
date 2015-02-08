@@ -6,7 +6,6 @@ egdApp
                 .when('/article', {
                     templateUrl: 'views/articles.html',
                     controller: 'ArticlesController',
-                    title: 'global.menu.entities.articles',
                     resolve:{
                         resolvedArticle: ['ArticleService', function (ArticleService) {
                             return ArticleService.query().$promise;

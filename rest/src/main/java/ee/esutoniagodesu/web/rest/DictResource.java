@@ -1,10 +1,11 @@
 package ee.esutoniagodesu.web.rest;
 
-import ee.esutoniagodesu.pojo.entity.EstJap;
-import ee.esutoniagodesu.pojo.entity.JapEst;
 import ee.esutoniagodesu.service.DictService;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.LocaleResolver;
 
 import javax.inject.Inject;
@@ -29,19 +30,11 @@ public class DictResource {
         return service.autocomplete(phrasepart);
     }
 
-    @RequestMapping(value = "/rest/dict/japest/{phrase}",
+    @RequestMapping(value = "/rest/dict/jmtrans/{phrase}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<JapEst> japest(@PathVariable("phrase") String phrase, HttpServletRequest request) {
+    public List jmtrans(@PathVariable("phrase") String phrase, HttpServletRequest request) {
         String locale = localeResolver.resolveLocale(request).toString();
-        return service.japest(locale, phrase);
-    }
-
-    @RequestMapping(value = "/rest/dict/estjap/{phrase}",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<EstJap> estjap(@PathVariable("phrase") String phrase, HttpServletRequest request) {
-        String locale = localeResolver.resolveLocale(request).toString();
-        return service.estjap(locale, phrase);
+        return service.jmtrans(locale, phrase);
     }
 }

@@ -30,7 +30,7 @@ egdApp.controller('ArticlesController', function ($location, $scope, $log, resol
     };
 });
 
-egdApp.controller('ArticleController', function ($rootScope, $routeParams, $location, $scope, $log, $timeout, $interval, ArticleService, ngAudio, Session) {
+egdApp.controller('ArticleController', function ($rootScope, $routeParams, $location, $scope, $log, $timeout, $interval, ArticleService, Session) {
     $log.debug("ArticleController");
 
     $scope.isAnonymous = function () {
@@ -71,6 +71,10 @@ egdApp.controller('ArticleController', function ($rootScope, $routeParams, $loca
 
     //------------------------------ get article from xhr ------------------------------
 
+    $scope.getAudioResource = function(audioId) {
+        return 'app/rest/audio/' + audioId;
+    };
+
     var id = $routeParams.id;
     if (id > 0) {
         ArticleService.get({id: id}, function(article) {
@@ -78,15 +82,7 @@ egdApp.controller('ArticleController', function ($rootScope, $routeParams, $loca
             $rootScope.page.setTitle(article.title);
             $scope.article = article;
             $scope.gridOptions.data = $scope.article.articleParagraphs;
-            $scope.ngAudios = {};
-
-            $.each($scope.article.articleParagraphs , function(key, value) {
-                if (value.audio) {
-                    $scope.ngAudios[value.audio.id] = ngAudio.load('app/rest/audio/' + value.audio.id);
-                }
-            });
         });
-
     } else {
         $scope.article = {
             author: null,

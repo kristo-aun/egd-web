@@ -1,5 +1,5 @@
-<div id="gridJpWR">
-    <div class="gridEntr" ng-repeat="item in rows">
+<div id="gridJpWR" ng-switch="rows.length > 0">
+    <div ng-if="rows.length > 0" class="gridEntr" ng-repeat="item in rows">
         <div class="entrHeader">
             <span ng-if="item.rdng != null" class="gridRdng" ng-repeat="rdng in item.rdng">
                 <span ng-if="$index > 0">・</span>{{rdng}}
@@ -25,9 +25,10 @@
                     <div class="gridSentence" ng-repeat="sentence in sens.sentences">
                         <span class="jpSentence">{{sentence.jpSentence.jp}}</span>
                         <span class="enSentence">{{sentence.jpSentence.enSentence.en}}</span>
-                        <audio controls preload="auto">
-                            <source ng-src="{{'/app/rest/audio/' + sentence.jpSentence.audio.id + '.mp3'}}" type="audio/mpeg">
-                        </audio>
+
+                        <div ng-if="sentence.jpSentence.audio">
+                            <egd-audio src="'/app/rest/audio/' + sentence.jpSentence.audio.id"/>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -36,8 +37,8 @@
             <i>{{'dictionary.notTranslated' | translate}}</i>
         </div>
     </div>
-    <div id="noResponse">
-        <i>{{'dictionary.unknownWord' | translate}}</i>
+    <div ng-if="rows.length < 1">
+        <i style="margin-top: 5px;float: left;">{{'dictionary.unknownWord' | translate}}</i>
     </div>
 </div>
 <style>

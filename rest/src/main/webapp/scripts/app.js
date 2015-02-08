@@ -213,20 +213,18 @@ egdApp
 
         $rootScope.page = {
             setTitle: function(title) {
+                $log.debug("rootScope.page.setTitle: title=", title);
                 $rootScope.page.title = title + ' | ' + titleSuffix;
             },
-            setI18nTitle: function(title) {
-                $translate(title).then(function(translation) {
+            setI18nTitle: function(key) {
+                $translate(key).then(function(translation) {
                     $rootScope.page.title = translation + ' | ' + titleSuffix;
-                }, function(reason) {
-                    $log.debug("rootScope.page.setTitle fallback: title=", title, ", reason=", reason);
-                    $rootScope.page.title = titleSuffix;
                 });
             }
         };
 
-        $rootScope.$on('$routeChangeSuccess', function(event, current, previous) {
-            $rootScope.page.setI18nTitle(current.$$route ? current.$$route.title : titleSuffix);
+        $rootScope.$on('$routeChangeStart', function(scope, next, current) {
+            $rootScope.page.title = titleSuffix;
         });
     }
 );

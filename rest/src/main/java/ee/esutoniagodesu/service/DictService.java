@@ -51,6 +51,18 @@ public class DictService {
         }
     }
 
+    public List jmtrans(String locale, String phrase) {
+        String lang = JCCharacter.isLatin(phrase.charAt(0)) ? "et": "ja";
+        switch (locale) {
+            case "ja": {
+                return estjap(lang, phrase);
+            }
+            default: {
+                return japest(lang, phrase);
+            }
+        }
+    }
+
     /**
      * Tõlkimine jaapani keele õppijale
      * JP sisendi vastuseks on JP entry list & gloss. JP audio
@@ -59,7 +71,7 @@ public class DictService {
      * @return list JMDict entries that contain 0-or-* senses that contain 0-or-* glosses
      * @see <a href="http://google.com">http://google.com</a>
      */
-    public List<JapEst> japest(String lang, String query) {
+    private List<JapEst> japest(String lang, String query) {
         log.debug("japest: lang=" + lang + ", query=" + query);
         List<JapEst> result = new ArrayList<>();
         JapEst item;
@@ -107,7 +119,7 @@ public class DictService {
      * <p>
      * Lisa igale kaardile estwn.example by variant.literal
      */
-    public List<EstJap> estjap(String lang, String query) {
+    private List<EstJap> estjap(String lang, String query) {
         List<EstJap> result = new ArrayList<>();
 
         switch (lang) {

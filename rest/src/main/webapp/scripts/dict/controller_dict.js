@@ -1,10 +1,22 @@
 'use strict';
 
-egdApp.controller('DictController', function($scope, $route, $routeParams, $location, $translate, $log, DictService, $http) {
+egdApp.controller('DictController', function($rootScope, $scope, $route, $routeParams, $location, $translate, $log, DictService, $http) {
 
-    if ($routeParams.phrase) $scope.phrase = $routeParams.phrase;
+    if ($routeParams.phrase) {
+        $scope.phrase = $routeParams.phrase;
+        $rootScope.page.setTitle($scope.phrase);
+
+        $scope.resultVisible = true;
+        $scope.gridJaVisible = $translate.use() === 'et' || $translate.use() === 'en';
+        $scope.rows = {};
+
+        DictService.jmtrans($scope.phrase).then(function (data) {
+            $scope.rows = data;
+        });
+    }
     $scope.lang = $translate.use();
-    $scope.radioLang = "ja";
+
+    $scope.radioLang = $routeParams.radioLang ? $routeParams.radioLang : "ja";
     $scope.phrases = [];
 
     $scope.toggleButtonDisabled = true;
@@ -35,7 +47,6 @@ egdApp.controller('DictController', function($scope, $route, $routeParams, $loca
                 $scope.phrases = data;
             });
         }
-
     };
 
     $scope.onPhraseClear = function() {
@@ -63,13 +74,6 @@ egdApp.controller('DictController', function($scope, $route, $routeParams, $loca
 
     $scope.showResult = function() {
         $log.debug("DictController.showResult: phrase=" + $scope.phrase);
-        $scope.resultVisible = true;
-        $scope.gridJaVisible = $translate.use() === 'et' || $translate.use() === 'en';
-
-        DictService.japest($scope.phrase).then(function (data) {
-            if (data.length > 0) {
-                $scope.rows = data;
-            }
-        });
+        $location.url("/dict/" + $scope.phrase + "?radioLang=" + $scope.radioLang);
     };
 });

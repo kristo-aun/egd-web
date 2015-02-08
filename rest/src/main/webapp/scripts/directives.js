@@ -232,6 +232,19 @@ directives.directive('showValidation', function () {
     };
 });
 
+directives.directive('egdAudio', function (ngAudio) {
+    return {
+        restrict: 'E',
+        scope: {
+            src: '='
+        },
+        link: function (scope, element, attrs) {
+            scope.audio = ngAudio.load(scope.src);
+        },
+        templateUrl: 'views/directive/egdAudio.html'
+    }
+});
+
 directives.directive('gridJa', function () {
     return {
         restrict: 'E',

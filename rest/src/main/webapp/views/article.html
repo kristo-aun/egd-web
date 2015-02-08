@@ -39,13 +39,66 @@
                 <tbody>
                 <tr ng-repeat="item in article.articleParagraphs">
                     <td>
-                        <button ng-audio=item.audio.audioFile vol=0.5 start=0.2 > Click me </button>
 
-                        <!--
-                        <audio controls="controls" autobuffer="autobuffer" autoplay="autoplay">
-                            <source ng-src="data:audio/ogg;base64, | item.audio.audioFile" />
-                        </audio>
-                        -->
+                        <div class=col-md-offset-4>
+                            <h3>
+                                {{item.audio.ngAudio.id}}
+                                <!-- {{audio}} -->
+                            </h3>
+                            <p ng-if=item.audio.ngAudio.error>
+                                Error playing this sound.
+                            </p>
+                            <p ng-if=!item.audio.ngAudio.canPlay>
+                                Sound is loading, or you are viewing this on a device that doesn't support the <code>canPlay</code> property.
+                            </p>
+                        </div>
+                        <div ng-if='!item.audio.ngAudio.error' class='form-group col-md-8 col-md-offset-4'>
+                            <form class=form-inline>
+                                <div class='form-group col-xs-9'>
+                                    <button class='btn btn-primary' ng-click='item.audio.ngAudio.paused ? item.audio.ngAudio.play() : audio.pause()'>{{item.audio.ngAudio.paused ? "Play" : "Pause" }}</button>
+                                    <button class='btn btn-danger' ng-click='item.audio.ngAudio.restart()'>Stop</button>
+                                    <button class='btn btn-neutral' ng-click='item.audio.ngAudio.muting = !item.audio.ngAudio.muting'>{{audio.muting ? "Unmute" : "Mute" }}</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <form class='form-horizontal'>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="prependedtext">Current Time</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Current Time</span>
+                                        <input class='form-control' type=text ng-model='item.audio.ngAudio.currentTime'>
+                                    </div>
+                                    <p class="help-block">
+                                        <strong>audioObject.currentTime:</strong>The current time of the object in seconds
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="prependedtext">Progress</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Progress</span>
+                                        <input class='form-control' type=range min=0 max=1 step=0.01 ng-model='item.audio.ngAudio.progress'>
+                                    </div>
+                                    <p class="help-block">
+                                        <strong>audioObject.progress:</strong>The progress of the object as a percentage (0-1);
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-4 control-label" for="prependedtext">Volume</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">Volume</span>
+                                        <input class='form-control' type=range min=0 max=1 step=0.01 ng-model='item.audio.ngAudio.volume'>
+                                    </div>
+                                    <strong>audioObject.volume:</strong>The volume of the object as a percentage (0-1);
+                                </div>
+                            </div>
+                        </form>
+
 
                         <textarea auto-grow style="height:100%" class="form-control" ng-model="item.txt"></textarea></td>
                     <td><textarea auto-grow style="height:100%" class="form-control" ng-model="item.transcript"></textarea></td>

@@ -30,19 +30,25 @@
                     <td>{{article.formattedLastModifiedDate}} - {{article.lastModifiedBy}}</td>
                     <td>{{article.formattedCreatedDate}} - {{article.createdBy}}</td>
 
-                    <td>
-                        <button ng-if="isArticleUpdateAllowed(article)" type="submit"
-                                ng-click="update(article.id)"
+                    <td style="text-align: right;">
+                        <button ng-if="isArticleUpdateAllowed(article)"
+                                ng-click="open(article.id)"
                                 class="btn btn-default">
                             <span class="glyphicon glyphicon-pencil"></span>
                             {{'grid.edit' | translate}}
                         </button>
-                        <button ng-if="isArticleDeleteAllowed(article)" type="submit"
+                        <button ng-if="isArticleDeleteAllowed(article)"
                                 ng-really-message="{{'grid.confirm' | translate}}"
                                 ng-really-click="delete(article.id)"
                                 class="btn btn-danger">
                             <span class="glyphicon glyphicon-remove-circle"></span>
                             {{'grid.delete' | translate}}
+                        </button>
+                        <button ng-if="isArticleViewAllowed(article)"
+                                ng-click="open(article.id)"
+                                class="btn btn-default">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            {{'grid.open' | translate}}
                         </button>
                     </td>
                 </tr>

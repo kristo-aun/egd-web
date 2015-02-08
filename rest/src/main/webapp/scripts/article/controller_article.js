@@ -8,7 +8,7 @@ egdApp.controller('ArticlesController', function ($location, $scope, $log, resol
         $location.path("/article/-1");
     };
 
-    $scope.update = function (id) {
+    $scope.open = function (id) {
         $location.path("/article/" + id);
     };
 
@@ -25,9 +25,12 @@ egdApp.controller('ArticlesController', function ($location, $scope, $log, resol
     $scope.isArticleDeleteAllowed = function (article) {
         return Session.hasRoleAdmin() || article.createdBy == Session.login;
     };
+    $scope.isArticleViewAllowed = function (article) {
+        return Session.login ? false : true;
+    };
 });
 
-egdApp.controller('ArticleController', function ($rootScope, $routeParams, $location, $scope, $log, $timeout, $interval, ArticleService) {
+egdApp.controller('ArticleController', function ($rootScope, $routeParams, $location, $scope, $log, $timeout, $interval, ArticleService, ngAudio, Session) {
     $log.debug("ArticleController");
 
     //------------------------------ grid options ------------------------------
@@ -71,6 +74,15 @@ egdApp.controller('ArticleController', function ($rootScope, $routeParams, $loca
             $rootScope.page.setTitle(article.title);
             $scope.article = article;
             $scope.gridOptions.data = $scope.article.articleParagraphs;
+
+            $.each($scope.article.articleParagraphs , function(key, value) {
+                if (value.audio) {
+                    value.audio.ngAudio = ngAudio.load('app/rest/audio/' + value.audio.id);
+                }
+
+
+            });
+
         });
 
     } else {

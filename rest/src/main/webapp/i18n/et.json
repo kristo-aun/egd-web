@@ -524,6 +524,7 @@
         }
     },
     "grid": {
+        "open": "Ava",
         "edit": "Muuda",
         "addtranslation": "Lisa tõlge",
         "delete": "Kustuta",

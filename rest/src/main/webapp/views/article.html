@@ -53,7 +53,7 @@
                             <div ng-if="!item.audio.ngAudio.error" class="input-group" style="width:100%;;">
                                 <div class="input-group-btn">
                                     <button class="btn btn-primary btn-xs" style="width: 70px;border-radius: 4px;"
-                                            ng-click="item.audio.ngAudio.paused ? item.audio.ngAudio.play() : audio.pause()">
+                                            ng-click="item.audio.ngAudio.paused ? item.audio.ngAudio.play() : item.audio.ngAudio.pause()">
                                         {{item.audio.ngAudio.paused ? "Play" : "Pause" }}
                                     </button>
                                 </div>

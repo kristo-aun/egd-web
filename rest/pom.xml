@@ -167,6 +167,7 @@
             <groupId>org.apache.tomcat</groupId>
             <artifactId>tomcat-catalina</artifactId>
             <version>${tomcat.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.tomcat</groupId>
@@ -523,7 +524,7 @@
                         <configuration>
                             <filesets>
                                 <fileset>
-                                    <directory>${basedir}/src/main/webapp/dist</directory>
+                                    <directory>src/main/webapp/dist</directory>
                                 </fileset>
                                 <fileset>
                                     <directory>.tmp</directory>
@@ -543,6 +544,16 @@
                             <archive>
                                 <addMavenDescriptor>false</addMavenDescriptor>
                             </archive>
+
+                            <webResources>
+                                <resource>
+                                    <directory>target/rest/</directory>
+                                    <excludes>
+                                        <exclude>WEB-INF/lib/tomcat-*</exclude>
+                                    </excludes>
+                                </resource>
+                            </webResources>
+
                         </configuration>
                     </plugin>
                     <plugin>

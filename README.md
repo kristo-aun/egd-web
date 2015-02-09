@@ -41,11 +41,16 @@ Database schema is hosted in another project called [egd-db](https://github.com/
 If you wish to have the full databse dump, please write at esutoniagodesu[at]gmail.com.
 Full dump is too large to host on github and there are some licensing constraints. 
 
-Required: jkd8, maven3, node, bower, grunt
+Required: JDK8, [Maven3](docs/MAVEN3.md), [Node.js](docs/NODE.md), bower, grunt
 
 Install kakasi.jar manually<br/>
 ```
 mvn install:install-file -Dfile=lib/kakasi.jar -DgroupId=com.kawao.kakasi -DartifactId=kakasi -Dversion=0.4.0 -Dpackaging=jar
+```
+
+Install egd-web/jc-api to Maven<br/>
+```
+mvn install -Dmaven.test.skip=true
 ```
 
 Download dependencies and run in Spring Boot<br/>

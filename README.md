@@ -135,7 +135,7 @@ Faculty of Information Technology, Monash University. The detail data copyright 
 - **Compounds**: 
 [ILO Jaapani-Eesti taskusõnastik](https://kirjastus.tea.ee/est/Tootekataloog/sonaraamatud/?productID=1603),
 [Core 2k/6k/10k](https://ankiweb.net/shared/decks/japanese)
-- **Articles**: [Free audiobooks](http://forum.koohii.com/viewtopic.php?id=804)
+- **Study materials**: [Free audiobooks](http://forum.koohii.com/viewtopic.php?id=804)
 
 # Documentation
 ## User manual

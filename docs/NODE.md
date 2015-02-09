@@ -1,6 +1,6 @@
 # Install Node.js in Debian Wheezy
 
-Authenthicate as root
+Authorize as root
 ====
 	su -
 
@@ -31,7 +31,7 @@ Configure for your machine
 	./configure
 
 
-Compile. This will take about 10 minutes.
+Compile. This took about 20 minutes with Intel® Atom™ 1.86 GHz Dual-core.
 ====
 	make
 
@@ -39,3 +39,14 @@ Compile. This will take about 10 minutes.
 Install via package manager
 ====
 	checkinstall --type=debian --install=yes
+
+- in the dialog, remove v from before version number (field no. 3)
+
+Install bower via npm
+====
+	npm install -g bower
+
+
+Install grunt via npm
+====
+	npm install -g grunt-cli

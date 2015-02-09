@@ -1,2 +1,2 @@
 #!/bin/sh
-mvn -Pprod package -Dmaven.test.skip=true -e
+mvn clean package -Pprod -Dmaven.test.skip=true -e

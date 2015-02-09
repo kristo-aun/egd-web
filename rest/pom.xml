@@ -571,7 +571,7 @@
                                     <filtering>true</filtering>
                                     <directory>src/main/webapp/dist</directory>
                                     <includes>
-                                        <include>**/*</include>
+                                        <include>**</include>
                                     </includes>
                                 </resource>
                             </webResources>

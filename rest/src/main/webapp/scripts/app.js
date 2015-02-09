@@ -23,9 +23,10 @@ var egdApp = angular.module('egdApp', [
 ]);
 
 egdApp
-    .config(function ($routeProvider, $httpProvider, $translateProvider, tmhDynamicLocaleProvider,
+    .config(function ($routeProvider, $httpProvider, $translateProvider, $logProvider, tmhDynamicLocaleProvider,
                       httpRequestInterceptorCacheBusterProvider, USER_ROLES) {
 
+        $logProvider.debugEnabled(false);
         $httpProvider.interceptors.push('HttpErrorInterceptor');
 
         //Cache everything except rest api requests
@@ -162,7 +163,7 @@ egdApp
 
         $translateProvider.useCookieStorage();
 
-        tmhDynamicLocaleProvider.localeLocationPattern('bower_components/angular-i18n/angular-locale_{{locale}}.js');
+        tmhDynamicLocaleProvider.localeLocationPattern('i18n/angular-locale/angular-locale_{{locale}}.js');
         tmhDynamicLocaleProvider.useCookieStorage('NG_TRANSLATE_LANG_KEY');
     })
     .run(function ($rootScope, $location, $http, $translate, $log, AuthenticationSharedService, Session, USER_ROLES) {

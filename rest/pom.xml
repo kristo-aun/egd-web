@@ -401,18 +401,6 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>2.6</version>
-                <configuration>
-                    <packagingExcludes>WEB-INF/lib/tomcat-*.jar</packagingExcludes>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                    <archive>
-                        <addMavenDescriptor>false</addMavenDescriptor>
-                    </archive>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
                 <version>${sonar-maven-plugin.version}</version>
@@ -535,7 +523,7 @@
                         <configuration>
                             <filesets>
                                 <fileset>
-                                    <directory>src/main/webapp/dist</directory>
+                                    <directory>${basedir}/src/main/webapp/dist</directory>
                                 </fileset>
                                 <fileset>
                                     <directory>.tmp</directory>
@@ -544,6 +532,17 @@
                                     <directory>node_modules</directory>
                                 </fileset>
                             </filesets>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-war-plugin</artifactId>
+                        <version>2.6</version>
+                        <configuration>
+                            <failOnMissingWebXml>false</failOnMissingWebXml>
+                            <archive>
+                                <addMavenDescriptor>false</addMavenDescriptor>
+                            </archive>
                         </configuration>
                     </plugin>
                     <plugin>

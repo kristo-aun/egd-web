@@ -34,17 +34,16 @@
             "language": "Language"
         },
         "label": {
-            "tapsustatud": "Täpsustatud",
-            "search": "Otsi",
-            "kanji_details": "Kanji detailid",
-            "word": "Sõna",
-            "dictionary": "Sõnastik",
+            "search": "Search",
+            "kanji_details": "Kanji details",
+            "word": "Word",
+            "dictionary": "Dictionary",
             "kanjis": "Kanjid",
-            "usage": "Kasutus",
-            "level": "Tase",
-            "index": "Indeks",
+            "usage": "Usage",
+            "level": "Level",
+            "index": "Index",
             "http500": "Viga",
-            "alphabet": "Tähestik",
+            "alphabet": "Alphabet",
             "hiragana": "Hiragana"
         },
         "form": {
@@ -369,26 +368,6 @@
             "delete-not-allowed-if-not-owner": "Teiste loodud artikleid ei ole lubatud kustutada"
         }
     },
-    "index": {
-        "mainTabstrip": {
-            "dictionary": "Sõnastik",
-            "jpet": "Jaapani keel",
-            "etjp": "Eesti keel",
-            "report": "Lae alla",
-            "classifier": "Terminid",
-            "about": "Rakendusest",
-            "links": "Lingid",
-            "feedback": "Tagasiside",
-            "blog": "Blogi",
-            "heisig": "Heisig RTK",
-            "test": {
-                "compound": "Kanji test"
-            }
-        },
-        "footer": {
-            "info": "2014"
-        }
-    },
     "test": {
         "compound": {
             "defaultFormMap": "Eeltäidetud vormid",
@@ -419,32 +398,32 @@
     "stats": {
         "counters": {
             "header": "Dictionary statistics",
-            "jmdictVersion": "JMDict versioon",
-            "countJpEntry": "Jaapanikeelseid mõisteid",
-            "countTranslatedEntries": "Tõlgitud mõisteid",
-            "countEtTranslations": "Eestikeelseid tõlkeid",
-            "countSentencePairs": "Näitelausete paare",
-            "countEstwnExamples": "Eesti Wordnet näitelauseid",
-            "etTransOrigin": "Eestikeelsete tõlgete päritolu",
+            "jmdictVersion": "JMDict version",
+            "countJpEntry": "Japanese entry count",
+            "countTranslatedEntries": "Translated entries",
+            "countEtTranslations": "Translations in Estonian",
+            "countSentencePairs": "Pairs of example sentences",
+            "countEstwnExamples": "Estonian Wordnet sentences",
+            "etTransOrigin": "Origins of translations",
             "countOriginJatik": "JATIK",
-            "countOriginIlo": "ILO kollane taskusõnastik",
+            "countOriginIlo": "ILO's yellow pocket dictionary",
             "countOriginEgd": "EsutoniaGoDesu",
-            "countJpSearchWords": "Jaapanikeelseid päringuid tehtud",
-            "countJpSearchWithResults": "- neist tulemusega",
-            "countEtSearchWords": "Eestikeelseid päringuid tehtud",
-            "countEtSearchWithResults": "- neist tulemusega",
-            "countKanjiInDb": "Kanjisid andmebaasis",
-            "countKanjisDescribedWithHeisig": "- neist Heisigi metoodikaga kirjeldatud",
-            "countStrokeDiagrams": "Joondiagramme"
+            "countJpSearchWords": "Queries in Japanese",
+            "countJpSearchWithResults": "- with results",
+            "countEtSearchWords": "Queries in Estonian",
+            "countEtSearchWithResults": "- with results",
+            "countKanjiInDb": "Kanji count",
+            "countKanjisDescribedWithHeisig": "- described in Heisig's RTK",
+            "countStrokeDiagrams": "Stroke diagrams"
         },
         "core": {
             "header": "Vocabulary statistics",
-            "resource": "Ressursi nimi",
-            "wordCount": "Sõnu kokku",
-            "wordsWithKanjiCount": "Kanjidega sõnu",
-            "kanjiCount": "Kanjide arv sõnas",
-            "withJmdictCount": "JMDict kanne olemas",
-            "withJmdictShare": "JMDict kande olemas koguhulgast"
+            "resource": "Resource",
+            "wordCount": "Word count",
+            "wordsWithKanjiCount": "With kanjis",
+            "kanjiCount": "Kanji count per word",
+            "withJmdictCount": "Has JMDict",
+            "withJmdictShare": "JMDict share"
         },
         "jmdict": {
             "header": "JMDict statistics",
@@ -477,25 +456,25 @@
         }
     },
     "dictionary": {
-        "notTranslated": "ei ole tõlgitud",
-        "unknownWord": "sõna puudub"
+        "notTranslated": "not translated",
+        "unknownWord": "not in dictionary"
     },
     "heisig": {
-        "find_kanjis": "Leia kanjid",
-        "query": "Lause, en/et märksõna, ID või primitiiv",
-        "find_kanjis_v6": "6. raamatu järgi",
-        "find_kanjis_v4": "4. raamatu järgi",
-        "no_results": "Puudub",
+        "find_kanjis": "Explain kanjis",
+        "query": "Sentence, en/et keyword, frame no. or primitive",
+        "find_kanjis_v6": "6. book",
+        "find_kanjis_v4": "4. book",
+        "no_results": "Not in dictionary",
         "frame": {
-            "frameNo": "V6 kaardi nr.",
-            "keyword": "Märksõna",
-            "lessonNo": "H6 õppetükk nr.",
-            "constituent": "Primitiivid",
-            "strokeCount": "Jooni",
+            "frameNo": "V6 frame no.",
+            "keyword": "Keyword",
+            "lessonNo": "Lesson no.",
+            "constituent": "Primitives",
+            "strokeCount": "Stroke count",
             "onYomi": "On-yomi",
             "kunYomi": "Kun-yomi",
-            "frameNo4": "V4 kaardi nr.",
-            "exampleWords": "Näited"
+            "frameNo4": "V4 frame no.",
+            "exampleWords": "Example usage"
         }
     },
     "links": {
@@ -524,16 +503,16 @@
         }
     },
     "grid": {
-        "edit": "Muuda",
-        "addtranslation": "Lisa tõlge",
-        "delete": "Kustuta",
-        "cancel": "Tühista",
-        "add": "Lisa"
+        "edit": "Edit",
+        "addtranslation": "Add translation",
+        "delete": "Delete",
+        "cancel": "Cancel",
+        "add": "Add"
     },
 
     "factForm": {
-        "from": "alates",
-        "to": "kuni"
+        "from": "from",
+        "to": "to"
     },
     "tip": {
         "studyMode": {
@@ -544,29 +523,29 @@
             "estUI": "kasutajaliides eestikeelne",
             "modeEstjap": "ET: kasutusel Eesti-Jaapani sõnastik",
             "estHasPos": "sõnaliigid eestikeelsetele sõnadele",
-            "estHasAudio": "audio eesti keelele",
+            "estHasAudio": "Estonian speech",
             "estHasSentences": "eestikeelne näitelause eespool",
-            "japUI": "kasutajaliides jaapanikeelne"
+            "japUI": "user interface in Japanese"
         }
     },
     "classifier": {
         "tabstrip": {
-            "cfJpCategory": "Sõnaliigid (JP, liht)",
-            "cfEtSonaLiik": "Sõnaliigid (EE)",
-            "cfVocaTransQuality": "Tõlke kvaliteet",
-            "cfOrigin": "Sõna algallikas",
-            "cfAudioQuality": "Heli kvaliteet"
+            "cfJpCategory": "Part of speech (JP)",
+            "cfEtSonaLiik": "Part of speech (ET)",
+            "cfVocaTransQuality": "Translation quality",
+            "cfOrigin": "Origin",
+            "cfAudioQuality": "Audio quality"
         },
         "cfJpCategory": {
-            "n": "nimisõna",
-            "n_": "nimisõna, mida saab kasutada koos verbiga suru",
+            "n": "noun (common) (futsuumeishi)",
+            "n_": "noun or participle which takes the aux. verb suru",
             "compd": "komposiitum e liitsõna",
             "v1": "I grupi verb",
             "v2": "II grupi verb",
             "v3": "III grupi verb",
-            "adj1": "i-omadussõna",
-            "adj2": "na-omadussõna",
-            "pron": "pronomeen e asesõna",
+            "adj1": "i-adjective (keiyoushi)",
+            "adj2": "na-adjectival nouns or quasi-adjectives (keiyoudoushi)",
+            "pron": "pronoun",
             "adv": "adverb",
             "conj": "konjuktsioon e sidesõna",
             "part": "partikkel e abisõna",
@@ -578,23 +557,12 @@
             "kn": "kohanimi",
             "mn": "mehe nimi",
             "nn": "naise nimi",
-            "pn": "perekonnanimi",
-            "slang": "släng",
+            "pn": "family name",
+            "slang": "slang",
             "ling": "lingvistika",
-            "mat": "matemaatika",
-            "med": "meditsiin",
+            "mat": "mathematics",
+            "med": "medicine",
             "sport": "sport"
-        },
-        "cfEtSonaliik": {
-            "n": "nimisõna",
-            "arvs": "arvsõna",
-            "adj": "omadussõna",
-            "ases": "asesõna",
-            "v": "tegusõna",
-            "kaas": "kaassõna",
-            "huud": "hüüdsõna",
-            "side": "sidesõna",
-            "adv": "määrsõna"
         }
     },
 
@@ -704,15 +672,15 @@
         },
         "et": {
             "pos": {
-                "n": "nimisõna",
-                "p.arv": "põhiarvsõna",
-                "adj": "omadussõna",
-                "ases": "asesõna",
-                "v": "tegusõna",
-                "kaas": "kaassõna",
-                "hüüd": "hüüdsõna",
-                "side": "sidesõna",
-                "adv": "määrsõna"
+                "n": "noun",
+                "p.arv": "cardinal numeral",
+                "adj": "adjective",
+                "ases": "pronoun",
+                "v": "verb",
+                "kaas": "adposition",
+                "huud": "interjection",
+                "side": "conjunctive",
+                "adv": "adverb"
             }
         }
     }

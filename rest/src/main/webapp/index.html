@@ -48,7 +48,7 @@
 </div>
 
 <nav class="navbar navbar-default" role="navigation">
-    <div class="container">
+    <div style="margin-left:0;">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -57,18 +57,21 @@
                 <span class="icon-bar"></span>
             </button>
         </div>
-        <div class="collapse navbar-collapse" id="navbar-collapse" ng-switch="authenticated">
+        <div class="collapse navbar-collapse" id="navbar-collapse" ng-switch="authenticated" style="padding-left:0">
             <ul class="nav navbar-nav nav-pills navbar-left">
-                <li>
+                <li style="margin-left:10px;">
                     <a href="#/">
                         <span class="glyphicon glyphicon-home"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#/">
                         <span translate="global.menu.home"></span>
                     </a>
                 </li>
                 <li class="dropdown pointer">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">
                         <span>
-                            <span class="glyphicon glyphicon-th-list"></span>
                             <span class="hidden-tablet" translate="global.menu.entities.main"></span>
                             <b class="caret"></b>
                         </span>
@@ -76,13 +79,11 @@
                     <ul class="dropdown-menu" ng-controller="MenuController">
                         <li>
                             <a href="#/article">
-                                <span class="glyphicon glyphicon-minus"></span>
                                 <span translate="global.menu.entities.articles"></span>
                             </a>
                         </li>
                         <li ng-switch-when="true">
                             <a href="#/tofus">
-                                <span class="glyphicon glyphicon-minus"></span>
                                 <span translate="global.menu.entities.tofus"></span>
                             </a>
                         </li>
@@ -98,7 +99,6 @@
                 -->
                 <li>
                     <a href="#/rtk">
-                        <span style="font-weight: bold;font-size: 1.1em;">字</span>
                         <span translate="global.menu.rtk"></span>
                     </a>
                 </li>

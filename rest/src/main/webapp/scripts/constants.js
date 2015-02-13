@@ -14,7 +14,7 @@ egdApp.constant('USER_ROLES', {
  They are written in English to avoid character encoding issues (not a perfect solution)
  */
 egdApp.constant('LANGUAGES', {
-    'en': 'English',
     'et': 'Estonian',
-    'ja': 'Japanese'
+    'ja': 'Japanese',
+    'en': 'English'
 });

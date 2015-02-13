@@ -60,7 +60,7 @@
             "newpassword.placeholder": "New password",
             "confirmpassword": "New password confirmation",
             "confirmpassword.placeholder": "Confirm the new password",
-            "email": "E-mail",
+            "email": "メアド",
             "email.placeholder": "Your e-mail"
         },
         "messages": {
@@ -361,7 +361,8 @@
         "403": "You are not authorized to access the page."
     },
     "footer": {
-        "last-updated": "Last updated"
+        "last-updated": "最終更新",
+        "_last-updated": "saishuukoushin"
     },
     "alert": {
         "http": {
@@ -539,17 +540,11 @@
         "addtranslation": "Lisa tõlge",
         "delete": "Kustuta",
         "cancel": "キャンセル",
-        "add": "Lisa"
-    },
-
-    "global": {
-        "tapsustatud": "Täpsustatud",
-        "search": "検索",
-        "kanji_details": "Kanji detailid",
-        "word": "言葉",
-        "dictionary": "辞書",
-        "kanjis": "漢字",
-        "usage": "使い"
+        "add": "Lisa",
+        "open": "Ava",
+        "back": "Tagasi",
+        "save": "Salvesta",
+        "confirm": "Kustutamiseks vajutage OK"
     },
 
     "tip": {

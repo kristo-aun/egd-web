@@ -50,3 +50,11 @@ Install bower via npm
 Install grunt via npm
 ====
 	npm install -g grunt-cli
+	
+
+To solve an imagemin during compile time
+====
+    npm install grunt-contrib-imagemin --save-dev
+    npm install -save-dev
+
+    

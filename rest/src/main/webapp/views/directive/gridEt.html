@@ -1,5 +1,5 @@
 <div id="gridEtWR">
-    <div class="gridEntr" ng-repeat="item in estjap">
+    <div ng-if="rows.length > 0" class="gridEntr" ng-repeat="item in rows">
         <div class="entrHeader">
             <span class="gtxt">
                 <a class="clean"
@@ -52,14 +52,11 @@
             <i>{{'dictionary.notTranslated' | translate}}</i>
         </div>
     </div>
-    <div id="noResponse" ng-if="!gridVisible && searchNotInProgress">
-        <i>{{'dictionary.unknownWord' | translate}}</i>
+    <div ng-if="rows.length < 1">
+        <i style="margin-top: 5px;float: left;">{{'dictionary.unknownWord' | translate}}</i>
     </div>
 </div>
 <style>
-    div#noResponse {
-        margin-top: 8px;
-    }
     div#gridEtWR {
         width:600px;
     }

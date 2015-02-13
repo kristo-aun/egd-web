@@ -7,7 +7,9 @@ egdApp.controller('DictController', function($rootScope, $scope, $route, $routeP
         $rootScope.page.setTitle($scope.phrase);
 
         $scope.resultVisible = true;
-        $scope.gridJaVisible = $translate.use() === 'et' || $translate.use() === 'en';
+        $scope.gridJaVisible = $translate.use() === 'et' || $translate.use() === 'en' || false;
+        $log.debug("DictController: gridJaVisible=", $scope.gridJaVisible);
+
         $scope.rows = {};
 
         DictService.jmtrans($scope.phrase).then(function (data) {

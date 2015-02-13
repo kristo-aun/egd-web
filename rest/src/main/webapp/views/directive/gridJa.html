@@ -1,4 +1,4 @@
-<div id="gridJpWR" ng-switch="rows.length > 0">
+<div id="gridJpWR">
     <div ng-if="rows.length > 0" class="gridEntr" ng-repeat="item in rows">
         <div class="entrHeader">
             <span ng-if="item.rdng != null" class="gridRdng" ng-repeat="rdng in item.rdng">
@@ -42,9 +42,6 @@
     </div>
 </div>
 <style>
-    div#noResponse {
-        margin-top: 8px;
-    }
     div#gridJpWR {
         width:600px;
     }

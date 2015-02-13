@@ -26,7 +26,7 @@ egdApp
     .config(function ($routeProvider, $httpProvider, $translateProvider, $logProvider, tmhDynamicLocaleProvider,
                       httpRequestInterceptorCacheBusterProvider, USER_ROLES) {
 
-        $logProvider.debugEnabled(false);
+        //$logProvider.debugEnabled(false);
         $httpProvider.interceptors.push('HttpErrorInterceptor');
 
         //Cache everything except rest api requests

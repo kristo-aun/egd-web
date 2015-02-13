@@ -260,27 +260,16 @@ directives.directive('gridJa', function () {
     }
 });
 
-directives.directive('gridEt', function (DictService, $log) {
+directives.directive('gridEt', function () {
     return {
         restrict: 'E',
         scope: {
-            lang: '@',
-            q: '@'
+            rows: '='
         },
         link: function (scope, element, attrs) {
-            scope.gridVisible = false;
-            scope.searchNotInProgress = false;
-
-            DictService.estjap(scope.lang, scope.q).then(function (result) {
-                $log.debug("directives.gridEt.link: result=", result);
-                if (result.errors) throw result.errors;
-
-                if (result.data.length > 0) {
-                    scope.gridVisible = true;
-                    scope.estjap = result.data;
-                }
-                scope.searchNotInProgress = true;
-            });
+            scope.getAudioResource = function(audioId) {
+                return  '/app/rest/audio/' + audioId;
+            };
         },
         templateUrl: 'views/directive/gridEt.html'
     }

@@ -121,7 +121,6 @@
         }
     },
     "login": {
-        "title": "Logi sisse",
         "form": {
             "password": "Parool",
             "password.placeholder": "Teie parool",

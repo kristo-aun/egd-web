@@ -20,18 +20,18 @@
                 "statistics": "Sõnastiku statistika"
             },
             "account": {
-                "main": "Account",
+                "main": "アカウント",
                 "settings": "Settings",
                 "password": "パスワード",
                 "sessions": "Sessions",
                 "tracker": "User tracker",
                 "metrics": "Metrics",
-                "health": "Health",
+                "health": "健康",
                 "configuration": "Configuration",
                 "logs": "Logs",
                 "audits": "Audits",
-                "login": "Authenticate",
-                "logout": "Log out",
+                "login": "ログイン",
+                "logout": "ログアウト",
                 "apidocs": "API",
                 "register": "Register"
             },
@@ -54,8 +54,8 @@
             "hiragana": "平仮名"
         },
         "form": {
-            "username": "Login",
-            "username.placeholder": "Your login",
+            "username": "ログイン",
+            "username.placeholder": "",
             "newpassword": "New password",
             "newpassword.placeholder": "New password",
             "confirmpassword": "New password confirmation",
@@ -127,12 +127,11 @@
         }
     },
     "login": {
-        "title": "Authentication",
         "form": {
-            "password": "Password",
-            "password.placeholder": "Your password",
-            "rememberme": "Automatic Login",
-            "button": "Authenticate"
+            "password": "パスワード",
+            "password.placeholder": "",
+            "rememberme": "ログインしたままにする",
+            "button": "ログイン"
         },
         "messages": {
             "error": {

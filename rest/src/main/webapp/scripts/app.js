@@ -159,12 +159,28 @@ egdApp
             suffix: '.json'
         });
 
-        $translateProvider.preferredLanguage('et');
+        var initI18n = function(preferredLanguage) {
+            $translateProvider.preferredLanguage(preferredLanguage);
+            $translateProvider.useCookieStorage();
+            tmhDynamicLocaleProvider.localeLocationPattern('i18n/angular-locale/angular-locale_{{locale}}.js');
+            tmhDynamicLocaleProvider.useCookieStorage('NG_TRANSLATE_LANG_KEY');
+        };
 
-        $translateProvider.useCookieStorage();
+        //lets try to determine user's language by browser and location
+        try {
+            var nav = window.navigator.languages || [window.navigator.language || window.navigator.userLanguage];
+            var navlang = nav[0].substring(0,2);
 
-        tmhDynamicLocaleProvider.localeLocationPattern('i18n/angular-locale/angular-locale_{{locale}}.js');
-        tmhDynamicLocaleProvider.useCookieStorage('NG_TRANSLATE_LANG_KEY');
+            if (navlang === "et") {
+                initI18n("et");
+            } else if (navlang === 'ja' || navlang === 'jp') {
+                initI18n("ja");
+            } else {
+                initI18n("et");
+            }
+        } catch(ignored) {
+            initI18n("en");
+        }
     })
     .run(function ($rootScope, $location, $http, $translate, $log, AuthenticationSharedService, Session, USER_ROLES) {
         $rootScope.authenticated = false;

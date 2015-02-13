@@ -3,16 +3,26 @@
         "title": "エストニア語です",
         "browsehappy": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
         "menu": {
-            "home": "Dictionary",
+            "home": "辞書",
+            "_home": "jisho",
             "poll": "意向調査",
             "_poll": "ikouchousa",
+            "overview": "Ülevaade",
+            "rtk": "漢字",
             "entities": {
-                "main": "Entities"
+                "main": "資料",
+                "_main": "shiryou",
+                "articles": "文学",
+                "_articles": "bungaku",
+                "tofus": "トフー文"
+            },
+            "stats": {
+                "statistics": "Sõnastiku statistika"
             },
             "account": {
                 "main": "Account",
                 "settings": "Settings",
-                "password": "Password",
+                "password": "パスワード",
                 "sessions": "Sessions",
                 "tracker": "User tracker",
                 "metrics": "Metrics",
@@ -28,19 +38,20 @@
             "admin": "Administration",
             "language": "Language"
         },
+
         "label": {
             "tapsustatud": "Täpsustatud",
-            "search": "Otsi",
+            "search": "検索",
             "kanji_details": "Kanji detailid",
-            "word": "Sõna",
-            "dictionary": "Sõnastik",
-            "kanjis": "Kanjid",
-            "usage": "Kasutus",
+            "word": "言葉",
+            "dictionary": "辞書",
+            "kanjis": "漢字",
+            "usage": "使い",
             "level": "Tase",
             "index": "Indeks",
             "http500": "Viga",
-            "alphabet": "Tähestik",
-            "hiragana": "Hiragana"
+            "alphabet": "アルファベット",
+            "hiragana": "平仮名"
         },
         "form": {
             "username": "Login",

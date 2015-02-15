@@ -45,7 +45,7 @@ import java.util.Arrays;
  * Linnuke "lisa radikaalide vihje"
  * kui radikaale on rohkem kui 1, lisab 10 suvalises järjekorras radikaali
  */
-public final class TestCompoundSubmit implements Serializable {
+public final class TestCompoundSubmitDTO implements Serializable {
     private static final long serialVersionUID = 6845522545849202408L;
 
     public int filterType;//millist kanji indekstit kasutada

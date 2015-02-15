@@ -1,4 +1,4 @@
-package ee.esutoniagodesu.web.ctrl;
+package ee.esutoniagodesu.web.rest;
 
 
 import ee.esutoniagodesu.bean.GitRepositoryState;

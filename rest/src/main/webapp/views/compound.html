@@ -1,0 +1,437 @@
+
+<egd-qtip url="views/directive/tip/tipAbbr.html"></egd-qtip>
+
+<br/><br/><br/>
+
+<egd-qtip content="{{'test.compound.filterType' | translate}}"></egd-qtip>
+
+<div class="content-wrapper">
+    <form ng-if="formVisible" class="fact-form" ng-submit="doSubmit()" novalidate>
+        <ul class="fact-tree-wr">
+
+            <li class="fact-wr">
+                <label for="defaultFormMap">
+                    {{'test.compound.defaultFormMap' | translate}}
+                    <tip-test-compound-defaultform/>
+                </label>
+
+                <div class="fact-value-wr">
+                    <select id="defaultFormMap"
+                            ng-model="formDefaultId"
+                            ng-change="onDefaultFormChange(formDefaultId)"
+                            ng-options="key as value for (key, value) in params.formDefaultMap">
+                        <option value=""></option>
+                    </select>
+                </div>
+            </li>
+
+            <li class="space"></li>
+
+            <li class="fact-wr">
+                <label for="filterTypeMap">
+                    {{'test.compound.filterType' | translate}}
+                    <tip-test-compound-filtertype/>
+                </label>
+
+                <div class="fact-value-wr">
+                    <select id="filterTypeMap"
+                            ng-model="facts.filterType"
+                            ng-required
+                            ng-change="onFilterTypeChange()"
+                            ng-options="key as value for (key, value) in params.filterTypeMap">
+                        <option value=""></option>
+                    </select>
+                </div>
+
+                <ul ng-if="facts.filterType">
+                    <li class="fact-wr">
+                        <label translate="test.compound.intervalType"/>
+
+                        <div class="fact-value-wr">
+                            <span>
+                                <input type="radio"
+                                       ng-click="onKanjiIntervalTypeChange()"
+                                       ng-model="facts.kanjiIntervalType"
+                                       value="level"/>
+                                <label translate="test.compound.intervalByLevel" style="width:auto"/>
+                            </span>
+                            <span style="float:left;margin-left:15px;">
+                                <input type="radio"
+                                       ng-click="onKanjiIntervalTypeChange()"
+                                       ng-model="facts.kanjiIntervalType"
+                                       value="index"/>
+                                <label translate="test.compound.intervalByIndex" style="width:auto"/>
+                            </span>
+                        </div>
+
+                        <ul ng-switch on="facts.kanjiIntervalType">
+                            <li ng-switch-when="level" class="fact-wr">
+                                <div class="fact-value-wr">
+                                    <select ng-model="facts.kanjiInterval[0]"
+                                            ng-options="key as value for (key, value) in kanjiLevelMap"/>
+                                    <span class="interval-space">-</span>
+                                    <select ng-model="facts.kanjiInterval[1]"
+                                            ng-options="key as value for (key, value) in kanjiLevelMap"/>
+                                </div>
+                            </li>
+                            <li ng-switch-when="index" class="fact-wr">
+                                <div class="fact-value-wr">
+                                    <input type="number"
+                                           style="width: 60px"
+                                           ng-model="facts.kanjiInterval[0]">
+                                    <span class="interval-space">-</span>
+                                    <input type="number"
+                                           style="width: 60px"
+                                           ng-model="facts.kanjiInterval[1]">
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="space"></li>
+
+            <li class="fact-wr">
+                <label for="dictionaryMap">
+                    {{'test.compound.dictSelect' | translate}}
+                    <tip-test-compound-dictionary/>
+                </label>
+
+                <div class="fact-value-wr">
+                    <select id="dictionaryMap"
+                            ng-model="facts.dictionary"
+                            ng-options="key as value for (key, value) in params.dictionaryMap">
+                        <option value=""></option>
+                    </select>
+                </div>
+            </li>
+
+            <li class="space"></li>
+
+            <li class="fact-wr">
+                <label>
+                    {{'test.compound.meaningComponents' | translate}}
+                    <tip-test-compound-meaning/>
+                </label>
+
+                <ul>
+                    <li class="fact-wr">
+                        <div class="fact-value-wr">
+                            <span>
+                                <input id="noEnIfHasEt" type="checkbox" ng-model="facts.noEnIfHasEt">
+                                <label for="noEnIfHasEt" translate="test.compound.noEnIfHasEt" style="width:auto"/>
+                            </span>
+                            <span style="clear: both;float: left;">
+                                <input id="notesVisible" type="checkbox" ng-model="facts.notesVisible">
+                                <label for="notesVisible" translate="test.compound.notesVisible" style="width:auto"/>
+                            </span>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="space"></li>
+
+            <li class="fact-wr">
+                <label translate="test.compound.generateCount"/>
+
+                <div class="fact-value-wr">
+                    <input type="number"
+                           style="width: 60px"
+                           ng-model="facts.generateCount">
+                </div>
+            </li>
+
+            <li class="space"></li>
+
+            <li class="fact-wr">
+                <label>
+                    {{'test.compound.compLengthInterval' | translate}}
+                    <tip-test-compound-complength/>
+                </label>
+
+                <div class="fact-value-wr">
+                    <input type="number"
+                           style="width: 60px"
+                           ng-model="facts.compLengthInterval[0]">
+                    <span class="interval-space">-</span>
+                    <input type="number"
+                           style="width: 60px"
+                           ng-model="facts.compLengthInterval[1]">
+                </div>
+            </li>
+
+            <li class="space"></li>
+
+            <li class="fact-wr">
+                <label for="orderByTypeMap">
+                    {{'test.compound.orderByType' | translate}}
+                    <tip-test-compound-orderby/>
+                </label>
+
+                <div class="fact-value-wr">
+                    <select id="orderByTypeMap"
+                            ng-model="facts.orderByType"
+                            ng-options="key as value for (key, value) in params.orderByTypeMap">
+                        <option value=""></option>
+                    </select>
+                </div>
+            </li>
+
+            <li class="space"></li>
+
+            <li class="fact-wr">
+                <label>
+                    {{'test.compound.hints' | translate}}
+                    <tip-test-compound-hints/>
+                </label>
+
+                <ul>
+                    <li class="fact-wr">
+                        <div class="fact-value-wr">
+                            <span>
+                                <input id="strokeCountHintVisible" type="checkbox"
+                                       ng-model="facts.strokeCountHintVisible">
+                                <label for="strokeCountHintVisible" translate="test.compound.strokeCountHint"
+                                       style="width:auto"/>
+                            </span>
+                            <span style="clear: both;float: left;">
+                                <input id="radicalHintVisible" type="checkbox" ng-model="facts.radicalHintVisible">
+                                <label for="radicalHintVisible" translate="test.compound.radicalHint"
+                                       style="width:auto"/>
+                            </span>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="space"></li>
+
+            <li class="fact-wr">
+                <label>
+                    {{'test.compound.export' | translate}}
+                    <tip-test-compound-export/>
+                </label>
+
+                <div class="fact-value-wr">
+                    <input id="generatePdf" type="checkbox" ng-model="facts.generatePdf">
+                    <label for="generatePdf" translate="test.compound.generatePdf"/>
+                </div>
+            </li>
+        </ul>
+
+        <div class="fact-form-submit-wr" style="margin-top: 10px">
+            <button class="k-button" translate="test.compound.submit" type="submit"></button>
+        </div>
+    </form>
+
+    <div ng-if="!formVisible" class="fact-form-result">
+
+        <div class="cmpd-wr" ng-if="compounds.length > 0" ng-repeat="p in compounds">
+            <div class="cmpd-header-wr">
+                <span class="cmpd-reading">{{p.reading}}</span>
+                <span ng-if="p.et" class="cmpd-et">{{p.et}}</span>
+                <span ng-if="p.en" class="cmpd-en">{{p.en}}</span>
+                <span ng-if="p.notes" class="cmpd-notes">({{p.notes}})</span>
+            </div>
+
+            <div class="cmpd-answer-wr">
+                <table>
+                    <tr>
+                        <td ng-repeat="q in p.signs" class="{{q.kanji | ie: 'sign-box':'rdng-box'}} ">
+                            <span class="sign-wr">{{q.sign}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td ng-repeat="q in p.signs" class="sign-hint">
+                            <div ng-if="q.kanji && (q.radicalHint || q.strokeCountHint)" class="radical-hint-wr">
+                                <span ng-if="q.strokeCountHint" class="strokecount">{{q.strokeCountHint}}</span>
+                                {{q.radicalHint}}
+                            </div>
+                        </td>
+                    </tr>
+
+
+                    <!--
+                    <tr ng-repeat="(qkey,qval) in p.signs">
+                        <td class="sign-box　{{current() == 'links' | ie: 'k-tab-on-top k-state-active':''}}">
+                            <span ng-if="!qval" class="sign-box-rdng">{{qkey}}</span>
+                        </td>
+                        <td class="sign-rdng">
+                            <span ng-if="!qval" class="sign-box-rdng">{{qkey}}</span>
+                        </td>
+                        <td>
+                            <span class="sign-stroke-count-hint">{{qval['strokeCountHint']}}</span>
+                        </td>
+                        <td>
+                            <span class="sign-radical-hint">{{qval['radicalHint']}}</span>
+                        </td>
+                    </tr>
+                    -->
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+
+    td.sign-box {
+        border: 2px solid #888888;
+        height: 50px;
+        width: 50px;
+        vertical-align: middle;
+        text-align: center;
+        font-size: 24px;
+    }
+
+    td.rdng-box {
+        height: 50px;
+        width: 20px;
+        vertical-align: middle;
+        text-align: center;
+        font-size: 24px;
+    }
+
+    span.cmpd-et {
+        margin-top: 6px;
+        font-size: 18px;
+    }
+
+    span.cmpd-en {
+        margin-top: 6px;
+        font-size: 18px;
+        font-style: italic;
+    }
+
+    span.strokecount {
+        color: darkblue;
+        font-weight: bold;
+    }
+
+    td.sign-hint {
+
+    }
+
+    div.radical-hint-wr {
+        width: 50px;
+        margin: 2px;
+        word-wrap: break-word;
+        display: inherit;
+    }
+
+    .upright {
+        -webkit-writing-mode: vertical-rl;
+        -moz-writing-mode: vertical-rl;
+        -o-writing-mode: vertical-rl;
+        -ms-writing-mode: vertical-rl;
+        writing-mode: vertical-rl;
+        -webkit-text-orientation: upright;
+        -moz-text-orientation: upright;
+        -o-text-orientation: upright;
+        -ms-text-orientation: mixed;
+        text-orientation: upright;
+    }
+
+    td.sign-rdng, span.sign-box-rdng {
+
+    }
+
+    span.cmpd-reading {
+        color: darkred;
+        margin-left: 5px;
+        font-size: 27px;
+    }
+
+    div.cmpd-wr {
+        vertical-align: top;
+        margin: 10px;
+        padding: 3px 15px 2px 15px;
+        min-height: 90px;
+        border: 2px solid #888888;
+        background: white;
+        display: inline-table;
+        width: 400px;
+    }
+
+    div.cmpd-header-wr {
+        margin-top:4px;
+        float: left;
+    }
+
+    div.cmpd-answer-wr {
+        margin-top:6px;
+        width: 100%;
+        float: left;
+        margin-bottom: 6px;
+    }
+
+    div.cmpd-header-wr span {
+        float:left;
+    }
+
+    div.cmpd-header-wr span + span {
+        margin-left:10px;
+    }
+
+    span.cmpd-en {
+        font-style: italic;
+    }
+
+
+    li.fact-wr, li.space {
+        list-style: none;
+    }
+
+    li.fact-wr label {
+        width: 140px;
+    }
+
+    li.fact-wr,
+    li.space,
+    li.fact-wr label,
+    li.fact-wr div.fact-value-wr,
+    div.fact-value-wr input,
+    div.fact-value-wr select,
+    div.fact-form-submit-wr {
+        float: left;
+    }
+
+    div.fact-form-submit-wr {
+        clear: both;
+    }
+
+    span.interval-space {
+        float: left;
+        margin-left: 8px;
+        margin-right: 8px;
+    }
+
+    ul.fact-tree-wr {
+        float: left;
+        margin: 0;
+        padding: 10px;
+        border: 2px solid #bfbfbf;
+        min-width: 500px;
+    }
+
+    ul.fact-tree-wr li.fact-wr {
+        padding: 10px;
+        clear: both;
+    }
+
+    ul.fact-tree-wr li.fact-wr label {
+        width: 210px;
+    }
+
+    ul.fact-tree-wr li.fact-wr + li.space {
+        margin-top: 10px;
+    }
+
+    li.space {
+        border-top: 2px solid #bfbfbf;
+        width: 100%;
+        height: 4px;
+    }
+</style>

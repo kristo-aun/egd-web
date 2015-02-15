@@ -9,29 +9,35 @@
             "_poll": "ikouchousa",
             "overview": "Ülevaade",
             "rtk": "漢字",
-            "entities": {
+            "entity": {
                 "main": "資料",
                 "_main": "shiryou",
                 "articles": "文学",
                 "_articles": "bungaku",
                 "tofus": "トフー文"
             },
+            "test": {
+                "main": "能力試験",
+                "_main": "nouryokushiken",
+                "compound": "文字",
+                "_compound": "moji"
+            },
             "stats": {
                 "statistics": "Sõnastiku statistika"
             },
             "account": {
-                "main": "アカウント",
+                "main": "Account",
                 "settings": "Settings",
                 "password": "パスワード",
                 "sessions": "Sessions",
                 "tracker": "User tracker",
                 "metrics": "Metrics",
-                "health": "健康",
+                "health": "Health",
                 "configuration": "Configuration",
                 "logs": "Logs",
                 "audits": "Audits",
-                "login": "ログイン",
-                "logout": "ログアウト",
+                "login": "Authenticate",
+                "logout": "Log out",
                 "apidocs": "API",
                 "register": "Register"
             },
@@ -54,8 +60,8 @@
             "hiragana": "平仮名"
         },
         "form": {
-            "username": "ログイン",
-            "username.placeholder": "",
+            "username": "Login",
+            "username.placeholder": "Your login",
             "newpassword": "New password",
             "newpassword.placeholder": "New password",
             "confirmpassword": "New password confirmation",
@@ -127,11 +133,12 @@
         }
     },
     "login": {
+        "title": "Authentication",
         "form": {
-            "password": "パスワード",
-            "password.placeholder": "",
-            "rememberme": "ログインしたままにする",
-            "button": "ログイン"
+            "password": "Password",
+            "password.placeholder": "Your password",
+            "rememberme": "Automatic Login",
+            "button": "Authenticate"
         },
         "messages": {
             "error": {
@@ -375,6 +382,26 @@
             "delete-not-allowed-if-not-owner": "Teiste loodud artikleid ei ole lubatud kustutada"
         }
     },
+    "index": {
+        "mainTabstrip": {
+            "dictionary": "Sõnastik",
+            "jpet": "Jaapani keel",
+            "etjp": "Eesti keel",
+            "report": "Lae alla",
+            "classifier": "Terminid",
+            "about": "Rakendusest",
+            "links": "Lingid",
+            "feedback": "Tagasiside",
+            "blog": "Blogi",
+            "heisig": "Heisig RTK",
+            "test": {
+                "compound": "Kanji test"
+            }
+        },
+        "footer": {
+            "info": "2014"
+        }
+    },
     "test": {
         "compound": {
             "defaultFormMap": "Eeltäidetud vormid",
@@ -575,6 +602,17 @@
             "mat": "matemaatika",
             "med": "meditsiin",
             "sport": "sport"
+        },
+        "cfEtSonaliik": {
+            "n": "nimisõna",
+            "arvs": "arvsõna",
+            "adj": "omadussõna",
+            "ases": "asesõna",
+            "v": "tegusõna",
+            "kaas": "kaassõna",
+            "huud": "hüüdsõna",
+            "side": "sidesõna",
+            "adv": "määrsõna"
         }
     },
 
@@ -690,7 +728,7 @@
                 "ases": "asesõna",
                 "v": "tegusõna",
                 "kaas": "kaassõna",
-                "huud": "hüüdsõna",
+                "hüüd": "hüüdsõna",
                 "side": "sidesõna",
                 "adv": "määrsõna"
             }

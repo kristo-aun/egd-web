@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="styles/bootstrap.css">
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="styles/egd.css">
+    <link rel="stylesheet" href="styles/egd.qtip.css">
     <link rel="stylesheet" href="styles/twitter.css">
     <link rel="stylesheet" href="styles/flags.css">
     <link rel="stylesheet" href="bower_components/jqplot/jquery.jqplot.css"/>
@@ -72,19 +73,34 @@
                 <li class="dropdown pointer">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">
                         <span>
-                            <span class="hidden-tablet" translate="global.menu.entities.main"></span>
+                            <span class="hidden-tablet" translate="global.menu.entity.main"></span>
                             <b class="caret"></b>
                         </span>
                     </a>
                     <ul class="dropdown-menu" ng-controller="MenuController">
                         <li>
                             <a href="#/article">
-                                <span translate="global.menu.entities.articles"></span>
+                                <span translate="global.menu.entity.articles"></span>
                             </a>
                         </li>
                         <li ng-switch-when="true">
-                            <a href="#/tofus">
-                                <span translate="global.menu.entities.tofus"></span>
+                            <a href="#/tofu">
+                                <span translate="global.menu.entity.tofus"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown pointer">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                        <span>
+                            <span class="hidden-tablet" translate="global.menu.test.main"></span>
+                            <b class="caret"></b>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu" ng-controller="MenuController">
+                        <li>
+                            <a href="#/test/compound">
+                                <span translate="global.menu.test.compound"></span>
                             </a>
                         </li>
                     </ul>
@@ -268,6 +284,10 @@
 <script src="bower_components/angular-cache-buster/angular-cache-buster.js"></script>
 <script src="bower_components/jquery-ui/jquery-ui.js"></script>
 
+<link data-require="qtip2@*" data-semver="2.2.1" rel="stylesheet" href="//cdn.jsdelivr.net/qtip2/2.2.1/jquery.qtip.min.css" />
+<script data-require="qtip2@*" data-semver="2.2.1" src="//cdn.jsdelivr.net/qtip2/2.2.1/jquery.qtip.min.js"></script>
+
+
 <script src="bower_components/angular-ui-grid/ui-grid.js"></script>
 <script src="bower_components/angular-audio/app/angular.audio.js"></script>
 
@@ -276,10 +296,12 @@
 <script src="scripts/utils.js"></script>
 <script src="scripts/app.js"></script>
 <script src="scripts/constants.js"></script>
+<script src="scripts/filters.js"></script>
 <script src="scripts/controllers.js"></script>
 <script src="scripts/services.js"></script>
 <script src="scripts/directives.js"></script>
 <script src="scripts/tips.js"></script>
+
 <script src="bower_components/bootstrap-sass/vendor/assets/javascripts/bootstrap/affix.js"></script>
 <script src="bower_components/bootstrap-sass/vendor/assets/javascripts/bootstrap/alert.js"></script>
 <script src="bower_components/bootstrap-sass/vendor/assets/javascripts/bootstrap/dropdown.js"></script>
@@ -294,9 +316,9 @@
 <script src="bower_components/bootstrap-sass/vendor/assets/javascripts/bootstrap/tab.js"></script>
 <script src="bower_components/angular-ui-chart/src/chart.js"></script>
 
-<script src="scripts/article/router_article.js"></script>
-<script src="scripts/article/controller_article.js"></script>
-<script src="scripts/article/service_article.js"></script>
+<script src="scripts/entity/article/router_article.js"></script>
+<script src="scripts/entity/article/controller_article.js"></script>
+<script src="scripts/entity/article/service_article.js"></script>
 
 <script src="scripts/rtk/service_rtk.js"></script>
 <script src="scripts/rtk/router_rtk.js"></script>
@@ -318,9 +340,13 @@
 <script src="scripts/dict/controller_dict.js"></script>
 <script src="scripts/dict/service_dict.js"></script>
 
-<script src="scripts/tofu/router_tofu.js"></script>
-<script src="scripts/tofu/controller_tofu.js"></script>
-<script src="scripts/tofu/service_tofu.js"></script>
+<script src="scripts/entity/tofu/router_tofu.js"></script>
+<script src="scripts/entity/tofu/controller_tofu.js"></script>
+<script src="scripts/entity/tofu/service_tofu.js"></script>
+
+<script src="scripts/test/compound/router_compound.js"></script>
+<script src="scripts/test/compound/controller_compound.js"></script>
+<script src="scripts/test/compound/service_compound.js"></script>
 
 <!-- endbuild -->
 </body>

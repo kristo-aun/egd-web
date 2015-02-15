@@ -7,10 +7,14 @@
             "poll": "Küsitlus",
             "overview": "Ülevaade",
             "rtk": "Kirjamärgid",
-            "entities": {
+            "entity": {
                 "main": "Õppematerjalid",
                 "articles": "Artiklid",
                 "tofus": "Tofu laused"
+            },
+            "test": {
+                "main": "Keeletestid",
+                "compound": "Sõna kirjutamine"
             },
             "stats": {
                 "statistics": "Sõnastiku statistika"
@@ -121,6 +125,7 @@
         }
     },
     "login": {
+        "title": "Logi sisse",
         "form": {
             "password": "Parool",
             "password.placeholder": "Teie parool",
@@ -372,6 +377,26 @@
             "email_address_already_in_use": "E-posti aadress on juba kasutusel"
         }
     },
+    "index": {
+        "mainTabstrip": {
+            "dictionary": "Sõnastik",
+            "jpet": "Jaapani keel",
+            "etjp": "Eesti keel",
+            "report": "Lae alla",
+            "classifier": "Terminid",
+            "about": "Rakendusest",
+            "links": "Lingid",
+            "feedback": "Tagasiside",
+            "blog": "Blogi",
+            "heisig": "Heisig RTK",
+            "test": {
+                "compound": "Kanji test"
+            }
+        },
+        "footer": {
+            "info": "2014"
+        }
+    },
     "test": {
         "compound": {
             "defaultFormMap": "Eeltäidetud vormid",
@@ -573,6 +598,17 @@
             "mat": "matemaatika",
             "med": "meditsiin",
             "sport": "sport"
+        },
+        "cfEtSonaliik": {
+            "n": "nimisõna",
+            "arvs": "arvsõna",
+            "adj": "omadussõna",
+            "ases": "asesõna",
+            "v": "tegusõna",
+            "kaas": "kaassõna",
+            "huud": "hüüdsõna",
+            "side": "sidesõna",
+            "adv": "määrsõna"
         }
     },
 
@@ -688,7 +724,7 @@
                 "ases": "asesõna",
                 "v": "tegusõna",
                 "kaas": "kaassõna",
-                "huud": "hüüdsõna",
+                "hüüd": "hüüdsõna",
                 "side": "sidesõna",
                 "adv": "määrsõna"
             }

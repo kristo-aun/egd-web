@@ -10,9 +10,9 @@ public enum TestCompoundSubmitDefaults {
     core10k_jlpt_1_3(3, getCore10KJLPT());
 
     public final int ID;
-    public final TestCompoundSubmit VALUE;
+    public final TestCompoundSubmitDTO VALUE;
 
-    TestCompoundSubmitDefaults(int id, TestCompoundSubmit form) {
+    TestCompoundSubmitDefaults(int id, TestCompoundSubmitDTO form) {
         ID = id;
         VALUE = form;
     }
@@ -34,8 +34,8 @@ public enum TestCompoundSubmitDefaults {
 
     //------------------------------ vormid ------------------------------
 
-    public static TestCompoundSubmit getIloHeisig6() {
-        TestCompoundSubmit submit = new TestCompoundSubmit();
+    public static TestCompoundSubmitDTO getIloHeisig6() {
+        TestCompoundSubmitDTO submit = new TestCompoundSubmitDTO();
 
         submit.dictionary = EDictionary.ilo_yellow_jp_et.ID;
         submit.generateCount = 100;
@@ -58,8 +58,8 @@ public enum TestCompoundSubmitDefaults {
         return submit;
     }
 
-    public static TestCompoundSubmit getCore6KHeisig6() {
-        TestCompoundSubmit submit = new TestCompoundSubmit();
+    public static TestCompoundSubmitDTO getCore6KHeisig6() {
+        TestCompoundSubmitDTO submit = new TestCompoundSubmitDTO();
 
         submit.dictionary = EDictionary.core6k.ID;
         submit.generateCount = 100;
@@ -82,8 +82,8 @@ public enum TestCompoundSubmitDefaults {
         return submit;
     }
 
-    public static TestCompoundSubmit getCore10KJLPT() {
-        TestCompoundSubmit submit = new TestCompoundSubmit();
+    public static TestCompoundSubmitDTO getCore10KJLPT() {
+        TestCompoundSubmitDTO submit = new TestCompoundSubmitDTO();
 
         submit.dictionary = EDictionary.core10k.ID;
         submit.generateCount = 100;

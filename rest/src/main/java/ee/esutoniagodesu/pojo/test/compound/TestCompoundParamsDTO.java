@@ -1,17 +1,15 @@
-package ee.esutoniagodesu.pojo.test.article;
+package ee.esutoniagodesu.pojo.test.compound;
 
 import com.jc.util.JCMap;
-import ee.esutoniagodesu.pojo.test.compound.EDictionary;
-import ee.esutoniagodesu.pojo.test.compound.EFilterType;
-import ee.esutoniagodesu.pojo.test.compound.EOrderByType;
-import ee.esutoniagodesu.pojo.test.compound.EOrderDirection;
 
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public final class TestArticleParams implements Serializable {
+public final class TestCompoundParamsDTO implements Serializable {
     private static final long serialVersionUID = -4846810847410530439L;
+
+    public final Map<Integer, String> formDefaultMap = TestCompoundSubmitDefaults.asMap();
 
     public final Map<Integer, String> dictionaryMap = JCMap.toMap(EDictionary.values());
     public final Map<Integer, String> core10kLevelMap = JCMap.toIntLinkedHashMap(1, 10);

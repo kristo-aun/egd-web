@@ -3,7 +3,7 @@
 egdApp
     .config(function ($routeProvider, USER_ROLES) {
             $routeProvider
-                .when('/tofus', {
+                .when('/tofu', {
                     templateUrl: 'views/tofus.html',
                     controller: 'TofusController',
                     access: {

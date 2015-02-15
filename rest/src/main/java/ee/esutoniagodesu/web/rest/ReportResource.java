@@ -1,4 +1,4 @@
-package ee.esutoniagodesu.web.ctrl;
+package ee.esutoniagodesu.web.rest;
 
 import com.jc.spring.FileResponse;
 import ee.esutoniagodesu.service.JasperService;

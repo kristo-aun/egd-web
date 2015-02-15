@@ -3,6 +3,7 @@ package ee.esutoniagodesu.service;
 import com.google.common.base.Joiner;
 import com.jc.hibernate.ProjectDAO;
 import com.jc.util.JCString;
+import ee.esutoniagodesu.domain.ac.table.User;
 import ee.esutoniagodesu.domain.core.table.IHasCoreWord;
 import ee.esutoniagodesu.domain.freq.table.NresBase;
 import ee.esutoniagodesu.domain.jmdict.table.Sens;
@@ -44,25 +45,21 @@ public class TestCompoundService {
     @Inject
     private CoreDB coreDB;
 
-    private static final TestCompoundParams _params = new TestCompoundParams();
+    private static final TestCompoundParamsDTO _params = new TestCompoundParamsDTO();
 
 	//------------------------------ enne submitti ------------------------------
 
-	public TestCompoundParams params() {
+	public TestCompoundParamsDTO params() {
 		return _params;
 	}
 
-	public Map<Integer, String> getDefaultFormMap() {
-		return TestCompoundSubmitDefaults.asMap();
-	}
-
-	public TestCompoundSubmit getDefault(int defaultKey) {
-		return TestCompoundSubmitDefaults.getValueById(defaultKey).VALUE;
+	public TestCompoundSubmitDTO getFormDefault(int paramId) {
+		return TestCompoundSubmitDefaults.getValueById(paramId).VALUE;
 	}
 
 	//------------------------------ peale submitti ------------------------------
 
-	public List<KanjiCompound> generate(TestCompoundSubmit s) {
+	public List<KanjiCompound> submit(TestCompoundSubmitDTO s, User sessionUser) {
 		log.info("generate: s=" + s);
 		long ms = System.currentTimeMillis();
 

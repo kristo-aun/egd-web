@@ -8,15 +8,13 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public class PhraseEtDB extends AbstractProjectRepository {
 
-	public List<String> getIdAndEtByRightOpen(String example, int limit) {
-		StringBuilder msg = new StringBuilder("getIdAndEtByRightOpen: example=" + example);
+	public List<String> getAutocomplete(String example, int limit) {
+		StringBuilder msg = new StringBuilder("getAutocomplete: example=" + example + ", limit=" + limit);
 		if (example == null || limit < 1) throw new IllegalArgumentException(msg.toString());
 
 		Connection con = null;
@@ -28,13 +26,14 @@ public class PhraseEtDB extends AbstractProjectRepository {
 			long ms = System.currentTimeMillis();
 			con = dao.getConnection();
 			con.setAutoCommit(false);//kui tagastatakse kursor, siis peab autcommit olema false
-			String sql = "{? = call f_get_entr_et_like(?,?)}";
+			String sql = "{? = call public.f_autocomplete_et(?,?)}";
 			s = con.prepareCall(sql);
 			s.registerOutParameter(1, Types.OTHER);//cursor
 			s.setString(2, example + "%");
 			s.setInt(3, limit);
 			s.execute();
 			rs = (ResultSet) s.getObject(1);
+            rs.setFetchSize(limit + 1);
 
 			while (rs.next()) {
 				result.add(rs.getString(1));
@@ -52,46 +51,8 @@ public class PhraseEtDB extends AbstractProjectRepository {
 		return result;
 	}
 
-	public Map<Integer, String> getIdAndEtByRightOpen_2(String example) {
-
-		StringBuilder msg = new StringBuilder("getIdAndEtByRightOpen: example=" + example);
-
-		Connection con = null;
-		PreparedStatement s = null;
-		ResultSet rs = null;
-		Map<Integer, String> result = new LinkedHashMap<>();
-
-		try {
-
-			long ms = System.currentTimeMillis();
-			con = dao.getConnection();
-
-			String sql = "SELECT entr, txt FROM jmdict.gloss WHERE upper(txt) LIKE upper(?) ORDER BY txt COLLATE \"estonian\"";
-
-			s = con.prepareCall(sql);
-			s.setString(1, example + "%");
-			s.setFetchSize(50);
-			rs = s.executeQuery();
-
-			while (rs.next()) {
-				result.put(rs.getInt(1), rs.getString(2));
-			}
-
-			if (log.isDebugEnabled()) log.debug(msg.append(", result.size=").append(result.size())
-					.append(", time=").append(System.currentTimeMillis() - ms).toString());
-		} catch (SQLException e) {
-			log.error(msg.append(", msg=").append(e.getMessage()).toString(), e);
-			throw new RuntimeException(e);
-		} finally {
-			JDBCUtil.close(rs, s, con);
-		}
-
-		return result;
-	}
-
-
 	public boolean exists(String phrase) {
-		StringBuilder msg = new StringBuilder("getIdByPhrase: phrase=" + phrase);
+		StringBuilder msg = new StringBuilder("exists: phrase=" + phrase);
 
 		Connection con = null;
 		PreparedStatement s = null;

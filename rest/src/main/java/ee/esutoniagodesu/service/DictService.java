@@ -37,14 +37,14 @@ public class DictService {
 
     private static final int _limitAutocompleteSize = 100;
 
-    public Collection<String> autocomplete(String q) {
-        String lang = JCCharacter.isLatin(q.charAt(0)) ? "et": "ja";
+    public Collection<String> autocomplete(String phrase) {
+        String lang = JCCharacter.isLatin(phrase.charAt(0)) ? "et": "ja";
         switch (lang) {
             case "et": {
-                return phraseEtDB.getIdAndEtByRightOpen(q, _limitAutocompleteSize);
+                return phraseEtDB.getAutocomplete(phrase, _limitAutocompleteSize);
             }
             case "ja": {
-                return phraseJpDB.getIdAndJapaneseByRightOpen(q, _limitAutocompleteSize);
+                return phraseJpDB.getAutocomplete(phrase, _limitAutocompleteSize);
             }
             default:
                 throw new IllegalArgumentException("Language not available: " + lang);

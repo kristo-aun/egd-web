@@ -49,8 +49,8 @@ public class PhraseJpDB extends AbstractProjectRepository {
 		return result;
 	}
 
-	public List<String> getIdAndJapaneseByRightOpen(String example, int limit) {
-		StringBuilder msg = new StringBuilder("getIdAndJapaneseByRightOpen: example=" + example);
+	public List<String> getAutocomplete(String example, int limit) {
+		StringBuilder msg = new StringBuilder("getAutocomplete: example=" + example + ", limit=" + limit);
 		if (example == null || limit < 1) throw new IllegalArgumentException(msg.toString());
 
 		Connection con = null;
@@ -62,13 +62,14 @@ public class PhraseJpDB extends AbstractProjectRepository {
 			long ms = System.currentTimeMillis();
 			con = dao.getConnection();
 			con.setAutoCommit(false);//kui tagastatakse kursor, siis peab autcommit olema false
-			String sql = "{? = call f_get_entr_jp_like(?,?)}";
+			String sql = "{? = call public.f_autocomplete_jp(?,?)}";
 			s = con.prepareCall(sql);
 			s.registerOutParameter(1, Types.OTHER);//cursor
 			s.setString(2, example + "%");
 			s.setInt(3, limit);
 			s.execute();
 			rs = (ResultSet) s.getObject(1);
+            rs.setFetchSize(limit + 1);
 
 			while (rs.next()) {
 				result.add(rs.getString(1));

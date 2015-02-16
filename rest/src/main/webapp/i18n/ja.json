@@ -26,18 +26,19 @@
                 "statistics": "Sõnastiku statistika"
             },
             "account": {
-                "main": "Account",
+                "main": "アカウント",
                 "settings": "Settings",
                 "password": "パスワード",
                 "sessions": "Sessions",
                 "tracker": "User tracker",
                 "metrics": "Metrics",
-                "health": "Health",
+                "health": "健康",
+                "_health": "kenkou",
                 "configuration": "Configuration",
                 "logs": "Logs",
                 "audits": "Audits",
-                "login": "Authenticate",
-                "logout": "Log out",
+                "login": "ログイン",
+                "logout": "ログアウト",
                 "apidocs": "API",
                 "register": "Register"
             },
@@ -60,14 +61,14 @@
             "hiragana": "平仮名"
         },
         "form": {
-            "username": "Login",
-            "username.placeholder": "Your login",
+            "username": "ログイン",
+            "username.placeholder": "",
             "newpassword": "New password",
-            "newpassword.placeholder": "New password",
+            "newpassword.placeholder": "",
             "confirmpassword": "New password confirmation",
-            "confirmpassword.placeholder": "Confirm the new password",
+            "confirmpassword.placeholder": "",
             "email": "メアド",
-            "email.placeholder": "Your e-mail"
+            "email.placeholder": ""
         },
         "messages": {
             "info": {
@@ -133,12 +134,11 @@
         }
     },
     "login": {
-        "title": "Authentication",
         "form": {
-            "password": "Password",
-            "password.placeholder": "Your password",
-            "rememberme": "Automatic Login",
-            "button": "Authenticate"
+            "password": "パスワード",
+            "password.placeholder": "",
+            "rememberme": "ログインしたままにする",
+            "button": "ログイン"
         },
         "messages": {
             "error": {
@@ -382,26 +382,7 @@
             "delete-not-allowed-if-not-owner": "Teiste loodud artikleid ei ole lubatud kustutada"
         }
     },
-    "index": {
-        "mainTabstrip": {
-            "dictionary": "Sõnastik",
-            "jpet": "Jaapani keel",
-            "etjp": "Eesti keel",
-            "report": "Lae alla",
-            "classifier": "Terminid",
-            "about": "Rakendusest",
-            "links": "Lingid",
-            "feedback": "Tagasiside",
-            "blog": "Blogi",
-            "heisig": "Heisig RTK",
-            "test": {
-                "compound": "Kanji test"
-            }
-        },
-        "footer": {
-            "info": "2014"
-        }
-    },
+
     "test": {
         "compound": {
             "defaultFormMap": "Eeltäidetud vormid",
@@ -509,6 +490,22 @@
         }
     },
 
+    "article": {
+        "create_a_new_article": "Add new story",
+        "grid": {
+            "author": "作家",
+            "_author": "sakka",
+            "copyright": "コピーライト",
+            "title": "タイトル",
+            "transcriptLang": "音訳言語",
+            "_transcriptLang": "onyakugengo",
+            "created": "書かれた",
+            "_created": "kakareta",
+            "lastModified": "変更されました",
+            "_lastModified": "henkou saremashita"
+        }
+    },
+
     "links": {
         "jpResources": "日本語のためのサイト",
         "_jpResources": "nihongo no tame no saito",
@@ -547,8 +544,8 @@
         "delete": "Kustuta",
         "cancel": "キャンセル",
         "add": "Lisa",
-        "open": "Ava",
-        "back": "Tagasi",
+        "open": "開けます",
+        "back": "帰ります",
         "save": "Salvesta",
         "confirm": "Kustutamiseks vajutage OK"
     },
@@ -602,17 +599,6 @@
             "mat": "matemaatika",
             "med": "meditsiin",
             "sport": "sport"
-        },
-        "cfEtSonaliik": {
-            "n": "nimisõna",
-            "arvs": "arvsõna",
-            "adj": "omadussõna",
-            "ases": "asesõna",
-            "v": "tegusõna",
-            "kaas": "kaassõna",
-            "huud": "hüüdsõna",
-            "side": "sidesõna",
-            "adv": "määrsõna"
         }
     },
 
@@ -728,7 +714,7 @@
                 "ases": "asesõna",
                 "v": "tegusõna",
                 "kaas": "kaassõna",
-                "hüüd": "hüüdsõna",
+                "huud": "hüüdsõna",
                 "side": "sidesõna",
                 "adv": "määrsõna"
             }

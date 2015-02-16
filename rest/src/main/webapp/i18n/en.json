@@ -373,26 +373,7 @@
             "delete-not-allowed-if-not-owner": "Teiste loodud artikleid ei ole lubatud kustutada"
         }
     },
-    "index": {
-        "mainTabstrip": {
-            "dictionary": "Sõnastik",
-            "jpet": "Jaapani keel",
-            "etjp": "Eesti keel",
-            "report": "Lae alla",
-            "classifier": "Terminid",
-            "about": "Rakendusest",
-            "links": "Lingid",
-            "feedback": "Tagasiside",
-            "blog": "Blogi",
-            "heisig": "Heisig RTK",
-            "test": {
-                "compound": "Kanji test"
-            }
-        },
-        "footer": {
-            "info": "2014"
-        }
-    },
+
     "test": {
         "compound": {
             "defaultFormMap": "Eeltäidetud vormid",
@@ -502,6 +483,19 @@
             "exampleWords": "Näited"
         }
     },
+
+    "article": {
+        "create_a_new_article": "Add new story",
+        "grid": {
+            "author": "Author",
+            "copyright": "Copyright",
+            "title": "Title",
+            "transcriptLang": "Transcript language",
+            "created": "Created",
+            "lastModified": "Last modified"
+        }
+    },
+
     "links": {
         "jpResources": "Jaapani keele ressursid",
         "etResources": "Eesti keele ressursid",

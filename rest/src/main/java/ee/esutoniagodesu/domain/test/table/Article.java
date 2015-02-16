@@ -37,6 +37,7 @@ public final class Article extends AbstractAuditingEntity implements Serializabl
     private String transcriptLang;
 
     @OneToMany(mappedBy = "article", fetch = FetchType.EAGER)
+    @OrderBy("order")
     private Collection<ArticleParagraph> articleParagraphs;
 
     @Column(name = "shared")

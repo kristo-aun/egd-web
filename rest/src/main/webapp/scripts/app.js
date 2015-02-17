@@ -145,9 +145,16 @@ egdApp
                     authorizedRoles: [USER_ROLES.all]
                 }
             })
-            .otherwise({
+            .when('/', {
                 templateUrl: 'views/main.html',
                 controller: 'MainController',
+                access: {
+                    authorizedRoles: [USER_ROLES.all]
+                }
+            })
+            .otherwise({
+                templateUrl: 'views/404.html',
+                controller: '404Controller',
                 access: {
                     authorizedRoles: [USER_ROLES.all]
                 }

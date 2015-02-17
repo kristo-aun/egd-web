@@ -45,6 +45,9 @@ egdApp.controller('MainController', function ($scope, GitService) {
     });
 });
 
+egdApp.controller('404Controller', function ($scope) {
+});
+
 egdApp.controller('AdminController', function ($scope) {
 });
 

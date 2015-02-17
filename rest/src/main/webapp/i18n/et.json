@@ -364,7 +364,7 @@
     "alert": {
         "http": {
             "timeout": "Puudub ühendus",
-            "404": "Server ei tagastanud vastust",
+            "404": "Viga 404 - lehekülge ei leitud.",
             "500": "Viga programmis. Viga on logitud ja arendajale raporteeritud."
         },
         "article": {

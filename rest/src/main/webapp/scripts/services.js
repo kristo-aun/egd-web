@@ -25,7 +25,7 @@ egdApp.factory('HttpErrorInterceptor', function ($q, $rootScope, $log, $translat
             if (response && response.status === 401) {
                 return $q.reject(response);
             } else if (response && response.status === 404) {
-                msg += "Puudub ühendus";
+                msg += "Not found";
             } else if (response && response.status >= 500) {
                 if (response.data.message) {
                     msg += response.data.message;

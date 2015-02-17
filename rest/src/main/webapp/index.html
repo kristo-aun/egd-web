@@ -46,8 +46,7 @@
 <![endif]-->
 
 <div id="alert-wr" ng-controller="AlertController" ui-scrollfix="+100">
-    <alert ng-if="alerts" ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}
-    </alert>
+    <alert ng-if="alerts" ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
 </div>
 
 <nav class="navbar navbar-default" role="navigation">

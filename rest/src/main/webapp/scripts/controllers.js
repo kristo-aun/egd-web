@@ -16,7 +16,7 @@ egdApp.controller('AlertController', function ($scope, $translate, $log) {
             .then(function (translation) {
                 whenTranslated(type, translation);
             }, function(reason) {
-                $log.error("alertCtrl.pushAlert: i18n failed, reason=", reason);
+                $log.error("AlertController.pushAlert: i18n failed, reason=", reason);
                 whenTranslated(type, alertId);
             }
         );
@@ -24,12 +24,12 @@ egdApp.controller('AlertController', function ($scope, $translate, $log) {
 
     // Picks up events to display a server success or error message.
     $scope.$on('success', function (event, alertId) {
-        $log.debug("alertCtrl.success: alertId=", alertId);
+        $log.debug("AlertController.success: alertId=", alertId);
         translate("success", alertId, pushAlert);
     });
 
     $scope.$on('error', function (event, alertId) {
-        $log.debug("alertCtrl.error: alertId=", alertId);
+        $log.debug("AlertController.error: alertId=", alertId);
         translate("danger", alertId, pushAlert);
     });
 

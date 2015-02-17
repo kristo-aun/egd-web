@@ -15,7 +15,11 @@ div#alert-wr {
     width: 40%;
     position: absolute;
     z-index: 10000;
-    margin-top: 15px;
+    margin-top: 33px;
+}
+
+div#alert-wr > div > button.ng-hide:not(.ng-animate) {
+    display: inherit!important;
 }
 
 div.container {

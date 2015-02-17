@@ -3,7 +3,7 @@
 /* Controllers */
 
 //Binds with xhr feedback messages section. Shows messages in a modal popup at the page header
-egdApp.controller('AlertController', function ($scope, $translate, $log) {
+egdApp.controller('AlertController', function ($scope, $translate, $log, $timeout) {
 
     var pushAlert = function(type, translation) {
         $scope.alerts = $scope.alerts || [];
@@ -36,6 +36,12 @@ egdApp.controller('AlertController', function ($scope, $translate, $log) {
     $scope.closeAlert = function (index) {
         $scope.alerts.splice(index, 1);
     };
+
+    /*
+    $timeout(function(){
+        $scope.alerts.splice($scope.alerts.indexOf(alert), 1);
+    }, 3000);
+    //*/
 });
 
 egdApp.controller('MainController', function ($scope, GitService) {

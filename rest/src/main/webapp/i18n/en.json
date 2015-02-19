@@ -522,11 +522,15 @@
         }
     },
     "grid": {
-        "edit": "Muuda",
-        "addtranslation": "Lisa tõlge",
-        "delete": "Kustuta",
-        "cancel": "Tühista",
-        "add": "Lisa"
+        "open": "Open",
+        "back": "Back",
+        "edit": "Edit",
+        "addtranslation": "Add translation",
+        "delete": "Delete",
+        "cancel": "Cancel",
+        "save": "Save",
+        "add": "Add",
+        "confirm": "Press OK to delete"
     },
 
     "factForm": {

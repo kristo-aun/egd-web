@@ -1,17 +1,14 @@
-<egd-qtip content="{{'test.compound.filterType' | translate}}"></egd-qtip>
-
-<div class="content-wrapper">
-    <form ng-if="formVisible" class="fact-form" ng-submit="doSubmit()" novalidate>
+<div class="form-inline">
+    <form ng-submit="doSubmit()">
         <ul class="fact-tree-wr">
-
             <li class="fact-wr">
                 <label for="defaultFormMap">
                     {{'test.compound.defaultFormMap' | translate}}
                     <egd-qtip url="views/directive/tip/tipTestCompoundDefaultform.html"></egd-qtip>
                 </label>
-
                 <div class="fact-value-wr">
                     <select id="defaultFormMap"
+                            class="form-control"
                             ng-model="formDefaultId"
                             ng-change="onDefaultFormChange(formDefaultId)"
                             ng-options="key as value for (key, value) in params.formDefaultMap">
@@ -27,10 +24,10 @@
                     {{'test.compound.filterType' | translate}}
                     <egd-qtip url="views/directive/tip/tipTestCompoundFiltertype.html"></egd-qtip>
                 </label>
-
                 <div class="fact-value-wr">
                     <select id="filterTypeMap"
                             ng-model="facts.filterType"
+                            class="form-control"
                             ng-required
                             ng-change="onFilterTypeChange()"
                             ng-options="key as value for (key, value) in params.filterTypeMap">
@@ -43,29 +40,23 @@
                         <label translate="test.compound.intervalType"/>
 
                         <div class="fact-value-wr">
-                            <span>
-                                <input type="radio"
-                                       ng-click="onKanjiIntervalTypeChange()"
-                                       ng-model="facts.kanjiIntervalType"
-                                       value="level"/>
-                                <label translate="test.compound.intervalByLevel" style="width:auto"/>
-                            </span>
-                            <span style="float:left;margin-left:15px;">
-                                <input type="radio"
-                                       ng-click="onKanjiIntervalTypeChange()"
-                                       ng-model="facts.kanjiIntervalType"
-                                       value="index"/>
-                                <label translate="test.compound.intervalByIndex" style="width:auto"/>
-                            </span>
+                            <div class="btn-group">
+                                <label class="btn btn-primary" ng-model="facts.kanjiIntervalType"
+                                       btn-radio="'level'" translate="test.compound.intervalByLevel"></label>
+                                <label class="btn btn-primary" ng-model="facts.kanjiIntervalType"
+                                       btn-radio="'index'" translate="test.compound.intervalByIndex"></label>
+                            </div>
                         </div>
 
                         <ul ng-switch on="facts.kanjiIntervalType">
                             <li ng-switch-when="level" class="fact-wr">
                                 <div class="fact-value-wr">
                                     <select ng-model="facts.kanjiInterval[0]"
+                                            class="form-control"
                                             ng-options="key as value for (key, value) in kanjiLevelMap"/>
                                     <span class="interval-space">-</span>
                                     <select ng-model="facts.kanjiInterval[1]"
+                                            class="form-control"
                                             ng-options="key as value for (key, value) in kanjiLevelMap"/>
                                 </div>
                             </li>
@@ -73,10 +64,12 @@
                                 <div class="fact-value-wr">
                                     <input type="number"
                                            style="width: 60px"
+                                           class="form-control"
                                            ng-model="facts.kanjiInterval[0]">
                                     <span class="interval-space">-</span>
                                     <input type="number"
                                            style="width: 60px"
+                                           class="form-control"
                                            ng-model="facts.kanjiInterval[1]">
                                 </div>
                             </li>
@@ -95,6 +88,7 @@
 
                 <div class="fact-value-wr">
                     <select id="dictionaryMap"
+                            class="form-control"
                             ng-model="facts.dictionary"
                             ng-options="key as value for (key, value) in params.dictionaryMap">
                         <option value=""></option>
@@ -114,11 +108,17 @@
                     <li class="fact-wr">
                         <div class="fact-value-wr">
                             <span>
-                                <input id="noEnIfHasEt" type="checkbox" ng-model="facts.noEnIfHasEt">
+                                <input id="noEnIfHasEt"
+                                       class="form-control"
+                                       type="checkbox"
+                                       ng-model="facts.noEnIfHasEt">
                                 <label for="noEnIfHasEt" translate="test.compound.noEnIfHasEt" style="width:auto"/>
                             </span>
                             <span style="clear: both;float: left;">
-                                <input id="notesVisible" type="checkbox" ng-model="facts.notesVisible">
+                                <input id="notesVisible"
+                                       class="form-control"
+                                       type="checkbox"
+                                       ng-model="facts.notesVisible">
                                 <label for="notesVisible" translate="test.compound.notesVisible" style="width:auto"/>
                             </span>
                         </div>
@@ -133,6 +133,7 @@
 
                 <div class="fact-value-wr">
                     <input type="number"
+                           class="form-control"
                            style="width: 60px"
                            ng-model="facts.generateCount">
                 </div>
@@ -148,10 +149,12 @@
 
                 <div class="fact-value-wr">
                     <input type="number"
+                           class="form-control"
                            style="width: 60px"
                            ng-model="facts.compLengthInterval[0]">
                     <span class="interval-space">-</span>
                     <input type="number"
+                           class="form-control"
                            style="width: 60px"
                            ng-model="facts.compLengthInterval[1]">
                 </div>
@@ -167,6 +170,7 @@
 
                 <div class="fact-value-wr">
                     <select id="orderByTypeMap"
+                            class="form-control"
                             ng-model="facts.orderByType"
                             ng-options="key as value for (key, value) in params.orderByTypeMap">
                         <option value=""></option>
@@ -186,13 +190,18 @@
                     <li class="fact-wr">
                         <div class="fact-value-wr">
                             <span>
-                                <input id="strokeCountHintVisible" type="checkbox"
+                                <input id="strokeCountHintVisible"
+                                       class="form-control"
+                                       type="checkbox"
                                        ng-model="facts.strokeCountHintVisible">
                                 <label for="strokeCountHintVisible" translate="test.compound.strokeCountHint"
                                        style="width:auto"/>
                             </span>
                             <span style="clear: both;float: left;">
-                                <input id="radicalHintVisible" type="checkbox" ng-model="facts.radicalHintVisible">
+                                <input id="radicalHintVisible"
+                                       class="form-control"
+                                       type="checkbox"
+                                       ng-model="facts.radicalHintVisible">
                                 <label for="radicalHintVisible" translate="test.compound.radicalHint"
                                        style="width:auto"/>
                             </span>
@@ -210,14 +219,17 @@
                 </label>
 
                 <div class="fact-value-wr">
-                    <input id="generatePdf" type="checkbox" ng-model="facts.generatePdf">
+                    <input id="generatePdf"
+                           class="form-control"
+                           type="checkbox"
+                           ng-model="facts.generatePdf">
                     <label for="generatePdf" translate="test.compound.generatePdf"/>
                 </div>
             </li>
         </ul>
 
         <div class="fact-form-submit-wr" style="margin-top: 10px">
-            <button class="k-button" translate="test.compound.submit" type="submit"></button>
+            <button class="btn btn-primary" translate="test.compound.submit" type="submit"></button>
         </div>
     </form>
 
@@ -381,6 +393,7 @@
 
     li.fact-wr label {
         width: 140px;
+        margin-top: 6px;
     }
 
     li.fact-wr,
@@ -416,7 +429,7 @@
         clear: both;
     }
 
-    ul.fact-tree-wr li.fact-wr label {
+    ul.fact-tree-wr > li.fact-wr > label {
         width: 210px;
     }
 

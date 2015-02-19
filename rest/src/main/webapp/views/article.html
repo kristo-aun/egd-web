@@ -7,7 +7,9 @@
             <div class="row">
                 <div class="form-group">
                     <label translate="article.grid.title"></label>
-                    <input ng-if="!isAnonymous()" type="text" class="form-control"
+                    <input ng-if="!isAnonymous()"
+                           type="text"
+                           class="form-control"
                            ng-model="article.title">
                     <span ng-if="isAnonymous()">{{article.title}}</span>
                 </div>

@@ -232,7 +232,7 @@ directives.directive('showValidation', function () {
     };
 });
 
-directives.directive('egdQtip', function ($translate, $log, $templateCache, $compile, $rootScope) {
+directives.directive('egdQtip', function ($translate, $log, $templateCache, $compile, $http) {
     return {
         restrict: 'E',
         scope: {
@@ -248,31 +248,9 @@ directives.directive('egdQtip', function ($translate, $log, $templateCache, $com
                     , at = attrs.at || 'top right'
                     , qtipClass = attrs.class || 'qtip-dark ui-tooltip-tipsy';
 
-                var tipContent;
-
-
-
-
-                if (scope.url) {
-                    var template = $templateCache.get(scope.url);
-                    var compiled = $compile(template);
-                    //element.parent().append(compiled);
-
-                    //content = $templateCache.get(attrs.templateUrl).html();
-                    tipContent = function () {
-                        return scope.$apply(function () {
-                            return compiled(scope);
-                        });
-                    };
-                    //tipContent = $(element).html(html);
-
-                } else {
-                    tipContent = scope.content;
-                }
-
                 var qTipGlobalOptions = {
                     content:{
-                        text:tipContent,
+                        text:null,
                         title:{
                             text:' ',
                             button:true
@@ -296,9 +274,22 @@ directives.directive('egdQtip', function ($translate, $log, $templateCache, $com
                     },
                     hide:false
                 };
+
                 var target = $(element);
-                target.qtip(qTipGlobalOptions);
-                showQtip(target);
+
+                if (scope.url) {
+
+                    $http.get(scope.url).success(function(template) {
+                        qTipGlobalOptions.content.text = $compile(template)(scope);
+                        target.qtip(qTipGlobalOptions);
+                        showQtip(target);
+
+                    });
+                } else {
+                    qTipGlobalOptions.content.text = scope.content;
+                    target.qtip(qTipGlobalOptions);
+                    showQtip(target);
+                }
             };
 
             var showQtip = function(element) {

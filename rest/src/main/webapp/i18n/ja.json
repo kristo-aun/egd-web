@@ -518,19 +518,15 @@
         "confirm": "Kustutamiseks vajutage OK"
     },
 
-    "tip": {
-        "studyMode": {
-            "modeJapest": "日本語: kasutusel Jaapani-Eesti sõnasti",
-            "japHasPos": "sõnaliigid ja märgendid jaapanikeelsetele sõnadele",
-            "japHasAudio": "audio jaapani keelele",
-            "japHasSentences": "jaapanikeelne näitelause eespool",
-            "estUI": "kasutajaliides eestikeelne",
-            "modeEstjap": "ET: kasutusel Eesti-Jaapani sõnastik",
-            "estHasPos": "sõnaliigid eestikeelsetele sõnadele",
-            "estHasAudio": "audio eesti keelele",
-            "estHasSentences": "eestikeelne näitelause eespool",
-            "japUI": "kasutajaliides jaapanikeelne"
-        }
+    "language": {
+        "et": "エストニア語",
+        "en": "英語",
+        "ja": "日本語"
+    },
+
+    "factForm": {
+        "from": "from",
+        "to": "to"
     },
 
     "tip": {

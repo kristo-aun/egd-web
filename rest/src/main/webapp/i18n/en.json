@@ -508,10 +508,17 @@
         "confirm": "Press OK to delete"
     },
 
+    "language": {
+        "et": "Estonian",
+        "en": "English",
+        "ja": "Japanese"
+    },
+
     "factForm": {
         "from": "from",
         "to": "to"
     },
+
     "tip": {
         "studyMode": {
             "title": "Interface peculiarities under each language",

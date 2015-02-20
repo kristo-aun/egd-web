@@ -564,6 +564,30 @@
             "japUI": "kasutajaliides jaapanikeelne"
         }
     },
+
+    "tip": {
+        "studyMode": {
+            "title": "Interface peculiarities under each language",
+            "et": {
+                "title": "Estonian",
+                "dictDirection": "Dictionary is translating in Japanese-Estonian direction.",
+                "audioFor": "Audio on jaapanikeelesetele sõnadele. JMAudio baasil.",
+                "exampleSentencesFor": "Näitelausetes on audio ja selgitused jaapanikeelse lause kohta."
+            },
+            "en": {
+                "title": "English",
+                "description": "Interface works just like it does in Estonian mode."
+            },
+            "ja": {
+                "title": "Japanese",
+                "objective": "Objective is to offer some value to Japanese speakers by inversion of existing datasources.",
+                "dictDirection": "Dictionary is translating in Estonian-Japanese direction. Based on inversion of JMDict during runtime.",
+                "audioFor": "Audio is for Estonian words. Work is in progress to generate pronunciations using EKI's TTS synthesizer.",
+                "exampleSentencesFor": "Example sentences are in Estonian. At the moment without translation. Based on TEKSaurus. Ideally there should be natural audio for example sentences."
+            }
+        }
+    },
+
     "classifier": {
         "tabstrip": {
             "cfJpCategory": "Sõnaliigid (JP, liht)",

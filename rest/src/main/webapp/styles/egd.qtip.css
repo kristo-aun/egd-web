@@ -1,6 +1,6 @@
 /* Add some nice box-shadow-ness to the dialogues */
 .ui-tooltip-dialogue {
-    max-width: 420px;
+    max-width: 620px;
     min-width: 210px;
 
     -moz-box-shadow: 0 0 10px 1px rgba(0, 0, 0, .5);
@@ -54,4 +54,8 @@ div.qtip-default div.qtip-titlebar {
     background-color: #505050;
     padding: 12px 35px 5px 10px;
     margin-right: -4px;
+}
+
+div.qtip {
+    max-width: 620px;
 }

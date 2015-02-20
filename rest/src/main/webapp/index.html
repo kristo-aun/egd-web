@@ -156,12 +156,15 @@
                     </ul>
                 </li>
                 <li class="dropdown pointer" ng-controller="LanguageController">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="">
-                                <span>
-                                    <span class="glyphicon glyphicon-flag"></span>
-                                    <span class="hidden-tablet" style="color:rgb(66, 139, 202);" translate="global.menu.language">Language</span>
-                                    <b class="caret"></b>
-                                </span>
+                    <div class="row" style="float: left;padding-top: 15px; padding-left: 20px;width: 55px;">
+                        <egd-qtip url="views/directive/tip/tipStudyMode.html"></egd-qtip>
+                    </div>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="" style="width: 130px;float: left;">
+                            <span>
+                                <span class="glyphicon glyphicon-flag"></span>
+                                <span class="hidden-tablet" style="color:rgb(66, 139, 202);" translate="global.menu.language">Language</span>
+                                <b class="caret"></b>
+                            </span>
                     </a>
                     <ul class="dropdown-menu">
                         <li active-menu="{{key}}" ng-repeat="(key, language) in languages">
@@ -171,6 +174,7 @@
                             </a>
                         </li>
                     </ul>
+
                 </li>
                 <li class="dropdown pointer">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">

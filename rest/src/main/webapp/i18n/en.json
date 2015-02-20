@@ -363,13 +363,13 @@
     },
     "alert": {
         "http": {
-            "timeout": "Puudub ühendus",
+            "timeout": "Connection timeout",
             "404": "Error 404 - the page could not be found.",
             "500": "Viga programmis. Viga on logitud ja arendajale raporteeritud."
         },
         "article": {
             "changing-articles-you-dont-own-not-allowed": "Teiste loodud artikleid ei ole lubatud muuta",
-            "article-not-public": "Artikkel ei ole avalik",
+            "article-not-public": "Article not public",
             "delete-not-allowed-if-not-owner": "Teiste loodud artikleid ei ole lubatud kustutada"
         }
     },
@@ -398,7 +398,7 @@
             "jouyou": "Jōjō",
             "heisig4": "Heisig 4",
             "heisig6": "Heisig 6",
-            "submit": "Koosta test"
+            "submit": "Submit"
         }
     },
     "stats": {
@@ -448,16 +448,16 @@
         }
     },
     "changelog": {
-        "title": "Muudatuste ajalugu",
+        "title": "Changelog",
         "legend": {
-            "title": "Ikoonide tähendused",
-            "add": "Uus funktsionaalsus",
-            "add.descr": "test, nupp, lehekülg vms.",
-            "fix": "Veaparandus",
+            "title": "Icon meanings",
+            "add": "New functionality",
+            "add.descr": "test, button, page etc.",
+            "fix": "Fix",
             "fix.descr": "soovituslikult koos Github'i pileti ID'ga.",
-            "update":"Töö andmetega",
+            "update":"Data update",
             "update.descr":"tõlgete parandamine, uued näitelaused, artiklid, testid, sõnavara vms.",
-            "code": "Muudatus koodis",
+            "code": "Source improvement",
             "code.descr": "ei mõjuta funktsionaalsust (formaatimine, muutujate ühtlustamine, algoritmi parandamine, komponentide uuendamine)."
         }
     },
@@ -536,14 +536,14 @@
     },
     "classifier": {
         "tabstrip": {
-            "cfJpCategory": "Sõnaliigid (JP, liht)",
-            "cfEtSonaLiik": "Sõnaliigid (EE)",
-            "cfVocaTransQuality": "Tõlke kvaliteet",
-            "cfOrigin": "Sõna algallikas",
-            "cfAudioQuality": "Heli kvaliteet"
+            "cfJpCategory": "Part of speech (JP)",
+            "cfEtSonaLiik": "Part of speech (ET)",
+            "cfVocaTransQuality": "Translation quality",
+            "cfOrigin": "Origin",
+            "cfAudioQuality": "Audio quality"
         },
         "cfJpCategory": {
-            "n": "nimisõna",
+            "n": "noun",
             "n_": "nimisõna, mida saab kasutada koos verbiga suru",
             "compd": "komposiitum e liitsõna",
             "v1": "I grupi verb",
@@ -563,11 +563,11 @@
             "kn": "kohanimi",
             "mn": "mehe nimi",
             "nn": "naise nimi",
-            "pn": "perekonnanimi",
-            "slang": "släng",
-            "ling": "lingvistika",
-            "mat": "matemaatika",
-            "med": "meditsiin",
+            "pn": "surname",
+            "slang": "slang",
+            "ling": "linguistics",
+            "mat": "maths",
+            "med": "medicine",
             "sport": "sport"
         }
     },
@@ -678,15 +678,15 @@
         },
         "et": {
             "pos": {
-                "n": "nimisõna",
-                "p.arv": "põhiarvsõna",
-                "adj": "omadussõna",
-                "ases": "asesõna",
-                "v": "tegusõna",
-                "kaas": "kaassõna",
-                "huud": "hüüdsõna",
-                "side": "sidesõna",
-                "adv": "määrsõna"
+                "n": "noun",
+                "p.arv": "cardinal numeral",
+                "adj": "adjective",
+                "ases": "pronoun",
+                "v": "verb",
+                "kaas": "adposition",
+                "huud": "interjection",
+                "side": "conjunctive",
+                "adv": "adverb"
             }
         }
     }

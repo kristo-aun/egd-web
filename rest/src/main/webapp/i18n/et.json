@@ -473,6 +473,8 @@
         "unknownWord": "sõna puudub"
     },
     "heisig": {
+        "intro1": "Programm nopib tekstist välja kanjid ja lisab neile <a target=\"_blank\" href=\"http://www.edrdg.org/kanjidic/kanjd2index.html\">KANJIDIC2</a> sõnastikust häälduse ja muu info. Kui kanji esineb ka James W. Heisigi RTK1 raamatus, lisatakse Heisigi märksõnad ja kaardi numbrid. 6395 kanjil on olemas joondiagramm <a target=\"_blank\" href=\"http://kanjivg.tagaini.net\">KanjiVG</a> järgi.",
+        "intro2": "Klassikalistest kanji sõnastikest eristab siinset võimalus tervet teksti korraga analüüsida ja Heisigi numbrite järgi otsida. Nõrkuseks on vähene konteksti info. Üks ütlemata hea sõnastik on <a target=\"_blank\" href=\"http://jisho.org\">jisho.org</a>.",
         "find_kanjis": "Leia kanjid",
         "query": "Sõna, lause, Heisigi märksõna, Heisigi ID või primitiiv",
         "find_kanjis_v6": "6. raamatu järgi",
@@ -544,6 +546,12 @@
                 "audioFor": "Audio on eestikeelesetele sõnadele. Hetkel töös EKI kõnesüntesaatori abil häälduste loomine.",
                 "exampleSentencesFor": "Eestikeelsed näitelaused. Hetkel ilma tõlketa. TEKSauruse baasil. Ideaalis võiks lisada ka naturaalse häälduse."
             }
+        },
+        "rtkForm": {
+            "tip1": "Heisigi ID järgi otsimine toimib vaid siis kui ühtegi tähemärki lisaks numbritele ei ole. Toetatud ID-sid on 2200.",
+            "tip2": "Märksõna võib olla nii inglise- kui eesti keeles. Eestikeelseid märksõnu on 900.",
+            "tip3": "ID järgi otsimisel on vaikimisi kasutusel \"Remember The Kanji\" 6. raamat. ",
+            "tip4": "Primitiivide all on mõeldud Heisigi raamatus esitatud inglisekeelsed kanji osade tähistused. Need ei kattu täielikult Jaapanis kasutatavate radikaalidega."
         }
     },
     "classifier": {

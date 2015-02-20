@@ -467,6 +467,8 @@
     },
 
     "heisig": {
+        "intro1": "This program filters out kanjis from a text and provides them with on/kun readings and various other information from KANJIDIC2. If the kanji is enlisted in James W. Heisig's RTK1 book, its keyword and frame numbers are included from the book. 6395 kanjis have stroke diagrams, provided by KanjiVG.",
+        "intro2": "What differs this from traditional kanji dictionaries is the ability to analyze multiple kanjis at once and its RTK integration. Insufficient contextual information can be regarded as a disadvantage. For a more sizable dictionary, you might want to take a look at jisho.org.",
         "find_kanjis_v6": "バージョン６で",
         "_find_kanjis_v6": "baajon 6 de",
         "find_kanjis_v4": "バージョン４で",
@@ -549,6 +551,12 @@
                 "audioFor": "Audio is for Estonian words. Work is in progress to generate pronunciations using EKI's TTS synthesizer.",
                 "exampleSentencesFor": "Example sentences are in Estonian. At the moment without translation. Based on TEKSaurus. Ideally there should be natural audio for example sentences."
             }
+        },
+        "rtkForm": {
+            "tip1": "ID search works if only numbers are used. Supported ID range is 1-2200.",
+            "tip2": "Keyword can either be in English or Estonian. 900 keywords have been translated to Estonian.",
+            "tip3": "ID search uses RTK's 6. edition by default.",
+            "tip4": "Primitives are the ones used in RTK. They are different from the radicals used in Japan."
         }
     },
 

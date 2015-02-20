@@ -39,16 +39,16 @@
         },
         "label": {
             "tapsustatud": "Täpsustatud",
-            "search": "Otsi",
-            "kanji_details": "Kanji detailid",
-            "word": "Sõna",
-            "dictionary": "Sõnastik",
-            "kanjis": "Kanjid",
-            "usage": "Kasutus",
-            "level": "Tase",
-            "index": "Indeks",
-            "http500": "Viga",
-            "alphabet": "Tähestik",
+            "search": "Search",
+            "kanji_details": "Kanji details",
+            "word": "Word",
+            "dictionary": "Dictionary",
+            "kanjis": "Kanjis",
+            "usage": "Usage",
+            "level": "Level",
+            "index": "Index",
+            "http500": "Error",
+            "alphabet": "Alphabet",
             "hiragana": "Hiragana"
         },
         "form": {
@@ -404,32 +404,32 @@
     "stats": {
         "counters": {
             "header": "Dictionary statistics",
-            "jmdictVersion": "JMDict versioon",
-            "countJpEntry": "Jaapanikeelseid mõisteid",
-            "countTranslatedEntries": "Tõlgitud mõisteid",
-            "countEtTranslations": "Eestikeelseid tõlkeid",
-            "countSentencePairs": "Näitelausete paare",
-            "countEstwnExamples": "Eesti Wordnet näitelauseid",
-            "etTransOrigin": "Eestikeelsete tõlgete päritolu",
+            "jmdictVersion": "JMDict version",
+            "countJpEntry": "Japanese entry count",
+            "countTranslatedEntries": "Translated entries",
+            "countEtTranslations": "Translations in Estonian",
+            "countSentencePairs": "Pairs of example sentences",
+            "countEstwnExamples": "Estonian Wordnet sentences",
+            "etTransOrigin": "Origins of translations",
             "countOriginJatik": "JATIK",
-            "countOriginIlo": "ILO kollane taskusõnastik",
+            "countOriginIlo": "ILO's yellow pocket dictionary",
             "countOriginEgd": "EsutoniaGoDesu",
-            "countJpSearchWords": "Jaapanikeelseid päringuid tehtud",
-            "countJpSearchWithResults": "- neist tulemusega",
-            "countEtSearchWords": "Eestikeelseid päringuid tehtud",
-            "countEtSearchWithResults": "- neist tulemusega",
-            "countKanjiInDb": "Kanjisid andmebaasis",
-            "countKanjisDescribedWithHeisig": "- neist Heisigi metoodikaga kirjeldatud",
-            "countStrokeDiagrams": "Joondiagramme"
+            "countJpSearchWords": "Queries in Japanese",
+            "countJpSearchWithResults": "- with results",
+            "countEtSearchWords": "Queries in Estonian",
+            "countEtSearchWithResults": "- with results",
+            "countKanjiInDb": "Kanji count",
+            "countKanjisDescribedWithHeisig": "- described in Heisig's RTK",
+            "countStrokeDiagrams": "Stroke diagrams"
         },
         "core": {
             "header": "Vocabulary statistics",
-            "resource": "Ressursi nimi",
-            "wordCount": "Sõnu kokku",
-            "wordsWithKanjiCount": "Kanjidega sõnu",
-            "kanjiCount": "Kanjide arv sõnas",
-            "withJmdictCount": "JMDict kanne olemas",
-            "withJmdictShare": "JMDict kande olemas koguhulgast"
+            "resource": "Resource",
+            "wordCount": "Word count",
+            "wordsWithKanjiCount": "With kanjis",
+            "kanjiCount": "Kanji count per word",
+            "withJmdictCount": "Has JMDict",
+            "withJmdictShare": "JMDict share"
         },
         "jmdict": {
             "header": "JMDict statistics",
@@ -462,25 +462,25 @@
         }
     },
     "dictionary": {
-        "notTranslated": "ei ole tõlgitud",
-        "unknownWord": "sõna puudub"
+        "notTranslated": "not translated",
+        "unknownWord": "not in dictionary"
     },
     "heisig": {
-        "find_kanjis": "Leia kanjid",
-        "query": "Lause, en/et märksõna, ID või primitiiv",
-        "find_kanjis_v6": "6. raamatu järgi",
-        "find_kanjis_v4": "4. raamatu järgi",
-        "no_results": "Puudub",
+        "find_kanjis": "Explain kanjis",
+        "query": "Sentence, en/et keyword, frame no. or primitive",
+        "find_kanjis_v6": "6. book",
+        "find_kanjis_v4": "4. book",
+        "no_results": "Not in dictionary",
         "frame": {
-            "frameNo": "V6 kaardi nr.",
-            "keyword": "Märksõna",
-            "lessonNo": "H6 õppetükk nr.",
-            "constituent": "Primitiivid",
-            "strokeCount": "Jooni",
+            "frameNo": "V6 frame no.",
+            "keyword": "Keyword",
+            "lessonNo": "Lesson no.",
+            "constituent": "Primitives",
+            "strokeCount": "Stroke count",
             "onYomi": "On-yomi",
             "kunYomi": "Kun-yomi",
-            "frameNo4": "V4 kaardi nr.",
-            "exampleWords": "Näited"
+            "frameNo4": "V4 frame no.",
+            "exampleWords": "Example words"
         }
     },
 
@@ -496,31 +496,6 @@
         }
     },
 
-    "links": {
-        "jpResources": "Jaapani keele ressursid",
-        "etResources": "Eesti keele ressursid",
-        "jp": {
-            "romajidesu": "RomajiDesu Inglise-Jaapani",
-            "kanji_dictionary": "Kanji sõnastik",
-            "verbconjugator": "Verbi konjugatsioon",
-            "wwwjdic": "Jim Breeni Inglise-Jaapani sõnastik",
-            "lang8": "Lang-8 (kogukondlik keeleõpe)",
-            "jmdict": "JMDICT tehnoloogiad",
-            "jatik": "JATIK",
-            "linuxjp": "Linux + Jaapani keel",
-            "windowsjp": "Windows + Jaapani keel"
-        },
-        "et": {
-            "qs": "Eesti õigekeelsussõnaraamat",
-            "ekss": "Eesti keele seletav sõnaraamat",
-            "eten": "Eesti-Inglise sõnastik",
-            "eki": "Eesti Keele Instituut",
-            "emakeeleselts": "Emakeele Selts",
-            "koondkorpus": "Keeletehnoloogia",
-            "ressursid": "Eesti Keeleressursside Keskus",
-            "festart": "Festart Eesti-Inglise"
-        }
-    },
     "grid": {
         "open": "Open",
         "back": "Back",

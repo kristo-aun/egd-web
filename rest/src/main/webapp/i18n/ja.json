@@ -506,38 +506,6 @@
         }
     },
 
-    "links": {
-        "jpResources": "日本語のためのサイト",
-        "_jpResources": "nihongo no tame no saito",
-
-        "etResources": "エストニア語のためのサイト",
-        "_etResources": "esutoniago no tame no saito",
-
-        "jp": {
-            "romajidesu": "ローマ字です（英語・日本語）",
-            "_romajidesu": "roumajidesu (eigo-nihongo)",
-
-            "kanji_dictionary": "Kanji sõnastik",
-            "verbconjugator": "Verbi konjugatsioon",
-            "wwwjdic": "Jim Breeni Inglise-Jaapani sõnastik",
-            "lang8": "Lang-8 (kogukondlik keeleõpe)",
-            "jmdict": "JMDICT tehnoloogiad",
-            "jatik": "JATIK",
-            "linuxjp": "Linux + Jaapani keel",
-            "windowsjp": "Windows + Jaapani keel"
-        },
-        "et": {
-            "qs": "Eesti õigekeelsussõnaraamat",
-            "ekss": "Eesti keele seletav sõnaraamat",
-            "eten": "Eesti-Inglise sõnastik",
-            "eki": "Eesti Keele Instituut",
-            "emakeeleselts": "Emakeele Selts",
-            "koondkorpus": "Keeletehnoloogia",
-            "ressursid": "Eesti Keeleressursside Keskus",
-            "festart": "Festart Eesti-Inglise"
-        }
-    },
-
     "grid": {
         "edit": "Muuda",
         "addtranslation": "Lisa tõlge",

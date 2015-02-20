@@ -418,7 +418,6 @@
             "countTranslatedEntries": "訳していました",
             "_countTranslatedEntries": "yakushite imashita",
 
-
             "countEtTranslations": "エストニア語の訳書",
             "_countEtTranslations": "esutoniago no yakusho",
 
@@ -449,20 +448,28 @@
             "countStrokeDiagrams": "漢字筆順の数",
             "_countStrokeDiagrams": "kanji hitsujun no kazu"
         },
-        "core": {
-
-
+        "jmdict": {
+            "header": "JMDict statistics",
+            "translatedEntrRatio": "Translation count per entry",
+            "chart": {
+                "xaxis":"Gloss count",
+                "yaxis":"Entr count"
+            }
+        },
+        "freq": {
+            "header": "Frequency indexes",
+            "chart": {
+                "xaxis":"Gloss count",
+                "yaxis":"sum(frequency)"
+            }
         }
-
     },
     "dictionary": {
-        "search": {
-            "et": "エストニア語",
-            "jp": "日本語"
-        },
+        "intro1": "Welcome to EsutoniaGoDesu! This is a JMDict based Japanese-Estonian dictionary.",
+        "intro2": "And there is a lot more - go ahead and check out article transcripts to improve your Japanese.",
+        "intro3": "We have <a target=\"_blank\" href=\"https://twitter.com/EsutoniaGoDesu\">Twitter</a>! Follow us to get updates about new datasources and functionality.",
         "notTranslated": "訳出ことがありません",
         "_notTranslated": "yakushutsu koto ga arimasen",
-
         "unknownWord": "ありません"
     },
 

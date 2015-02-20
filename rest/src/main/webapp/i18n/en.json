@@ -462,6 +462,9 @@
         }
     },
     "dictionary": {
+        "intro1": "Welcome to EsutoniaGoDesu! This is a JMDict based Japanese-Estonian dictionary.",
+        "intro2": "And there is a lot more - go ahead and check out article transcripts to improve your Japanese.",
+        "intro3": "We have <a target=\"_blank\" href=\"https://twitter.com/EsutoniaGoDesu\">Twitter</a>! Follow us to get updates about new datasources and functionality.",
         "notTranslated": "not translated",
         "unknownWord": "not in dictionary"
     },
@@ -523,12 +526,12 @@
 
     "tip": {
         "studyMode": {
-            "title": "Interface peculiarities under each language",
+            "title": "Interface peculiarities with each language",
             "et": {
                 "title": "Estonian",
-                "dictDirection": "Dictionary is translating in Japanese-Estonian direction.",
-                "audioFor": "Audio on jaapanikeelesetele sõnadele. JMAudio baasil.",
-                "exampleSentencesFor": "Näitelausetes on audio ja selgitused jaapanikeelse lause kohta."
+                "dictDirection": "Translation takes place in Japanese-Estonian direction.",
+                "audioFor": "Audio is in Japanese. Work is in progress to include JMAudio.",
+                "exampleSentencesFor": "In pairs of example sentences the Japanese side is explained and has audio."
             },
             "en": {
                 "title": "English",

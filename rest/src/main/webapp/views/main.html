@@ -1,5 +1,5 @@
 <div ng-controller="DictController" ng-cloak>
-    <div class="col-lg-3" style="width:300px" >
+    <div class="col-lg-3" style="width:300px;float: left;">
         <form class="form egd-dict-search-form" role="form" ng-submit="showResult()">
             <div class="row">
                 <div class="dropdown input-group" dropdown on-toggle="toggled(open)">
@@ -51,6 +51,11 @@
     <div class="col-lg-7" ng-if="resultVisible" ng-switch="gridJaVisible">
         <grid-et ng-switch-when="false" rows="rows"></grid-et>
         <grid-ja ng-switch-when="true" rows="rows"></grid-ja>
+    </div>
+    <div class="col-lg-6 egd-main-intro" ng-if="!resultVisible">
+        <p translate="dictionary.intro1"></p>
+        <p translate="dictionary.intro2"></p>
+        <p translate="dictionary.intro3"></p>
     </div>
 </div>
 <script>

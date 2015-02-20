@@ -63,3 +63,20 @@ div.ui-select-container {
 input[type=password], input.secure {
     background-color: rgb(250, 255, 189);
 }
+
+div.egd-main-intro {
+    margin-left: 11%;
+    float: left;
+    margin-top: 6%;
+    width: 50%;
+}
+
+div.egd-main-intro p {
+    font-size: large;
+    font-style: italic;
+    color: rgb(75, 75, 75);
+}
+
+div.egd-main-intro p + p {
+    margin-top:20px;
+}

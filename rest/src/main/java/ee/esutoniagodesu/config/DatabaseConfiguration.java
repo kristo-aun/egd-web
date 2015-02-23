@@ -47,7 +47,7 @@ public class DatabaseConfiguration implements EnvironmentAware {
         this.propertyResolver = new RelaxedPropertyResolver(env, "spring.datasource.");
     }
 
-    @Bean
+    @Bean(destroyMethod="")
     public DataSource dataSource() {
         log.debug("Configuring Datasource");
 

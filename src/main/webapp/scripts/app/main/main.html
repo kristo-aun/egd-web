@@ -1,12 +1,73 @@
-<div ng-cloak>
-    <div class="row">
-        <div class="col-md-4">
-            <span class="img-responsive img-rounded"></span>
-        </div>
-        <div class="col-md-8">
-            <h1 translate="main.title"></h1>
-            <p class="lead" translate="main.subtitle"></p>
+<div ng-controller="DictController" ng-cloak>
+    <div class="col-lg-3" style="width:300px;float: left;">
+        <form class="form egd-dict-search-form" role="form" ng-submit="showResult()">
+            <div class="row">
+                <div class="dropdown input-group" dropdown on-toggle="toggled(open)">
+                    <div class="input-group-btn">
+                        <div class="btn-group">
+                            <button class="btn btn-default dropdown-toggle"
+                                    dropdown-toggle
+                                    ng-disabled="toggleButtonDisabled"
+                                    tabindex="-1">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                        </div>
+                    </div>
+                    <input type="text"
+                           ng-model="phrase"
+                           placeholder="{{'global.label.word' | translate}}"
+                           typeahead="title for title in getAutocomplete($viewValue)"
+                           typeahead-min-length="2"
+                           typeahead-wait-ms="200"
+                           class="form-control">
 
-        </div>
+                    <ul ng-if="toggleButtonDisabled" class="dropdown-menu" style="left:33px">
+                        <li ng-repeat="item in phrases track by $index">
+                            <a tabindex="-1" ng-click="onPhraseSelect(item)">{{item}}</a>
+                        </li>
+                    </ul>
+                    <div class="input-group-btn">
+                        <button class="btn btn-primary" translate="global.label.search" style="border-radius:0;" type="submit"></button>
+                        <button class="btn btn-default" type="button" ng-click="onPhraseClear()">←</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="padding-left:11px">
+                <label class="radio-inline">
+                    <input type="radio" ng-model="radioLang" value="et"/>
+                    {{'global.label.alphabet' | translate}}
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" ng-model="radioLang" value="ja" checked/>
+                    {{'global.label.hiragana' | translate}}
+                </label>
+            </div>
+            <div class="row" ng-if="radioLang == 'ja'" kana-keys on-click="appendToPhrase(letter)"></div>
+            <div class="row" ng-if="radioLang == 'et'" estonian-keys on-click="appendToPhrase(letter)"></div>
+        </form>
+    </div>
+
+    <div class="col-lg-7" ng-if="resultVisible" ng-switch="gridJaVisible">
+        <grid-et ng-switch-when="false" rows="rows"></grid-et>
+        <grid-ja ng-switch-when="true" rows="rows"></grid-ja>
+    </div>
+    <div class="col-lg-6 egd-main-intro" ng-if="!resultVisible">
+        <p translate="dictionary.intro1"></p>
+        <p translate="dictionary.intro2"></p>
+        <p translate="dictionary.intro3"></p>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $( ".selector" ).autocomplete("close");
+        $("#phrase-autocomplete-toggle").click(function() {
+            $( "#phrase-autocomplete" ).autocomplete("search");
+        });
+    });
+</script>
+<style>
+    form.egd-dict-search-form div + div {
+        margin-top:8px;
+    }
+</style>

@@ -1,8 +1,6 @@
 'use strict';
 
-var directives = egdApp;
-
-directives.directive('egdQtip', function ($translate, $log, $templateCache, $compile, $http) {
+egdApp.directive('egdQtip', function ($translate, $log, $templateCache, $compile, $http) {
     return {
         restrict: 'E',
         scope: {
@@ -11,7 +9,7 @@ directives.directive('egdQtip', function ($translate, $log, $templateCache, $com
         },
         replace: true,
 
-        template: '<a href="javascript:void(0)"><img src="/images/info.gif" alt="Info"/></a>',
+        template: '<a href="javascript:void(0)"><img src="/assets/images/info.gif" alt="Info"/></a>',
         link: function (scope, element, attrs) {
             var createQtip = function() {
                 var my = attrs.my || 'bottom left' // Position the tooltip above the link
@@ -92,9 +90,7 @@ directives.directive('egdQtip', function ($translate, $log, $templateCache, $com
             });
         }
     }
-});
-
-directives.directive('qtip', function ($translate) {
+}).directive('qtip', function ($translate) {
     return {
         restrict: 'A',
         //scope: {content: '@'},

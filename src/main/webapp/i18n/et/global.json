@@ -7,7 +7,7 @@
             "poll": "Küsitlus",
             "overview": "Ülevaade",
             "rtk": "Kirjamärgid",
-            "entity": {
+            "entities": {
                 "main": "Õppematerjalid",
                 "articles": "Artiklid",
                 "tofus": "Tofu laused"

@@ -14,9 +14,7 @@ angular.module('egdApp', [
     'ui.select',
     'ui.grid',
     'ui.grid.pagination'
-])
-
-    .run(function ($rootScope, $location, $window, $http, $state, $translate, Auth, Principal, Language, ENV) {
+]).run(function ($rootScope, $location, $window, $http, $state, $translate, Auth, Principal, Language, ENV) {
         $rootScope.ENV = ENV;
         $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
             $rootScope.toState = toState;
@@ -74,7 +72,7 @@ angular.module('egdApp', [
         };
     })
 
-    .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $translateProvider, tmhDynamicLocaleProvider, httpRequestInterceptorCacheBusterProvider) {
+    .config(function ($stateProvider, $httpProvider, $locationProvider, $translateProvider, tmhDynamicLocaleProvider, httpRequestInterceptorCacheBusterProvider) {
 
         //$logProvider.debugEnabled(false);
         $httpProvider.interceptors.push('HttpErrorInterceptor');
@@ -82,7 +80,6 @@ angular.module('egdApp', [
         //Cache everything except rest api requests
         httpRequestInterceptorCacheBusterProvider.setMatchlist([/.*api.*/, /.*protected.*/], true);
 
-        $urlRouterProvider.otherwise('/');
         $stateProvider.state('site', {
             'abstract': true,
             views: {
@@ -105,6 +102,25 @@ angular.module('egdApp', [
             }
         });
 
+        $stateProvider.state('otherwise', {
+            abstract: true,
+            controller: '404Controller',
+            templateUrl: 'scripts/app/404/404.html',
+            data: {
+                pageTitle: 'activate.title',
+                roles: []
+            }
+        }).state('otherwise.404', {
+            url: '*path',
+            controller: '404Controller',
+            templateUrl: 'scripts/app/404/404.html',
+            data: {
+                pageTitle: 'activate.title',
+                roles: []
+            }
+        });
+        //*/
+
         $httpProvider.interceptors.push('authInterceptor');
 
         // Initialize angular-translate
@@ -112,9 +128,26 @@ angular.module('egdApp', [
             urlTemplate: 'i18n/{lang}/{part}.json'
         });
 
-        $translateProvider.preferredLanguage('et');
-        $translateProvider.useCookieStorage();
+        var initI18n = function(preferredLanguage) {
+            $translateProvider.preferredLanguage(preferredLanguage);
+            $translateProvider.useCookieStorage();
+            tmhDynamicLocaleProvider.localeLocationPattern('i18n/angular-locale/angular-locale_{{locale}}.js');
+            tmhDynamicLocaleProvider.useCookieStorage('NG_TRANSLATE_LANG_KEY');
+        };
 
-        tmhDynamicLocaleProvider.localeLocationPattern('i18n/angular-locale/angular-locale_{{locale}}.js');
-        tmhDynamicLocaleProvider.useCookieStorage('NG_TRANSLATE_LANG_KEY');
+        //lets try to determine user's language by browser and location
+        try {
+            var nav = window.navigator.languages || [window.navigator.language || window.navigator.userLanguage];
+            var navlang = nav[0].substring(0,2);
+
+            if (navlang === "et") {
+                initI18n("et");
+            } else if (navlang === 'ja' || navlang === 'jp') {
+                initI18n("ja");
+            } else {
+                initI18n("et");
+            }
+        } catch(ignored) {
+            initI18n("en");
+        }
     });

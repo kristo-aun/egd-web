@@ -12,7 +12,7 @@ These guides might be helpful as well:
 ## Setting up Tomcat
 Download and install Tomcat manually<br/>
 ```
-wget http://mirror.metrocast.net/apache/tomcat/tomcat-8/v8.0.15/bin/apache-tomcat-8.0.15.tar.gz
+wget http://mirror.metrocast.net/apache/tomcat/tomcat-8/v8.0.21/bin/apache-tomcat-8.0.21.tar.gz
 ```
 
 Extract the archive<br/>
@@ -44,38 +44,43 @@ Lets create a CA certificate based on the private key.
 Normally, the certificate would have to be authorized by a proper CA, but for testing purposes it's a great way to secure your sites.
 It seems that this practice is quite popular with internal corporate websites as well.<br/>
 ```
-openssl req -x509 -new -nodes -key rootCA.key -out rootCA.crt -days 1825 "CN=*.koodur.com, OU=Development, O=Mintal, L=Tallinn, S=Harju, C=EE"
+openssl req -x509 -new -nodes -key rootCA.key -out rootCA.crt -days 1825 -subj "/CN=*.somedomain.com/OU=MyOrganizationalUnit/O=MyOrganization/L=MyCity/S=MyState/C=EE/emailAddress=someone@somewhere.org"
 ```
  
 Tomcat needs a Java keystore file<br/>
 ```
-keytool -genkey -keyalg RSA -alias tomcat -dname "CN=localhost, OU=EsutoniaGoDesu, O=Mintal, L=Tallinn, S=Harju, C=EE" -keystore momo-dev.keystore
+keytool -genkey -keyalg RSA -alias tomcat -dname "CN=localhost, OU=Development, O=EsutoniaGoDesu, L=Tallinn, S=Harju, C=EE" -keystore egd-localhost.keystore
 ```
+<br/>Common practice is to use changeit for keystore password. Don't enter keypassword for tomcat (3. prompt).
  
 ### Authorization
 
 Apply for a signed certificate<br/>
 ```
-keytool -certreq -alias tomcat -keyalg RSA -file momo-dev.csr -keystore momo-dev.keystore -validity 1825
+keytool -certreq -alias tomcat -keyalg RSA -file egd-localhost.csr -keystore egd-localhost.keystore
 ```
  
 Sign the certificate request yourself<br/>
 ```
-openssl x509 -req -in momo-dev.csr -CA rootCA.crt -CAkey rootCA.key -CAcreateserial -out momo-dev.crt -days 1825
+openssl x509 -req -in egd-localhost.csr -CA rootCA.crt -CAkey rootCA.key -CAcreateserial -out egd-localhost.crt -days 1825
 ```
  
 ### Securing tomcat
 
 Install CA to keystore<br/>
 ```
-keytool -import -alias root -keystore momo-dev.keystore -trustcacerts -file rootCA.crt
+keytool -import -alias root -keystore egd-localhost.keystore -trustcacerts -file rootCA.crt
 ```
+<br/>Type yes when asked to trust this certificate
+
 
 Install CA reply to keystore<br/>
 
 ```
-keytool -import -alias tomcat -keystore momo-dev.keystore -file momo-dev.crt
+keytool -import -alias tomcat -keystore egd-localhost.keystore -file egd-localhost.crt
 ```
+<br/>You should get "Certificate reply was installed in keystore" for reply. 
+ 
  
 ### Install your CA certificate to browsers
 To make your browsers trust the site, you need to manually install
@@ -98,3 +103,11 @@ Before compiling you might want to get rid of the excessive connectors (5,6,7) b
 
 PS! Global datasource monitoring is still not working in this version of PSI Probe.
 If you can't live without, install Tomcat 7.0.53 or earlier.
+
+
+## Helpful keystore commands
+Verify the list of certs in trust store using
+```
+keytool -list -keystore egd.truststore
+```
+<br/>Truststore should only contain root CAs. Default EGD truststore contains www.sk.ee certificates for Mobile-ID authentication purposes.

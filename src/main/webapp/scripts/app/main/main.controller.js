@@ -10,4 +10,6 @@ angular.module('egdApp')
         GitService.get(function (value) {
             $scope.buildTime = value.buildTime;
         });
+
+        $scope.date = new Date();
     });

@@ -27,7 +27,7 @@
     </appender>
 -->
 
-    <logger name="ee.esutoniagodesu" level="WARN"/>
+    <logger name="ee.esutoniagodesu" level="${logback.loglevel}"/>
     <logger name="ee.esutoniagodesu.service" level="${logback.loglevel}"/>
     <logger name="ee.esutoniagodesu.config" level="${logback.loglevel}"/>
 

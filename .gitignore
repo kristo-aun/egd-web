@@ -5,7 +5,7 @@
 
 /src/main/resources/git.properties
 /src/main/webapp/dist/
-/src/main/webapp/bower_components/
+src/main/webapp/bower_components/
 /.idea
 /*.iml
 .classpath

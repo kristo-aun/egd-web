@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('egdApp')
+egdApp
     .controller('404Controller', function ($scope, $log) {
         $log.debug("404Controller");
     });

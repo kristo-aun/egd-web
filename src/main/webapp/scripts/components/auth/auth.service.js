@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('egdApp')
+egdApp
     .factory('Auth', function Auth($rootScope, $state, $q, $translate, Principal, AuthServerProvider, Account, Register, Activate, Password) {
         return {
             idlogin: function (credentials, callback) {

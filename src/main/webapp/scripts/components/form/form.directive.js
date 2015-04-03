@@ -1,7 +1,7 @@
 /* globals $ */
 'use strict';
 
-angular.module('egdApp')
+egdApp
     .directive('showValidation', function() {
         return {
             restrict: 'A',

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('egdApp')
+egdApp
     .factory('AuditsService', function ($http) {
         return {
             findAll: function () {

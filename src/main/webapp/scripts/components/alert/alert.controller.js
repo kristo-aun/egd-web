@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('egdApp')
+egdApp
     .controller('AlertController', function ($scope, $translate, $log) {
         var pushAlert = function(type, translation) {
             $scope.alerts = $scope.alerts || [];

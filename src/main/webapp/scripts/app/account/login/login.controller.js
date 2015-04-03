@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('egdApp')
+egdApp
     .controller('LoginController', function ($rootScope, $scope, $state, $timeout, $translate, Auth) {
         $scope.user = {};
         $scope.errors = {};

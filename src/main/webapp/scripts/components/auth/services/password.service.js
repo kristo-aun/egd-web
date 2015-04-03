@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('egdApp')
+egdApp
     .factory('Password', function ($resource) {
         return $resource('api/account/change_password', {}, {
         });

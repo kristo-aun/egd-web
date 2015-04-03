@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('egdApp', [
+var egdApp = angular.module('egdApp', [
     'LocalStorageModule',
     'tmh.dynamicLocale',
     'ngResource',
@@ -14,7 +14,10 @@ angular.module('egdApp', [
     'ui.select',
     'ui.grid',
     'ui.grid.pagination'
-]).run(function ($rootScope, $location, $window, $http, $state, $translate, Auth, Principal, Language, ENV) {
+]);
+
+egdApp
+    .run(function ($rootScope, $location, $window, $http, $state, $translate, Auth, Principal, Language, ENV) {
         $rootScope.ENV = ENV;
         $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
             $rootScope.toState = toState;

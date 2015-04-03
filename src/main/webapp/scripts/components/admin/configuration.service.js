@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('egdApp')
+egdApp
     .factory('ConfigurationService', function ($rootScope, $filter, $http) {
         return {
             get: function() {

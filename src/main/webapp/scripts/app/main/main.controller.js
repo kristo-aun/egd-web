@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('egdApp')
+egdApp
     .controller('MainController', function ($scope, Principal, GitService) {
         Principal.identity().then(function(account) {
             $scope.account = account;

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('egdApp')
+egdApp
     .factory('AuthServerProvider', function loginService($http, $log, localStorageService, Base64) {
         return {
             idlogin: function(credentials) {

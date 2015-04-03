@@ -1,4 +1,4 @@
-angular.module('egdApp').factory('HttpErrorInterceptor', function ($q, $rootScope, $log) {
+egdApp.factory('HttpErrorInterceptor', function ($q, $rootScope, $log) {
     return {
         request: function (config) {
             return config || $q.when(config);

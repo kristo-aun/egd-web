@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('egdApp')
+egdApp
     .factory('MonitoringService', function ($rootScope, $http) {
         return {
             getMetrics: function () {

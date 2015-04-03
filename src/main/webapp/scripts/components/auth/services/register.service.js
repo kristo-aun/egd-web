@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('egdApp')
+egdApp
     .factory('Register', function ($resource) {
         return $resource('api/register', {}, {
         });

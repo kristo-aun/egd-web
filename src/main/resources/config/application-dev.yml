@@ -1,0 +1,26 @@
+server:
+    port: 8443
+    ssl:
+        key-store: ssl/egd-localhost.keystore
+        key-store-password: changeit
+        key-alias: tomcat
+        trust-store: ssl/egd.truststore
+        trust-store-password: changeit
+        client-auth: want
+
+spring:
+    profiles:
+        active: dev
+
+    datasource:
+        #jndi-name: java:comp/env/jdbc/egd
+        url: jdbc:postgresql://localhost:5432/egd
+        username: postgres
+        password: redherring
+
+    mail:
+        baseUrl: https://localhost:8443
+
+    thymeleaf:
+        mode: XHTML
+        cache: false

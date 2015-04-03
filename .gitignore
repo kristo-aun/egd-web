@@ -3,28 +3,23 @@
 /node
 /node_modules
 
-/rest/src/main/resources/git.properties
-/rest/node_modules/
-/rest/src/main/webapp/dist/
-/rest/src/main/webapp/bower_components/
-.idea
-*.iml
+/src/main/resources/git.properties
+/src/main/webapp/dist/
+/src/main/webapp/bower_components/
+/.idea
+/*.iml
 .classpath
 .project
 .settings
 .merge_file*
 .sass-cache
 .DS_Store
-src/main/webapp/dist
 .gradle
 build
 
 /.settings
-target/
+/target/
 /.classpath
 /.project
 
 *.log
-
-
-jc-api/target

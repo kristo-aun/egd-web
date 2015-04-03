@@ -1,0 +1,19 @@
+{
+  "generator-jhipster": {
+    "baseName": "perearst",
+    "packageName": "ee.medisoft.perearst",
+    "packageFolder": "ee/medisoft/perearst",
+    "authenticationType": "session",
+    "hibernateCache": "no",
+    "clusteredHttpSession": "no",
+    "websocket": "no",
+    "databaseType": "sql",
+    "devDatabaseType": "postgresql",
+    "prodDatabaseType": "postgresql",
+    "useCompass": false,
+    "buildTool": "maven",
+    "frontendBuilder": "grunt",
+    "javaVersion": "8",
+    "rememberMeKey": "ff61d8f81ce46474971e47ba4757e5e37d2f2be1"
+  }
+}

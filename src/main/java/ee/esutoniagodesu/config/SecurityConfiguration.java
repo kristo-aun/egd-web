@@ -61,28 +61,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/bower_components/**")
             .antMatchers("/i18n/**")
             .antMatchers("/assets/**")
-            .antMatchers("/swagger-ui/**")
             .antMatchers("/test/**");
-    }
-
-    protected void configure2(HttpSecurity http) throws Exception {
-        UserDetailsService userDetails = new InMemoryUserDetailsManager(
-            Arrays.<UserDetails> asList(new User("rod", "N/A", AuthorityUtils
-                .commaSeparatedStringToAuthorityList("ROLE_USER"))));
-
-        http
-            .authorizeRequests()
-            .anyRequest()
-            .authenticated()
-            .and()
-            .x509()
-            .userDetailsService(userDetails)
-            .and()
-            .sessionManagement()
-            .sessionCreationPolicy(SessionCreationPolicy.NEVER)
-            .and()
-            .csrf()
-            .disable();
     }
 
     @Override
@@ -100,32 +79,32 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
             .authorizeRequests()
+
+            .antMatchers("/api/git").permitAll()
+            .antMatchers("/api/dict/**").permitAll()
+            .antMatchers("/api/images/*").permitAll()
+            .antMatchers("/api/audio/*").permitAll()
+            .antMatchers("/api/test/**").permitAll()
+            .antMatchers("/api/articles", "/api/articles/*").permitAll()
+            .antMatchers("/api/tofus/*").hasAuthority(AuthoritiesConstants.ADMIN)
+            .antMatchers("/api/rtk/**").permitAll()
+            .antMatchers("/api/stats/**").hasAuthority(AuthoritiesConstants.USER)
+            .antMatchers("/api/morphology/**").hasAuthority(AuthoritiesConstants.USER)
+
             .antMatchers("/api/register").permitAll()
             .antMatchers("/api/activate").permitAll()
-            .antMatchers("/api/git").permitAll()
             .antMatchers("/api/authenticate").permitAll()
             .antMatchers("/api/idauthenticate").permitAll()
-            .antMatchers("/api/logs/**").hasAuthority(AuthoritiesConstants.ADMIN)
             .antMatchers("/api/**").authenticated()
             .antMatchers("/metrics/**").hasAuthority(AuthoritiesConstants.ADMIN)
             .antMatchers("/health/**").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/trace/**").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/dump/**").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/shutdown/**").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/beans/**").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/configprops/**").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/info/**").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/autoconfig/**").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/env/**").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/trace/**").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/api-docs/**").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/protected/**").authenticated()
-            .and()
-            .x509()
+            .antMatchers("/protected/**")
+            .authenticated()
+            //.and()
+            //.x509()
             //.userDetailsService(userDetails)
             .and()
             .apply(securityConfigurerAdapter());
-
     }
 
     @EnableGlobalMethodSecurity(prePostEnabled = true, jsr250Enabled = true)

@@ -2,6 +2,7 @@ package ee.esutoniagodesu.repository.domain.ac;
 
 import ee.esutoniagodesu.config.audit.AuditEventConverter;
 import ee.esutoniagodesu.domain.ac.table.PersistentAuditEvent;
+import ee.esutoniagodesu.security.AuthoritiesConstants;
 import org.joda.time.LocalDateTime;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.boot.actuate.audit.AuditEventRepository;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Wraps an implementation of Spring Boot's AuditEventRepository.
@@ -47,6 +49,8 @@ public class CustomAuditEventRepository {
             @Override
             @Transactional(propagation = Propagation.REQUIRES_NEW)
             public void add(AuditEvent event) {
+                if (Objects.equals(event.getPrincipal(), "anonymousUser")) return;
+
                 PersistentAuditEvent persistentAuditEvent = new PersistentAuditEvent();
                 persistentAuditEvent.setPrincipal(event.getPrincipal());
                 persistentAuditEvent.setAuditEventType(event.getType());

@@ -72,13 +72,15 @@ angular.module('egdApp', [
         };
     })
 
-    .config(function ($stateProvider, $httpProvider, $locationProvider, $translateProvider, tmhDynamicLocaleProvider, httpRequestInterceptorCacheBusterProvider) {
+    .config(function ($stateProvider, $httpProvider, $locationProvider, $translateProvider, $urlRouterProvider, tmhDynamicLocaleProvider, httpRequestInterceptorCacheBusterProvider) {
 
         //$logProvider.debugEnabled(false);
         $httpProvider.interceptors.push('HttpErrorInterceptor');
 
         //Cache everything except rest api requests
         httpRequestInterceptorCacheBusterProvider.setMatchlist([/.*api.*/, /.*protected.*/], true);
+
+        $urlRouterProvider.otherwise('/');
 
         $stateProvider.state('site', {
             'abstract': true,
@@ -102,6 +104,7 @@ angular.module('egdApp', [
             }
         });
 
+        /*
         $stateProvider.state('otherwise', {
             abstract: true,
             controller: '404Controller',

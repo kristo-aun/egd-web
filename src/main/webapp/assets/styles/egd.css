@@ -79,3 +79,11 @@ div.egd-main-intro p {
 div.egd-main-intro p + p {
     margin-top:20px;
 }
+
+h2.id a {
+    display: block;
+    padding: 5px 0 5px 100px;
+    background: url(../images/eid/id-kaart-logo-uus.png) no-repeat 0 0;
+    font-size: 20px;
+    font-weight: bold;
+}

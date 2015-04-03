@@ -16,7 +16,6 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css assets/styles/vendor.css -->
     <!-- bower:css -->
-    <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet"/>
     <link href="bower_components/jqplot/jquery.jqplot.min.css" rel="stylesheet"/>
     <link href="bower_components/angular-ui-select/dist/select.min.css" rel="stylesheet"/>
     <link href="bower_components/selectize/dist/css/selectize.bootstrap3.css" rel="stylesheet"/>
@@ -48,7 +47,7 @@
     <alert ng-if="alerts" ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
 </div>
 
-<div ui-view="navbar" ng-cloak=""></div>
+<div ui-view="navbar" ng-cloak></div>
 <div class="container">
     <div class="well" ui-view="content"></div>
 

@@ -27,6 +27,8 @@ angular.module('egdApp')
  They are written in English to avoid character encoding issues (not a perfect solution)
  */
     .constant('LANGUAGES', [
-        'et'
+        'et',
+        'en',
+        'jp'
     ]
 );

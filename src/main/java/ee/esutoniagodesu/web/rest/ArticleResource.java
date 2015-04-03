@@ -29,7 +29,7 @@ public class ArticleResource {
         return userService.getUserWithAuthorities();
     }
 
-    @RequestMapping(value = "/",
+    @RequestMapping(value = "",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     public List<ArticleDTO> getAll() {
@@ -48,7 +48,7 @@ public class ArticleResource {
         return new ResponseEntity<>(article, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/",
+    @RequestMapping(value = "",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed(AuthoritiesConstants.USER)

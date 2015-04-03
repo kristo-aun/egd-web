@@ -32,7 +32,7 @@ public class UserResource {
     /**
      * GET  /users -> get all users.
      */
-    @RequestMapping(value = "/",
+    @RequestMapping(value = "",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     public List<User> getAll() {

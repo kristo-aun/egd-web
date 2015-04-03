@@ -26,10 +26,9 @@ public class EntrResource {
     @Inject
     private ProjectDAO dao;
 
-    @RequestMapping(value = "/",
+    @RequestMapping(value = "",
             method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
-
     public void save(@RequestBody Entr entr) {
         log.debug("REST request to save Entr : {}", entr);
         dao.save(entr);
@@ -38,7 +37,6 @@ public class EntrResource {
     @RequestMapping(value = "/{id}",
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE)
-
     public ResponseEntity<Entr> get(@PathVariable int id) {
         log.debug("REST request to get Entr : {}", id);
         Entr entr = dao.find(Entr.class, id);

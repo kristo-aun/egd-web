@@ -27,7 +27,7 @@ public class HeisigResource {
         return service.getCollection(book, query);
     }
 
-    @RequestMapping(value = "/",
+    @RequestMapping(value = "",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     public List<VHeisig6Custom> getAll() {

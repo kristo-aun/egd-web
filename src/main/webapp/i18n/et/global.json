@@ -1,6 +1,6 @@
 {
     "global": {
-        "title": "esutoniagodesu",
+        "title": "EsutoniaGoDesu",
         "browsehappy": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
         "menu": {
             "home": "Home",
@@ -30,11 +30,9 @@
         },
         "form": {
             "username": "Login",
-            "username.placeholder": "Your login",
             "newpassword": "New password",
             "newpassword.placeholder": "New password",
             "confirmpassword": "New password confirmation",
-            "confirmpassword.placeholder": "Confirm the new password",
             "email": "E-mail",
             "email.placeholder": "Your e-mail"
         },

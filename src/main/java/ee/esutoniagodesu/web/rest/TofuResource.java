@@ -26,7 +26,7 @@ public class TofuResource {
         return userService.getUserWithAuthorities();
     }
 
-    @RequestMapping(value = "/",
+    @RequestMapping(value = "",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed(AuthoritiesConstants.ADMIN)
@@ -34,7 +34,7 @@ public class TofuResource {
         service.save(tofu, getSessionUser());
     }
 
-    @RequestMapping(value = "/",
+    @RequestMapping(value = "",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed(AuthoritiesConstants.ADMIN)

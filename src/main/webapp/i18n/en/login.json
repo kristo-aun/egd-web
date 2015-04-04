@@ -1,0 +1,15 @@
+{
+    "login": {
+        "title": "Authentication",
+        "form": {
+            "password": "Password",
+            "button": "Authenticate",
+            "idlogin": "Authenticate with ID-card"
+        },
+        "messages": {
+            "error": {
+                "authentication": "<strong>Authentication failed!</strong> Please check your credentials and try again."
+            }
+        }
+    }
+}

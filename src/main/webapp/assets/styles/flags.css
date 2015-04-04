@@ -1,10 +1,23 @@
-.flag {
-	width: 16px;
-	height: 11px;
-	background:url(../images/flags.png) no-repeat
+span.flag {
+    width: 16px;
+    height: 11px;
+    background: url(../images/flags.png) no-repeat;
+    display: inline-block;
+    margin-right: 6px;
 }
 
-.flag.flag-et {background-position: -16px 0}
-.flag.flag-en {background-position: -32px 0}
-.flag.flag-ja {background-position: 0 -11px}
-.flag.flag-ru {background-position: -16px -11px}
+.flag.flag-et {
+    background-position: -16px 0;
+}
+
+.flag.flag-en {
+    background-position: -32px 0;
+}
+
+.flag.flag-jp {
+    background-position: 0 -11px;
+}
+
+.flag.flag-ru {
+    background-position: -16px -11px;
+}

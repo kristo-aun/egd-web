@@ -102,8 +102,10 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li active-menu="{{language}}" ng-repeat="language in languages">
-                            <img src="" class="flag flag-{{language}}" alt="{{language}}" />
-                            <a href="" ng-click="changeLanguage(language)">{{'language.' + language| translate}}</a>
+                            <a style="padding-left: 10px" class="flag-text" ng-click="changeLanguage(language)">
+                                <span class="flag flag-{{language}}"></span>
+                                {{'language.' + language| translate}}
+                            </a>
                         </li>
                     </ul>
                 </li>

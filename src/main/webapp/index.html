@@ -46,13 +46,16 @@
 </p>
 <![endif]-->
 
-<div id="alert-wr" ng-controller="AlertController" ui-scrollfix="+100">
-    <alert ng-if="alerts" ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+<div ng-show="alerts" id="alert-wr" ng-controller="AlertController" ui-scrollfix="+100">
+    <alert ng-if="alerts" ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
+        <span ng-if="alert.count > 1" style="margin-right:10px"><strong>({{alert.count}})</strong></span>
+        <span ng-bind-html="alert.msg | unsafe"></span>
+    </alert>
 </div>
 
 <div ui-view="navbar" ng-cloak></div>
 <div class="container">
-    <div class="well" ui-view="content"></div>
+    <div id="egd-content" class="well" ui-view="content"></div>
     <div class="footer" ui-view="footer"></div>
 </div>
 
@@ -92,6 +95,10 @@
 <script src="bower_components/angular-cache-buster/angular-cache-buster.js"></script>
 <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
 
+<script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="bower_components/angular-ui-select/dist/select.min.js"></script>
+
 <script src="bower_components/angular-ui-chart/src/chart.js"></script>
 <script src="bower_components/angular-ui-grid/ui-grid.js"></script>
 <script src="bower_components/angular-audio/app/angular.audio.js"></script>
@@ -124,7 +131,7 @@
 <script src="scripts/components/navbar/navbar.controller.js"></script>
 <script src="scripts/components/footer/footer.controller.js"></script>
 <script src="scripts/components/user/user.service.js"></script>
-<script src="scripts/components/util/truncate.filter.js"></script>
+<script src="scripts/components/util/filters.js"></script>
 <script src="scripts/components/util/base64.service.js"></script>
 <script src="scripts/components/util/git.service.js"></script>
 <script src="scripts/components/util/parse-links.service.js"></script>

@@ -10,6 +10,7 @@ var egdApp = angular.module('egdApp', [
     'ngCacheBuster',
     'infinite-scroll',
     'ngAudio',
+    'ui.bootstrap',
     'ui.chart',
     'ui.select',
     'ui.grid',

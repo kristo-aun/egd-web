@@ -1,7 +1,7 @@
 'use strict';
 
 egdApp
-    .controller('LoginController', function ($rootScope, $scope, $state, $timeout, $translate, Auth) {
+    .controller('LoginController', function ($rootScope, $scope, $state, $timeout, $translate, $log, Auth) {
         $scope.user = {};
         $scope.errors = {};
 
@@ -21,6 +21,9 @@ egdApp
                 }
             }).catch(function () {
                 $scope.authenticationError = true;
+
+                $rootScope.$broadcast('error', 'login.messages.error.authentication');
+
             });
         };
 
@@ -49,7 +52,7 @@ egdApp
             }, function(e) {
                 $log.error("LoginController.idlogin.error: e=", e);
                 if (e instanceof IdCardException) {
-                    var msg = '[Veakood: ' + e.returnCode + '; Viga: ' + e.message + ']';
+                    var msg = e.message + " | <i>veakood " + e.returnCode + "</i>";
                     $rootScope.$broadcast('error', msg);
                 } else {
                     var msg = e.message != undefined ? e.message : e;

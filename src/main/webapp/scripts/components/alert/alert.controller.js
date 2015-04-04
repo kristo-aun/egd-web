@@ -2,18 +2,25 @@
 
 egdApp
     .controller('AlertController', function ($scope, $translate, $log) {
-        var pushAlert = function(type, translation) {
+        var pushAlert = function(type, content) {
             $scope.alerts = $scope.alerts || [];
-            $scope.alerts.push({type: type, msg: translation});
-            $log.debug("AlertController.pushAlert: alerts=", $scope.alerts);
+
+            try {
+                $.each($scope.alerts, function(key, value) {
+                    if (value.msg == content) {
+                        value.count++;
+                        throw "alert exists";
+                    }
+                });
+                $scope.alerts.push({type: type, msg: content, count: 1});
+            } catch (ignored) {}
         };
 
         var translate = function(type, alertId, whenTranslated) {
             $translate(alertId)
                 .then(function (translation) {
                     whenTranslated(type, translation);
-                }, function(reason) {
-                    $log.error("AlertController.pushAlert: i18n failed, reason=", reason);
+                }, function(e) {
                     whenTranslated(type, alertId);
                 }
             );

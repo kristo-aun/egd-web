@@ -44,4 +44,20 @@ egdApp
             }
             return input;
         };
+    })
+    .filter('unsafe', function($sce) {
+        return function(value) {
+            if (!value) { return ''; }
+            return $sce.trustAsHtml(value);
+        };
+    })
+    .filter('checkmark', function () {
+        return function (input) {
+            return input ? '\u2713' : '\u2718';
+        };
+    })
+    .filter('ie', function() {
+        return function(v, yes, no){
+            return v ? yes : no;
+        };
     });

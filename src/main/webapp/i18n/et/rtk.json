@@ -1,0 +1,21 @@
+{
+    "title": "Muudatuste ajalugu",
+    "intro1": "Programm nopib tekstist välja kanjid ja lisab neile <a target=\"_blank\" href=\"http://www.edrdg.org/kanjidic/kanjd2index.html\">KANJIDIC2</a> sõnastikust häälduse ja muu info. Kui kanji esineb ka James W. Heisigi RTK1 raamatus, lisatakse Heisigi märksõnad ja kaardi numbrid. 6395 kanjil on olemas joondiagramm <a target=\"_blank\" href=\"http://kanjivg.tagaini.net\">KanjiVG</a> järgi.",
+    "intro2": "Klassikalistest kanji sõnastikest eristab siinset võimalus tervet teksti korraga analüüsida ja Heisigi numbrite järgi otsida. Nõrkuseks on vähene konteksti info. Selle kompenseerimiseks saab kasutada näiteks <a target=\"_blank\" href=\"http://jisho.org\">jisho.org</a> sõnastikku",
+    "find_kanjis": "Leia kanjid",
+    "query": "Sõna, lause, Heisigi märksõna, Heisigi ID või primitiiv",
+    "find_kanjis_v6": "6. raamatu järgi",
+    "find_kanjis_v4": "4. raamatu järgi",
+    "no_results": "Puudub",
+    "frame": {
+        "frameNo": "V6 kaardi nr.",
+        "keyword": "Märksõna",
+        "lessonNo": "H6 õppetükk nr.",
+        "constituent": "Primitiivid",
+        "strokeCount": "Jooni",
+        "onYomi": "On-yomi",
+        "kunYomi": "Kun-yomi",
+        "frameNo4": "V4 kaardi nr.",
+        "exampleWords": "Näited"
+    }
+}

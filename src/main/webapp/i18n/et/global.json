@@ -68,6 +68,19 @@
                     "maxlength": "E-posti aadressi suurim lubatud pikkus on 50 tähemärki"
                 }
             }
+        },
+        "label": {
+            "specify": "Täpsustatud",
+            "search": "Otsi",
+            "kanjidetails": "Kanji detailid",
+            "word": "Sõna",
+            "dictionary": "Sõnastik",
+            "kanjis": "Kanjid",
+            "usage": "Kasutus",
+            "level": "Tase",
+            "index": "Indeks",
+            "alphabet": "Tähestik",
+            "hiragana": "Hiragana"
         }
     },
     "entity": {
@@ -98,22 +111,7 @@
         }
     },
     "footer": {
-        "customerSupport": "Kasutajatugi",
-        "lastUpdated": "Viimane uuendus"
-    },
-    "label": {
-        "specify": "Täpsustatud",
-        "search": "Otsi",
-        "kanjidetails": "Kanji detailid",
-        "word": "Sõna",
-        "dictionary": "Sõnastik",
-        "kanjis": "Kanjid",
-        "usage": "Kasutus",
-        "level": "Tase",
-        "index": "Indeks",
-        "http500": "Viga",
-        "alphabet": "Tähestik",
-        "hiragana": "Hiragana"
+        "last-updated": "Viimane uuendus"
     },
     "tip": {
         "studyMode": {
@@ -141,58 +139,69 @@
             "tip2": "Märksõna võib olla nii inglise- kui eesti keeles. Eestikeelseid märksõnu on 900.",
             "tip3": "ID järgi otsimisel on vaikimisi kasutusel \"Remember The Kanji\" 6. raamat. ",
             "tip4": "Primitiivide all on mõeldud Heisigi raamatus esitatud inglisekeelsed kanji osade tähistused. Need ei kattu täielikult Jaapanis kasutatavate radikaalidega."
-        }
-    },
-    "classifier": {
-        "tabstrip": {
-            "cfJpCategory": "Sõnaliigid (JP, liht)",
-            "cfEtSonaLiik": "Sõnaliigid (EE)",
-            "cfVocaTransQuality": "Tõlke kvaliteet",
-            "cfOrigin": "Sõna algallikas",
-            "cfAudioQuality": "Heli kvaliteet"
         },
-        "cfJpCategory": {
-            "n": "nimisõna",
-            "n_": "nimisõna, mida saab kasutada koos verbiga suru",
-            "compd": "komposiitum e liitsõna",
-            "v1": "I grupi verb",
-            "v2": "II grupi verb",
-            "v3": "III grupi verb",
-            "adj1": "i-omadussõna",
-            "adj2": "na-omadussõna",
-            "pron": "pronomeen e asesõna",
-            "adv": "adverb",
-            "conj": "konjuktsioon e sidesõna",
-            "part": "partikkel e abisõna",
-            "interj": "interjektsioon e hüüdsõna",
-            "pref": "prefiks e eesliide",
-            "suf": "sufiks e järelliide",
-            "fr": "fraas e väljend",
-            "atrib": "atributiivne",
-            "kn": "kohanimi",
-            "mn": "mehe nimi",
-            "nn": "naise nimi",
-            "pn": "perekonnanimi",
-            "slang": "släng",
-            "ling": "lingvistika",
-            "mat": "matemaatika",
-            "med": "meditsiin",
-            "sport": "sport"
+        "jmdomain": {
+            "domain": {
+                "archit": "arhitektuur",
+                "astron": "astronomy, space, astronautics, jms.",
+                "Buddh": "Budism",
+                "baseb": "pesapall",
+                "biol": "bioloogia",
+                "bot": "botaanika",
+                "bus": "ettevõtlus",
+                "comp": "IT/telekommunikatsioon",
+                "econ": "majandus",
+                "eng": "inseneriteadus",
+                "fin": "finants",
+                "food": "toit",
+                "geol": "geoloogia, teadus Maast, geofüüsika, jms.",
+                "geom": "geomeetria",
+                "law": "juura, õigusteadus, jms.",
+                "ling": "lingvistika",
+                "MA": "võitluskunstid",
+                "math": "matemaatika",
+                "med": "meditsiin, anatoomia, patoloogia, jms.",
+                "mil": "militaar",
+                "music": "muurika",
+                "physics": "füüsika",
+                "Shinto": "Shinto",
+                "sports": "sport"
+            }
         },
-        "cfEtSonaliik": {
-            "n": "nimisõna",
-            "arvs": "arvsõna",
-            "adj": "omadussõna",
-            "ases": "asesõna",
-            "v": "tegusõna",
-            "kaas": "kaassõna",
-            "huud": "hüüdsõna",
-            "side": "sidesõna",
-            "adv": "määrsõna"
-        }
-    },
-    "dictAbbr": {
-        "jp": {
+        "jmmisc": {
+            "misc": {
+                "abbr": "lühend",
+                "col": "kõnekeelne väljend",
+                "hon": "honorific or respectful (sonkeigo) language",
+                "io": "irregular okurigana usage",
+                "obs": "obsolete term",
+                "on-mim": "onomatopoeic or mimetic word",
+                "uK": "word usually written using kanji alone",
+                "X": "rude or X-rated term (not displayed in educational software)",
+                "arch": "archaism",
+                "fam": "familiar language",
+                "hum": "humble (kenjougo) language",
+                "joc": "jocular or humorous term",
+                "obsc": "obscure term",
+                "pol": "polite (teineigo) language",
+                "uk": "word usually written using kana alone",
+                "ateji": "kanji used as phonetic symbol(s)",
+                "fem": "female term or language",
+                "iK": "word containing irregular kanji usage",
+                "male": "male term or language",
+                "oK": "word containing out-dated kanji",
+                "sl": "slang",
+                "vulg": "vulgar expression or word",
+                "chn": "children's language",
+                "gikun": "gikun (meaning) reading",
+                "ik": "word containing irregular kana usage",
+                "m-sl": "manga slang",
+                "ok": "out-dated or obsolete kana usage",
+                "sens": "term with some sensitivity about its usage",
+                "P": "'Priority' entry, i.e. among approx. 20,000 words deemed to be common in Japanese"
+            }
+        },
+        "jmpos": {
             "pos": {
                 "adj-i": "i-omadussõna (keiyoushi)",
                 "adj-na": "na-adjectival nouns or quasi-adjectives (keiyoudoushi)",
@@ -236,80 +245,50 @@
                 "v5k-s": "Godan tegusõna - Iku/Yuku special class",
                 "vs-c": "su verb - precursor to the modern suru",
                 "vt": "transitiivne tegusõna"
-            },
-            "misc": {
-                "abbr": "lühend",
-                "col": "kõnekeelne väljend",
-                "hon": "honorific or respectful (sonkeigo) language",
-                "io": "irregular okurigana usage",
-                "obs": "obsolete term",
-                "on-mim": "onomatopoeic or mimetic word",
-                "uK": "word usually written using kanji alone",
-                "X": "rude or X-rated term (not displayed in educational software)",
-                "arch": "archaism",
-                "fam": "familiar language",
-                "hum": "humble (kenjougo) language",
-                "joc": "jocular or humorous term",
-                "obsc": "obscure term",
-                "pol": "polite (teineigo) language",
-                "uk": "word usually written using kana alone",
-                "ateji": "kanji used as phonetic symbol(s)",
-                "fem": "female term or language",
-                "iK": "word containing irregular kanji usage",
-                "male": "male term or language",
-                "oK": "word containing out-dated kanji",
-                "sl": "slang",
-                "vulg": "vulgar expression or word",
-                "chn": "children's language",
-                "gikun": "gikun (meaning) reading",
-                "ik": "word containing irregular kana usage",
-                "m-sl": "manga slang",
-                "ok": "out-dated or obsolete kana usage",
-                "sens": "term with some sensitivity about its usage",
-                "P": "'Priority' entry, i.e. among approx. 20,000 words deemed to be common in Japanese"
-            },
-            "domain": {
-                "archit": "arhitektuur",
-                "astron": "astronomy, space, astronautics, jms.",
-                "Buddh": "Budism",
-                "baseb": "pesapall",
-                "biol": "bioloogia",
-                "bot": "botaanika",
-                "bus": "ettevõtlus",
-                "comp": "IT/telekommunikatsioon",
-                "econ": "majandus",
-                "eng": "inseneriteadus",
-                "fin": "finants",
-                "food": "toit",
-                "geol": "geoloogia, teadus Maast, geofüüsika, jms.",
-                "geom": "geomeetria",
-                "law": "juura, õigusteadus, jms.",
-                "ling": "lingvistika",
-                "MA": "võitluskunstid",
-                "math": "matemaatika",
-                "med": "meditsiin, anatoomia, patoloogia, jms.",
-                "mil": "militaar",
-                "music": "muurika",
-                "physics": "füüsika",
-                "Shinto": "Shinto",
-                "sports": "sport"
             }
         },
-        "et": {
+        "ilopos": {
             "pos": {
                 "n": "nimisõna",
-                "p.arv": "põhiarvsõna",
+                "n_": "nimisõna, mida saab kasutada koos verbiga suru",
+                "compd": "komposiitum e liitsõna",
+                "v1": "I grupi verb",
+                "v2": "II grupi verb",
+                "v3": "III grupi verb",
+                "adj1": "i-omadussõna",
+                "adj2": "na-omadussõna",
+                "pron": "pronomeen e asesõna",
+                "adv": "adverb",
+                "conj": "konjuktsioon e sidesõna",
+                "part": "partikkel e abisõna",
+                "interj": "interjektsioon e hüüdsõna",
+                "pref": "prefiks e eesliide",
+                "suf": "sufiks e järelliide",
+                "fr": "fraas e väljend",
+                "atrib": "atributiivne",
+                "kn": "kohanimi",
+                "mn": "mehe nimi",
+                "nn": "naise nimi",
+                "pn": "perekonnanimi",
+                "slang": "släng",
+                "ling": "lingvistika",
+                "mat": "matemaatika",
+                "med": "meditsiin",
+                "sport": "sport"
+            }
+        },
+        "etpos": {
+            "pos": {
+                "n": "nimisõna",
+                "arvs": "arvsõna",
                 "adj": "omadussõna",
                 "ases": "asesõna",
                 "v": "tegusõna",
                 "kaas": "kaassõna",
-                "hüüd": "hüüdsõna",
+                "huud": "hüüdsõna",
                 "side": "sidesõna",
                 "adv": "määrsõna"
             }
         }
-    },
-    "footer": {
-        "last-updated": "Viimane uuendus"
     }
 }

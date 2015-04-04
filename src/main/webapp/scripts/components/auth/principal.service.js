@@ -12,6 +12,16 @@ egdApp
             isAuthenticated: function () {
                 return _authenticated;
             },
+            isInRoleAdmin: function () {
+                return this.isInRole('ROLE_ADMIN');
+            },
+            isInRoleUser: function () {
+                return this.isInRole('ROLE_USER');
+            },
+            isInRoleSensei: function () {
+                return this.isInRole('ROLE_SENSEI');
+            },
+
             isInRole: function (role) {
                 if (!_authenticated || !_identity || !_identity.roles) {
                     return false;

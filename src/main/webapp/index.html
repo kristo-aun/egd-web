@@ -50,37 +50,7 @@
 <div ui-view="navbar" ng-cloak></div>
 <div class="container">
     <div class="well" ui-view="content"></div>
-
-    <div class="footer">
-        <span style="float: left">
-            <iframe src="https://ghbtns.com/github-btn.html?user=esutoniagodesu&amp;repo=egd-web&amp;type=watch&amp;count=true"
-                    style="float:left;"
-                    allowtransparency="true" frameborder="0" scrolling="0" width="95" height="20"></iframe>
-            <div class="custom-follow-button" style="float:left;">
-                <a href="https://twitter.com/intent/user?screen_name=esutoniagodesu" target="_blank" alt="Follow esutoniagodesu">
-                    <i class="btn-icon"></i>
-                    <span class="btn-text">Twitter</span>
-                </a>
-            </div>
-            <div style="float:left;margin-left:24px;">
-                <a href="http://web.zone.ee/jatik/" target="_blank" class="btn btn-primary btn-xs"
-                   style="height:20px;padding-left: 6px;padding-right: 6px;font-weight: bold;font-size: 1.1em;"
-                   role="button">Jatik</a>
-            </div>
-            <div style="float:left;margin-left:24px;">
-                <a href="http://www.csse.monash.edu.au/~jwb/cgi-bin/wwwjdic.cgi?1C" target="_blank" class="btn btn-primary btn-xs"
-                   style="height:20px;padding-left: 6px;padding-right: 6px;font-weight: bold;font-size: 1.1em;"
-                   role="button">WWWJDIC</a>
-            </div>
-        </span>
-        <span>
-            {{'global.form.email' | translate}}:
-            <a href="mailto:EsutoniaGoDesu@gmail.com?Subject=EsutoniaGoDesu website feedback" target="_top">EsutoniaGoDesu@gmail.com</a>
-        </span>
-        <span style="float:right">
-            <a href="#/changelog">{{'footer.last-updated' | translate}}: {{buildTime}}</a>
-        </span>
-    </div>
+    <div class="footer" ui-view="footer"></div>
 </div>
 
 <script>
@@ -149,6 +119,7 @@
 <script src="scripts/components/admin/monitoring.service.js"></script>
 <script src="scripts/components/navbar/navbar.directive.js"></script>
 <script src="scripts/components/navbar/navbar.controller.js"></script>
+<script src="scripts/components/footer/footer.controller.js"></script>
 <script src="scripts/components/user/user.service.js"></script>
 <script src="scripts/components/util/truncate.filter.js"></script>
 <script src="scripts/components/util/base64.service.js"></script>
@@ -180,8 +151,8 @@
 <script src="scripts/app/admin/health/health.controller.js"></script>
 <script src="scripts/app/entities/entity.js"></script>
 <script src="scripts/app/error/error.js"></script>
-<script src="scripts/app/main/main.js"></script>
-<script src="scripts/app/main/main.controller.js"></script>
+<script src="scripts/app/dict/dict.js"></script>
+<script src="scripts/app/dict/dict.controller.js"></script>
 <script src="scripts/components/auth/provider/auth.xauth.service.js"></script>
 
 <script src="scripts/app/changelog/changelog.js"></script>

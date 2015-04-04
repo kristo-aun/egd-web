@@ -1,15 +1,10 @@
 'use strict';
 
 egdApp
-    .controller('MainController', function ($scope, Principal, GitService) {
+    .controller('DictController', function ($scope, Principal) {
         Principal.identity().then(function(account) {
             $scope.account = account;
             $scope.isAuthenticated = Principal.isAuthenticated;
         });
-
-        GitService.get(function (value) {
-            $scope.buildTime = value.buildTime;
-        });
-
         $scope.date = new Date();
     });

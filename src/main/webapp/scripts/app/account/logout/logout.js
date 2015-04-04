@@ -11,7 +11,7 @@ egdApp
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/main/main.html',
+                        templateUrl: 'scripts/app/dict/dict.html',
                         controller: 'LogoutController'
                     }
                 }

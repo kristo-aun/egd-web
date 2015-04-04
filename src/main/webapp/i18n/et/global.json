@@ -308,5 +308,8 @@
                 "adv": "määrsõna"
             }
         }
+    },
+    "footer": {
+        "last-updated": "Viimane uuendus"
     }
 }

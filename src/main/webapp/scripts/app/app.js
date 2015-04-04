@@ -17,8 +17,7 @@ var egdApp = angular.module('egdApp', [
 ]);
 
 egdApp
-    .run(function ($rootScope, $location, $window, $http, $state, $translate, Auth, Principal, Language, ENV) {
-        $rootScope.ENV = ENV;
+    .run(function ($rootScope, $location, $window, $http, $state, $translate, Auth, Principal, Language) {
         $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
             $rootScope.toState = toState;
             $rootScope.toStateParams = toStateParams;
@@ -75,15 +74,24 @@ egdApp
         };
     })
 
-    .config(function ($stateProvider, $httpProvider, $locationProvider, $translateProvider, $urlRouterProvider, tmhDynamicLocaleProvider, httpRequestInterceptorCacheBusterProvider) {
+    .config(function ($stateProvider, $httpProvider, $locationProvider, $translateProvider, $urlRouterProvider, $logProvider, tmhDynamicLocaleProvider, httpRequestInterceptorCacheBusterProvider, ENV) {
 
-        //$logProvider.debugEnabled(false);
+        $logProvider.debugEnabled(ENV == 'dev');
         $httpProvider.interceptors.push('HttpErrorInterceptor');
 
         //Cache everything except rest api requests
         httpRequestInterceptorCacheBusterProvider.setMatchlist([/.*api.*/, /.*protected.*/], true);
 
-        $urlRouterProvider.otherwise('/');
+        $urlRouterProvider.otherwise(function($injector, $location){
+            $injector.invoke(function($state, $rootScope, $translate, $log) {
+                $log.debug("urlRouterProvider.otherwise", $location.path());
+                if ($location.path()) {
+                    $state.go('error', {code: '404'});
+                } else {
+                    $state.go('home');
+                }
+            });
+        });
 
         $stateProvider.state('site', {
             'abstract': true,
@@ -91,6 +99,10 @@ egdApp
                 'navbar@': {
                     templateUrl: 'scripts/components/navbar/navbar.html',
                     controller: 'NavbarController'
+                },
+                'footer@': {
+                    templateUrl: 'scripts/components/footer/footer.html',
+                    controller: 'FooterController'
                 }
             },
             resolve: {
@@ -106,26 +118,6 @@ egdApp
                 }]
             }
         });
-
-        /*
-        $stateProvider.state('otherwise', {
-            abstract: true,
-            controller: '404Controller',
-            templateUrl: 'scripts/app/404/404.html',
-            data: {
-                pageTitle: 'activate.title',
-                roles: []
-            }
-        }).state('otherwise.404', {
-            url: '*path',
-            controller: '404Controller',
-            templateUrl: 'scripts/app/404/404.html',
-            data: {
-                pageTitle: 'activate.title',
-                roles: []
-            }
-        });
-        //*/
 
         $httpProvider.interceptors.push('authInterceptor');
 

@@ -1,12 +1,13 @@
 'use strict';
 
 egdApp
-    .controller('ArticleController', function ($scope, Article, ParseLinks) {
+    .controller('ArticleController', function ($scope, $log, Article, ParseLinks, Principal) {
         $scope.articles = [];
         $scope.page = 1;
         $scope.loadAll = function() {
             Article.query({page: $scope.page, per_page: 20}, function(result, headers) {
                 $scope.links = ParseLinks.parse(headers('link'));
+                $log.debug($scope.links);
                 $scope.articles = result;
             });
         };
@@ -16,41 +17,28 @@ egdApp
         };
         $scope.loadAll();
 
-        $scope.create = function () {
-            Article.update($scope.article,
-                function () {
-                    $scope.loadAll();
-                    $('#saveArticleModal').modal('hide');
-                    $scope.clear();
-                });
+        $scope.create = function() {
+            $location.path("/article/-1");
         };
 
-        $scope.update = function (id) {
-            Article.get({id: id}, function(result) {
-                $scope.article = result;
-                $('#saveArticleModal').modal('show');
-            });
+        $scope.open = function (id) {
+            $location.path("/article/" + id);
         };
 
         $scope.delete = function (id) {
-            Article.get({id: id}, function(result) {
-                $scope.article = result;
-                $('#deleteArticleConfirmation').modal('show');
-            });
-        };
-
-        $scope.confirmDelete = function (id) {
             Article.delete({id: id},
                 function () {
                     $scope.loadAll();
-                    $('#deleteArticleConfirmation').modal('hide');
-                    $scope.clear();
                 });
         };
 
-        $scope.clear = function () {
-            $scope.article = {title: null, id: null};
-            $scope.editForm.$setPristine();
-            $scope.editForm.$setUntouched();
+        $scope.isArticleUpdateAllowed = function (article) {
+            return Principal.isInRoleAdmin() || Principal.equals(article.createdBy);
+        };
+        $scope.isArticleDeleteAllowed = function (article) {
+            return Principal.isInRoleAdmin() || Principal.equals(article.createdBy);
+        };
+        $scope.isAnonymous = function () {
+            return Principal.isAuthenticated();
         };
     });

@@ -22,6 +22,10 @@ egdApp
                 return this.isInRole('ROLE_SENSEI');
             },
 
+            equals: function(login) {
+                return _identity.login === login;
+            },
+
             isInRole: function (role) {
                 if (!_authenticated || !_identity || !_identity.roles) {
                     return false;

@@ -90,7 +90,8 @@
             "delete": "Kustuta",
             "edit": "Muuda",
             "save": "Salvesta",
-            "view": "Vaata"
+            "view": "Vaata",
+            "create": "Lisa uus"
         },
         "detail": {
             "field": "Väli",

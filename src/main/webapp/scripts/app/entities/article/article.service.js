@@ -1,7 +1,7 @@
 'use strict';
 
 egdApp
-    .factory('Article', function ($resource) {
+    .factory('ArticleService', function ($resource) {
         return $resource('api/articles/:id', {}, {
             'query': { method: 'GET', isArray: true},
             'get': {

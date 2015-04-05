@@ -5,12 +5,12 @@
 
 <div class="row center-block" style="width:650px;margin-top:20px">
     <div style="float: left;margin-top:6px;margin-right:8px;">
-        <egd-qtip url="views/directive/tip/tipRTKForm.html"></egd-qtip>
+        <egd-qtip url="scripts/components/tip/tipRTKForm.html"></egd-qtip>
     </div>
     <form class="form" role="form" ng-submit="search(6)">
         <div class="input-group">
             <input type="text" class="form-control"
-                   ng-model="query" placeholder="{{'query' | translate}}"/>
+                   ng-model="query" placeholder="{{'rtk.query' | translate}}"/>
             <div class="input-group-btn">
                 <button class="btn btn-primary" translate="rtk.find_kanjis_v6" type="submit"></button>
                 <button class="btn btn-primary" ng-click="search(4)" translate="rtk.find_kanjis_v4"></button>

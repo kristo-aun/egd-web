@@ -9,16 +9,16 @@ egdApp
                 links:'=',
                 limit:'=',
                 limits:'=?',
-                loadPage: '='
+                loadPage: '=',
+                wrapcount: '=?',
+                hideIfLimitCount: '=?'
             },
             restrict: 'E',
             templateUrl: 'scripts/components/util/directive/egdPagination.html',
             link: function (scope, iElement, attr) {
+                scope.hide = false;
 
-                scope.$watch('links', function(newValue) {
-                    scope.prevcount = Math.min(5, scope.page - 1);
-                    scope.nextcount = Math.min(5, scope.links['last'] - scope.page);
-                });
+                if (!angular.isDefined(scope.wrapcount) || scope.wrapcount < 1) scope.wrapcount = 3;
 
                 if (scope.limits === undefined) {
                     scope.limits = [20, 50, 100];
@@ -29,6 +29,42 @@ egdApp
                         });
                     }
                 }
+
+                scope.range = function(n) {
+                    return new Array(n);
+                };
+
+                scope.getPageForLimit = function(currentpage, newlimit) {
+                    var firstrowidx = (scope.limit * (currentpage - 1)) + 1;
+                    var result = ((firstrowidx - 1) / newlimit) + 1;
+                    return Math.floor(result);
+                };
+
+                var wrapcount = scope.wrapcount;
+
+                scope.$watch('links', function(links) {
+
+                    if (angular.isDefined(links)) {
+
+                        scope.prevcount = Math.min(wrapcount, scope.page - 1);
+
+                        scope.firstcount = Math.max(0, Math.min(wrapcount, scope.page - scope.prevcount - 1));
+                        scope.showfirstpause = scope.page - wrapcount > scope.firstcount + 1;
+
+                        var last = angular.isDefined(links['last']) ? links['last'] : scope.page;
+                        scope.nextcount = Math.min(wrapcount, last - scope.page);
+
+                        scope.lastcount = Math.max(0, Math.min(wrapcount, links['last'] - scope.page - wrapcount));
+                        scope.showlastpause = scope.page + wrapcount < links['last'] - wrapcount;
+
+                    }
+
+                    if (scope.hideIfLimitCount) {
+                        scope.hide = scope.hideIfLimitCount <= scope.limits[0];
+                    } else {
+                        scope.hide = false;
+                    }
+                });
             }
         };
     })

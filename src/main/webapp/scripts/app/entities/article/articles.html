@@ -54,6 +54,12 @@
             </tbody>
         </table>
 
-        <egd-pagination page="page" limit="limit" links="links" load-page="loadPage"></egd-pagination>
+        <div class="row" style="margin-left:16px">
+            <egd-pagination page="page"
+                            limit="limit"
+                            links="links"
+                            load-page="loadPage"
+                            hide-if-limit-count="totalCount"></egd-pagination>
+        </div>
     </div>
 </div>

@@ -4476,7 +4476,9 @@ textarea.input-group-sm > .form-control, textarea.input-group-sm > .input-group-
     color: #428bca;
     background-color: #fff;
     border: 1px solid #ddd;
-    margin-left: -1px
+    margin-left: -1px;
+    min-width: 41px;
+    text-align: center;
 }
 
 .pagination > li:first-child > a, .pagination > li:first-child > span {

@@ -1,5 +1,5 @@
 {
-    "errors": {
+    "error": {
         "title": "Viga!",
         "timeout": "Puudub ühendus",
         "403": "403 - Puudub lehe vaatamise õigus.",

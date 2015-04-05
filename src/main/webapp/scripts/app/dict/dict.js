@@ -39,5 +39,23 @@ egdApp
                         return $translate.refresh();
                     }]
                 }
+            }).state('dictDetail', {
+                parent: 'site',
+                url: '/dict/:phrase',
+                data: {
+                    roles: []
+                },
+                views: {
+                    'content@': {
+                        templateUrl: 'scripts/app/dict/dict.html',
+                        controller: 'DictController'
+                    }
+                },
+                resolve: {
+                    mainTranslatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate,$translatePartialLoader) {
+                        $translatePartialLoader.addPart('dict');
+                        return $translate.refresh();
+                    }]
+                }
             });
     });

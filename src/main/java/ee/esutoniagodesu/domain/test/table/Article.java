@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 /**
- * A Article.
+ * An Article.
  */
 @Entity
 @Table(name = "article", schema = "test")

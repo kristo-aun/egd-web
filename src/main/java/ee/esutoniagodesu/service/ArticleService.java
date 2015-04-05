@@ -5,20 +5,22 @@ import ee.esutoniagodesu.domain.publik.table.Audio;
 import ee.esutoniagodesu.domain.test.table.Article;
 import ee.esutoniagodesu.domain.test.table.ArticleParagraph;
 import ee.esutoniagodesu.pojo.cf.ECfReportType;
-import ee.esutoniagodesu.pojo.dto.ArticleDTO;
+import ee.esutoniagodesu.domain.test.dto.ArticleDTO;
+import ee.esutoniagodesu.repository.domain.test.ArticleDTORepository;
 import ee.esutoniagodesu.repository.project.TestRepository;
+import ee.esutoniagodesu.util.PaginationUtil;
 import ee.esutoniagodesu.util.commons.JCIOUtils;
 import ee.esutoniagodesu.util.jasperreports.JSGeneratorType;
 import ee.esutoniagodesu.util.persistence.ProjectDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.io.ByteArrayOutputStream;
 import java.util.AbstractMap;
-import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipOutputStream;
 
@@ -49,6 +51,9 @@ public class ArticleService {
     private TestRepository testRepository;
 
     @Inject
+    private ArticleDTORepository articleDTORepository;
+
+    @Inject
     private KuromojiService kuromojiService;
 
     //------------------------------ artiklite vaade ------------------------------
@@ -72,10 +77,10 @@ public class ArticleService {
     }
 
     /**
-     * Kasutajale näidatakse tema enda loodud ja avalikke artikleid.
+     * Kasutajale näidatakse tema enda loodud ja avalikke artikleid. Pagineeritud.
      */
-    public List<ArticleDTO> getArticlesByUser(User user) {
-        return testRepository.findUserArticles(user.getLogin());
+    public Page<ArticleDTO> getArticles(int page, int limit, User user) {
+        return articleDTORepository.findByCreatedBy(user.getLogin(), PaginationUtil.generatePageRequest(page, limit));
     }
 
     /**

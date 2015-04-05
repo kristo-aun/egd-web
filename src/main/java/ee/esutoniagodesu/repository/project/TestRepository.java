@@ -1,7 +1,7 @@
 package ee.esutoniagodesu.repository.project;
 
 import ee.esutoniagodesu.util.persistence.JDBCUtil;
-import ee.esutoniagodesu.pojo.dto.ArticleDTO;
+import ee.esutoniagodesu.domain.test.dto.ArticleDTO;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Repository;
 

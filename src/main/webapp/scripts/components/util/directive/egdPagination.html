@@ -1,0 +1,46 @@
+<nav class="row">
+    <ul class="pagination col-md-3">
+        <li ng-show="links['first']" ng-click="loadPage(links['first'], limit)"><a>&lt;&lt;</a></li>
+        <li ng-show="links['prev']" ng-click="loadPage(links['prev'], limit)"><a>&lt;</a></li>
+
+        <!-- current - 5 -->
+        <li ng-repeat-n="prevcount" ng-click="loadPage(page - $index, limit)"><a>{{page - (prevcount - $index - 1)}}</a></li>
+
+
+
+        <li class="active"><a>{{page}}</a></li>
+
+        <!-- current + 5 -->
+        <li ng-repeat-n="nextcount" ng-click="loadPage(page + $index + 2, limit)"><a>{{page + $index + 2}}</a></li>
+
+        <!-- next -->
+        <li ng-show="links['last']" ng-if="links['last'] == page" class="disabled">
+            <a href="javascript:void(0)">&gt;</a>
+        </li>
+        <li ng-show="links['last']" ng-if="links['last'] != page">
+            <a ng-click="loadPage(links['next'], limit)">&gt;</a>
+        </li>
+
+        <!-- last -->
+        <li ng-show="links['last']" ng-if="links['last'] == page" class="disabled">
+            <a href="javascript:void(0)">&gt;&gt;</a>
+        </li>
+        <li ng-show="links['last']" ng-if="links['last'] != page">
+            <a ng-click="loadPage(links['last'], limit)">&gt;&gt;</a>
+        </li>
+
+    </ul>
+
+    <div ng-if="limits" class="dropdown col-md-0" style="margin: 20px 0;display: inline-block">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" style="width: 70px;"
+                data-toggle="dropdown" aria-expanded="false">
+            {{limit}}
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+            <li ng-repeat="item in limits" ng-class="{'active': item == limit}">
+                <a role="menuitem" tabindex="-1" ng-click="loadPage(links['next'], limit)">{{item}}</a>
+            </li>
+        </ul>
+    </div>
+</nav>

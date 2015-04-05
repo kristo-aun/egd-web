@@ -1,6 +1,6 @@
 <div>
-    <p translate="intro1"></p>
-    <p translate="intro2"></p>
+    <p translate="rtk.intro1"></p>
+    <p translate="rtk.intro2"></p>
 </div>
 
 <div class="row center-block" style="width:650px;margin-top:20px">
@@ -12,8 +12,8 @@
             <input type="text" class="form-control"
                    ng-model="query" placeholder="{{'query' | translate}}"/>
             <div class="input-group-btn">
-                <button class="btn btn-primary" translate="find_kanjis_v6" type="submit"></button>
-                <button class="btn btn-primary" ng-click="search(4)" translate="find_kanjis_v4"></button>
+                <button class="btn btn-primary" translate="rtk.find_kanjis_v6" type="submit"></button>
+                <button class="btn btn-primary" ng-click="search(4)" translate="rtk.find_kanjis_v4"></button>
             </div>
         </div>
     </form>
@@ -30,12 +30,12 @@
             <div class="heisig6Table">
                 <ul>
                     <li>
-                        <label translate="frame.frameNo"></label>
+                        <label translate="rtk.frame.frameNo"></label>
                         <span>{{item.id}}</span>
                     </li>
 
                     <li>
-                        <label translate="frame.keyword"></label>
+                        <label translate="rtk.frame.keyword"></label>
                         <span>
                             {{item.keywordEn}}
                             <span ng-if="item.keywordEt">
@@ -45,37 +45,37 @@
                     </li>
 
                     <li>
-                        <label translate="frame.lessonNo"></label>
+                        <label translate="rtk.frame.lessonNo"></label>
                         <span>{{item.lessonNo}}</span>
                     </li>
 
                     <li ng-if="item.constituent">
-                        <label translate="frame.constituent"></label>
+                        <label translate="rtk.frame.constituent"></label>
                         <span>{{item.constituents}}</span>
                     </li>
 
                     <li ng-if="item.strokeCount">
-                        <label translate="frame.strokeCount"></label>
+                        <label translate="rtk.frame.strokeCount"></label>
                         <span>{{item.strokeCount}}</span>
                     </li>
 
                     <li ng-if="item.onYomi">
-                        <label translate="frame.onYomi"></label>
+                        <label translate="rtk.frame.onYomi"></label>
                         <span>{{item.onYomi}}</span>
                     </li>
 
                     <li ng-if="item.kunYomi">
-                        <label translate="frame.kunYomi"></label>
+                        <label translate="rtk.frame.kunYomi"></label>
                         <span>{{item.kunYomi}}</span>
                     </li>
 
                     <li ng-if="item.frameNo4">
-                        <label translate="frame.frameNo4"></label>
+                        <label translate="rtk.frame.frameNo4"></label>
                         <span>{{item.frameNo4}}</span>
                     </li>
 
                     <li ng-if="item.exampleWords.length > 0">
-                        <label translate="frame.exampleWords"></label>
+                        <label translate="rtk.frame.exampleWords"></label>
                         <span class="kanjiExampleWord" ng-repeat="q in item.exampleWords">
                             {{q[1]}}
                             【<span style="color: darkred">{{q[0]}}</span>】
@@ -87,7 +87,7 @@
         </article>
     </div>
     <div class="rtk-no-results" ng-if="frames.length == 0">
-        <i>{{'no_results' | translate}}</i>
+        <i>{{'rtk.no_results' | translate}}</i>
     </div>
 </div>
 

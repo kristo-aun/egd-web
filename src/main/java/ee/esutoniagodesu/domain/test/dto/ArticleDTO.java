@@ -1,19 +1,35 @@
-package ee.esutoniagodesu.pojo.dto;
+package ee.esutoniagodesu.domain.test.dto;
 
 import ee.esutoniagodesu.domain.AbstractAuditingEntity;
+import org.hibernate.annotations.Immutable;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
  * Kasutusel ainult artiklite nimekirja transportimisel, et vältida paragrahvide serialiseerimist.
  * */
+@Entity
+@Table(name = "article", schema = "test")
+@Immutable
 public class ArticleDTO extends AbstractAuditingEntity implements Serializable {
 
+    @Id
     private Integer id;
+
+    @Column(name = "author")
     private String author;
+
+    @Column(name = "copyright")
     private String copyright;
+
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "transcript_lang")
     private String transcriptLang;
+
+    @Column(name = "shared")
     private boolean shared;
 
     public boolean isShared() {
@@ -80,7 +96,7 @@ public class ArticleDTO extends AbstractAuditingEntity implements Serializable {
     }
 
     public String toString() {
-        return "Article{" +
+        return "ArticleDTO{" +
                 "id=" + id +
                 ", author='" + author + '\'' +
                 ", copyright='" + copyright + '\'' +

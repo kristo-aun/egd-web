@@ -2,8 +2,8 @@
 
 egdApp
     .controller('ErrorController', function ($scope, $log, $stateParams, $translate) {
-        var nomessage = 'errors.nomessage';
-        var tcode = $stateParams.code ? 'errors.' + $stateParams.code : nomessage;
+        var nomessage = 'error.nomessage';
+        var tcode = $stateParams.code ? 'error.' + $stateParams.code : nomessage;
 
         $translate(tcode).then(function(value) {
             $scope.errorMessage = value;
@@ -22,7 +22,7 @@ egdApp
                 url: '/error/:code',
                 data: {
                     roles: [],
-                    pageTitle: 'errors.title'
+                    pageTitle: 'error.title'
                 },
                 views: {
                     'content@': {

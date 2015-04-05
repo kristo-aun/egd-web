@@ -1,0 +1,81 @@
+<table id="statTable">
+    <tr>
+        <td>
+            <p><label translate="global.dictionary"></label></p>
+            <ul>
+                <li>
+                    <a href="http://www.csse.monash.edu.au/~jwb/cgi-bin/wwwjdic.cgi?1C">
+                        <label translate="statistics.jmdictVersion"></label>
+                    </a>
+                    {{stats.jmdictVersion}}
+                </li>
+                <li><label translate="statistics.countJpEntry"></label>{{stats.countJpEntry}}</li>
+                <li><label translate="statistics.countTranslatedEntries"></label>{{stats.countTranslatedEntries}}</li>
+                <li><label translate="statistics.countEtTranslations"></label>{{stats.countEtTranslations}}</li>
+                <li><label translate="statistics.countSentencePairs"></label>{{stats.countSentencePairs}}</li>
+                <li>
+                    <a href="http://www.cl.ut.ee/ressursid/teksaurus/index.php?lang=en">
+                        <label translate="statistics.countEstwnExamples"></label>
+                    </a>
+                    {{stats.countEstwnExamples}}
+                </li>
+            </ul>
+        </td>
+        <td>
+            <p><label translate="statistics.etTransOrigin"></label></p>
+            <ul>
+                <li>
+                    <a href="http://web.zone.ee/jatik/">
+                        <label translate="statistics.countOriginJatik"></label>
+                    </a>
+                    {{stats.countOriginJatik}}
+                </li>
+                <li>
+                    <a href="https://kirjastus.tea.ee/est/Tootekataloog/sonaraamatud/?productID=1603">
+                        <label translate="statistics.countOriginIlo"></label>
+                    </a>
+                    {{stats.countOriginIlo}}
+                </li>
+                <li><label translate="statistics.countOriginEgd"></label>{{stats.countOriginEgd}}</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td>
+
+        </td>
+        <td>
+            <p><label translate="global.kanjis"></label></p>
+            <ul>
+                <li><label translate="statistics.countKanjiInDb"></label>{{stats.countKanjiInDb}}</li>
+                <li><label translate="statistics.countKanjisDescribedWithHeisig"></label>{{stats.countKanjisDescribedWithHeisig}}</li>
+                <li><label translate="statistics.countStrokeDiagrams"></label>{{stats.countStrokeDiagrams}}</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+<style>
+
+    table#statTable tr td p {
+        font-weight: bold;
+    }
+
+    table#statTable tr td ul li {
+        width:300px;
+    }
+
+    table#statTable tr td ul li label {
+        width:210px;
+        float:left;
+    }
+    table#statTable tr td ul {
+        list-style: none;
+        padding-left: 22px;
+    }
+    table#statTable tr td {
+        vertical-align: top;
+    }
+    table#statTable tr td ul li + li {
+        margin-top:15px;
+    }
+</style>

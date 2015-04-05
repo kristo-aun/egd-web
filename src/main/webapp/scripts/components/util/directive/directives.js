@@ -1,6 +1,37 @@
 'use strict';
 
 egdApp
+    .directive('egdPagination', function () {
+        return {
+            replace: true,
+            scope: {
+                page:'=',
+                links:'=',
+                limit:'=',
+                limits:'=?',
+                loadPage: '='
+            },
+            restrict: 'E',
+            templateUrl: 'scripts/components/util/directive/egdPagination.html',
+            link: function (scope, iElement, attr) {
+
+                scope.$watch('links', function(newValue) {
+                    scope.prevcount = Math.min(5, scope.page - 1);
+                    scope.nextcount = Math.min(5, scope.links['last'] - scope.page);
+                });
+
+                if (scope.limits === undefined) {
+                    scope.limits = [20, 50, 100];
+                    if (scope.limits.indexOf(scope.limit) == -1) {
+                        scope.limits.push(scope.limit);
+                        scope.limits.sort(function sortNumber(a,b) {
+                            return a - b;
+                        });
+                    }
+                }
+            }
+        };
+    })
     .directive('audios', function($sce) {
         return {
             restrict: 'A',
@@ -96,7 +127,7 @@ egdApp
             link: function (scope, element, attrs) {
                 scope.audio = ngAudio.load(scope.src);
             },
-            templateUrl: 'views/directive/egdAudio.html'
+            templateUrl: 'scripts/components/util/directive/egdAudio.html'
         }
     })
     .directive('gridJa', function () {
@@ -107,10 +138,10 @@ egdApp
             },
             link: function (scope, element, attrs) {
                 scope.getAudioResource = function(audioId) {
-                    return  '/app/rest/audio/' + audioId;
+                    return  '/api/audio/' + audioId;
                 };
             },
-            templateUrl: 'views/directive/gridJa.html'
+            templateUrl: 'scripts/components/util/directive/gridJa.html'
         }
     })
     .directive('gridEt', function () {
@@ -121,10 +152,10 @@ egdApp
             },
             link: function (scope, element, attrs) {
                 scope.getAudioResource = function(audioId) {
-                    return  '/app/rest/audio/' + audioId;
+                    return  '/api/audio/' + audioId;
                 };
             },
-            templateUrl: 'views/directive/gridEt.html'
+            templateUrl: 'scripts/components/util/directive/gridEt.html'
         }
     })
     .directive('phraseAutocomplete', function (DictService, $timeout, $log) {
@@ -174,7 +205,7 @@ egdApp
                     scope.onClick({letter: letter});
                 }
             },
-            templateUrl: 'views/directive/kanaKeys.html'
+            templateUrl: 'scripts/components/util/directive/kanaKeys.html'
         }
     })
     .directive('estonianKeys', function ($log) {
@@ -189,6 +220,61 @@ egdApp
                     scope.onClick({letter: letter});
                 }
             },
-            templateUrl: 'views/directive/estonianKeys.html'
+            templateUrl: 'scripts/components/util/directive/estonianKeys.html'
         }
+    }).directive('ngRepeatN', function () {
+        return {
+            restrict: 'A',
+            transclude: 'element',
+            replace: true,
+            link: function (scope, element, attrs, ctrl, $transclude) {
+
+                // the element to insert after
+                scope.last = element;
+
+                // the parent element
+                scope.parentElem = element.parent();
+
+                // list of elements in the repeater
+                scope.elems = [element];
+
+                scope.$watch('repeat', function (newValue, oldValue) {
+
+                    var newInt = parseInt(newValue)
+                        , oldInt = parseInt(oldValue)
+                        , bothValues = ! isNaN(newInt) && ! isNaN(oldInt)
+                        , childScope
+                        , i
+                        , limit;
+
+                    // decrease number of repeated elements
+                    if (isNaN(newInt) || (bothValues && newInt < oldInt)) {
+                        limit = bothValues ? newInt : 0;
+                        scope.last = scope.elems[limit];
+                        for (i = scope.elems.length - 1; i > limit; i -= 1) {
+                            scope.elems[i].remove();
+                            scope.elems.pop();
+                        }
+                    }
+
+                    // increase number of repeated elements
+                    else {
+                        i = scope.elems.length - 1;
+
+                        for (i; i < newInt; i += 1) {
+                            childScope = scope.$new();
+                            childScope.$index = i;
+                            $transclude(childScope, function (clone) {
+                                scope.last.after(clone);
+                                scope.last = clone;
+                                scope.elems.push(clone);
+                            });
+                        }
+                    }
+                });
+            },
+            scope: {
+                repeat: '=ngRepeatN'
+            }
+        };
     });

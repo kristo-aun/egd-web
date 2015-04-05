@@ -1,18 +1,17 @@
 {
-    "title": "Lugemisharjutused",
-    "home": {
-        "title": "Authors",
-        "createLabel": "Lisa uus"
-    },
-    "detail": {
+    "article": {
+        "title": "Lugemisharjutused",
+        "home": {
+            "createLabel": "Lisa uus"
+        },
 
-    },
-    "grid": {
-        "author": "Autor",
-        "copyright": "Autoriõigused",
-        "title": "Pealkiri",
-        "transcriptLang": "Tõlke keel",
-        "created": "Loodud",
-        "lastModified": "Viimati muudetud"
+        "grid": {
+            "author": "Autor",
+            "copyright": "Autoriõigused",
+            "title": "Pealkiri",
+            "transcriptLang": "Tõlke keel",
+            "created": "Loodud",
+            "lastModified": "Viimati muudetud"
+        }
     }
 }

@@ -8,13 +8,13 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th translate="grid.author"></th>
-                <th translate="grid.title"></th>
-                <th translate="grid.transcriptLang"></th>
-                <th ng-if="!isAnonymous()" translate="grid.copyright"></th>
+                <th translate="article.grid.author"></th>
+                <th translate="article.grid.title"></th>
+                <th translate="article.grid.transcriptLang"></th>
+                <th ng-if="!isAnonymous()" translate="article.grid.copyright"></th>
 
-                <th ng-if="!isAnonymous()" style="width: 180px;" translate="grid.lastModified"></th>
-                <th ng-if="!isAnonymous()" style="width: 180px;" translate="grid.created"></th>
+                <th ng-if="!isAnonymous()" style="width: 180px;" translate="article.grid.lastModified"></th>
+                <th ng-if="!isAnonymous()" style="width: 180px;" translate="article.grid.created"></th>
 
                 <th style="width: 200px;"></th>
             </tr>
@@ -34,37 +34,26 @@
                             ng-click="open(article.id)"
                             class="btn btn-default">
                         <span class="glyphicon glyphicon-pencil"></span>
-                        {{'grid.edit' | translate}}
+                        {{'global.entity.action.edit' | translate}}
                     </button>
                     <button ng-if="isArticleDeleteAllowed(article)"
                             ng-really-message="{{'grid.confirm' | translate}}"
                             ng-really-click="delete(article.id)"
                             class="btn btn-danger">
                         <span class="glyphicon glyphicon-remove-circle"></span>
-                        {{'grid.delete' | translate}}
+                        {{'global.entity.action.delete' | translate}}
                     </button>
                     <button ng-if="isAnonymous()"
                             ng-click="open(article.id)"
                             class="btn btn-default">
                         <span class="glyphicon glyphicon-pencil"></span>
-                        {{'grid.open' | translate}}
+                        {{'global.entity.action.view' | translate}}
                     </button>
                 </td>
             </tr>
             </tbody>
         </table>
-        <nav>
-            <ul class="pagination">
-                <li ng-show="links['first']" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
-                <li ng-show="links['prev']" ng-click="loadPage(links['prev'])"><a>&lt;</a></li>
-                <li ng-show="page > 2" ng-click="loadPage(page - 2)"><a>{{page - 2}}</a></li>
-                <li ng-show="page > 1" ng-click="loadPage(page - 1)"><a>{{page - 1}}</a></li>
-                <li class="active"><a>{{page}}</a></li>
-                <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 1}}</a></li>
-                <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 2}}</a></li>
-                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
-                <li ng-show="links['last']" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
-            </ul>
-        </nav>
+
+        <egd-pagination page="page" limit="limit" links="links" load-page="loadPage"></egd-pagination>
     </div>
 </div>

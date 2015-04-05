@@ -3,19 +3,16 @@
 egdApp
     .controller('ArticleController', function ($scope, $log, Article, ParseLinks, Principal) {
         $scope.articles = [];
-        $scope.page = 1;
-        $scope.loadAll = function() {
-            Article.query({page: $scope.page, per_page: 20}, function(result, headers) {
+        $scope.loadPage = function(page, limit) {
+            $scope.page = page;
+            $scope.limit = limit;
+            Article.query({page: page, limit: limit}, function(result, headers) {
                 $scope.links = ParseLinks.parse(headers('link'));
                 $log.debug($scope.links);
                 $scope.articles = result;
             });
         };
-        $scope.loadPage = function(page) {
-            $scope.page = page;
-            $scope.loadAll();
-        };
-        $scope.loadAll();
+        $scope.loadPage(3, 2);
 
         $scope.create = function() {
             $location.path("/article/-1");
@@ -33,12 +30,12 @@ egdApp
         };
 
         $scope.isArticleUpdateAllowed = function (article) {
-            return Principal.isInRoleAdmin() || Principal.equals(article.createdBy);
+            return Principal.isAuthenticated() && (Principal.isInRoleAdmin() || Principal.equals(article.createdBy));
         };
         $scope.isArticleDeleteAllowed = function (article) {
-            return Principal.isInRoleAdmin() || Principal.equals(article.createdBy);
+            return Principal.isAuthenticated() && (Principal.isInRoleAdmin() || Principal.equals(article.createdBy));
         };
         $scope.isAnonymous = function () {
-            return Principal.isAuthenticated();
+            return !Principal.isAuthenticated();
         };
     });

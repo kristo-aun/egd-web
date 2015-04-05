@@ -1,0 +1,13 @@
+<input id="japestCB" style="display: none;" type="checkbox" ng-click="langSelect($event, e.id)"/>
+<label for="japestCB"><span></span></label>
+<style>
+    div#verveYesNo input[type=checkbox] + label span:before {
+        content: "Jah";
+        font-weight:normal;
+    }
+
+    div#verveYesNo input[type=checkbox] + label span:after {
+        content: "Ei";
+        font-weight:normal;
+    }
+</style>

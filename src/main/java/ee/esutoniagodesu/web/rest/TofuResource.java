@@ -58,13 +58,13 @@ public class TofuResource {
     @RequestMapping(value = "",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<TofuSentence>> getAll(@RequestParam(value = "page", required = false) Integer offset,
+    public ResponseEntity<List<TofuSentence>> getAll(@RequestParam(value = "page", required = false) Integer page,
                                                      @RequestParam(value = "limit", required = false) Integer limit)
         throws URISyntaxException {
 
-        Page<TofuSentence> page = service.getTofusByUser(offset, limit, getSessionUser());
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/tofus", offset, limit);
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+        Page<TofuSentence> result = service.getTofusByUser(page, limit, getSessionUser());
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(result, "/api/tofus", page, limit);
+        return new ResponseEntity<>(result.getContent(), headers, HttpStatus.OK);
     }
 
     /**

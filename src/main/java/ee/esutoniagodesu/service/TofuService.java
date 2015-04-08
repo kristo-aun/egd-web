@@ -41,8 +41,8 @@ public class TofuService {
         return freqRepository.findById(id, user.getLogin());
     }
 
-    public Page<TofuSentence> getTofusByUser(int offset, int limit, User user) {
-        Page<TofuSentence> result = tofuSentenceRepository.findAll(PaginationUtil.generatePageRequest(offset, limit));
+    public Page<TofuSentence> getTofusByUser(int page, int limit, User user) {
+        Page<TofuSentence> result = tofuSentenceRepository.findAll(PaginationUtil.generatePageRequest(page, limit));
 
         for (TofuSentence p : result) {
             p.setTranslation(freqRepository.getTofuSentenceTranslation(p.getId(), user.getLogin()));

@@ -10,6 +10,6 @@ import org.springframework.data.jpa.repository.Query;
  * Spring Data JPA repository for the Article entity.
  */
 public interface TofuSentenceRepository extends JpaRepository<TofuSentence, Integer> {
-    @Query(value = "select a from TofuSentence a ORDER BY a.id desc")
+    @Query(value = "select a from TofuSentence a ORDER BY a.id asc")
     Page<TofuSentence> findAll(Pageable pageable);
 }

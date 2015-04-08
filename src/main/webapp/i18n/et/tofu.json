@@ -8,7 +8,8 @@
         },
         "grid": {
             "word": "Word",
-            "sentence": "Sentence"
+            "sentence": "Sentence",
+            "translation": "Translation"
         }
     }
 }

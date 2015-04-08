@@ -5,7 +5,7 @@ egdApp
         $scope.tofus = [];
 
         $scope.page = 1;
-        $scope.limit = 20;
+        $scope.limit = 100;
 
         $scope.loadAll = function() {
             TofuService.query({page: $scope.page, limit: $scope.limit}, function(result, headers) {
@@ -15,13 +15,23 @@ egdApp
                 $scope.tofus = result;
             });
         };
-        $scope.loadPage = function(page) {
+        $scope.loadPage = function(page, limit) {
             $scope.page = page;
+            $scope.limit = limit;
             $scope.loadAll();
         };
         $scope.loadAll();
 
-        $scope.update = function (id) {
+        $scope.create = function () {
+            TofuService.update($scope.tofu,
+                function () {
+                    $scope.loadAll();
+                    $('#saveTofuModal').modal('hide');
+                    $scope.clear();
+                });
+        };
+
+        $scope.show = function (id) {
             TofuService.get({id: id}, function(result) {
                 $scope.tofu = result;
                 $('#saveTofuModal').modal('show');

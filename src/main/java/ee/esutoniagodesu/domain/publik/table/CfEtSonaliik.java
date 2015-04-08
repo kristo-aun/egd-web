@@ -8,7 +8,7 @@ import java.io.Serializable;
 public final class CfEtSonaliik implements Serializable {
 
     private static final long serialVersionUID = -2517733923161044769L;
-    
+
     private Integer id;
     private Classifier classifier;
 

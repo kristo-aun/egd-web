@@ -21,7 +21,10 @@ public abstract class AbstractRestResource<T, ID> {
     }
 
     public abstract void save(T entity);
+
     public abstract List<T> getAll();
+
     public abstract ResponseEntity<T> get(ID id);
+
     public abstract void delete(ID id);
 }

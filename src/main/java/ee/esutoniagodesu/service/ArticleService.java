@@ -2,10 +2,10 @@ package ee.esutoniagodesu.service;
 
 import ee.esutoniagodesu.domain.ac.table.User;
 import ee.esutoniagodesu.domain.publik.table.Audio;
+import ee.esutoniagodesu.domain.test.dto.ArticleDTO;
 import ee.esutoniagodesu.domain.test.table.Article;
 import ee.esutoniagodesu.domain.test.table.ArticleParagraph;
 import ee.esutoniagodesu.pojo.cf.ECfReportType;
-import ee.esutoniagodesu.domain.test.dto.ArticleDTO;
 import ee.esutoniagodesu.repository.domain.test.ArticleDTORepository;
 import ee.esutoniagodesu.repository.project.TestRepository;
 import ee.esutoniagodesu.util.PaginationUtil;
@@ -31,7 +31,7 @@ import java.util.zip.ZipOutputStream;
  * Võib öelda, et ilma vähemalt 1500-t kanjit tundmata ei ole võimalik lugeda.
  * Seejuures ei ole lugemisoskus lineaarses seoses kanjide oskusega.
  * Tekstide moodulisse on koondatud erinevad abivahendid, et lugemist lihtsustada.
- *
+ * <p/>
  * TODO
  * kasutaja roll ei tohiks näha artiklite admin andmeid
  */
@@ -114,7 +114,6 @@ public class ArticleService {
     }
 
     //------------------------------ sõnavara vaade ------------------------------
-
 
 
     //------------------------------ statistika vaade ------------------------------

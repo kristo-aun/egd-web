@@ -35,8 +35,8 @@ public class HeisigService {
     private Heisig6DB heisig6DB;
 
     private static enum QueryType {
-		FRAME, SENTENCE, KEYWORD
-	}
+        FRAME, SENTENCE, KEYWORD
+    }
 
     public VHeisig6Custom getHeisig6(int id) {
         return dao.find(VHeisig6Custom.class, id);
@@ -46,126 +46,126 @@ public class HeisigService {
         return getCollection(6, null);
     }
 
-	public List<VHeisig6Custom> getCollection(int book, String query) {
-		StringBuilder msg = new StringBuilder("rtk: book=" + book + ", query=" + query);
-		if ((book != 6 && book != 4) || query == null) throw new IllegalArgumentException(msg.toString());
-		log.debug(msg.toString());
+    public List<VHeisig6Custom> getCollection(int book, String query) {
+        StringBuilder msg = new StringBuilder("rtk: book=" + book + ", query=" + query);
+        if ((book != 6 && book != 4) || query == null) throw new IllegalArgumentException(msg.toString());
+        log.debug(msg.toString());
 
-		QueryType querytype;
-		int frame = -1;
-		String keyword = null;
-		char[] signs = null;
+        QueryType querytype;
+        int frame = -1;
+        String keyword = null;
+        char[] signs = null;
 
-		try {
-			frame = Integer.parseInt(query);
-			querytype = QueryType.FRAME;
-		} catch (Exception ignored) {
-			try {
-				if (LatinAlphabet.hasLatin(query.substring(0, 1))) {
-					querytype = QueryType.KEYWORD;
-					keyword = query;
-				} else {
-					throw new IllegalArgumentException(msg.append(", does not consist of latin characters").toString());
-				}
-			} catch (Exception ignored2) {
-				signs = query.toCharArray();
-				querytype = QueryType.SENTENCE;
-			}
-		}
+        try {
+            frame = Integer.parseInt(query);
+            querytype = QueryType.FRAME;
+        } catch (Exception ignored) {
+            try {
+                if (LatinAlphabet.hasLatin(query.substring(0, 1))) {
+                    querytype = QueryType.KEYWORD;
+                    keyword = query;
+                } else {
+                    throw new IllegalArgumentException(msg.append(", does not consist of latin characters").toString());
+                }
+            } catch (Exception ignored2) {
+                signs = query.toCharArray();
+                querytype = QueryType.SENTENCE;
+            }
+        }
 
-		switch (querytype) {
-			case SENTENCE:
-				return findBySigns(signs);
-			case KEYWORD:
-				return findByKeyword(book, keyword);
-			case FRAME:
-				return findByFrame(book, frame);
-			default:
-				throw new IllegalStateException(msg.toString());
-		}
-	}
+        switch (querytype) {
+            case SENTENCE:
+                return findBySigns(signs);
+            case KEYWORD:
+                return findByKeyword(book, keyword);
+            case FRAME:
+                return findByFrame(book, frame);
+            default:
+                throw new IllegalStateException(msg.toString());
+        }
+    }
 
-	private static int limitCount(int cards) {
-		if (cards <= 3) return 20;
-		if (cards <= 6) return 10;
-		if (cards <= 9) return 7;
-		return 5;
-	}
+    private static int limitCount(int cards) {
+        if (cards <= 3) return 20;
+        if (cards <= 6) return 10;
+        if (cards <= 9) return 7;
+        return 5;
+    }
 
-	private boolean _exampleWordsDisabled;
+    private boolean _exampleWordsDisabled;
 
-	public boolean isExampleWordsDisabled() {
-		return _exampleWordsDisabled;
-	}
+    public boolean isExampleWordsDisabled() {
+        return _exampleWordsDisabled;
+    }
 
-	public void setExampleWordsDisabled(boolean b) {
-		_exampleWordsDisabled = b;
-	}
+    public void setExampleWordsDisabled(boolean b) {
+        _exampleWordsDisabled = b;
+    }
 
-	private List<VHeisig6Custom> addExampleWords(List<VHeisig6Custom> cards) {
-		if (_exampleWordsDisabled) return cards;
+    private List<VHeisig6Custom> addExampleWords(List<VHeisig6Custom> cards) {
+        if (_exampleWordsDisabled) return cards;
 
-		for (VHeisig6Custom p : cards) {
-			p.setExampleWords(kanjiDB.getExampleWords(p.getKanji(), limitCount(cards.size())));
-		}
-		return cards;
-	}
+        for (VHeisig6Custom p : cards) {
+            p.setExampleWords(kanjiDB.getExampleWords(p.getKanji(), limitCount(cards.size())));
+        }
+        return cards;
+    }
 
-	private List<VHeisig6Custom> findBySigns(char[] signs) {
-		List<VHeisig6Custom> result = new ArrayList<>();
-		List<Character> checked = new ArrayList<>();
+    private List<VHeisig6Custom> findBySigns(char[] signs) {
+        List<VHeisig6Custom> result = new ArrayList<>();
+        List<Character> checked = new ArrayList<>();
 
-		for (char p : signs) {
-			if (!checked.contains(p) && kanjiDB.containsKanji(p)) {
-				VHeisig6Custom item = heisig6DB.findHeisig6ByKanji(p);
-				if (item == null) {
-					log.debug("findBySigns: no heisig6 found: p=" + p);
-					item = new VHeisig6Custom();
-					item.setKanji(String.valueOf(p));
-					item.setStrokeImageId(kanjiDB.getStrokeDiagramImageId(p));
-				}
+        for (char p : signs) {
+            if (!checked.contains(p) && kanjiDB.containsKanji(p)) {
+                VHeisig6Custom item = heisig6DB.findHeisig6ByKanji(p);
+                if (item == null) {
+                    log.debug("findBySigns: no heisig6 found: p=" + p);
+                    item = new VHeisig6Custom();
+                    item.setKanji(String.valueOf(p));
+                    item.setStrokeImageId(kanjiDB.getStrokeDiagramImageId(p));
+                }
 
-				result.add(item);
-				checked.add(p);
-			}
-		}
-		return addExampleWords(result);
-	}
+                result.add(item);
+                checked.add(p);
+            }
+        }
+        return addExampleWords(result);
+    }
 
-	private List<VHeisig6Custom> findByFrame(int book, int frame) {
-		Character kanji = null;
-		if (book == 6) {
-			kanji = heisig6DB.findKanjiByFrame(frame);
-		} else if (book == 4) {
-			kanji = heisig4DB.findKanjiByFrame(frame);
-		}
+    private List<VHeisig6Custom> findByFrame(int book, int frame) {
+        Character kanji = null;
+        if (book == 6) {
+            kanji = heisig6DB.findKanjiByFrame(frame);
+        } else if (book == 4) {
+            kanji = heisig4DB.findKanjiByFrame(frame);
+        }
 
-		if (kanji == null) {
+        if (kanji == null) {
             return new ArrayList<>();
         }
 
-		return addExampleWords(kanjiToHeisig(kanji));
-	}
+        return addExampleWords(kanjiToHeisig(kanji));
+    }
 
-	private List<VHeisig6Custom> findByKeyword(int book, String keyword) {
-		List<Character> kanjis = null;
-		if (book == 6) {
-			kanjis = heisig6DB.findKanjisByKeyword(keyword);
-		} else if (book == 4) {
-			kanjis = heisig4DB.findKanjisByKeyword(keyword);
-		}
-		return addExampleWords(kanjiToHeisig(kanjis));
-	}
+    private List<VHeisig6Custom> findByKeyword(int book, String keyword) {
+        List<Character> kanjis = null;
+        if (book == 6) {
+            kanjis = heisig6DB.findKanjisByKeyword(keyword);
+        } else if (book == 4) {
+            kanjis = heisig4DB.findKanjisByKeyword(keyword);
+        }
+        return addExampleWords(kanjiToHeisig(kanjis));
+    }
 
-	private List<VHeisig6Custom> kanjiToHeisig(char kanji) {
-		return kanjiToHeisig(Arrays.asList(kanji));
-	}
+    private List<VHeisig6Custom> kanjiToHeisig(char kanji) {
+        return kanjiToHeisig(Arrays.asList(kanji));
+    }
 
-	private List<VHeisig6Custom> kanjiToHeisig(List<Character> chars) {
-		char[] arr = new char[chars.size()];
-		for (int i = 0; i < chars.size(); i++) {
-			arr[i] = chars.get(i);
-		}
-		return findBySigns(arr);
-	}
+    private List<VHeisig6Custom> kanjiToHeisig(List<Character> chars) {
+        char[] arr = new char[chars.size()];
+        for (int i = 0; i < chars.size(); i++) {
+            arr[i] = chars.get(i);
+        }
+        return findBySigns(arr);
+    }
 }

@@ -116,17 +116,17 @@ public final class Article extends AbstractAuditingEntity implements Serializabl
 
     public String toString() {
         return "Article{" +
-                "id=" + id +
-                ", author='" + author + '\'' +
-                ", copyright='" + copyright + '\'' +
-                ", title='" + title + '\'' +
-                ", transcriptLang='" + transcriptLang + '\'' +
-                ", articleParagraphs=" + articleParagraphs +
-                ", shared=" + shared +
-                ", createdBy='" + createdBy + '\'' +
-                ", createdDate=" + createdDate +
-                ", lastModifiedBy='" + lastModifiedBy + '\'' +
-                ", lastModifiedDate=" + lastModifiedDate +
-                '}';
+            "id=" + id +
+            ", author='" + author + '\'' +
+            ", copyright='" + copyright + '\'' +
+            ", title='" + title + '\'' +
+            ", transcriptLang='" + transcriptLang + '\'' +
+            ", articleParagraphs=" + articleParagraphs +
+            ", shared=" + shared +
+            ", createdBy='" + createdBy + '\'' +
+            ", createdDate=" + createdDate +
+            ", lastModifiedBy='" + lastModifiedBy + '\'' +
+            ", lastModifiedDate=" + lastModifiedDate +
+            '}';
     }
 }

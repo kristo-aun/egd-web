@@ -8,7 +8,7 @@ import java.io.Serializable;
 public final class CfJpCategory implements Serializable {
 
     private static final long serialVersionUID = -1350463043085184602L;
-    
+
     private Integer id;
     private Classifier classifier;
 

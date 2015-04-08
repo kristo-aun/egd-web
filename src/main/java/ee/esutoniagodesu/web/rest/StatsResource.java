@@ -18,11 +18,11 @@ public class StatsResource {
     @Inject
     private StatsService service;
 
-	@RequestMapping("/counters")
-	@ResponseBody
-	public VStats counters() {
-		return service.counters();
-	}
+    @RequestMapping("/counters")
+    @ResponseBody
+    public VStats counters() {
+        return service.counters();
+    }
 
     @RequestMapping("/core_stats")
     @ResponseBody
@@ -30,15 +30,15 @@ public class StatsResource {
         return service.getCoreStats();
     }
 
-	@RequestMapping("/translated_entr_ratio")
-	@ResponseBody
-	public List<Map<String, ?>> getTranslatedEntrRatio() {
-		return service.getTranslatedEntrRatio();
-	}
+    @RequestMapping("/translated_entr_ratio")
+    @ResponseBody
+    public List<Map<String, ?>> getTranslatedEntrRatio() {
+        return service.getTranslatedEntrRatio();
+    }
 
-	@RequestMapping("/count_gloss_to_sum_freq")
-	@ResponseBody
-	public List<Map<String, ?>> getCountGlossToSumFreqRatio() {
-		return service.getCountGlossToSumFreqRatio();
-	}
+    @RequestMapping("/count_gloss_to_sum_freq")
+    @ResponseBody
+    public List<Map<String, ?>> getCountGlossToSumFreqRatio() {
+        return service.getCountGlossToSumFreqRatio();
+    }
 }

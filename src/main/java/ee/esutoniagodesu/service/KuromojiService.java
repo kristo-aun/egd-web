@@ -21,8 +21,8 @@ import java.util.stream.Collectors;
 @Transactional
 public class KuromojiService {
 
-	private static final Logger log = Logger.getLogger(KuromojiService.class);
-	private static Tokenizer _tokenizer;
+    private static final Logger log = Logger.getLogger(KuromojiService.class);
+    private static Tokenizer _tokenizer;
 
     @Inject
     private ProjectDAO dao;
@@ -41,11 +41,11 @@ public class KuromojiService {
         return asDTO(tokenize(sentence));
     }
 
-	private List<Token> tokenize(String sentence) {
+    private List<Token> tokenize(String sentence) {
         List<Token> result = tokenizer().tokenize(sentence);
         log.debug("tokenize: result.size=" + result.size() + ", sentence=" + sentence);
         return result;
-	}
+    }
 
     private List<VocabularyDTO> asDTO(List<Token> tokens) {
         List<VocabularyDTO> result = new ArrayList<>();

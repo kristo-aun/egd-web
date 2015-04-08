@@ -19,8 +19,8 @@ public class ImageResource {
     private ImageService service;
 
     @RequestMapping(value = "/{id}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
     public void get(@PathVariable int id, HttpServletResponse response) throws IOException {
         service.image(id, response);
     }

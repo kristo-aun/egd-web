@@ -10,19 +10,19 @@ import java.io.InputStream;
 import java.util.Map;
 
 public interface JSGenerator {
-	byte[] compile(InputStream istream, JRDataSource data, Map<String, Object> staticValues) throws IOException, JRException;
+    byte[] compile(InputStream istream, JRDataSource data, Map<String, Object> staticValues) throws IOException, JRException;
 
-	byte[] compile(JasperReport jasperReport, JRDataSource data, Map<String, Object> staticValues) throws IOException, JRException;
+    byte[] compile(JasperReport jasperReport, JRDataSource data, Map<String, Object> staticValues) throws IOException, JRException;
 
-	byte[] compile(InputStream istream,
+    byte[] compile(InputStream istream,
                    JRDataSource data,
                    Map<String, Object> staticValues,
                    ExporterConfiguration conf) throws IOException, JRException;
 
-	byte[] compile(JasperReport jasperReport,
+    byte[] compile(JasperReport jasperReport,
                    JRDataSource data,
                    Map<String, Object> staticValues,
                    ExporterConfiguration conf) throws IOException, JRException;
 
-	JSGeneratorType getJSGeneratorType();
+    JSGeneratorType getJSGeneratorType();
 }

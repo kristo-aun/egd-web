@@ -17,17 +17,12 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 import javax.inject.Inject;
-import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -74,7 +69,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .disable()
             .headers()
             .frameOptions()
-            .disable()
+            .disable().and()
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
@@ -85,8 +80,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/images/*").permitAll()
             .antMatchers("/api/audio/*").permitAll()
             .antMatchers("/api/test/**").permitAll()
-            .antMatchers("/api/articles", "/api/articles/*").permitAll()
-            .antMatchers("/api/tofus/*").hasAuthority(AuthoritiesConstants.ADMIN)
+            .antMatchers("/api/article", "/api/article/*").permitAll()
             .antMatchers("/api/rtk/**").permitAll()
             .antMatchers("/api/stats/**").hasAuthority(AuthoritiesConstants.USER)
             .antMatchers("/api/morphology/**").hasAuthority(AuthoritiesConstants.USER)
@@ -94,15 +88,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/register").permitAll()
             .antMatchers("/api/activate").permitAll()
             .antMatchers("/api/authenticate").permitAll()
-            .antMatchers("/api/idauthenticate").permitAll()
             .antMatchers("/api/**").authenticated()
-            .antMatchers("/metrics/**").hasAuthority(AuthoritiesConstants.ADMIN)
             .antMatchers("/health/**").hasAuthority(AuthoritiesConstants.ADMIN)
             .antMatchers("/protected/**")
             .authenticated()
-            //.and()
-            //.x509()
-            //.userDetailsService(userDetails)
+                //.and()
+                //.x509()
+                //.userDetailsService(userDetails)
             .and()
             .apply(securityConfigurerAdapter());
     }

@@ -27,16 +27,16 @@ public class EntrResource {
     private ProjectDAO dao;
 
     @RequestMapping(value = "",
-            method = RequestMethod.POST,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+        method = RequestMethod.POST,
+        produces = MediaType.APPLICATION_JSON_VALUE)
     public void save(@RequestBody Entr entr) {
         log.debug("REST request to save Entr : {}", entr);
         dao.save(entr);
     }
 
     @RequestMapping(value = "/{id}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Entr> get(@PathVariable int id) {
         log.debug("REST request to get Entr : {}", id);
         Entr entr = dao.find(Entr.class, id);

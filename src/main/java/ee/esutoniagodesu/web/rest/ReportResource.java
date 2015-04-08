@@ -21,10 +21,10 @@ public class ReportResource {
     @Inject
     private JasperService jasperService;
 
-	@RequestMapping("/{report}.{format}")
-	@ResponseBody
-	public ResponseEntity<?> findAll(@PathVariable("report") String report, @PathVariable("format") String format) throws IOException, JRException, SQLException {
-		Map.Entry<String, byte[]> result = jasperService.getReport(report, format);
-		return FileResponse.jcresponseFile(format, result.getKey(), result.getValue());
-	}
+    @RequestMapping("/{report}.{format}")
+    @ResponseBody
+    public ResponseEntity<?> findAll(@PathVariable("report") String report, @PathVariable("format") String format) throws IOException, JRException, SQLException {
+        Map.Entry<String, byte[]> result = jasperService.getReport(report, format);
+        return FileResponse.jcresponseFile(format, result.getKey(), result.getValue());
+    }
 }

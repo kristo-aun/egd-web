@@ -26,43 +26,43 @@ public class TextToSpeechService {
     @Inject
     private ProjectDAO dao;
 
-	//------------------------------ tts ------------------------------
+    //------------------------------ tts ------------------------------
 
-	public void getSpeechFile(String lang, String q, HttpServletResponse resp) throws IOException {
-		Map.Entry<String, byte[]> file = toSpeech(lang, q);
-		resp.setContentType(file.getKey());
-		resp.setContentLength(file.getValue().length);
-		FileCopyUtils.copy(file.getValue(), resp.getOutputStream());
-		resp.flushBuffer();
-	}
+    public void getSpeechFile(String lang, String q, HttpServletResponse resp) throws IOException {
+        Map.Entry<String, byte[]> file = toSpeech(lang, q);
+        resp.setContentType(file.getKey());
+        resp.setContentLength(file.getValue().length);
+        FileCopyUtils.copy(file.getValue(), resp.getOutputStream());
+        resp.flushBuffer();
+    }
 
-	private static final String _mime = "audio/mpeg";
+    private static final String _mime = "audio/mpeg";
 
-	public Map.Entry<String, byte[]> toSpeech(String lang, String text) throws IllegalArgumentException, IOException {
-		log.debug("toSpeech: lang=" + lang + ", text=" + text);
-		switch (lang) {
-			case "et": {
-				byte[] bytes = grapFinnishAudioFromGoogle(text);
-				return new AbstractMap.SimpleEntry<>(_mime, bytes);
-			}
-			case "jp": {
-				byte[] bytes = grapJapaneseAudioFromGoogle(text);
-				return new AbstractMap.SimpleEntry<>(_mime, bytes);
-			}
-			default:
-				throw new IllegalArgumentException("Language not supported");
-		}
-	}
+    public Map.Entry<String, byte[]> toSpeech(String lang, String text) throws IllegalArgumentException, IOException {
+        log.debug("toSpeech: lang=" + lang + ", text=" + text);
+        switch (lang) {
+            case "et": {
+                byte[] bytes = grapFinnishAudioFromGoogle(text);
+                return new AbstractMap.SimpleEntry<>(_mime, bytes);
+            }
+            case "jp": {
+                byte[] bytes = grapJapaneseAudioFromGoogle(text);
+                return new AbstractMap.SimpleEntry<>(_mime, bytes);
+            }
+            default:
+                throw new IllegalArgumentException("Language not supported");
+        }
+    }
 
-	public static byte[] grapJapaneseAudioFromGoogle(String string) throws IOException {
-		return JCAudio.googleTTSBytes(string, "ja").getValue();
-	}
+    public static byte[] grapJapaneseAudioFromGoogle(String string) throws IOException {
+        return JCAudio.googleTTSBytes(string, "ja").getValue();
+    }
 
-	public static byte[] grapFinnishAudioFromGoogle(String string) throws IOException {
-		return JCAudio.googleTTSBytes(string, "fi").getValue();
-	}
+    public static byte[] grapFinnishAudioFromGoogle(String string) throws IOException {
+        return JCAudio.googleTTSBytes(string, "fi").getValue();
+    }
 
-	//------------------------------ asset management ------------------------------
+    //------------------------------ asset management ------------------------------
 
     @Autowired
     protected ServletContext _servletContext;
@@ -83,24 +83,24 @@ public class TextToSpeechService {
         return new FileInputStream(ifile);
     }
 
-	public byte[] getExample(String lang) throws IOException {
-		switch (lang) {
-			case "et":
-				return asBytes(asInputStream(AssetManager.ET_EXAMPLE.PATH));
-			case "jp":
-				return asBytes(asInputStream(AssetManager.JP_EXAMPLE.PATH));
-			default:
-				throw new RuntimeException("not implemented");
-		}
-	}
+    public byte[] getExample(String lang) throws IOException {
+        switch (lang) {
+            case "et":
+                return asBytes(asInputStream(AssetManager.ET_EXAMPLE.PATH));
+            case "jp":
+                return asBytes(asInputStream(AssetManager.JP_EXAMPLE.PATH));
+            default:
+                throw new RuntimeException("not implemented");
+        }
+    }
 
-	private enum AssetManager {
-		ET_EXAMPLE("/WEB-INF/tts/example/et_ex.mp3"),
-		JP_EXAMPLE("/WEB-INF/tts/example/jp_ex.mp3");
-		public final String PATH;
+    private enum AssetManager {
+        ET_EXAMPLE("/WEB-INF/tts/example/et_ex.mp3"),
+        JP_EXAMPLE("/WEB-INF/tts/example/jp_ex.mp3");
+        public final String PATH;
 
-		AssetManager(String path) {
-			PATH = path;
-		}
-	}
+        AssetManager(String path) {
+            PATH = path;
+        }
+    }
 }

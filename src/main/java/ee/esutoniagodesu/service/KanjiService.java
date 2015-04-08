@@ -24,37 +24,37 @@ public class KanjiService {
     @Inject
     private KanjiDB kanjiDB;
 
-	public List<String[]> examplewords(String kanji, int count) {
-		StringBuilder msg = new StringBuilder("examplewords: kanji=" + kanji);
-		if (kanji == null) throw new IllegalArgumentException(msg.toString());
-		log.debug(msg.toString());
-		return kanjiDB.getExampleWords(kanji, count);
-	}
+    public List<String[]> examplewords(String kanji, int count) {
+        StringBuilder msg = new StringBuilder("examplewords: kanji=" + kanji);
+        if (kanji == null) throw new IllegalArgumentException(msg.toString());
+        log.debug(msg.toString());
+        return kanjiDB.getExampleWords(kanji, count);
+    }
 
-	public void setKanjiStrokeDiagram(String kanji, Map.Entry<String, byte[]> imageFile, String copyright) throws IllegalArgumentException, IOException, SQLException {
-		log.debug("setKanjiStrokeDiagram");
-		int imageId = kanjiDB.insUpdStrokeDiagram(kanji, imageFile, copyright);
-		if (imageId < 1) throw new IllegalStateException("imageId < 1");
-	}
+    public void setKanjiStrokeDiagram(String kanji, Map.Entry<String, byte[]> imageFile, String copyright) throws IllegalArgumentException, IOException, SQLException {
+        log.debug("setKanjiStrokeDiagram");
+        int imageId = kanjiDB.insUpdStrokeDiagram(kanji, imageFile, copyright);
+        if (imageId < 1) throw new IllegalStateException("imageId < 1");
+    }
 
-	public int countKanjisWithoutImages() throws IllegalArgumentException, SQLException {
-		String imageless = kanjiDB.getKanjisWithoutStrokeDiagram();
-		if (imageless == null) return 0;
-		String[] kanjis = imageless.split(",");
-		return kanjis.length;
-	}
+    public int countKanjisWithoutImages() throws IllegalArgumentException, SQLException {
+        String imageless = kanjiDB.getKanjisWithoutStrokeDiagram();
+        if (imageless == null) return 0;
+        String[] kanjis = imageless.split(",");
+        return kanjis.length;
+    }
 
-	public String[] getKanjisWithoutImages() throws IllegalArgumentException, SQLException {
-		String imageless = kanjiDB.getKanjisWithoutStrokeDiagram();
-		if (imageless == null) return null;
-		return imageless.split(",");
-	}
+    public String[] getKanjisWithoutImages() throws IllegalArgumentException, SQLException {
+        String imageless = kanjiDB.getKanjisWithoutStrokeDiagram();
+        if (imageless == null) return null;
+        return imageless.split(",");
+    }
 
-	public Map.Entry<String, byte[]> getImageBytes(char kanji) throws IllegalArgumentException, SQLException {
-		return kanjiDB.getStrokeDiagram(kanji);
-	}
+    public Map.Entry<String, byte[]> getImageBytes(char kanji) throws IllegalArgumentException, SQLException {
+        return kanjiDB.getStrokeDiagram(kanji);
+    }
 
-	public boolean hasKanji(char kanji) {
-		return kanjiDB.containsKanji(kanji);
-	}
+    public boolean hasKanji(char kanji) {
+        return kanjiDB.containsKanji(kanji);
+    }
 }

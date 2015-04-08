@@ -68,7 +68,7 @@ public final class GZipResponseUtil {
         if (responseStatus == HttpServletResponse.SC_NO_CONTENT) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("{} resulted in a {} response. Removing message body in accordance with RFC2616.",
-                        request.getRequestURL(), HttpServletResponse.SC_NO_CONTENT);
+                    request.getRequestURL(), HttpServletResponse.SC_NO_CONTENT);
             }
             return true;
         }
@@ -77,7 +77,7 @@ public final class GZipResponseUtil {
         if (responseStatus == HttpServletResponse.SC_NOT_MODIFIED) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("{} resulted in a {} response. Removing message body in accordance with RFC2616.",
-                        request.getRequestURL(), HttpServletResponse.SC_NOT_MODIFIED);
+                    request.getRequestURL(), HttpServletResponse.SC_NOT_MODIFIED);
             }
             return true;
         }
@@ -92,17 +92,16 @@ public final class GZipResponseUtil {
      * </p>
      *
      * @param response the response which will have a header added to it. I.e this method changes its parameter
-     * @throws GzipResponseHeadersNotModifiableException
-     *          Either the response is committed or we were called using the include method
-     *          from a {@link javax.servlet.RequestDispatcher#include(javax.servlet.ServletRequest, javax.servlet.ServletResponse)}
-     *          method and the set header is ignored.
+     * @throws GzipResponseHeadersNotModifiableException Either the response is committed or we were called using the include method
+     *                                                   from a {@link javax.servlet.RequestDispatcher#include(javax.servlet.ServletRequest, javax.servlet.ServletResponse)}
+     *                                                   method and the set header is ignored.
      */
     public static void addGzipHeader(HttpServletResponse response) throws GzipResponseHeadersNotModifiableException {
         response.setHeader("Content-Encoding", "gzip");
         boolean containsEncoding = response.containsHeader("Content-Encoding");
         if (!containsEncoding) {
             throw new GzipResponseHeadersNotModifiableException("Failure when attempting to set "
-                    + "Content-Encoding: gzip");
+                + "Content-Encoding: gzip");
         }
     }
 }

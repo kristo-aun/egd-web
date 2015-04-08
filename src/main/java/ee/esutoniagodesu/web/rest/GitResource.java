@@ -15,8 +15,8 @@ public class GitResource {
     private GitRepositoryState gitProperties;
 
     @RequestMapping(value = "",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
     public GitRepositoryState git() {
         return gitProperties;
     }

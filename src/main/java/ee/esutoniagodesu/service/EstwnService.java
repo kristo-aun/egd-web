@@ -21,23 +21,23 @@ public class EstwnService {
     private ProjectDAO dao;
 
     public void persist(WordMeaning meaning) {
-		Assert.notNull(meaning);
-		dao.save(meaning);
+        Assert.notNull(meaning);
+        dao.save(meaning);
         meaning.getVariants().forEach(this::persist);
-	}
+    }
 
-	public void persist(Variant variant) {
-		Assert.notNull(variant);
-		dao.save(variant);
+    public void persist(Variant variant) {
+        Assert.notNull(variant);
+        dao.save(variant);
         variant.getExamples().forEach(this::persist);
-	}
+    }
 
-	public void persist(Example example) {
-		Assert.notNull(example);
-		dao.save(example);
-	}
+    public void persist(Example example) {
+        Assert.notNull(example);
+        dao.save(example);
+    }
 
-	public void commit() {
-		dao.flush();
-	}
+    public void commit() {
+        dao.flush();
+    }
 }

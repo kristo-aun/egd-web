@@ -1,0 +1,36 @@
+'use strict';
+
+egdApp
+    .controller('TofuController', function ($scope, Tofu, ParseLinks) {
+        $scope.tofus = [];
+
+        $scope.page = 1;
+        $scope.limit = 20;
+
+        $scope.loadAll = function() {
+            Tofu.query({page: $scope.page, limit: $scope.limit}, function(result, headers) {
+                $scope.links = ParseLinks.parse(headers('link'));
+                $log.debug("TofuController: totalCount=", headers('X-Total-Count'));
+                $scope.totalCount = headers('X-Total-Count');
+                $scope.tofus = result;
+            });
+        };
+        $scope.loadPage = function(page) {
+            $scope.page = page;
+            $scope.loadAll();
+        };
+        $scope.loadAll();
+
+        $scope.update = function (id) {
+            Tofu.get({id: id}, function(result) {
+                $scope.tofu = result;
+                $('#saveTofuModal').modal('show');
+            });
+        };
+
+        $scope.clear = function () {
+            $scope.tofu = {word: null, sentence: null, id: null};
+            $scope.editForm.$setPristine();
+            $scope.editForm.$setUntouched();
+        };
+    });

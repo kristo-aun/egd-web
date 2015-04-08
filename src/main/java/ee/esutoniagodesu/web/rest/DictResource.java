@@ -24,8 +24,8 @@ public class DictResource {
     private LocaleResolver localeResolver;
 
     @RequestMapping(value = "/autocomplete/{phrasepart}",
-            method = RequestMethod.GET,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
     public Collection<String> autocomplete(@PathVariable("phrasepart") String phrasepart) {
         return service.autocomplete(phrasepart);
     }

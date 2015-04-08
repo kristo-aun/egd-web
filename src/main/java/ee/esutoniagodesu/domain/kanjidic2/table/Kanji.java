@@ -251,13 +251,13 @@ public final class Kanji implements Serializable {
 
     public String toString() {
         return "Kanji{" +
-                "id=" + id +
-                ", freq=" + freq +
-                ", grade=" + grade +
-                ", jlpt=" + jlpt +
-                ", literal='" + literal + '\'' +
-                ", strokeCount=" + strokeCount +
-                '}';
+            "id=" + id +
+            ", freq=" + freq +
+            ", grade=" + grade +
+            ", jlpt=" + jlpt +
+            ", literal='" + literal + '\'' +
+            ", strokeCount=" + strokeCount +
+            '}';
     }
 
     public void setRadicalHint(String radicalHint) {

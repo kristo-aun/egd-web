@@ -38,7 +38,7 @@ public class DictService {
     private static final int _limitAutocompleteSize = 100;
 
     public Collection<String> autocomplete(String phrase) {
-        String lang = JCCharacter.isLatin(phrase.charAt(0)) ? "et": "ja";
+        String lang = JCCharacter.isLatin(phrase.charAt(0)) ? "et" : "ja";
         switch (lang) {
             case "et": {
                 return phraseEtDB.getAutocomplete(phrase, _limitAutocompleteSize);
@@ -52,7 +52,7 @@ public class DictService {
     }
 
     public List jmtrans(String locale, String phrase) {
-        String lang = JCCharacter.isLatin(phrase.charAt(0)) ? "et": "ja";
+        String lang = JCCharacter.isLatin(phrase.charAt(0)) ? "et" : "ja";
         switch (locale) {
             case "ja": {
                 return estjap(lang, phrase);
@@ -112,11 +112,11 @@ public class DictService {
      * Tõlkimine eesti keele õppijale
      * JP sisendi vastuseks on eestikeelsed tõlked.
      * ET audio, ET sõnaliigid, ET näitelaused
-     * <p>
-     * <p>
+     * <p/>
+     * <p/>
      * Leia list entr, mis sisaldab "maja"
-     * <p>
-     * <p>
+     * <p/>
+     * <p/>
      * Lisa igale kaardile estwn.example by variant.literal
      */
     private List<EstJap> estjap(String lang, String query) {

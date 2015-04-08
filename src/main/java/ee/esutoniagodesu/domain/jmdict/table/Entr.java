@@ -42,11 +42,11 @@ public final class Entr implements Serializable {
     private Collection<Grp> grps;
     @JsonIgnore
     private Collection<Hist> hists;
-    
+
     private Collection<Kanj> kanjs;
     @JsonIgnore
     private Collection<Kresolv> kresolvs;
-    
+
     private Collection<Rdng> rdngs;
     private Collection<Sens> senses;
 

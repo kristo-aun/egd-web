@@ -37,7 +37,7 @@ public class PaginationUtil {
     }
 
     public static HttpHeaders generatePaginationHttpHeaders(Page page, String baseUrl, Integer offset, Integer limit)
-            throws URISyntaxException {
+        throws URISyntaxException {
 
         if (offset == null || offset < MIN_OFFSET) {
             offset = DEFAULT_OFFSET;
@@ -49,17 +49,17 @@ public class PaginationUtil {
         headers.add("X-Total-Count", "" + page.getTotalElements());
         String link = "";
         if (offset < page.getTotalPages()) {
-            link = "<" + (new URI(baseUrl + "?page=" + (offset + 1) + "&per_page=" + limit)).toString()
-                    + ">; rel=\"next\",";
+            link = "<" + (new URI(baseUrl + "?page=" + (offset + 1) + "&limit=" + limit)).toString()
+                + ">; rel=\"next\",";
         }
         if (offset > 1) {
-            link += "<" + (new URI(baseUrl + "?page=" + (offset - 1) + "&per_page=" + limit)).toString()
-                    + ">; rel=\"prev\",";
+            link += "<" + (new URI(baseUrl + "?page=" + (offset - 1) + "&limit=" + limit)).toString()
+                + ">; rel=\"prev\",";
         }
-        link += "<" + (new URI(baseUrl + "?page=" + page.getTotalPages() + "&per_page=" + limit)).toString()
-                + ">; rel=\"last\"," +
-                "<" + (new URI(baseUrl + "?page=" + 1 + "&per_page=" + limit)).toString()
-                + ">; rel=\"first\"";
+        link += "<" + (new URI(baseUrl + "?page=" + page.getTotalPages() + "&limit=" + limit)).toString()
+            + ">; rel=\"last\"," +
+            "<" + (new URI(baseUrl + "?page=" + 1 + "&limit=" + limit)).toString()
+            + ">; rel=\"first\"";
         headers.add(HttpHeaders.LINK, link);
         return headers;
     }

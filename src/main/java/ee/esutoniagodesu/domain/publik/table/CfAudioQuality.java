@@ -11,7 +11,7 @@ import java.util.Collection;
 public final class CfAudioQuality implements Serializable {
 
     private static final long serialVersionUID = 7454219193144584499L;
-    
+
     private Integer id;
     @JsonIgnore
     private Collection<Audio> audios;

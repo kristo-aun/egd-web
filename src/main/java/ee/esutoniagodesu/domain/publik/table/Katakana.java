@@ -8,7 +8,7 @@ import java.io.Serializable;
 public final class Katakana implements Serializable {
 
     private static final long serialVersionUID = 7812037269479270274L;
-    
+
     private String kana;
     private String romaji;
     private Integer strokeCount;

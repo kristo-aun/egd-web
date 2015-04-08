@@ -17,11 +17,22 @@ public class FreqRepository extends AbstractProjectRepository {
         q.setParameter(1, from);
         q.setParameter(2, to);
 
-        List<TofuSentence> result  = q.getResultList();
+        List<TofuSentence> result = q.getResultList();
 
         for (TofuSentence p : result) {
             p.setTranslation(getTofuSentenceTranslation(p.getId(), createdBy));
         }
+        return result;
+    }
+
+    public TofuSentence findById(int id, String createdBy) {
+        String sql = "SELECT * from freq.tofu_sentence where id = ?1";
+        Query q = em.createNativeQuery(sql, TofuSentence.class);
+        q.setParameter(1, id);
+
+        TofuSentence result = (TofuSentence) q.getSingleResult();
+        result.setTranslation(getTofuSentenceTranslation(result.getId(), createdBy));
+
         return result;
     }
 

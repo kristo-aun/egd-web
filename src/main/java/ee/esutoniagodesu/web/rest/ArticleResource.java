@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/articles")
+@RequestMapping("/api/article")
 public class ArticleResource {
 
     @Inject
@@ -63,7 +63,7 @@ public class ArticleResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<ArticleDTO>> getArticles(@RequestParam(value = "page", required = false) Integer page,
-                                                @RequestParam(value = "limit", required = false) Integer limit) throws URISyntaxException {
+                                                        @RequestParam(value = "limit", required = false) Integer limit) throws URISyntaxException {
         Page<ArticleDTO> result = service.getArticles(page, limit, getSessionUser());
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(result, "/api/articles", page, limit);
         return new ResponseEntity<>(result.getContent(), headers, HttpStatus.OK);

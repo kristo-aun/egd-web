@@ -3,12 +3,15 @@ package ee.esutoniagodesu.domain.test.dto;
 import ee.esutoniagodesu.domain.AbstractAuditingEntity;
 import org.hibernate.annotations.Immutable;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
  * Kasutusel ainult artiklite nimekirja transportimisel, et vältida paragrahvide serialiseerimist.
- * */
+ */
 @Entity
 @Table(name = "article", schema = "test")
 @Immutable
@@ -97,16 +100,16 @@ public class ArticleDTO extends AbstractAuditingEntity implements Serializable {
 
     public String toString() {
         return "ArticleDTO{" +
-                "id=" + id +
-                ", author='" + author + '\'' +
-                ", copyright='" + copyright + '\'' +
-                ", title='" + title + '\'' +
-                ", transcriptLang='" + transcriptLang + '\'' +
-                ", shared=" + shared +
-                ", createdBy='" + createdBy + '\'' +
-                ", createdDate=" + createdDate +
-                ", lastModifiedBy='" + lastModifiedBy + '\'' +
-                ", lastModifiedDate=" + lastModifiedDate +
-                '}';
+            "id=" + id +
+            ", author='" + author + '\'' +
+            ", copyright='" + copyright + '\'' +
+            ", title='" + title + '\'' +
+            ", transcriptLang='" + transcriptLang + '\'' +
+            ", shared=" + shared +
+            ", createdBy='" + createdBy + '\'' +
+            ", createdDate=" + createdDate +
+            ", lastModifiedBy='" + lastModifiedBy + '\'' +
+            ", lastModifiedDate=" + lastModifiedDate +
+            '}';
     }
 }

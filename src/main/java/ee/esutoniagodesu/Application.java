@@ -58,9 +58,9 @@ public class Application {
         log.info("Access URLs:\n----------------------------------------------------------\n\t" +
                 "Local: \t\thttps://127.0.0.1:{}\n\t" +
                 "External: \thttps://{}:{}\n----------------------------------------------------------",
-                env.getProperty("server.port"),
-                InetAddress.getLocalHost().getHostAddress(),
-                env.getProperty("server.port"));
+            env.getProperty("server.port"),
+            InetAddress.getLocalHost().getHostAddress(),
+            env.getProperty("server.port"));
 
     }
 

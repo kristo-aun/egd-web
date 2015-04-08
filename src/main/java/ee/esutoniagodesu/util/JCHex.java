@@ -5,37 +5,37 @@ package ee.esutoniagodesu.util;
  */
 public final class JCHex {
 
-	public static String convertStringToHex(String str) {
+    public static String convertStringToHex(String str) {
 
-		char[] chars = str.toCharArray();
+        char[] chars = str.toCharArray();
 
-		StringBuilder hex = new StringBuilder();
-		for (char aChar : chars) {
-			hex.append(Integer.toHexString((int) aChar));
-		}
+        StringBuilder hex = new StringBuilder();
+        for (char aChar : chars) {
+            hex.append(Integer.toHexString((int) aChar));
+        }
 
-		return hex.toString();
-	}
+        return hex.toString();
+    }
 
-	public static String convertHexToString(String hex) {
+    public static String convertHexToString(String hex) {
 
-		StringBuilder sb = new StringBuilder();
-		//StringBuilder temp = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
+        //StringBuilder temp = new StringBuilder();
 
-		//49204c6f7665204a617661 split into two characters 49, 20, 4c...
-		for (int i = 0; i < hex.length() - 1; i += 2) {
+        //49204c6f7665204a617661 split into two characters 49, 20, 4c...
+        for (int i = 0; i < hex.length() - 1; i += 2) {
 
-			//grab the hex in pairs
-			String output = hex.substring(i, (i + 2));
-			//convert hex to decimal
-			int decimal = Integer.parseInt(output, 16);
-			//convert the decimal to character
-			sb.append((char) decimal);
+            //grab the hex in pairs
+            String output = hex.substring(i, (i + 2));
+            //convert hex to decimal
+            int decimal = Integer.parseInt(output, 16);
+            //convert the decimal to character
+            sb.append((char) decimal);
 
-			//temp.append(decimal);
-		}
-		//System.out.println("Decimal : " + temp.toString());
+            //temp.append(decimal);
+        }
+        //System.out.println("Decimal : " + temp.toString());
 
-		return sb.toString();
-	}
+        return sb.toString();
+    }
 }

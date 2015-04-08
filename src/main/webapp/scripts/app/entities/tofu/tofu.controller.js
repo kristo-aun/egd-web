@@ -1,14 +1,14 @@
 'use strict';
 
 egdApp
-    .controller('TofuController', function ($scope, Tofu, ParseLinks) {
+    .controller('TofuController', function ($scope, $log, TofuService, ParseLinks) {
         $scope.tofus = [];
 
         $scope.page = 1;
         $scope.limit = 20;
 
         $scope.loadAll = function() {
-            Tofu.query({page: $scope.page, limit: $scope.limit}, function(result, headers) {
+            TofuService.query({page: $scope.page, limit: $scope.limit}, function(result, headers) {
                 $scope.links = ParseLinks.parse(headers('link'));
                 $log.debug("TofuController: totalCount=", headers('X-Total-Count'));
                 $scope.totalCount = headers('X-Total-Count');
@@ -22,7 +22,7 @@ egdApp
         $scope.loadAll();
 
         $scope.update = function (id) {
-            Tofu.get({id: id}, function(result) {
+            TofuService.get({id: id}, function(result) {
                 $scope.tofu = result;
                 $('#saveTofuModal').modal('show');
             });

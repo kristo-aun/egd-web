@@ -90,7 +90,8 @@
                 "edit": "Muuda",
                 "save": "Salvesta",
                 "view": "Vaata",
-                "create": "Lisa uus"
+                "create": "Lisa uus",
+                "open": "Ava"
             },
             "detail": {
                 "field": "Väli",

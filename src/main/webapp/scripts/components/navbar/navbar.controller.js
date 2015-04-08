@@ -6,12 +6,21 @@ egdApp
         $scope.isInRole = Principal.isInRole;
         $scope.$state = $state;
 
-        Principal.identity().then(function(account) {
-            $scope.account = account;
+        $scope.identity = function() {
+            Principal.identity().then(function(account) {
+                $scope.account = account;
+            });
+        };
+
+        $scope.identity();
+
+        $scope.$on('login', function (event) {
+            $scope.identity();
         });
 
         $scope.logout = function () {
             Auth.logout();
+            $scope.account = null;
             $state.go('home');
         };
     });

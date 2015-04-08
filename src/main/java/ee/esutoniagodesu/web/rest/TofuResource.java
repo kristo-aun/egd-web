@@ -24,7 +24,7 @@ import java.util.Optional;
  * REST controller for managing Tofu.
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/tofu")
 public class TofuResource {
 
     @Inject
@@ -40,7 +40,7 @@ public class TofuResource {
     /**
      * PUT  /tofus -> Updates an existing tofu.
      */
-    @RequestMapping(value = "/tofus",
+    @RequestMapping(value = "",
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed(AuthoritiesConstants.ADMIN)
@@ -55,7 +55,7 @@ public class TofuResource {
     /**
      * GET  /tofus -> get all the tofus.
      */
-    @RequestMapping(value = "/tofus",
+    @RequestMapping(value = "",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<TofuSentence>> getAll(@RequestParam(value = "page", required = false) Integer offset,
@@ -70,7 +70,7 @@ public class TofuResource {
     /**
      * GET  /tofus/:id -> get the "id" tofu.
      */
-    @RequestMapping(value = "/tofus/{id}",
+    @RequestMapping(value = "/{id}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TofuSentence> get(@PathVariable int id) {

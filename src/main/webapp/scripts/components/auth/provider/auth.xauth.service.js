@@ -1,21 +1,8 @@
 'use strict';
 
 egdApp
-    .factory('AuthServerProvider', function loginService($http, $log, localStorageService, Base64) {
+    .factory('AuthServerProvider', function loginService($http, localStorageService, Base64) {
         return {
-            idlogin: function(credentials) {
-                var data = Base64.encode(credentials.certificate);
-                $log.debug("AuthServerProvider.idlogin: data=", data);
-                return $http.post('api/idauthenticate', data, {
-                    headers: {
-                        "Content-Type": "application/x-x509-user-cert",
-                        "Accept": "application/json"
-                    }
-                }).success(function (response) {
-                    localStorageService.set('token', response);
-                    return response;
-                });
-            },
             login: function(credentials) {
                 var data = "username=" + credentials.username + "&password="
                     + credentials.password;

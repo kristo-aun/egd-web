@@ -1,7 +1,7 @@
 'use strict';
 
 egdApp
-    .controller('LoginController', function ($rootScope, $scope, $state, $timeout, $translate, $log, Auth) {
+    .controller('LoginController', function ($rootScope, $scope, $state, $timeout, $translate, $log, Auth, Principal) {
         $scope.user = {};
         $scope.errors = {};
 
@@ -14,6 +14,7 @@ egdApp
                 rememberMe: $scope.rememberMe
             }).then(function () {
                 $scope.authenticationError = false;
+                $rootScope.$broadcast('login');
                 if ($rootScope.previousStateName === 'register') {
                     $state.go('home');
                 } else {

@@ -1,10 +1,10 @@
 'use strict';
 
 egdApp
-    .controller('TofuDetailController', function ($scope, $stateParams, Tofu) {
+    .controller('TofuDetailController', function ($scope, $stateParams, TofuService) {
         $scope.tofu = {};
         $scope.load = function (id) {
-            Tofu.get({id: id}, function(result) {
+            TofuService.get({id: id}, function(result) {
               $scope.tofu = result;
             });
         };

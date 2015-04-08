@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 public class AuthenticationProvider implements org.springframework.security.authentication.AuthenticationProvider {
 
-    private final Logger log = LoggerFactory.getLogger(AuthenticationProvider.class);
+    private static final Logger log = LoggerFactory.getLogger(AuthenticationProvider.class);
 
     private PasswordEncoder passwordEncoder;
 

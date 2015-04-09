@@ -22,7 +22,7 @@ egdApp
         };
         $scope.loadAll();
 
-        $scope.create = function () {
+        $scope.update = function () {
             TofuService.update($scope.tofu,
                 function () {
                     $scope.loadAll();

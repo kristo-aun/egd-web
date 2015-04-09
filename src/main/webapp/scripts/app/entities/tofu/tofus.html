@@ -13,20 +13,19 @@
                                 ng-click="clear()">&times;</button>
                         <h4 class="modal-title" id="myTofuLabel" translate="tofu.detail.title">
                             {{'tofu.detail.title' | translate}}
-                            {{tofu.id}}
+                            {{tofu.id}} - {{tofu.word}}
                         </h4>
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-                            <div style="width: 20%">{{tofu.word}}</div>
-                            <div style="width: 80%">{{tofu.sentence}}</div>
-
+                            <div>{{tofu.sentence}}</div>
                         </div>
 
                         <div class="form-group">
-                            <label translate="tofu.grid.sentence"></label>
-                            <input type="text" class="form-control" name="sentence"
-                                   ng-model="tofu.sentence" required ng-pattern="/^[a-zA-Z0-9]*$/">
+                            <input type="text" class="form-control"
+                                   placeholder="{{'tofu.grid.translation' | translate}}"
+                                   name="sentence"
+                                   ng-model="tofu.translation.translation" required ng-pattern="/^[a-zA-Z0-9õäöüÕÄÖÜ.,?!_ ]*$/">
 
                             <div ng-show="editForm.sentence.$invalid">
                                 <p class="help-block"
@@ -37,7 +36,7 @@
                                 <p class="help-block"
                                    ng-show="editForm.sentence.$error.pattern"
                                    translate="global.entity.validation.pattern"
-                                   translate-value-pattern="^[a-zA-Z0-9]*$">
+                                   translate-value-pattern="^[a-zA-Z0-9õäöüÕÄÖÜ.,?!]*$">
                                 </p>
                             </div>
                         </div>

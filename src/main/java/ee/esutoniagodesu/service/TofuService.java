@@ -2,7 +2,6 @@ package ee.esutoniagodesu.service;
 
 import ee.esutoniagodesu.domain.ac.table.User;
 import ee.esutoniagodesu.domain.freq.table.TofuSentence;
-import ee.esutoniagodesu.domain.freq.table.TofuSentenceTranslation;
 import ee.esutoniagodesu.repository.domain.freq.TofuSentenceRepository;
 import ee.esutoniagodesu.repository.project.FreqRepository;
 import ee.esutoniagodesu.util.PaginationUtil;
@@ -35,15 +34,6 @@ public class TofuService {
 
     public void save(TofuSentence tofu, User user) {
         log.debug("save: tofu=" + tofu);
-
-        TofuSentenceTranslation tr = tofu.getTranslation();
-        if (tr.getLang() == null) {
-            tr.setLang(user.getLangKey());
-        }
-        tr.getId().setCreatedBy(user.getLogin());
-        log.debug("save: tr=" + tr);
-
-        dao.save(tr);
         dao.save(tofu);
     }
 

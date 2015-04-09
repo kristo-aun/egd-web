@@ -4,13 +4,11 @@ import ee.esutoniagodesu.domain.freq.table.TofuSentence;
 import org.springframework.data.annotation.CreatedBy;
 
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-@Embeddable
 public class TofuSentenceTranslationPK implements Serializable {
 
     private static final long serialVersionUID = -1127669388929874569L;

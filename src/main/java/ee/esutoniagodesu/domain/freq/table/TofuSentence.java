@@ -22,8 +22,8 @@ public final class TofuSentence implements Serializable {
     @Column(name = "sentence", nullable = false, insertable = true, updatable = true, length = 2147483647, precision = 0)
     @Basic
     private String sentence;
+
     @Transient
-    @JsonIgnore
     private TofuSentenceTranslation translation;
 
     public Integer getId() {

@@ -41,6 +41,7 @@ public class TofuService {
                 tr.setLang(user.getLangKey());
             }
         tr.setCreatedBy(user.getLogin());
+        tr.setTofuSentence(tofu);
         log.debug("save: tr=" + tr);
 
         dao.save(tr);

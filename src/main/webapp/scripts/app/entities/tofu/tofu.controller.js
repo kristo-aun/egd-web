@@ -1,7 +1,7 @@
 'use strict';
 
 egdApp
-    .controller('TofuController', function ($scope, $log, TofuService, ParseLinks) {
+    .controller('TofuController', function ($scope, $log, TofuService, ParseLinks, TranslatorService) {
         $scope.tofus = [];
 
         $scope.page = 1;
@@ -35,6 +35,14 @@ egdApp
             TofuService.get({id: id}, function(result) {
                 $scope.tofu = result;
                 $('#saveTofuModal').modal('show');
+                console.log("sees");
+                if ($scope.tofu.translation == null) {
+
+                    TranslatorService.translate("ja", "en", $scope.tofu.sentence).then(function(result) {
+
+                        $scope.tofu.sentenceHint = result;
+                    });
+                }
             });
         };
 

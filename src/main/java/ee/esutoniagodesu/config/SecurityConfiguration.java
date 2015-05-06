@@ -83,6 +83,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/morphology/**").hasAuthority(AuthoritiesConstants.USER)
 
             .antMatchers("/api/register").permitAll()
+            .antMatchers("/api/translator").permitAll()
             .antMatchers("/api/activate").permitAll()
             .antMatchers("/api/authenticate").permitAll()
             .antMatchers("/api/**").authenticated()

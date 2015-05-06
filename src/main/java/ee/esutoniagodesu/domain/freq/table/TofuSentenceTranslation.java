@@ -1,25 +1,35 @@
 package ee.esutoniagodesu.domain.freq.table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import ee.esutoniagodesu.domain.freq.pk.TofuSentenceTranslationPK;
 import org.springframework.data.annotation.CreatedBy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-@IdClass(TofuSentenceTranslationPK.class)
 @Table(name = "tofu_sentence_translation", schema = "freq", catalog = "egd")
 @Entity
 public class TofuSentenceTranslation implements Serializable {
 
+    private Integer id;
     private String lang;
     private String translation;
     private String createdBy;
     @JsonIgnore
     private TofuSentence tofuSentence;
 
+    @SequenceGenerator(name = "seq", sequenceName = "freq.tofu_sentence_translation_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
+    @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
     @Id
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     @CreatedBy
     @NotNull
     @Column(name = "created_by", length = 50)
@@ -31,7 +41,6 @@ public class TofuSentenceTranslation implements Serializable {
         this.createdBy = createdBy;
     }
 
-    @Id
     @ManyToOne
     @JoinColumn(name = "tofu_sentence_id", referencedColumnName = "id", nullable = false)
     public TofuSentence getTofuSentence() {

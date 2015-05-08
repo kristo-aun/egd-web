@@ -1,13 +1,13 @@
 'use strict';
 
-egdApp
+angular.module('egdApp')
     .config(function ($stateProvider) {
         $stateProvider
             .state('login', {
                 parent: 'account',
                 url: '/login',
                 data: {
-                    roles: [],
+                    roles: [], 
                     pageTitle: 'login.title'
                 },
                 views: {

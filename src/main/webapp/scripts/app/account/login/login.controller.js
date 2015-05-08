@@ -1,7 +1,7 @@
 'use strict';
 
-egdApp
-    .controller('LoginController', function ($rootScope, $scope, $state, $timeout, $translate, $log, Auth, Principal) {
+angular.module('egdApp')
+    .controller('LoginController', function ($rootScope, $scope, $state, $timeout, Auth) {
         $scope.user = {};
         $scope.errors = {};
 
@@ -14,7 +14,6 @@ egdApp
                 rememberMe: $scope.rememberMe
             }).then(function () {
                 $scope.authenticationError = false;
-                $rootScope.$broadcast('login');
                 if ($rootScope.previousStateName === 'register') {
                     $state.go('home');
                 } else {
@@ -22,43 +21,6 @@ egdApp
                 }
             }).catch(function () {
                 $scope.authenticationError = true;
-
-                $rootScope.$broadcast('error', 'login.messages.error.authentication');
-
-            });
-        };
-
-        $scope.idlogin = function () {
-            var isolang = "eng";
-            if ($translate.use() === 'et') {
-                isolang = "est";
-            }
-
-            loadSigningPlugin(isolang);
-            var plugin =  new IdCardPluginHandler(isolang);
-            plugin.getCertificate(function(certificate) {
-                Auth.idlogin({
-                    certificate: certificate,
-                    rememberMe: $scope.rememberMe
-                }).then(function () {
-                    $scope.authenticationError = false;
-                    if ($rootScope.previousStateName === 'register') {
-                        $state.go('home');
-                    } else {
-                        $rootScope.back();
-                    }
-                }).catch(function () {
-                    $scope.authenticationError = true;
-                });
-            }, function(e) {
-                $log.error("LoginController.idlogin.error: e=", e);
-                if (e instanceof IdCardException) {
-                    var msg = e.message + " | <i>veakood " + e.returnCode + "</i>";
-                    $rootScope.$broadcast('error', msg);
-                } else {
-                    var msg = e.message != undefined ? e.message : e;
-                    $rootScope.$broadcast('error', msg);
-                }
             });
         };
     });

@@ -1,7 +1,7 @@
 /* globals $ */
 'use strict';
 
-egdApp
+angular.module('egdApp')
     .directive('passwordStrengthBar', function () {
         return {
             replace: true,

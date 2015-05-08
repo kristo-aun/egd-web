@@ -1,6 +1,6 @@
 'use strict';
 
-egdApp
+angular.module('egdApp')
     .controller('LanguageController', function ($scope, $translate, Language) {
         $scope.changeLanguage = function (languageKey) {
             $translate.use(languageKey);

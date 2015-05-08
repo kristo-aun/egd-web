@@ -1,26 +1,38 @@
 server:
-    port: 8443
-    ssl:
-        key-store: ssl/egd-localhost.keystore
-        key-store-password: changeit
-        key-alias: tomcat
-        trust-store: ssl/egd.truststore
-        trust-store-password: changeit
-        client-auth: want
+    port: 8080
 
 spring:
     profiles:
         active: dev
-
     datasource:
-        #jndi-name: java:comp/env/jdbc/egd
-        url: jdbc:postgresql://localhost:5432/egd
-        username: postgres
+        dataSourceClassName: org.postgresql.ds.PGSimpleDataSource
+        url: jdbc:postgresql://localhost:5432/egddev
+        username: egd
         password: redherring
 
-    mail:
-        baseUrl: https://localhost:8443
-
+    jpa:
+        database-platform: org.hibernate.dialect.PostgreSQL82Dialect
+        database: POSTGRESQL
+        openInView: false
+        show_sql: true
+        generate-ddl: false
+        hibernate:
+            ddl-auto: none
+            naming-strategy: org.hibernate.cfg.EJB3NamingStrategy
+        properties:
+            hibernate.cache.use_second_level_cache: false
+            hibernate.cache.use_query_cache: false
+            hibernate.generate_statistics: true
+    data:
+        elasticsearch:
+            cluster-name:
+            cluster-nodes:
+            properties:
+                path:
+                  logs: target/elasticsearch/log
+                  data: target/elasticsearch/data
+    messages:
+        cache-seconds: 1
     thymeleaf:
         mode: XHTML
         cache: false

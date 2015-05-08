@@ -1,8 +1,8 @@
 package ee.esutoniagodesu.service;
 
 import ee.esutoniagodesu.config.audit.AuditEventConverter;
-import ee.esutoniagodesu.domain.ac.table.PersistentAuditEvent;
-import ee.esutoniagodesu.repository.domain.ac.PersistenceAuditEventRepository;
+import ee.esutoniagodesu.domain.PersistentAuditEvent;
+import ee.esutoniagodesu.repository.PersistenceAuditEventRepository;
 import org.joda.time.LocalDateTime;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.stereotype.Service;

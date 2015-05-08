@@ -1,6 +1,6 @@
 'use strict';
 
-egdApp
+angular.module('egdApp')
     .config(function ($stateProvider) {
         $stateProvider
             .state('password', {

@@ -1,7 +1,7 @@
 'use strict';
 
-egdApp
-    .factory('Principal', function Principal($q, Account) {
+angular.module('egdApp')
+    .factory('Principal', function Principal($q, Account, Tracker) {
         var _identity,
             _authenticated = false;
 
@@ -12,20 +12,6 @@ egdApp
             isAuthenticated: function () {
                 return _authenticated;
             },
-            isInRoleAdmin: function () {
-                return this.isInRole('ROLE_ADMIN');
-            },
-            isInRoleUser: function () {
-                return this.isInRole('ROLE_USER');
-            },
-            isInRoleSensei: function () {
-                return this.isInRole('ROLE_SENSEI');
-            },
-
-            equals: function(login) {
-                return _identity.login === login;
-            },
-
             isInRole: function (role) {
                 if (!_authenticated || !_identity || !_identity.roles) {
                     return false;
@@ -71,6 +57,7 @@ egdApp
                         _identity = account.data;
                         _authenticated = true;
                         deferred.resolve(_identity);
+                        Tracker.connect();
                     })
                     .catch(function() {
                         _identity = null;

@@ -1,31 +1,8 @@
 'use strict';
 
-egdApp
-    .factory('Auth', function Auth($rootScope, $state, $q, $translate, Principal, AuthServerProvider, Account, Register, Activate, Password) {
+angular.module('egdApp')
+    .factory('Auth', function Auth($rootScope, $state, $q, $translate, Principal, AuthServerProvider, Account, Register, Activate, Password, PasswordResetInit, PasswordResetFinish, Tracker) {
         return {
-            idlogin: function (credentials, callback) {
-                var cb = callback || angular.noop;
-                var deferred = $q.defer();
-
-                AuthServerProvider.idlogin(credentials).then(function (data) {
-                    // retrieve the logged account information
-                    Principal.identity(true).then(function(account) {
-                        // After the login the language will be changed to
-                        // the language selected by the user during his registration
-                        $translate.use(account.langKey);
-                    });
-                    deferred.resolve(data);
-
-                    return cb();
-                }).catch(function (err) {
-                    this.logout();
-                    deferred.reject(err);
-                    return cb(err);
-                }.bind(this));
-
-                return deferred.promise;
-            },
-
             login: function (credentials, callback) {
                 var cb = callback || angular.noop;
                 var deferred = $q.defer();
@@ -36,9 +13,9 @@ egdApp
                         // After the login the language will be changed to
                         // the language selected by the user during his registration
                         $translate.use(account.langKey);
+                        Tracker.sendActivity();
+                        deferred.resolve(data);
                     });
-                    deferred.resolve(data);
-
                     return cb();
                 }).catch(function (err) {
                     this.logout();
@@ -117,6 +94,27 @@ egdApp
                 var cb = callback || angular.noop;
 
                 return Password.save(newPassword, function () {
+                    return cb();
+                }, function (err) {
+                    return cb(err);
+                }).$promise;
+            },
+            
+            resetPasswordInit: function (mail, callback) {
+                var cb = callback || angular.noop;
+
+                return PasswordResetInit.save(mail, function() {
+                    return cb();
+                }, function (err) {
+                    return cb(err);
+                }).$promise;
+
+            },
+
+            resetPasswordFinish: function(key, newPassword, callback) {
+                var cb = callback || angular.noop;
+
+                return PasswordResetFinish.save(key, newPassword, function () {
                     return cb();
                 }, function (err) {
                     return cb(err);

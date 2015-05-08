@@ -1,19 +1,20 @@
 {
   "generator-jhipster": {
-    "baseName": "perearst",
-    "packageName": "ee.medisoft.perearst",
-    "packageFolder": "ee/medisoft/perearst",
-    "authenticationType": "session",
+    "baseName": "egd",
+    "packageName": "ee.esutoniagodesu",
+    "packageFolder": "ee/esutoniagodesu",
+    "authenticationType": "oauth2",
     "hibernateCache": "no",
     "clusteredHttpSession": "no",
-    "websocket": "no",
+    "websocket": "spring-websocket",
     "databaseType": "sql",
     "devDatabaseType": "postgresql",
     "prodDatabaseType": "postgresql",
+    "searchEngine": "elasticsearch",
     "useCompass": false,
     "buildTool": "maven",
     "frontendBuilder": "grunt",
     "javaVersion": "8",
-    "rememberMeKey": "ff61d8f81ce46474971e47ba4757e5e37d2f2be1"
+    "rememberMeKey": "eb5e13cea0287f01878e2a29e9b1b7accb771a3e"
   }
 }

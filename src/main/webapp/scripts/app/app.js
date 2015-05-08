@@ -1,24 +1,11 @@
 'use strict';
 
-var egdApp = angular.module('egdApp', [
-    'LocalStorageModule',
-    'tmh.dynamicLocale',
-    'ngResource',
-    'ui.router',
-    'ngCookies',
-    'pascalprecht.translate',
-    'ngCacheBuster',
-    'infinite-scroll',
-    'ngAudio',
-    'ui.bootstrap',
-    'ui.chart',
-    'ui.select',
-    'ui.grid',
-    'ui.grid.pagination'
-]);
+angular.module('egdApp', ['LocalStorageModule', 'tmh.dynamicLocale',
+    'ngResource', 'ui.router', 'ngCookies', 'pascalprecht.translate', 'ngCacheBuster', 'infinite-scroll'])
 
-egdApp
-    .run(function ($rootScope, $location, $window, $http, $state, $translate, Auth, Principal, Language) {
+    .run(function ($rootScope, $location, $window, $http, $state, $translate, Auth, Principal, Language, ENV, VERSION) {
+        $rootScope.ENV = ENV;
+        $rootScope.VERSION = VERSION;
         $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
             $rootScope.toState = toState;
             $rootScope.toStateParams = toStateParams;
@@ -58,52 +45,51 @@ egdApp
             }
         };
     })
-
+    
     .factory('authInterceptor', function ($rootScope, $q, $location, localStorageService) {
         return {
             // Add authorization token to headers
             request: function (config) {
                 config.headers = config.headers || {};
                 var token = localStorageService.get('token');
-
-                if (token && token.expires && token.expires > new Date().getTime()) {
-                    config.headers['x-auth-token'] = token.token;
+                
+                if (token && token.expires_at && token.expires_at > new Date().getTime()) {
+                    config.headers.Authorization = 'Bearer ' + token.access_token;
                 }
-
+                
                 return config;
             }
         };
     })
-
-    .config(function ($stateProvider, $httpProvider, $locationProvider, $translateProvider, $urlRouterProvider, $logProvider, tmhDynamicLocaleProvider, httpRequestInterceptorCacheBusterProvider, ENV) {
-
-        $logProvider.debugEnabled(ENV == 'dev');
-        //$httpProvider.interceptors.push('HttpErrorInterceptor');
+    
+    .factory('authExpiredInterceptor', function ($rootScope, $q, $injector, localStorageService) {
+        return {
+            responseError: function (response) {
+                // token has expired
+                if (response.status === 401 && (response.data.error == 'invalid_token' || response.data.error == 'Unauthorized')) {
+                    localStorageService.remove('token');
+                    var Principal = $injector.get('Principal');
+                    if (Principal.isAuthenticated()) {
+                        var Auth = $injector.get('Auth');
+                        Auth.authorize(true);
+                    }
+                }
+                return $q.reject(response);
+            }
+        };
+    })
+    .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $translateProvider, tmhDynamicLocaleProvider, httpRequestInterceptorCacheBusterProvider) {
 
         //Cache everything except rest api requests
         httpRequestInterceptorCacheBusterProvider.setMatchlist([/.*api.*/, /.*protected.*/], true);
 
-        $urlRouterProvider.otherwise(function($injector, $location){
-            $injector.invoke(function($state, $rootScope, $translate, $log) {
-                $log.debug("urlRouterProvider.otherwise", $location.path());
-                if ($location.path()) {
-                    $state.go('error', {code: '404'});
-                } else {
-                    $state.go('home');
-                }
-            });
-        });
-
+        $urlRouterProvider.otherwise('/');
         $stateProvider.state('site', {
             'abstract': true,
             views: {
                 'navbar@': {
                     templateUrl: 'scripts/components/navbar/navbar.html',
                     controller: 'NavbarController'
-                },
-                'footer@': {
-                    templateUrl: 'scripts/components/footer/footer.html',
-                    controller: 'FooterController'
                 }
             },
             resolve: {
@@ -121,32 +107,16 @@ egdApp
         });
 
         $httpProvider.interceptors.push('authInterceptor');
+        $httpProvider.interceptors.push('authExpiredInterceptor');
 
         // Initialize angular-translate
         $translateProvider.useLoader('$translatePartialLoader', {
             urlTemplate: 'i18n/{lang}/{part}.json'
         });
 
-        var initI18n = function(preferredLanguage) {
-            $translateProvider.preferredLanguage(preferredLanguage);
-            $translateProvider.useCookieStorage();
-            tmhDynamicLocaleProvider.localeLocationPattern('i18n/angular-locale/angular-locale_{{locale}}.js');
-            tmhDynamicLocaleProvider.useCookieStorage('NG_TRANSLATE_LANG_KEY');
-        };
+        $translateProvider.preferredLanguage('en');
+        $translateProvider.useCookieStorage();
 
-        //lets try to determine user's language by browser and location
-        try {
-            var nav = window.navigator.languages || [window.navigator.language || window.navigator.userLanguage];
-            var navlang = nav[0].substring(0,2);
-
-            if (navlang === "et") {
-                initI18n("et");
-            } else if (navlang === 'ja' || navlang === 'jp') {
-                initI18n("ja");
-            } else {
-                initI18n("et");
-            }
-        } catch(ignored) {
-            initI18n("en");
-        }
+        tmhDynamicLocaleProvider.localeLocationPattern('bower_components/angular-i18n/angular-locale_{{locale}}.js');
+        tmhDynamicLocaleProvider.useCookieStorage('NG_TRANSLATE_LANG_KEY');
     });

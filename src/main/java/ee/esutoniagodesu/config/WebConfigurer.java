@@ -41,9 +41,8 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
         if (env.acceptsProfiles(Constants.SPRING_PROFILE_PRODUCTION)) {
             initCachingHttpHeadersFilter(servletContext, disps);
             initStaticResourcesProductionFilter(servletContext, disps);
+            initGzipFilter(servletContext, disps);
         }
-        initGzipFilter(servletContext, disps);
-
         log.info("Web application fully configured");
     }
 
@@ -72,13 +71,8 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
         compressingFilter.addMappingForUrlPatterns(disps, true, "*.json");
         compressingFilter.addMappingForUrlPatterns(disps, true, "*.html");
         compressingFilter.addMappingForUrlPatterns(disps, true, "*.js");
-
         compressingFilter.addMappingForUrlPatterns(disps, true, "*.svg");
         compressingFilter.addMappingForUrlPatterns(disps, true, "*.ttf");
-        compressingFilter.addMappingForUrlPatterns(disps, true, "*.eot");
-        compressingFilter.addMappingForUrlPatterns(disps, true, "*.woff");
-        compressingFilter.addMappingForUrlPatterns(disps, true, "*.woff2");
-
         compressingFilter.addMappingForUrlPatterns(disps, true, "/api/*");
         compressingFilter.addMappingForUrlPatterns(disps, true, "/metrics/*");
         compressingFilter.setAsyncSupported(true);
@@ -110,7 +104,7 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
         log.debug("Registering Caching HTTP Headers Filter");
         FilterRegistration.Dynamic cachingHttpHeadersFilter =
             servletContext.addFilter("cachingHttpHeadersFilter",
-                new CachingHttpHeadersFilter());
+                new CachingHttpHeadersFilter(env));
 
         cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/assets/*");
         cachingHttpHeadersFilter.addMappingForUrlPatterns(disps, true, "/scripts/*");

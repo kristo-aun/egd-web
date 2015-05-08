@@ -1,11 +1,12 @@
 package ee.esutoniagodesu.service;
 
-import ee.esutoniagodesu.domain.ac.table.Authority;
-import ee.esutoniagodesu.domain.ac.table.User;
-import ee.esutoniagodesu.repository.domain.ac.AuthorityRepository;
-import ee.esutoniagodesu.repository.domain.ac.UserRepository;
+import ee.esutoniagodesu.domain.Authority;
+import ee.esutoniagodesu.domain.User;
+import ee.esutoniagodesu.repository.AuthorityRepository;
+import ee.esutoniagodesu.repository.UserRepository;
+import ee.esutoniagodesu.repository.search.UserSearchRepository;
 import ee.esutoniagodesu.security.SecurityUtils;
-import ee.esutoniagodesu.util.RandomUtil;
+import ee.esutoniagodesu.service.util.RandomUtil;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,13 +28,16 @@ import java.util.Set;
 @Transactional
 public class UserService {
 
-    private final Logger log = LoggerFactory.getLogger(UserService.class);
+    private static final Logger log = LoggerFactory.getLogger(UserService.class);
 
     @Inject
     private PasswordEncoder passwordEncoder;
 
     @Inject
     private UserRepository userRepository;
+
+    @Inject
+    private UserSearchRepository userSearchRepository;
 
     @Inject
     private AuthorityRepository authorityRepository;
@@ -46,14 +50,44 @@ public class UserService {
                 user.setActivated(true);
                 user.setActivationKey(null);
                 userRepository.save(user);
+                userSearchRepository.save(user);
                 log.debug("Activated user: {}", user);
                 return user;
             });
         return Optional.empty();
     }
 
+    public Optional<User> completePasswordReset(String newPassword, String key) {
+        log.debug("Reset user password for reset key {}", key);
+
+        return userRepository.findOneByResetKey(key)
+            .filter(user -> {
+                DateTime oneDayAgo = DateTime.now().minusHours(24);
+                return user.getResetDate().isAfter(oneDayAgo.toInstant().getMillis());
+            })
+            .map(user -> {
+                user.setActivated(true);
+                user.setPassword(passwordEncoder.encode(newPassword));
+                user.setResetKey(null);
+                user.setResetDate(null);
+                userRepository.save(user);
+                return user;
+            });
+    }
+
+    public Optional<User> requestPasswordReset(String mail) {
+        return userRepository.findOneByEmail(mail)
+            .map(user -> {
+                user.setResetKey(RandomUtil.generateResetKey());
+                user.setResetDate(DateTime.now());
+                userRepository.save(user);
+                return user;
+            });
+    }
+
     public User createUserInformation(String login, String password, String firstName, String lastName, String email,
                                       String langKey) {
+
         User newUser = new User();
         Authority authority = authorityRepository.findOne("ROLE_USER");
         Set<Authority> authorities = new HashSet<>();
@@ -72,6 +106,7 @@ public class UserService {
         authorities.add(authority);
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
+        userSearchRepository.save(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
     }
@@ -82,6 +117,7 @@ public class UserService {
             u.setLastName(lastName);
             u.setEmail(email);
             userRepository.save(u);
+            userSearchRepository.save(u);
             log.debug("Changed Information for User: {}", u);
         });
     }
@@ -116,6 +152,7 @@ public class UserService {
         for (User user : users) {
             log.debug("Deleting not activated user {}", user.getLogin());
             userRepository.delete(user);
+            userSearchRepository.delete(user);
         }
     }
 }

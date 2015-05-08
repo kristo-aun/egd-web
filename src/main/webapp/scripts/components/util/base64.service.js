@@ -1,7 +1,7 @@
 /*jshint bitwise: false*/
 'use strict';
 
-egdApp
+angular.module('egdApp')
     .service('Base64', function () {
         var keyStr = 'ABCDEFGHIJKLMNOP' +
             'QRSTUVWXYZabcdef' +

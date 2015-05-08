@@ -1,6 +1,6 @@
 'use strict';
 
-egdApp
+angular.module('egdApp')
     .controller('AuditsController', function ($scope, $translate, $filter, AuditsService) {
         $scope.onChangeDate = function () {
             var dateFormat = 'yyyy-MM-dd';

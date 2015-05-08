@@ -1,33 +1,36 @@
 'use strict';
 
-egdApp
-    .controller('ErrorController', function ($scope, $log, $stateParams, $translate) {
-        var nomessage = 'error.nomessage';
-        var tcode = $stateParams.code ? 'error.' + $stateParams.code : nomessage;
-
-        $translate(tcode).then(function(value) {
-            $scope.errorMessage = value;
-        }, function(e) {
-            $translate(nomessage).then(function(value) {
-                $scope.errorMessage = value;
-            });
-        });
-    });
-
-egdApp
+angular.module('egdApp')
     .config(function ($stateProvider) {
         $stateProvider
             .state('error', {
                 parent: 'site',
-                url: '/error/:code',
+                url: '/error',
                 data: {
                     roles: [],
-                    pageTitle: 'error.title'
+                    pageTitle: 'errors.title'
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/error/error.html',
-                        controller: 'ErrorController'
+                        templateUrl: 'scripts/app/error/error.html'
+                    }
+                },
+                resolve: {
+                    mainTranslatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate,$translatePartialLoader) {
+                        $translatePartialLoader.addPart('error');
+                        return $translate.refresh();
+                    }]
+                }
+            })
+            .state('accessdenied', {
+                parent: 'site',
+                url: '/accessdenied',
+                data: {
+                    roles: []
+                },
+                views: {
+                    'content@': {
+                        templateUrl: 'scripts/app/error/accessdenied.html'
                     }
                 },
                 resolve: {

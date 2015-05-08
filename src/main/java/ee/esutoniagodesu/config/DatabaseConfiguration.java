@@ -13,6 +13,7 @@ import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -33,6 +34,7 @@ import java.util.Properties;
 @EnableJpaRepositories("ee.esutoniagodesu.repository")
 @EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware")
 @EnableTransactionManagement
+@EnableElasticsearchRepositories("ee.esutoniagodesu.repository.search")
 public class DatabaseConfiguration implements EnvironmentAware {
 
     private static final Logger log = LoggerFactory.getLogger(DatabaseConfiguration.class);
@@ -49,37 +51,62 @@ public class DatabaseConfiguration implements EnvironmentAware {
 
     @Bean(destroyMethod = "")
     public DataSource dataSource() {
-        log.debug("Configuring Datasource");
+        if (env.acceptsProfiles(Constants.SPRING_PROFILE_PRODUCTION)) {
+            return jndiDataSource();
+        } else {
+            return pooledDataSource();
+        }
+    }
 
-        if (propertyResolver.getProperty("url") == null && propertyResolver.getProperty("jndi") == null) {
+    public DataSource jndiDataSource() {
+        log.debug("Configuring Datasource");
+        if (propertyResolver.getProperty("jndi-name") == null ) {
             log.error("Your database connection pool configuration is incorrect! The application" +
-                    "cannot start. Please check your Spring profile, current profiles are: {}",
+                    " cannot start. Please check your Spring profile, current profiles are: {}",
+                Arrays.toString(env.getActiveProfiles()));
+            throw new ApplicationContextException("Database connection pool is not configured correctly");
+        }
+
+        try {
+            String jndi = propertyResolver.getProperty("jndi");
+            log.debug("Getting datasource from JNDI global resource link");
+            InitialContext ctx = new InitialContext();
+            return (DataSource) ctx.lookup(jndi);
+        } catch (Exception e) {
+            log.error("dataSource: msg=" + e.getMessage(), e);
+            throw new ApplicationContextException("Database connection pool creation resulted in error");
+        }
+    }
+
+    public DataSource pooledDataSource() {
+        log.debug("Configuring Datasource");
+        if (propertyResolver.getProperty("url") == null && propertyResolver.getProperty("databaseName") == null) {
+            log.error("Your database connection pool configuration is incorrect! The application" +
+                    " cannot start. Please check your Spring profile, current profiles are: {}",
                 Arrays.toString(env.getActiveProfiles()));
 
             throw new ApplicationContextException("Database connection pool is not configured correctly");
         }
 
         try {
-            String jndi = propertyResolver.getProperty("jndi");
-
-            if (jndi != null) {
-                log.debug("Getting datasource from JNDI global resource link");
-                InitialContext ctx = new InitialContext();
-                return (DataSource) ctx.lookup(jndi);
-            } else {
-                log.debug("Initializing PGPoolingDataSource");
-                PGPoolingDataSource source = new PGPoolingDataSource();
-                source.setUrl(propertyResolver.getProperty("url"));
-                source.setDataSourceName("jdbc/egd");
-                source.setUser(propertyResolver.getProperty("username"));
-                source.setPassword(propertyResolver.getProperty("password"));
-                source.setMaxConnections(10);
-                return source;
-            }
+            log.debug("Initializing PGPoolingDataSource");
+            PGPoolingDataSource source = new PGPoolingDataSource();
+            source.setUrl(propertyResolver.getProperty("url"));
+            source.setDataSourceName("jdbc/egd");
+            source.setUser(propertyResolver.getProperty("username"));
+            source.setPassword(propertyResolver.getProperty("password"));
+            source.setMaxConnections(10);
+            return source;
         } catch (Exception e) {
             log.error("dataSource: msg=" + e.getMessage(), e);
             throw new ApplicationContextException("Database connection pool creation resulted in error");
         }
+    }
+
+    @Bean
+    public Hibernate4Module hibernate4Module() {
+        log.debug("hibernate4Module");
+        return new Hibernate4Module();
     }
 
     @Bean
@@ -88,11 +115,6 @@ public class DatabaseConfiguration implements EnvironmentAware {
         return new JdbcTemplate(dataSource);
     }
 
-    @Bean
-    public Hibernate4Module hibernate4Module() {
-        log.debug("hibernate4Module");
-        return new Hibernate4Module();
-    }
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {

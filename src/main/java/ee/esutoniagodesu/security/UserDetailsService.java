@@ -1,7 +1,7 @@
 package ee.esutoniagodesu.security;
 
-import ee.esutoniagodesu.domain.ac.table.User;
-import ee.esutoniagodesu.repository.domain.ac.UserRepository;
+import ee.esutoniagodesu.domain.User;
+import ee.esutoniagodesu.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @Component("userDetailsService")
 public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
 
-    private final Logger log = LoggerFactory.getLogger(UserDetailsService.class);
+    private static final Logger log = LoggerFactory.getLogger(UserDetailsService.class);
 
     @Inject
     private UserRepository userRepository;

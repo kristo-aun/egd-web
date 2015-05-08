@@ -1,6 +1,6 @@
 'use strict';
 
-egdApp
+angular.module('egdApp')
     .config(function ($stateProvider) {
         $stateProvider
             .state('logout', {
@@ -11,7 +11,7 @@ egdApp
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/dict/dict.html',
+                        templateUrl: 'scripts/app/main/main.html',
                         controller: 'LogoutController'
                     }
                 }

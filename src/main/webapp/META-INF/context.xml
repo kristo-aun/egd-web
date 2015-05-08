@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<Context antiResourceLocking="true">
-    <ResourceLink name="jdbc/egd" global="jdbc/egd" type="javax.sql.DataSource"/>
-    <!--
-    <Realm className="ee.id.auth.CertFormRealmJDBC" datasource="jdbc/esutoniagodesu"/>
-    -->
-</Context>

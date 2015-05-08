@@ -4,17 +4,27 @@ body {
     color: #333;
 }
 
-@media screen and (min-width: 600px) {
-    .modal-dialog-lg {
-        width: 70%; /* either % (e.g. 60%) or px (400px) */
-    }
-}
-
 /* ==========================================================================
 Hide ng-cloak on page load, https://docs.angularjs.org/api/ng/directive/ngCloak
 ========================================================================== */
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
     display: none !important;
+}
+
+/* ==========================================================================
+Developement Ribbon
+========================================================================== */
+.development {
+    position: absolute;
+    width: 149px;
+    height: 149px;
+    top: 0;
+    left: 0;
+    border: 0;
+    z-index: 1000;
+    background-image: url("../images/development_ribbon.png");
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 
 /* ==========================================================================
@@ -57,6 +67,28 @@ Browser Upgrade Prompt
     background-color: red;
 }
 
+.hipster {
+    display: inline-block;
+    width: 347px;
+    height: 497px;
+    background: url("../images/hipster.png") no-repeat center top;
+    background-size: contain;
+}
+
+/* wait autoprefixer update to allow simple generation of high pixel density media query */
+@media
+only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (   min--moz-device-pixel-ratio: 2),
+only screen and (     -o-min-device-pixel-ratio: 2/1),
+only screen and (        min-device-pixel-ratio: 2),
+only screen and (                min-resolution: 192dpi),
+only screen and (                min-resolution: 2dppx) {
+    .hipster {
+        background: url("../images/hipster2x.png") no-repeat center top;
+        background-size: contain;
+    }
+}
+
 .hand {
     cursor: pointer;
 }
@@ -95,7 +127,8 @@ Browser Upgrade Prompt
 ul#strength {
     display:inline;
     list-style:none;
-    margin: 0 0 0 15px;
+    margin:0;
+    margin-left:15px;
     padding:0;
     vertical-align:2px;
 }

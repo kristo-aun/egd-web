@@ -1,6 +1,6 @@
 'use strict';
 
-egdApp
+angular.module('egdApp')
     .controller('LogoutController', function (Auth) {
         Auth.logout();
     });

@@ -1,6 +1,6 @@
 package ee.esutoniagodesu.config.audit;
 
-import ee.esutoniagodesu.domain.ac.table.PersistentAuditEvent;
+import ee.esutoniagodesu.domain.PersistentAuditEvent;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
@@ -51,7 +51,7 @@ public class AuditEventConverter {
     }
 
     /**
-     * Internal conversion. This method will allow to save additionnals data.
+     * Internal conversion. This method will allow to save additional data.
      * By default, it will save the object as string
      *
      * @param data the data to convert

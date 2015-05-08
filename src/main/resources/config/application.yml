@@ -6,29 +6,26 @@ security.basic.enabled: false
 endpoints.jolokia.enabled: false
 
 # security configuration (this key should be unique for your application, and kept secret)
-jhipster.security.rememberme.key: ff61d8f81ce46474971e47ba4757e5e37d2f2be1
+jhipster.security.rememberme.key: eb5e13cea0287f01878e2a29e9b1b7accb771a3e
 
 async:
     corePoolSize: 2
     maxPoolSize: 50
     queueCapacity: 10000
 
-spring:
-    mail:
-        host: localhost
-        port: 25
-        user:
-        password:
-        protocol: smtp
-        tls: false
-        auth: false
-        from: egd@localhost
-
-    messageSource:
-        cacheSeconds: 1
+mail:
+    host: localhost
+    port: 25
+    username:
+    password:
+    protocol: smtp
+    tls: false
+    auth: false
+    from: egd@localhost
 
 authentication:
-    xauth:
-        secret: myXAuthSecret
+    oauth:
+        clientid: egdapp
+        secret: mySecretOAuthSecret
         # Token is valid 30 minutes
         tokenValidityInSeconds: 1800

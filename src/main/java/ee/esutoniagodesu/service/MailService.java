@@ -1,6 +1,6 @@
 package ee.esutoniagodesu.service;
 
-import ee.esutoniagodesu.domain.User;
+import ee.esutoniagodesu.domain.ac.table.User;
 import org.apache.commons.lang.CharEncoding;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

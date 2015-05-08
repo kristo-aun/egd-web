@@ -1,6 +1,6 @@
 package ee.esutoniagodesu.security;
 
-import ee.esutoniagodesu.domain.User;
+import ee.esutoniagodesu.domain.ac.table.User;
 import ee.esutoniagodesu.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +34,7 @@ public class UserDetailsService implements org.springframework.security.core.use
         String lowercaseLogin = login.toLowerCase();
         Optional<User> userFromDatabase = userRepository.findOneByLogin(lowercaseLogin);
         return userFromDatabase.map(user -> {
-            if (!user.getActivated()) {
+            if (!user.isActivated()) {
                 throw new UserNotActivatedException("User " + lowercaseLogin + " was not activated");
             }
             List<GrantedAuthority> grantedAuthorities = user.getAuthorities().stream()

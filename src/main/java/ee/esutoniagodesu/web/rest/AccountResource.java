@@ -1,7 +1,7 @@
 package ee.esutoniagodesu.web.rest;
 
-import ee.esutoniagodesu.domain.Authority;
-import ee.esutoniagodesu.domain.User;
+import ee.esutoniagodesu.domain.ac.table.Authority;
+import ee.esutoniagodesu.domain.ac.table.User;
 import ee.esutoniagodesu.repository.UserRepository;
 import ee.esutoniagodesu.security.SecurityUtils;
 import ee.esutoniagodesu.service.MailService;

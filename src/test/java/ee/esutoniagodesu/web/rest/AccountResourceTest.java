@@ -1,8 +1,8 @@
 package ee.esutoniagodesu.web.rest;
 
 import ee.esutoniagodesu.Application;
-import ee.esutoniagodesu.domain.Authority;
-import ee.esutoniagodesu.domain.User;
+import ee.esutoniagodesu.domain.ac.table.Authority;
+import ee.esutoniagodesu.domain.ac.table.User;
 import ee.esutoniagodesu.repository.AuthorityRepository;
 import ee.esutoniagodesu.repository.UserRepository;
 import ee.esutoniagodesu.security.AuthoritiesConstants;

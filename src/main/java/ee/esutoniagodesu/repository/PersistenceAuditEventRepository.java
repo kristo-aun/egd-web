@@ -1,6 +1,6 @@
 package ee.esutoniagodesu.repository;
 
-import ee.esutoniagodesu.domain.PersistentAuditEvent;
+import ee.esutoniagodesu.domain.ac.table.PersistentAuditEvent;
 import org.joda.time.LocalDateTime;
 import org.springframework.data.jpa.repository.JpaRepository;
 

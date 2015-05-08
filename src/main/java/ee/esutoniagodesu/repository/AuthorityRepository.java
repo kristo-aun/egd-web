@@ -1,6 +1,6 @@
 package ee.esutoniagodesu.repository;
 
-import ee.esutoniagodesu.domain.Authority;
+import ee.esutoniagodesu.domain.ac.table.Authority;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

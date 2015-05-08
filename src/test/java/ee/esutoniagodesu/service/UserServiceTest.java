@@ -1,7 +1,7 @@
 package ee.esutoniagodesu.service;
 
 import ee.esutoniagodesu.Application;
-import ee.esutoniagodesu.domain.User;
+import ee.esutoniagodesu.domain.ac.table.User;
 import ee.esutoniagodesu.repository.UserRepository;
 import org.joda.time.DateTime;
 import ee.esutoniagodesu.service.util.RandomUtil;
@@ -40,7 +40,7 @@ public class UserServiceTest {
 
     @Test
     public void assertThatUserMustExistToResetPassword() {
-        
+
         Optional<User> maybeUser = userService.requestPasswordReset("john.doe@localhost");
         assertThat(maybeUser.isPresent()).isFalse();
 
@@ -50,12 +50,12 @@ public class UserServiceTest {
         assertThat(maybeUser.get().getEmail()).isEqualTo("admin@localhost");
         assertThat(maybeUser.get().getResetDate()).isNotNull();
         assertThat(maybeUser.get().getResetKey()).isNotNull();
-        
+
     }
 
     @Test
     public void assertThatResetKeyMustNotBeOlderThan24Hours() {
-        
+
         User user = userService.createUserInformation("johndoe", "johndoe", "John", "Doe", "john.doe@localhost", "en-US");
 
         DateTime daysAgo = DateTime.now().minusHours(25);
@@ -71,12 +71,12 @@ public class UserServiceTest {
         assertThat(maybeUser.isPresent()).isFalse();
 
         userRepository.delete(user);
-        
+
     }
 
     @Test
     public void assertThatResetKeyMustBeValid() {
-        
+
         User user = userService.createUserInformation("johndoe", "johndoe", "John", "Doe", "john.doe@localhost", "en-US");
 
         DateTime daysAgo = DateTime.now().minusHours(25);
@@ -91,12 +91,12 @@ public class UserServiceTest {
         assertThat(maybeUser.isPresent()).isFalse();
 
         userRepository.delete(user);
-        
+
     }
 
     @Test
     public void assertThatUserCanResetPassword() {
-        
+
         User user = userService.createUserInformation("johndoe", "johndoe", "John", "Doe", "john.doe@localhost", "en-US");
 
         String oldPassword = user.getPassword();
@@ -117,7 +117,7 @@ public class UserServiceTest {
         assertThat(maybeUser.get().getPassword()).isNotEqualTo(oldPassword);
 
         userRepository.delete(user);
-        
+
     }
 
     @Test

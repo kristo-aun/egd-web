@@ -3,10 +3,13 @@ package ee.esutoniagodesu.domain.ac.table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import ee.esutoniagodesu.domain.AbstractAuditingEntity;
 import ee.esutoniagodesu.security.AuthoritiesConstants;
+import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Email;
+import org.joda.time.DateTime;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -21,10 +24,11 @@ public final class User extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 2721105186064983182L;
 
-    @NotNull
-    @Size(min = 4, max = 50)
     @Id
-    @Column(length = 50)
+    @NotNull
+    @Pattern(regexp = "^[a-z0-9]*$")
+    @Size(min = 1, max = 50)
+    @Column(length = 50, unique = true, nullable = false)
     private String login;
 
     @JsonIgnore
@@ -55,6 +59,14 @@ public final class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "activation_key", length = 20)
     private String activationKey;
 
+    @Size(max = 20)
+    @Column(name = "reset_key", length = 20)
+    private String resetKey;
+
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @Column(name = "reset_date", nullable = true)
+    private DateTime resetDate = null;
+
     @JsonIgnore
     @ManyToMany
     @JoinTable(
@@ -64,7 +76,7 @@ public final class User extends AbstractAuditingEntity implements Serializable {
         inverseJoinColumns = {@JoinColumn(name = "name", referencedColumnName = "name")})
     private Set<Authority> authorities = new HashSet<>();
 
-    public boolean getActivated() {
+    public boolean isActivated() {
         return activated;
     }
 
@@ -154,6 +166,22 @@ public final class User extends AbstractAuditingEntity implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getResetKey() {
+        return resetKey;
+    }
+
+    public void setResetKey(String resetKey) {
+        this.resetKey = resetKey;
+    }
+
+    public DateTime getResetDate() {
+        return resetDate;
+    }
+
+    public void setResetDate(DateTime resetDate) {
+        this.resetDate = resetDate;
     }
 
     public boolean equals(Object o) {

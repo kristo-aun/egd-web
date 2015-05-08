@@ -1,6 +1,6 @@
 package ee.esutoniagodesu.web.rest;
 
-import ee.esutoniagodesu.domain.User;
+import ee.esutoniagodesu.domain.ac.table.User;
 import ee.esutoniagodesu.repository.UserRepository;
 import ee.esutoniagodesu.repository.search.UserSearchRepository;
 import org.slf4j.Logger;

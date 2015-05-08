@@ -1,6 +1,6 @@
 package ee.esutoniagodesu.config.audit;
 
-import ee.esutoniagodesu.domain.PersistentAuditEvent;
+import ee.esutoniagodesu.domain.ac.table.PersistentAuditEvent;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;

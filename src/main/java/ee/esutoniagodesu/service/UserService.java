@@ -1,7 +1,7 @@
 package ee.esutoniagodesu.service;
 
-import ee.esutoniagodesu.domain.Authority;
-import ee.esutoniagodesu.domain.User;
+import ee.esutoniagodesu.domain.ac.table.Authority;
+import ee.esutoniagodesu.domain.ac.table.User;
 import ee.esutoniagodesu.repository.AuthorityRepository;
 import ee.esutoniagodesu.repository.UserRepository;
 import ee.esutoniagodesu.repository.search.UserSearchRepository;

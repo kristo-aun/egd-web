@@ -14,7 +14,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/pub/rtk")
+@RequestMapping("/api/rtk")
 public class HeisigResource {
 
     @Inject

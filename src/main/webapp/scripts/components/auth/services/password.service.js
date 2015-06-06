@@ -8,12 +8,12 @@ egdApp
 
 angular.module('egdApp')
     .factory('PasswordResetInit', function ($resource) {
-        return $resource('api/pub/account/reset_password/init', {}, {
+        return $resource('api/account/reset_password/init', {}, {
         })
     });
 
 angular.module('egdApp')
     .factory('PasswordResetFinish', function ($resource) {
-        return $resource('api/pub/account/reset_password/finish', {}, {
+        return $resource('api/account/reset_password/finish', {}, {
         })
     });

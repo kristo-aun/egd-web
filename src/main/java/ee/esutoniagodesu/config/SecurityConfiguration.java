@@ -20,6 +20,24 @@ import javax.inject.Inject;
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    public static final String[] permitAll = {
+        "/api/articles",
+        "/api/articles/*",
+        "/api/git",
+        "/api/dict/**",
+        "/api/images/*",
+        "/api/audio/*",
+        "/api/test/**",
+        "/api/rtk/**",
+        "/api/stats/**",
+        "/api/morphology/**",
+        "/api/translator",
+        "/api/register",
+        "/api/activate",
+        "/api/account/reset_password/init",
+        "/api/account/reset_password/finish"
+    };
+
     @Inject
     private UserDetailsService userDetailsService;
 
@@ -42,8 +60,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/bower_components/**")
             .antMatchers("/i18n/**")
             .antMatchers("/assets/**")
-            .antMatchers("/api/article", "/api/article/*")
-            .antMatchers("/api/pub/**");
+            .antMatchers(permitAll);
     }
 
     @Override

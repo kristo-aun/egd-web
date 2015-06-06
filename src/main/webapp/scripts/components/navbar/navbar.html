@@ -90,8 +90,9 @@
                 </li>
 
                 <li ui-sref-active="active" class="dropdown pointer" ng-controller="LanguageController">
-                    <div class="row" style="float: left;padding-top: 15px; padding-left: 20px;width: 55px;">
-                        <egd-qtip url="scripts/components/tip/tipStudyMode.html"></egd-qtip>
+                    <div class="row" style="float: left;padding-top: 16px; padding-left: 20px;width: 35px;">
+                        <ng-tip template="'scripts/components/tip/tipStudyMode.html'"
+                            placement="bottom"></ng-tip>
                     </div>
                     <a class="dropdown-toggle" data-toggle="dropdown" href="" style="width: 130px;float: left;">
                         <span>
@@ -104,7 +105,7 @@
                         <li active-menu="{{language}}" ng-repeat="language in languages">
                             <a style="padding-left: 10px" class="flag-text" ng-click="changeLanguage(language)">
                                 <span class="flag flag-{{language}}"></span>
-                                {{'navbar.language.' + language| translate}}
+                                {{'navbar.language.iso.' + language| translate}}
                             </a>
                         </li>
                     </ul>

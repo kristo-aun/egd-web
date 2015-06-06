@@ -2,7 +2,7 @@
 
 egdApp
     .factory('Register', function ($resource) {
-        return $resource('api/pub/register', {}, {
+        return $resource('api/register', {}, {
         });
     });
 

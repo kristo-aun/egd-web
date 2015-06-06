@@ -58,8 +58,7 @@ public class OAuth2ServerConfiguration {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/pub/**").permitAll()
-                .antMatchers("/api/article", "/api/article/*").permitAll()
+                .antMatchers(SecurityConfiguration.permitAll).permitAll()
                 .antMatchers("/api/**").authenticated()
                 .antMatchers("/health/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/protected/**").authenticated();

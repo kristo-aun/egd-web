@@ -26,7 +26,7 @@ public class PhraseEtDB extends AbstractProjectRepository {
             long ms = System.currentTimeMillis();
             con = dao.getConnection();
             con.setAutoCommit(false);//kui tagastatakse kursor, siis peab autcommit olema false
-            String sql = "{? = call public.f_autocomplete_et(?,?)}";
+            String sql = "{? = call public.f_get_entr_et_like(?,?)}";
             s = con.prepareCall(sql);
             s.registerOutParameter(1, Types.OTHER);//cursor
             s.setString(2, example + "%");
@@ -36,7 +36,9 @@ public class PhraseEtDB extends AbstractProjectRepository {
             rs.setFetchSize(limit + 1);
 
             while (rs.next()) {
-                result.add(rs.getString(1));
+                String string = rs.getString(1);
+                if (!result.contains(string))
+                    result.add(string);
             }
 
             if (log.isDebugEnabled()) log.debug(msg.append(", result.size=").append(result.size())

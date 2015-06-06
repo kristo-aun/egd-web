@@ -20,7 +20,7 @@ egdApp
         };
 
         $scope.imageLocation = function(strokeDiagramImageId) {
-            return "api/pub/images/" + strokeDiagramImageId;
+            return "api/images/" + strokeDiagramImageId;
         }
     });
 
@@ -28,7 +28,7 @@ egdApp
     .factory('RTKService', function ($http, $log) {
         return {
             search: function (book, query) {
-                var context = "api/pub/rtk/search/" + book + "/" + query;
+                var context = "api/rtk/search/" + book + "/" + query;
                 return $http.get(context).then(function (response) {
                     $log.debug("RTKService.search: response=", response);
                     return response.data;

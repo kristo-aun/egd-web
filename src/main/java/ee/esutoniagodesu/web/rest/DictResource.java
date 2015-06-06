@@ -14,7 +14,7 @@ import java.util.Collection;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/pub/dict")
+@RequestMapping("/api/dict")
 public class DictResource {
 
     @Inject

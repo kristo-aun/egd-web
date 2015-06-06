@@ -16,7 +16,8 @@
         "stats": {
             "statistics": "Sõnastiku statistika"
         },
-        "language": {
+        "language": "Language",
+        "language.iso": {
             "et": "Estonian",
             "en": "English",
             "ja": "Japanese"
@@ -34,7 +35,6 @@
             "health": "Health",
             "configuration": "Konfiguratsioon",
             "audits": "Sisselogimised"
-        },
-        "language": "Language"
+        }
     }
 }

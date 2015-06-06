@@ -1,5 +1,5 @@
 egdApp.factory('GitService', function ($resource) {
-    return $resource('api/pub/git', {}, {
+    return $resource('api/git', {}, {
         'get': {method: 'GET', params: {}, isArray: false}
     });
 });

@@ -63,7 +63,7 @@ egdApp
 
         $scope.getAutocomplete = function(phrasepart) {
             if (phrasepart && phrasepart.length > 1) {
-                var context = "api/pub/dict/autocomplete/" + phrasepart;
+                var context = "api/dict/autocomplete/" + phrasepart;
                 return $http.get(context).then(function (response) {
                     $log.debug("DictService.autocomplete: response=", response);
                     $scope.toggleButtonDisabled = false;

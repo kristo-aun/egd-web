@@ -3,20 +3,23 @@
     <p translate="rtk.intro2"></p>
 </div>
 
-<div class="row center-block" style="width:650px;margin-top:20px">
-    <div style="float: left;margin-top:6px;margin-right:8px;">
-        <egd-qtip url="scripts/components/tip/tipRTKForm.html"></egd-qtip>
-    </div>
-    <form class="form" role="form" ng-submit="search(6)">
-        <div class="input-group">
-            <input type="text" class="form-control"
-                   ng-model="query" placeholder="{{'rtk.query' | translate}}"/>
-            <div class="input-group-btn">
-                <button class="btn btn-primary" translate="rtk.find_kanjis_v6" type="submit"></button>
-                <button class="btn btn-primary" ng-click="search(4)" translate="rtk.find_kanjis_v4"></button>
+<div class="row" style="margin-top:20px">
+    <div class="col-md-6 col-md-offset-3">
+        <form class="form" role="form" ng-submit="search(6)">
+            <div style="clear:none;margin-top: 9px;margin-right:5px;float:left;"
+                 ng-tip placement="bottom" template="'scripts/components/tip/tipRTKForm.html'">
             </div>
-        </div>
-    </form>
+
+            <div class="input-group" style="float: left;width: 90%">
+                <input type="text" class="form-control"
+                       ng-model="query" placeholder="{{'rtk.query' | translate}}"/>
+                <div class="input-group-btn">
+                    <button class="btn btn-primary" translate="rtk.find_kanjis_v6" type="submit"></button>
+                    <button class="btn btn-primary" ng-click="search(4)" translate="rtk.find_kanjis_v4"></button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 
 <div id="sentenceDismantleResult" nf-if="frames.length > 0">

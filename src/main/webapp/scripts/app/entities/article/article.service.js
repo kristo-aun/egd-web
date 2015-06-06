@@ -2,7 +2,7 @@
 
 egdApp
     .factory('ArticleService', function ($resource) {
-        return $resource('api/article/:id', {}, {
+        return $resource('api/articles/:id', {}, {
             'query': { method: 'GET', isArray: true},
             'get': {
                 method: 'GET',

@@ -16,6 +16,11 @@
             "even": "paaris",
             "odd": "paaritu"
         },
+        "language": {
+            "et": "Eesti",
+            "en": "Inglise",
+            "ja": "Jaapani"
+        },
         "messages": {
             "action": {
                 "refresh": "Uuenda",

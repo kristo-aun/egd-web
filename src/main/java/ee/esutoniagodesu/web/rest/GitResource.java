@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/git")
+@RequestMapping("/api/pub/git")
 public class GitResource {
 
     @Autowired

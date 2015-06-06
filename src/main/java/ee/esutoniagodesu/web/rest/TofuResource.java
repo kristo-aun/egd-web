@@ -24,7 +24,7 @@ import java.util.Optional;
  * REST controller for managing Tofu.
  */
 @RestController
-@RequestMapping("/api/tofu")
+@RequestMapping("/api/tofus")
 public class TofuResource {
 
     @Inject

@@ -60,14 +60,43 @@ egdApp
             }
         };
     })
-    .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $logProvider, $translateProvider, tmhDynamicLocaleProvider, httpRequestInterceptorCacheBusterProvider, ENV) {
+    .factory('authInterceptor', function ($rootScope, $q, $location, localStorageService) {
+        return {
+            // Add authorization token to headers
+            request: function (config) {
+                config.headers = config.headers || {};
+                var token = localStorageService.get('token');
+
+                if (token && token.expires_at && token.expires_at > new Date().getTime()) {
+                    config.headers.Authorization = 'Bearer ' + token.access_token;
+                }
+
+                return config;
+            }
+        };
+    })
+    .factory('authExpiredInterceptor', function ($rootScope, $q, $injector, localStorageService) {
+        return {
+            responseError: function (response) {
+                // token has expired
+                if (response.status === 401 && (response.data.error == 'invalid_token' || response.data.error == 'Unauthorized')) {
+                    localStorageService.remove('token');
+                    var Principal = $injector.get('Principal');
+                    if (Principal.isAuthenticated()) {
+                        var Auth = $injector.get('Auth');
+                        Auth.authorize(true);
+                    }
+                }
+                return $q.reject(response);
+            }
+        };
+    })
+    .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider,
+                      $logProvider, $translateProvider, tmhDynamicLocaleProvider,
+                      httpRequestInterceptorCacheBusterProvider, ENV) {
 
         $logProvider.debugEnabled(ENV != 'prod');
         //$httpProvider.interceptors.push('HttpErrorInterceptor');
-
-        //enable CSRF
-        $httpProvider.defaults.xsrfCookieName = 'CSRF-TOKEN';
-        $httpProvider.defaults.xsrfHeaderName = 'X-CSRF-TOKEN';
 
         //Cache everything except rest api requests
         httpRequestInterceptorCacheBusterProvider.setMatchlist([/.*api.*/, /.*protected.*/], true);
@@ -101,7 +130,9 @@ egdApp
                         return Auth.authorize();
                     }
                 ],
-                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                translatePartialLoader: ['$translate', '$translatePartialLoader',
+                    function ($translate, $translatePartialLoader) {
+
                     $translatePartialLoader.addPart('global');
                     $translatePartialLoader.addPart('navbar');
                     $translatePartialLoader.addPart('ontology');
@@ -110,12 +141,15 @@ egdApp
             }
         });
 
+        $httpProvider.interceptors.push('authInterceptor');
+        $httpProvider.interceptors.push('authExpiredInterceptor');
+
         // Initialize angular-translate
         $translateProvider.useLoader('$translatePartialLoader', {
             urlTemplate: 'i18n/{lang}/{part}.json'
         });
 
-        $translateProvider.preferredLanguage('en');
+        $translateProvider.preferredLanguage('et');
         $translateProvider.useCookieStorage();
         $translateProvider.useSanitizeValueStrategy('escaped');
 

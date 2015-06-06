@@ -2,7 +2,7 @@
 
 egdApp
     .factory('TofuService', function ($resource) {
-        return $resource('api/tofu/:id', {}, {
+        return $resource('api/tofus/:id', {}, {
             'query': { method: 'GET', isArray: true},
             'get': {
                 method: 'GET',

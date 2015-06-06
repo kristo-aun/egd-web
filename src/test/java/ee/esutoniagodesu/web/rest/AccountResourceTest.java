@@ -90,7 +90,7 @@ public class AccountResourceTest {
 
     @Test
     public void testNonAuthenticatedUser() throws Exception {
-        restUserMockMvc.perform(get("/api/authenticate")
+        restUserMockMvc.perform(get("/api/pub/authenticate")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().string(""));
@@ -98,7 +98,7 @@ public class AccountResourceTest {
 
     @Test
     public void testAuthenticatedUser() throws Exception {
-        restUserMockMvc.perform(get("/api/authenticate")
+        restUserMockMvc.perform(get("/api/pub/authenticate")
                 .with(request -> {
                     request.setRemoteUser("test");
                     return request;
@@ -157,7 +157,7 @@ public class AccountResourceTest {
         );
 
         restMvc.perform(
-            post("/api/register")
+            post("/api/pub/register")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(u)))
             .andExpect(status().isCreated());
@@ -180,7 +180,7 @@ public class AccountResourceTest {
         );
 
         restUserMockMvc.perform(
-            post("/api/register")
+            post("/api/pub/register")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(u)))
             .andExpect(status().isBadRequest());
@@ -203,7 +203,7 @@ public class AccountResourceTest {
         );
 
         restUserMockMvc.perform(
-            post("/api/register")
+            post("/api/pub/register")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(u)))
             .andExpect(status().isBadRequest());
@@ -232,14 +232,14 @@ public class AccountResourceTest {
 
         // Good user
         restMvc.perform(
-            post("/api/register")
+            post("/api/pub/register")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(u)))
             .andExpect(status().isCreated());
 
         // Duplicate login
         restMvc.perform(
-            post("/api/register")
+            post("/api/pub/register")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(dup)))
             .andExpect(status().is4xxClientError());
@@ -268,14 +268,14 @@ public class AccountResourceTest {
 
         // Good user
         restMvc.perform(
-            post("/api/register")
+            post("/api/pub/register")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(u)))
             .andExpect(status().isCreated());
 
         // Duplicate e-mail
         restMvc.perform(
-            post("/api/register")
+            post("/api/pub/register")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(dup)))
             .andExpect(status().is4xxClientError());
@@ -298,7 +298,7 @@ public class AccountResourceTest {
         );
 
         restMvc.perform(
-            post("/api/register")
+            post("/api/pub/register")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(u)))
             .andExpect(status().isCreated());

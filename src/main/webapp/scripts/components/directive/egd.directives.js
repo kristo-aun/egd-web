@@ -21,7 +21,7 @@ egdApp
             },
             link: function (scope, element, attrs) {
                 scope.getAudioResource = function(audioId) {
-                    return  '/api/audio/' + audioId;
+                    return  '/api/pub/audio/' + audioId;
                 };
             },
             templateUrl: 'scripts/components/directive/gridJa.html'

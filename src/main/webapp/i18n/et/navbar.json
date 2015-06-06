@@ -16,6 +16,11 @@
         "stats": {
             "statistics": "Sõnastiku statistika"
         },
+        "language": {
+            "et": "Estonian",
+            "en": "English",
+            "ja": "Japanese"
+        },
         "account": {
             "main": "Konto",
             "settings": "Seaded",

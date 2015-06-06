@@ -1,7 +1,7 @@
 'use strict';
 
 egdApp
-    .controller('DictController', function ($window, $rootScope, $scope, $location, $stateParams, $translate, $log, Principal, DictService) {
+    .controller('DictController', function ($window, $rootScope, $scope, $http, $location, $stateParams, $translate, $log, Principal, DictService) {
         Principal.identity().then(function() {
             $scope.isAuthenticated = Principal.isAuthenticated;
         });
@@ -63,7 +63,7 @@ egdApp
 
         $scope.getAutocomplete = function(phrasepart) {
             if (phrasepart && phrasepart.length > 1) {
-                var context = "api/dict/autocomplete/" + phrasepart;
+                var context = "api/pub/dict/autocomplete/" + phrasepart;
                 return $http.get(context).then(function (response) {
                     $log.debug("DictService.autocomplete: response=", response);
                     $scope.toggleButtonDisabled = false;
@@ -80,7 +80,8 @@ egdApp
 
         $scope.showResult = function() {
             $log.debug("DictController.showResult: phrase=" + $scope.phrase);
-            $location.url("/dict/" + $scope.phrase + "?radioLang=" + $scope.radioLang);
+            if ($scope.phrase != undefined)
+                $location.url("/dict/" + $scope.phrase + "?radioLang=" + $scope.radioLang);
         };
 
     });

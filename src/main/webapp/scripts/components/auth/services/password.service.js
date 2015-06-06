@@ -6,13 +6,13 @@ egdApp
         });
     });
 
-egdApp
+angular.module('egdApp')
     .factory('PasswordResetInit', function ($resource) {
         return $resource('api/account/reset_password/init', {}, {
         })
     });
 
-egdApp
+angular.module('egdApp')
     .factory('PasswordResetFinish', function ($resource) {
         return $resource('api/account/reset_password/finish', {}, {
         })

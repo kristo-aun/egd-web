@@ -13,7 +13,7 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 @Configuration
 public class ThymeleafConfiguration {
 
-    private final Logger log = LoggerFactory.getLogger(ThymeleafConfiguration.class);
+    private static final Logger log = LoggerFactory.getLogger(ThymeleafConfiguration.class);
 
     @Bean
     @Description("Thymeleaf template resolver serving HTML 5 emails")

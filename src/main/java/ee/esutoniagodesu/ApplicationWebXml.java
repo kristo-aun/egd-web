@@ -11,7 +11,7 @@ import org.springframework.boot.context.web.SpringBootServletInitializer;
  */
 public class ApplicationWebXml extends SpringBootServletInitializer {
 
-    private final Logger log = LoggerFactory.getLogger(ApplicationWebXml.class);
+    private static final Logger log = LoggerFactory.getLogger(ApplicationWebXml.class);
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
@@ -22,10 +22,7 @@ public class ApplicationWebXml extends SpringBootServletInitializer {
 
     /**
      * Set a default profile if it has not been set.
-     * <p/>
-     * <p>
      * Please use -Dspring.profiles.active=dev
-     * </p>
      */
     private String addDefaultProfile() {
         String profile = System.getProperty("spring.profiles.active");

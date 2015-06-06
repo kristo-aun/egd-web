@@ -60,13 +60,16 @@ public class OAuth2ServerConfiguration {
                 .authorizeRequests()
                 .antMatchers("/api/authenticate").permitAll()
                 .antMatchers("/api/register").permitAll()
-                .antMatchers("/api/git").permitAll()
                 .antMatchers("/api/**").authenticated()
                 .antMatchers("/health/**").hasAuthority(AuthoritiesConstants.ADMIN)
+                .antMatchers("/trace/**").hasAuthority(AuthoritiesConstants.ADMIN)
+                .antMatchers("/dump/**").hasAuthority(AuthoritiesConstants.ADMIN)
+                .antMatchers("/beans/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/configprops/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/info/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/autoconfig/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/env/**").hasAuthority(AuthoritiesConstants.ADMIN)
+                .antMatchers("/trace/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/protected/**").authenticated();
 
         }

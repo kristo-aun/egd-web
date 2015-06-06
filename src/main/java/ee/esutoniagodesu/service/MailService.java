@@ -28,7 +28,7 @@ import java.util.Locale;
 @Service
 public class MailService {
 
-    private final Logger log = LoggerFactory.getLogger(MailService.class);
+    private static final Logger log = LoggerFactory.getLogger(MailService.class);
 
     @Inject
     private Environment env;

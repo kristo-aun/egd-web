@@ -22,7 +22,7 @@ import java.util.List;
 @RequestMapping("/api/users")
 public class UserResource {
 
-    private final Logger log = LoggerFactory.getLogger(UserResource.class);
+    private static final Logger log = LoggerFactory.getLogger(UserResource.class);
 
     @Inject
     private UserRepository repository;

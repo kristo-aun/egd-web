@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/api")
 public class AccountResource {
 
-    private final Logger log = LoggerFactory.getLogger(AccountResource.class);
+    private static final Logger log = LoggerFactory.getLogger(AccountResource.class);
 
     @Inject
     private UserRepository userRepository;
@@ -46,7 +46,6 @@ public class AccountResource {
     @RequestMapping(value = "/register",
         method = RequestMethod.POST,
         produces = MediaType.TEXT_PLAIN_VALUE)
-
     public ResponseEntity<?> registerAccount(@Valid @RequestBody UserDTO userDTO, HttpServletRequest request) {
         return userRepository.findOneByLogin(userDTO.getLogin())
             .map(user -> new ResponseEntity<>("login already in use", HttpStatus.BAD_REQUEST))
@@ -74,7 +73,6 @@ public class AccountResource {
     @RequestMapping(value = "/activate",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
-
     public ResponseEntity<String> activateAccount(@RequestParam(value = "key") String key) {
         return Optional.ofNullable(userService.activateRegistration(key))
             .map(user -> new ResponseEntity<String>(HttpStatus.OK))
@@ -87,7 +85,6 @@ public class AccountResource {
     @RequestMapping(value = "/authenticate",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
-
     public String isAuthenticated(HttpServletRequest request) {
         log.debug("REST request to check if the current user is authenticated");
         return request.getRemoteUser();
@@ -99,9 +96,8 @@ public class AccountResource {
     @RequestMapping(value = "/account",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
-
     public ResponseEntity<UserDTO> getAccount() {
-        return Optional.ofNullable(userService.getUserWithAuthorities())
+        ResponseEntity<UserDTO> result = Optional.ofNullable(userService.getUserWithAuthorities())
             .map(user -> new ResponseEntity<>(
                 new UserDTO(
                     user.getLogin(),
@@ -114,6 +110,9 @@ public class AccountResource {
                         .collect(Collectors.toCollection(LinkedList::new))),
                 HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
+
+        log.debug("REST request to get UserDTO : {}", result);
+        return result;
     }
 
     /**
@@ -122,7 +121,6 @@ public class AccountResource {
     @RequestMapping(value = "/account",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
-
     public ResponseEntity<String> saveAccount(@RequestBody UserDTO userDTO) {
         return userRepository
             .findOneByLogin(userDTO.getLogin())
@@ -141,7 +139,6 @@ public class AccountResource {
     @RequestMapping(value = "/account/change_password",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
-
     public ResponseEntity<?> changePassword(@RequestBody String password) {
         if (StringUtils.isEmpty(password) || password.length() < 5 || password.length() > 50) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -153,7 +150,6 @@ public class AccountResource {
     @RequestMapping(value = "/account/reset_password/init",
         method = RequestMethod.POST,
         produces = MediaType.TEXT_PLAIN_VALUE)
-
     public ResponseEntity<?> requestPasswordReset(@RequestBody String mail, HttpServletRequest request) {
 
         return userService.requestPasswordReset(mail)
@@ -166,15 +162,15 @@ public class AccountResource {
                 mailService.sendPasswordResetMail(user, baseUrl);
                 return new ResponseEntity<>("e-mail was sent", HttpStatus.OK);
             }).orElse(new ResponseEntity<>("e-mail address not registered", HttpStatus.BAD_REQUEST));
-
     }
 
     @RequestMapping(value = "/account/reset_password/finish",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
-
-    public ResponseEntity<String> finishPasswordReset(@RequestParam(value = "key") String key, @RequestParam(value = "newPassword") String newPassword) {
+    public ResponseEntity<String> finishPasswordReset(@RequestParam(value = "key") String key,
+                                                      @RequestParam(value = "newPassword") String newPassword) {
         return userService.completePasswordReset(newPassword, key)
-            .map(user -> new ResponseEntity<String>(HttpStatus.OK)).orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
+            .map(user -> new ResponseEntity<String>(HttpStatus.OK)).orElse(
+                new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
     }
 }

@@ -21,7 +21,7 @@ import javax.inject.Inject;
 @RequestMapping("/api/entrs")
 public class EntrResource {
 
-    private final Logger log = LoggerFactory.getLogger(EntrResource.class);
+    private static final Logger log = LoggerFactory.getLogger(EntrResource.class);
 
     @Inject
     private ProjectDAO dao;

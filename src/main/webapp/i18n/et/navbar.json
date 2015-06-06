@@ -1,0 +1,35 @@
+{
+    "navbar": {
+        "home": "Sõnastik",
+        "poll": "Küsitlus",
+        "overview": "Ülevaade",
+        "rtk": "Kirjamärgid",
+        "entities": {
+            "main": "Õppematerjalid",
+            "articles": "Artiklid",
+            "tofus": "Tofu laused"
+        },
+        "test": {
+            "main": "Keeletestid",
+            "compound": "Sõna kirjutamine"
+        },
+        "stats": {
+            "statistics": "Sõnastiku statistika"
+        },
+        "account": {
+            "main": "Konto",
+            "settings": "Seaded",
+            "password": "Parool",
+            "login": "Logi sisse",
+            "logout": "Logi välja",
+            "register": "Registreeri"
+        },
+        "admin": {
+            "main": "Administration",
+            "health": "Health",
+            "configuration": "Konfiguratsioon",
+            "audits": "Sisselogimised"
+        },
+        "language": "Language"
+    }
+}

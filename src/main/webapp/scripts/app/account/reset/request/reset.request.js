@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('egdApp')
+egdApp
     .config(function ($stateProvider) {
         $stateProvider
             .state('requestReset', {

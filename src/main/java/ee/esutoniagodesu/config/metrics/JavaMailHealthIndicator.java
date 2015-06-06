@@ -14,7 +14,7 @@ import javax.mail.MessagingException;
  */
 public class JavaMailHealthIndicator extends AbstractHealthIndicator {
 
-    private static final Logger log = LoggerFactory.getLogger(JavaMailHealthIndicator.class);
+    private final Logger log = LoggerFactory.getLogger(JavaMailHealthIndicator.class);
 
     private JavaMailSenderImpl javaMailSender;
 

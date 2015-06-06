@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('egdApp')
-    .factory('Auth', function Auth($rootScope, $state, $q, $translate, Principal, AuthServerProvider, Account, Register, Activate, Password, PasswordResetInit, PasswordResetFinish, Tracker) {
+egdApp
+    .factory('Auth', function Auth($rootScope, $state, $q, $translate, Principal, AuthServerProvider, Account, Register, Activate, Password, PasswordResetInit, PasswordResetFinish) {
         return {
             login: function (credentials, callback) {
                 var cb = callback || angular.noop;
@@ -13,7 +13,7 @@ angular.module('egdApp')
                         // After the login the language will be changed to
                         // the language selected by the user during his registration
                         $translate.use(account.langKey);
-                        Tracker.sendActivity();
+                        $translate.refresh();
                         deferred.resolve(data);
                     });
                     return cb();
@@ -99,7 +99,7 @@ angular.module('egdApp')
                     return cb(err);
                 }).$promise;
             },
-            
+
             resetPasswordInit: function (mail, callback) {
                 var cb = callback || angular.noop;
 
@@ -108,7 +108,6 @@ angular.module('egdApp')
                 }, function (err) {
                     return cb(err);
                 }).$promise;
-
             },
 
             resetPasswordFinish: function(key, newPassword, callback) {

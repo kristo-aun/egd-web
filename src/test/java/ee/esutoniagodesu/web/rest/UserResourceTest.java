@@ -1,7 +1,7 @@
 package ee.esutoniagodesu.web.rest;
 
 import ee.esutoniagodesu.Application;
-import ee.esutoniagodesu.repository.UserRepository;
+import ee.esutoniagodesu.repository.domain.ac.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

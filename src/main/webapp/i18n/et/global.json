@@ -1,0 +1,73 @@
+{
+    "global": {
+        "title": "EsutoniaGoDesu",
+        "browsehappy": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
+        "label": {
+            "specify": "Täpsustatud",
+            "search": "Otsi",
+            "word": "Sõna",
+            "usage": "Kasutus",
+            "level": "Tase",
+            "index": "Indeks",
+            "username": "Kasutajanimi",
+            "newpassword": "Parool",
+            "confirmpassword": "Parooli kinnitus",
+            "email": "E-mail",
+            "even": "paaris",
+            "odd": "paaritu"
+        },
+        "messages": {
+            "action": {
+                "search": "Otsi",
+                "forward": "Edasi",
+                "back": "Tagasi",
+                "cancel": "Katkesta",
+                "delete": "Kustuta",
+                "edit": "Muuda",
+                "save": "Salvesta",
+                "view": "Vaata",
+                "create": "Lisa uus",
+                "confirm": "Olete kindel?"
+            },
+            "detail": {
+                "field": "Väli",
+                "value": "Väärtus"
+            },
+            "info": {
+                "register": "<a href=\"#/register\">Registreeri konto</a>"
+            },
+            "confirm": "Olete kindel?",
+            "validate": {
+                "required": "Kohustuslik väli.",
+                "length": "Pikkus peab olema {{length}} tähemärki.",
+                "minlength": "Pikkus peab olema vähemalt {{min}} tähemärki.",
+                "maxlength": "Suurim lubatud pikkus on {{max}} tähemärki.",
+                "min": "Pikkus peab olema rohkem kui {{min}} tähemärki.",
+                "max": "Pikkus ei tohi ületada {{max}} tähemärki.",
+                "pattern": "Lubatud muster on {{pattern}}.",
+                "number": "Lubatud on ainult numbrid.",
+                "newpassword": {
+                    "required": "Parooli sisestamine on kohustuslik.",
+                    "minlength": "Parooli pikkus peab olema vähemalt 5 tähemärki",
+                    "maxlength": "Parooli suurim lubatud pikkus on 50 tähemärki",
+                    "strength": "Parooli tugevus:"
+                },
+                "confirmpassword": {
+                    "required": "Parooli kinnituse sisestamine on kohustuslik.",
+                    "minlength": "Parooli kinnituse pikkus peab olema vähemalt 5 tähemärki",
+                    "maxlength": "Parooli kinnituse suurim lubatud pikkus on 50 tähemärki",
+                    "dontmatch": "Parool ja selle kinnitus ei kattu!"
+                },
+                "email": {
+                    "emailexists": "E-posti aadress on juba kasutusel.",
+                    "invalid": "Ebakorrektne e-posti aadress.",
+                    "minlength": "E-posti aadressi pikkus peab olema vähemalt 5 tähemärki",
+                    "maxlength": "E-posti aadressi suurim lubatud pikkus on 127 tähemärki"
+                }
+            }
+        }
+    },
+    "footer": {
+        "lastUpdated": "Viimane uuendus"
+    }
+}

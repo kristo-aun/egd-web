@@ -1,6 +1,6 @@
 package ee.esutoniagodesu.domain.freq.table;
 
-import ee.esutoniagodesu.pojo.dto.IntID;
+import ee.esutoniagodesu.pojo.entity.IntID;
 import ee.esutoniagodesu.pojo.test.compound.ICountKanjis;
 
 import javax.persistence.*;

@@ -1,13 +1,14 @@
 package ee.esutoniagodesu.config;
 
 import com.fasterxml.jackson.datatype.joda.JodaModule;
-import com.fasterxml.jackson.datatype.joda.ser.DateTimeSerializer;
-import com.fasterxml.jackson.datatype.joda.ser.JacksonJodaFormat;
+import ee.esutoniagodesu.util.json.CustomDateTimeConverter;
+import ee.esutoniagodesu.util.json.CustomLocalDateConverter;
+import ee.esutoniagodesu.util.json.CustomLocalDateTimeConverter;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.datetime.joda.DateTimeFormatterFactory;
 
 @Configuration
 public class JacksonConfiguration {
@@ -15,11 +16,19 @@ public class JacksonConfiguration {
     @Bean
     public JodaModule jacksonJodaModule() {
         JodaModule module = new JodaModule();
-        DateTimeFormatterFactory formatterFactory = new DateTimeFormatterFactory();
-        formatterFactory.setIso(DateTimeFormat.ISO.DATE);
-        module.addSerializer(DateTime.class, new DateTimeSerializer(
-            new JacksonJodaFormat(formatterFactory.createDateTimeFormatter()
-                .withZoneUTC())));
+
+        //kuupäev ja kellaaeg koos ajavööndiga
+        module.addSerializer(DateTime.class, new CustomDateTimeConverter.Serializer());
+        module.addDeserializer(DateTime.class, new CustomDateTimeConverter.Deserializer());
+
+        //kuupäev ja kellaaeg ilma ajavööndita
+        module.addSerializer(LocalDateTime.class, new CustomLocalDateTimeConverter.Serializer());
+        module.addDeserializer(LocalDateTime.class, new CustomLocalDateTimeConverter.Deserializer());
+
+        //kuupäev ilma ajavööndita
+        module.addSerializer(LocalDate.class, new CustomLocalDateConverter.Serializer());
+        module.addDeserializer(LocalDate.class, new CustomLocalDateConverter.Deserializer());
+
         return module;
     }
 }

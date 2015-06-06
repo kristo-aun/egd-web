@@ -2,10 +2,9 @@ package ee.esutoniagodesu.service;
 
 import ee.esutoniagodesu.Application;
 import ee.esutoniagodesu.domain.ac.table.User;
-import ee.esutoniagodesu.repository.UserRepository;
+import ee.esutoniagodesu.repository.domain.ac.UserRepository;
+import ee.esutoniagodesu.util.RandomUtil;
 import org.joda.time.DateTime;
-import ee.esutoniagodesu.service.util.RandomUtil;
-import org.joda.time.LocalDate;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.IntegrationTest;
@@ -51,6 +50,14 @@ public class UserServiceTest {
         assertThat(maybeUser.get().getResetDate()).isNotNull();
         assertThat(maybeUser.get().getResetKey()).isNotNull();
 
+    }
+
+    @Test
+    public void assertThatOnlyActivatedUserCanRequestPasswordReset() {
+        User user = userService.createUserInformation("johndoe", "johndoe", "John", "Doe", "john.doe@localhost", "en-US");
+        Optional<User> maybeUser = userService.requestPasswordReset("john.doe@localhost");
+        assertThat(maybeUser.isPresent()).isFalse();
+        userRepository.delete(user);
     }
 
     @Test

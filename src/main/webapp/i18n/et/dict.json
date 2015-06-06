@@ -1,0 +1,9 @@
+{
+    "dict": {
+        "intro1": "Welcome to EsutoniaGoDesu! This is a JMDict based Japanese-Estonian dictionary.",
+        "intro2": "And there is a lot more - go ahead and check out article transcripts to improve your Japanese.",
+        "intro3": "We have <a target=\"_blank\" href=\"https://twitter.com/EsutoniaGoDesu\">Twitter</a>! Follow us to get updates about new datasources and functionality.",
+        "notTranslated": "ei ole tõlgitud",
+        "unknownWord": "sõna puudub"
+    }
+}

@@ -1,18 +1,18 @@
 'use strict';
 
-angular.module('egdApp')
+egdApp
     .factory('Password', function ($resource) {
         return $resource('api/account/change_password', {}, {
         });
     });
 
-angular.module('jhipsterApp')
+egdApp
     .factory('PasswordResetInit', function ($resource) {
         return $resource('api/account/reset_password/init', {}, {
         })
     });
 
-angular.module('jhipsterApp')
+egdApp
     .factory('PasswordResetFinish', function ($resource) {
         return $resource('api/account/reset_password/finish', {}, {
         })

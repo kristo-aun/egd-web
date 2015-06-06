@@ -2,7 +2,7 @@ package ee.esutoniagodesu.service;
 
 import ee.esutoniagodesu.config.audit.AuditEventConverter;
 import ee.esutoniagodesu.domain.ac.table.PersistentAuditEvent;
-import ee.esutoniagodesu.repository.PersistenceAuditEventRepository;
+import ee.esutoniagodesu.repository.domain.ac.PersistenceAuditEventRepository;
 import org.joda.time.LocalDateTime;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.stereotype.Service;
@@ -23,18 +23,18 @@ import java.util.List;
 public class AuditEventService {
 
     @Inject
-    private PersistenceAuditEventRepository persistenceAuditEventRepository;
+    private PersistenceAuditEventRepository repository;
 
     @Inject
     private AuditEventConverter auditEventConverter;
 
     public List<AuditEvent> findAll() {
-        return auditEventConverter.convertToAuditEvent(persistenceAuditEventRepository.findAll());
+        return auditEventConverter.convertToAuditEvent(repository.findAll());
     }
 
     public List<AuditEvent> findByDates(LocalDateTime fromDate, LocalDateTime toDate) {
         List<PersistentAuditEvent> persistentAuditEvents =
-            persistenceAuditEventRepository.findAllByAuditEventDateBetween(fromDate, toDate);
+            repository.findAllByAuditEventDateBetween(fromDate, toDate);
 
         return auditEventConverter.convertToAuditEvent(persistentAuditEvents);
     }

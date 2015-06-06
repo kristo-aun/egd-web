@@ -1,11 +1,22 @@
 'use strict';
 
-angular.module('egdApp', ['LocalStorageModule', 'tmh.dynamicLocale',
-    'ngResource', 'ui.router', 'ngCookies', 'pascalprecht.translate', 'ngCacheBuster', 'infinite-scroll'])
+var egdApp = angular.module('egdApp', [
+    'ngAnimate',
+    'LocalStorageModule',
+    'tmh.dynamicLocale',
+    'ngResource',
+    'ui.router',
+    'ngCookies',
+    'pascalprecht.translate',
+    'ngCacheBuster',
+    'infinite-scroll',
+    'ui.bootstrap',
+    'sticky'
+]);
 
-    .run(function ($rootScope, $location, $window, $http, $state, $translate, Auth, Principal, Language, ENV, VERSION) {
+egdApp
+    .run(function ($rootScope, $location, $window, $http, $state, $translate, Auth, Principal, Language, ENV) {
         $rootScope.ENV = ENV;
-        $rootScope.VERSION = VERSION;
         $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
             $rootScope.toState = toState;
             $rootScope.toStateParams = toStateParams;
@@ -20,7 +31,7 @@ angular.module('egdApp', ['LocalStorageModule', 'tmh.dynamicLocale',
             });
         });
 
-        $rootScope.$on('$stateChangeSuccess',  function(event, toState, toParams, fromState, fromParams) {
+        $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             var titleKey = 'global.title';
 
             $rootScope.previousStateName = fromState.name;
@@ -36,7 +47,7 @@ angular.module('egdApp', ['LocalStorageModule', 'tmh.dynamicLocale',
             });
         });
 
-        $rootScope.back = function() {
+        $rootScope.back = function () {
             // If previous state is 'activate' or do not exist go to 'home'
             if ($rootScope.previousStateName === 'activate' || $state.get($rootScope.previousStateName) === null) {
                 $state.go('home');
@@ -45,51 +56,39 @@ angular.module('egdApp', ['LocalStorageModule', 'tmh.dynamicLocale',
             }
         };
     })
-    
-    .factory('authInterceptor', function ($rootScope, $q, $location, localStorageService) {
-        return {
-            // Add authorization token to headers
-            request: function (config) {
-                config.headers = config.headers || {};
-                var token = localStorageService.get('token');
-                
-                if (token && token.expires_at && token.expires_at > new Date().getTime()) {
-                    config.headers.Authorization = 'Bearer ' + token.access_token;
-                }
-                
-                return config;
-            }
-        };
-    })
-    
-    .factory('authExpiredInterceptor', function ($rootScope, $q, $injector, localStorageService) {
-        return {
-            responseError: function (response) {
-                // token has expired
-                if (response.status === 401 && (response.data.error == 'invalid_token' || response.data.error == 'Unauthorized')) {
-                    localStorageService.remove('token');
-                    var Principal = $injector.get('Principal');
-                    if (Principal.isAuthenticated()) {
-                        var Auth = $injector.get('Auth');
-                        Auth.authorize(true);
-                    }
-                }
-                return $q.reject(response);
-            }
-        };
-    })
-    .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $translateProvider, tmhDynamicLocaleProvider, httpRequestInterceptorCacheBusterProvider) {
+    .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $translateProvider, tmhDynamicLocaleProvider, httpRequestInterceptorCacheBusterProvider, ENV) {
+
+        $logProvider.debugEnabled(ENV != 'prod');
+        //$httpProvider.interceptors.push('HttpErrorInterceptor');
+
+        //enable CSRF
+        $httpProvider.defaults.xsrfCookieName = 'CSRF-TOKEN';
+        $httpProvider.defaults.xsrfHeaderName = 'X-CSRF-TOKEN';
 
         //Cache everything except rest api requests
         httpRequestInterceptorCacheBusterProvider.setMatchlist([/.*api.*/, /.*protected.*/], true);
 
-        $urlRouterProvider.otherwise('/');
+        $urlRouterProvider.otherwise(function($injector, $location){
+            $injector.invoke(function($state, $rootScope, $translate, $log) {
+                $log.debug("urlRouterProvider.otherwise", $location.path());
+                if ($location.path()) {
+                    $state.go('error', {code: '404'});
+                } else {
+                    $state.go('home');
+                }
+            });
+        });
+
         $stateProvider.state('site', {
             'abstract': true,
             views: {
                 'navbar@': {
                     templateUrl: 'scripts/components/navbar/navbar.html',
                     controller: 'NavbarController'
+                },
+                'footer@': {
+                    templateUrl: 'scripts/components/footer/footer.html',
+                    controller: 'FooterController'
                 }
             },
             resolve: {
@@ -100,14 +99,12 @@ angular.module('egdApp', ['LocalStorageModule', 'tmh.dynamicLocale',
                 ],
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                     $translatePartialLoader.addPart('global');
-                    $translatePartialLoader.addPart('language');
-                    return $translate.refresh();
+                    $translatePartialLoader.addPart('navbar');
+                    $translatePartialLoader.addPart('ontology');
+                    $translatePartialLoader.addPart('tip');
                 }]
             }
         });
-
-        $httpProvider.interceptors.push('authInterceptor');
-        $httpProvider.interceptors.push('authExpiredInterceptor');
 
         // Initialize angular-translate
         $translateProvider.useLoader('$translatePartialLoader', {
@@ -116,7 +113,9 @@ angular.module('egdApp', ['LocalStorageModule', 'tmh.dynamicLocale',
 
         $translateProvider.preferredLanguage('en');
         $translateProvider.useCookieStorage();
+        $translateProvider.useSanitizeValueStrategy('escaped');
 
-        tmhDynamicLocaleProvider.localeLocationPattern('bower_components/angular-i18n/angular-locale_{{locale}}.js');
-        tmhDynamicLocaleProvider.useCookieStorage('NG_TRANSLATE_LANG_KEY');
+        tmhDynamicLocaleProvider.localeLocationPattern('i18n/angular-locale/angular-locale_{{locale}}.js');
+        tmhDynamicLocaleProvider.useCookieStorage();
+        tmhDynamicLocaleProvider.storageKey('NG_TRANSLATE_LANG_KEY');
     });

@@ -1,6 +1,6 @@
 package ee.esutoniagodesu.util;
 
-import ee.esutoniagodesu.pojo.dto.IntIDStringTitle;
+import ee.esutoniagodesu.pojo.entity.IntIDStringTitle;
 
 import java.util.AbstractMap;
 import java.util.LinkedHashMap;

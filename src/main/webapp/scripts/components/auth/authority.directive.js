@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('egdApp')
+egdApp
     .directive('hasAnyRole', ['Principal', function (Principal) {
         return {
             restrict: 'A',

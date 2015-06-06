@@ -1,6 +1,6 @@
 package ee.esutoniagodesu.pojo.cf;
 
-import ee.esutoniagodesu.pojo.dto.IntIDStringTitle;
+import ee.esutoniagodesu.pojo.entity.IntIDStringTitle;
 
 import java.io.Serializable;
 

@@ -4,7 +4,6 @@ import ee.esutoniagodesu.pojo.cf.ECfEtSonaliik;
 import ee.esutoniagodesu.pojo.cf.ECfJpCategory;
 import ee.esutoniagodesu.pojo.cf.ECfOrigin;
 import ee.esutoniagodesu.pojo.cf.ECfVocaTransQuality;
-import ee.esutoniagodesu.pojo.dto.IntID;
 
 import java.io.Serializable;
 

@@ -1,6 +1,6 @@
 package ee.esutoniagodesu.pojo.test.compound;
 
-import ee.esutoniagodesu.pojo.dto.IntIDStringTitle;
+import ee.esutoniagodesu.pojo.entity.IntIDStringTitle;
 
 public enum EOrderByType implements IntIDStringTitle {
     random(1),

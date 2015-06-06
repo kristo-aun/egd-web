@@ -28,7 +28,7 @@ import java.util.Locale;
 @Service
 public class MailService {
 
-    private static final Logger log = LoggerFactory.getLogger(MailService.class);
+    private final Logger log = LoggerFactory.getLogger(MailService.class);
 
     @Inject
     private Environment env;
@@ -49,7 +49,7 @@ public class MailService {
 
     @PostConstruct
     public void init() {
-        this.from = env.getProperty("spring.mail.from");
+        this.from = env.getProperty("mail.from");
     }
 
     @Async

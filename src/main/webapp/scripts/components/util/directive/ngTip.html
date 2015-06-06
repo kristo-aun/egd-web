@@ -1,0 +1,22 @@
+<a href="javascript:void(0)" class="tip vertical-align" >
+    <span ng-if="template"
+          tooltip-template="template"
+          tooltip-trigger="click"
+          tooltip-placement="{{placement}}">
+        <span class="glyphicon glyphicon-question-sign"></span>
+    </span>
+    <span ng-if="!template && tip"
+          tooltip="{{tip}}"
+          tooltip-trigger="click"
+          tooltip-animation="false"
+          tooltip-placement="{{placement}}">
+        <span class="glyphicon glyphicon-question-sign"></span>
+    </span>
+    <span ng-if="!template && !tip && translated"
+          tooltip="{{translated}}"
+          tooltip-trigger="click"
+          tooltip-animation="false"
+          tooltip-placement="{{placement}}">
+        <span class="glyphicon glyphicon-question-sign"></span>
+    </span>
+</a>

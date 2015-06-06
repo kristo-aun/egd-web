@@ -1,0 +1,65 @@
+<div>
+    <button ng-if="!isAnonymous()" class="btn btn-primary" ng-click="create()">
+        <span class="glyphicon glyphicon-flash"></span>
+        {{'global.entity.action.create' | translate}}
+    </button>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th translate="article.grid.author"></th>
+                <th translate="article.grid.title"></th>
+                <th translate="article.grid.transcriptLang"></th>
+                <th ng-if="!isAnonymous()" translate="article.grid.copyright"></th>
+
+                <th ng-if="!isAnonymous()" style="width: 180px;" translate="article.grid.lastModified"></th>
+                <th ng-if="!isAnonymous()" style="width: 180px;" translate="article.grid.created"></th>
+
+                <th style="width: 200px;"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="article in articles">
+                <td><a ui-sref="articleDetail({id:article.id})">{{article.title}}</a></td>
+                <td>{{article.author}}</td>
+                <td>{{'language.' + article.transcriptLang | translate}}</td>
+                <td ng-if="!isAnonymous()">{{article.copyright}}</td>
+
+                <td ng-if="!isAnonymous()">{{article.formattedLastModifiedDate}} - {{article.lastModifiedBy}}</td>
+                <td ng-if="!isAnonymous()">{{article.formattedCreatedDate}} - {{article.createdBy}}</td>
+
+                <td style="text-align: right;">
+                    <button ng-if="isArticleUpdateAllowed(article)"
+                            ng-click="open(article.id)"
+                            class="btn btn-default">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        {{'global.entity.action.edit' | translate}}
+                    </button>
+                    <button ng-if="isArticleDeleteAllowed(article)"
+                            ng-really-message="{{'grid.confirm' | translate}}"
+                            ng-really-click="delete(article.id)"
+                            class="btn btn-danger">
+                        <span class="glyphicon glyphicon-remove-circle"></span>
+                        {{'global.entity.action.delete' | translate}}
+                    </button>
+                    <button ng-if="isAnonymous()"
+                            ng-click="open(article.id)"
+                            class="btn btn-default">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        {{'global.entity.action.view' | translate}}
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="row" style="margin-left:16px">
+            <egd-pagination page="page"
+                            limit="limit"
+                            links="links"
+                            load-page="loadPage"
+                            hide-if-limit-count="totalCount"></egd-pagination>
+        </div>
+    </div>
+</div>

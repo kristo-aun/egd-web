@@ -32,31 +32,34 @@ public final class User extends AbstractAuditingEntity implements Serializable {
     private String login;
 
     @JsonIgnore
+    @NotNull
     @Size(min = 5, max = 100)
     @Column(length = 100)
     private String password;
 
-    @Size(min = 0, max = 50)
+    @Size(max = 50)
     @Column(name = "first_name", length = 50)
     private String firstName;
 
-    @Size(min = 0, max = 50)
+    @Size(max = 50)
     @Column(name = "last_name", length = 50)
     private String lastName;
 
     @Email
-    @Size(min = 5, max = 100)
-    @Column(length = 100)
+    @Size(max = 100)
+    @Column(length = 100, unique = true)
     private String email;
 
+    @Column(nullable = false)
     private boolean activated = false;
 
     @Size(min = 2, max = 5)
     @Column(name = "lang_key", length = 5)
     private String langKey;
 
-    @Size(min = 0, max = 20)
+    @Size(max = 20)
     @Column(name = "activation_key", length = 20)
+    @JsonIgnore
     private String activationKey;
 
     @Size(max = 20)
@@ -70,13 +73,13 @@ public final class User extends AbstractAuditingEntity implements Serializable {
     @JsonIgnore
     @ManyToMany
     @JoinTable(
-        name = "user_authority",
-        schema = "ac",
-        joinColumns = {@JoinColumn(name = "login", referencedColumnName = "login")},
-        inverseJoinColumns = {@JoinColumn(name = "name", referencedColumnName = "name")})
+        name = "user_authority", schema = "ac",
+        joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+        inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")})
     private Set<Authority> authorities = new HashSet<>();
 
-    public boolean isActivated() {
+
+    public boolean getActivated() {
         return activated;
     }
 
@@ -168,6 +171,10 @@ public final class User extends AbstractAuditingEntity implements Serializable {
         this.password = password;
     }
 
+    public boolean isActivated() {
+        return activated;
+    }
+
     public String getResetKey() {
         return resetKey;
     }
@@ -184,6 +191,7 @@ public final class User extends AbstractAuditingEntity implements Serializable {
         this.resetDate = resetDate;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -201,7 +209,25 @@ public final class User extends AbstractAuditingEntity implements Serializable {
         return true;
     }
 
+    @Override
     public int hashCode() {
         return login.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+            "login='" + login + '\'' +
+            ", password='" + password + '\'' +
+            ", firstName='" + firstName + '\'' +
+            ", lastName='" + lastName + '\'' +
+            ", email='" + email + '\'' +
+            ", activated=" + activated +
+            ", langKey='" + langKey + '\'' +
+            ", activationKey='" + activationKey + '\'' +
+            ", resetKey='" + resetKey + '\'' +
+            ", resetDate=" + resetDate +
+            ", authorities=" + authorities +
+            '}';
     }
 }

@@ -1,0 +1,12 @@
+<div ng-show="field.$dirty && field.$invalid">
+    <p class="help-block"
+       ng-show="field.$error.required"
+       translate="global.entity.validate.required"></p>
+    <p class="help-block"
+       ng-show="field.$error.email && !field.$error.minlength && !field.$error.maxlength"
+       translate="global.entity.validate.email.invalid"></p>
+    <p class="help-block" ng-show="field.$error.minlength"
+       translate="global.entity.validate.email.minlength"></p>
+    <p class="help-block" ng-show="field.$error.maxlength"
+       translate="global.entity.validate.email.maxlength"></p>
+</div>

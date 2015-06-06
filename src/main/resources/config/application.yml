@@ -29,3 +29,4 @@ authentication:
         secret: mySecretOAuthSecret
         # Token is valid 30 minutes
         tokenValidityInSeconds: 1800
+

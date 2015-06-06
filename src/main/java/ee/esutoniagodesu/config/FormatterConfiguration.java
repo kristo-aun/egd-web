@@ -17,16 +17,6 @@ public class FormatterConfiguration extends WebMvcConfigurerAdapter {
 
     private static final Logger log = LoggerFactory.getLogger(FormatterConfiguration.class);
 
-    /*
-    @Override
-    public void addFormatters(FormatterRegistry registry ) {
-        log.debug("addFormatters : {}", JodaTimeFormatterRegistrar.class);
-        JodaTimeFormatterRegistrar j = new JodaTimeFormatterRegistrar();
-        j.setUseIsoFormat(true);
-        j.registerFormatters(registry);
-    }
-    //*/
-
     @Override
     public void addFormatters(FormatterRegistry registry) {
         log.debug("addFormatters : {}", DateTime.class);

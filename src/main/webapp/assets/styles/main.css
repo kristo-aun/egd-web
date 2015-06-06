@@ -95,56 +95,6 @@ h2.id a {
     font-weight: bold;
 }
 
-div.footer {
-    width: 100%;
-    text-align: center;
-    margin-bottom: 10px;
-    font-size: 0.9em;
-}
-
-.ng-modal-overlay {
-    position: fixed;
-    z-index: 9999;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background-color: #000000;
-    opacity: 0.8;
-}
-
-.ng-modal-dialog {
-    z-index: 10000;
-    position: absolute;
-    width: 100%;
-
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    -webkit-transform: translate(-50%, -50%);
-    -moz-transform: translate(-50%, -50%);
-    border-radius: 5px;
-    background-color: #fff;
-    box-shadow: 4px 4px 80px #000;
-}
-
-.ng-modal-dialog-content {
-    padding: 10px;
-    text-align: left;
-}
-
-.ng-modal-close {
-    position: absolute;
-    top: 3px;
-    right: 5px;
-    padding: 5px;
-    cursor: pointer;
-    font-size: 120%;
-    display: inline-block;
-    font-weight: bold;
-    font-family: 'arial', 'sans-serif';
-}
-
 a.tip {
     color: #777;
 }
@@ -269,3 +219,27 @@ div.panel-right {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 }
+
+/* start Password strength bar style */
+ul#strength {
+    display:inline;
+    list-style:none;
+    margin:0;
+    margin-left:15px;
+    padding:0;
+    vertical-align:2px;
+}
+
+.point:last {
+    margin:0 !important;
+}
+.point {
+    background:#DDD;
+    border-radius:2px;
+    display:inline-block;
+    height:5px;
+    margin-right:1px;
+    width:20px;
+}
+/* end Password strength bar style */
+

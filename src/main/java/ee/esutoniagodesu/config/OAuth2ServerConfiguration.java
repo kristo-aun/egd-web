@@ -60,6 +60,7 @@ public class OAuth2ServerConfiguration {
                 .authorizeRequests()
                 .antMatchers("/api/authenticate").permitAll()
                 .antMatchers("/api/register").permitAll()
+                .antMatchers("/api/git").permitAll()
                 .antMatchers("/api/**").authenticated()
                 .antMatchers("/health/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/configprops/**").hasAuthority(AuthoritiesConstants.ADMIN)

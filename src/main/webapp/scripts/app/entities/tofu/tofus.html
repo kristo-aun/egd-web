@@ -32,7 +32,7 @@
                             <div ng-show="editForm.sentence.$invalid">
                                 <p class="help-block"
                                    ng-show="editForm.sentence.$error.pattern"
-                                   translate="global.entity.validation.pattern"
+                                   translate="global.messages.validation.pattern"
                                    translate-value-pattern="^[a-zA-Z0-9õäöüÕÄÖÜ.,?!]*$">
                                 </p>
                             </div>
@@ -42,11 +42,11 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
                             <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
-                            translate="global.entity.action.cancel"></span>
+                            translate="global.messages.action.cancel"></span>
                         </button>
                         <button type="submit" ng-disabled="editForm.$invalid" class="btn btn-primary">
                             <span class="glyphicon glyphicon-save"></span>&nbsp;<span
-                            translate="global.entity.action.save"></span>
+                            translate="global.messages.action.save"></span>
                         </button>
                     </div>
                 </form>
@@ -83,7 +83,7 @@
                             ng-click="show(tofu.id)"
                             class="btn btn-primary">
                         <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
-                        translate="global.entity.action.edit"></span>
+                        translate="global.messages.action.edit"></span>
                     </button>
                 </td>
             </tr>

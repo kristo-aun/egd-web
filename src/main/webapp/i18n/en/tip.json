@@ -1,0 +1,30 @@
+{
+    "tip": {
+        "studyMode": {
+            "title": "Kasutajaliidese omapärad erinevates keeltes",
+            "et": {
+                "title": "Eesti",
+                "dictDirection": "Kasutusel Jaapani-Eesti sõnastik.",
+                "audioFor": "Audio on jaapanikeelesetele sõnadele. JMAudio baasil.",
+                "exampleSentencesFor": "Näitelausetes on audio ja selgitused jaapanikeelse lause kohta."
+            },
+            "en": {
+                "title": "Inglise",
+                "description": "Kõik on samamoodi nagu Eesti keele puhul."
+            },
+            "ja": {
+                "title": "Jaapani",
+                "objective": "Eesmärgiks on olemasolevate lahenduste baasil pakkuda väärtust jaapanlastele.",
+                "dictDirection": "Kasutusel Eesti-Jaapani sõnastik. Saadud JMDict jooksval pööramisel.",
+                "audioFor": "Audio on eestikeelesetele sõnadele. Hetkel töös EKI kõnesüntesaatori abil häälduste loomine.",
+                "exampleSentencesFor": "Eestikeelsed näitelaused. Hetkel ilma tõlketa. TEKSauruse baasil. Ideaalis võiks lisada ka naturaalse häälduse."
+            }
+        },
+        "rtkForm": {
+            "tip1": "Heisigi ID järgi otsimine toimib vaid siis kui ühtegi tähemärki lisaks numbritele ei ole. Toetatud ID-sid on 2200.",
+            "tip2": "Märksõna võib olla nii inglise- kui eesti keeles. Eestikeelseid märksõnu on 900.",
+            "tip3": "ID järgi otsimisel on vaikimisi kasutusel \"Remember The Kanji\" 6. raamat. ",
+            "tip4": "Primitiivide all on mõeldud Heisigi raamatus esitatud inglisekeelsed kanji osade tähistused. Need ei kattu täielikult Jaapanis kasutatavate radikaalidega."
+        }
+    }
+}

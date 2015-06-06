@@ -8,7 +8,7 @@ egdApp
                 url: '/settings',
                 data: {
                     roles: ['ROLE_USER'],
-                    pageTitle: 'global.menu.account.settings'
+                    pageTitle: 'navbar.account.settings'
                 },
                 views: {
                     'content@': {

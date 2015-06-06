@@ -1,7 +1,7 @@
 <div>
     <button ng-if="!isAnonymous()" class="btn btn-primary" ng-click="create()">
         <span class="glyphicon glyphicon-flash"></span>
-        {{'global.entity.action.create' | translate}}
+        {{'global.messages.action.create' | translate}}
     </button>
 
     <div class="table-responsive">
@@ -34,20 +34,20 @@
                             ng-click="open(article.id)"
                             class="btn btn-default">
                         <span class="glyphicon glyphicon-pencil"></span>
-                        {{'global.entity.action.edit' | translate}}
+                        {{'global.messages.action.edit' | translate}}
                     </button>
                     <button ng-if="isArticleDeleteAllowed(article)"
                             ng-really-message="{{'grid.confirm' | translate}}"
                             ng-really-click="delete(article.id)"
                             class="btn btn-danger">
                         <span class="glyphicon glyphicon-remove-circle"></span>
-                        {{'global.entity.action.delete' | translate}}
+                        {{'global.messages.action.delete' | translate}}
                     </button>
                     <button ng-if="isAnonymous()"
                             ng-click="open(article.id)"
                             class="btn btn-default">
                         <span class="glyphicon glyphicon-pencil"></span>
-                        {{'global.entity.action.view' | translate}}
+                        {{'global.messages.action.view' | translate}}
                     </button>
                 </td>
             </tr>

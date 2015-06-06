@@ -36,11 +36,11 @@
             <div class="row" style="padding-left:11px">
                 <label class="radio-inline">
                     <input type="radio" ng-model="radioLang" value="et"/>
-                    {{'global.label.alphabet' | translate}}
+                    {{'ontology.alphabet' | translate}}
                 </label>
                 <label class="radio-inline">
                     <input type="radio" ng-model="radioLang" value="ja" checked/>
-                    {{'global.label.hiragana' | translate}}
+                    {{'ontology.hiragana' | translate}}
                 </label>
             </div>
             <div class="row" ng-if="radioLang == 'ja'" kana-keys on-click="appendToPhrase(letter)"></div>

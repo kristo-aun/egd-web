@@ -8,7 +8,7 @@ egdApp
                 url: '/password',
                 data: {
                     roles: ['ROLE_USER'],
-                    pageTitle: 'global.menu.account.password'
+                    pageTitle: 'navbar.account.password'
                 },
                 views: {
                     'content@': {

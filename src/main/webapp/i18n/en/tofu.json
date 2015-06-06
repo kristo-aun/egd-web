@@ -1,0 +1,15 @@
+{
+    "tofu" : {
+        "home": {
+            "title": "Tofu laused"
+        },
+        "detail": {
+            "title": "Tofu"
+        },
+        "grid": {
+            "word": "Word",
+            "sentence": "Sentence",
+            "translation": "Translation"
+        }
+    }
+}

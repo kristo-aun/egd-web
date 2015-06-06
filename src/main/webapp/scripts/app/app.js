@@ -11,7 +11,11 @@ var egdApp = angular.module('egdApp', [
     'ngCacheBuster',
     'infinite-scroll',
     'ui.bootstrap',
-    'sticky'
+    'sticky',
+    'ngAudio',
+    'ui.chart',
+    'ui.select',
+    'ui.grid.pagination'
 ]);
 
 egdApp
@@ -56,7 +60,7 @@ egdApp
             }
         };
     })
-    .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $translateProvider, tmhDynamicLocaleProvider, httpRequestInterceptorCacheBusterProvider, ENV) {
+    .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider, $logProvider, $translateProvider, tmhDynamicLocaleProvider, httpRequestInterceptorCacheBusterProvider, ENV) {
 
         $logProvider.debugEnabled(ENV != 'prod');
         //$httpProvider.interceptors.push('HttpErrorInterceptor');

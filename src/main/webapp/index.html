@@ -10,9 +10,12 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>egd</title>
-    <meta name="description" content="">
+    <title>EsutoniaGoDesu</title>
     <meta name="viewport" content="width=device-width">
+    <meta name="description" content="Japanese Estonian dictionary">
+    <meta name="keywords"
+          content="エストニア,エストニア語,辞書,jaapani,jaapan,eesti,estonian,dictionary,esutoniagodesu,heisig,remember the kanji"/>
+    <meta name="author" content="EsutoniaGoDesu"/>
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
     <!-- build:css assets/styles/vendor.css -->
@@ -20,6 +23,11 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css" />
     <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css" />
+    <link href="bower_components/jqplot/jquery.jqplot.min.css" rel="stylesheet"/>
+    <link href="bower_components/angular-ui-select/dist/select.min.css" rel="stylesheet"/>
+    <link href="bower_components/selectize/dist/css/selectize.bootstrap3.css" rel="stylesheet"/>
+    <link href="bower_components/jquery-ui/themes/base/all.css" rel="stylesheet"/>
+    <link href="bower_components/angular-ui-grid/ui-grid.min.css" rel="stylesheet"/>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -30,6 +38,8 @@
     <link rel="stylesheet" href="assets/styles/flags.css"/>
     <link rel="stylesheet" href="assets/styles/main.css"/>
     <link rel="stylesheet" href="assets/styles/multistep-form.css"/>
+    <link rel="stylesheet" href="assets/styles/egd.css">
+    <link rel="stylesheet" href="assets/styles/twitter.css">
     <!-- endbuild -->
 </head>
 <body ng-app="egdApp">
@@ -47,7 +57,7 @@
 <div ui-view="navbar" ng-cloak=""></div>
 
 <div class="container">
-    <div class="well" ui-view="content" style="overflow:visible;padding: 10px 0 10px 10px;"></div>
+    <div id="egd-content" class="well" ui-view="content" style="overflow:visible;padding: 10px 0 10px 10px;"></div>
     <div class="footer" ui-view="footer"></div>
 </div>
 
@@ -72,13 +82,19 @@
 <script src="bower_components/angular-animate/angular-animate.js"></script>
 <script src="bower_components/jquery-ui/jquery-ui.js"></script>
 <script src="bower_components/angular-ui-select/dist/select.js"></script>
-<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 <script src="bower_components/moment/moment.js"></script>
 <script src="bower_components/matchmedia/matchMedia.js"></script>
 <script src="bower_components/ngSticky/lib/sticky.js"></script>
 <script src="bower_components/angular-strap/dist/angular-strap.js"></script>
 <script src="bower_components/angular-strap/dist/angular-strap.tpl.js"></script>
 <script src="bower_components/jquery.maskedinput/dist/jquery.maskedinput.js"></script>
+
+<script src="bower_components/angular-audio/app/angular.audio.js"></script>
+<script src="bower_components/angular-ui-chart/src/chart.js"></script>
+<script src="bower_components/angular-ui-grid/ui-grid.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="bower_components/angular-ui-select/dist/select.min.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
@@ -109,8 +125,8 @@
 <script src="scripts/components/util/base64.service.js"></script>
 <script src="scripts/components/util/parse-links.service.js"></script>
 <script src="scripts/components/util/dateutil.service.js"></script>
-
 <script src="scripts/components/util/filters.js"></script>
+<script src="scripts/components/directive/egd.directives.js"></script>
 <script src="scripts/components/util/directive/directives.js"></script>
 <script src="scripts/components/util/git.service.js"></script>
 <script src="scripts/components/util/moment.service.js"></script>
@@ -146,21 +162,35 @@
 <script src="scripts/app/admin/health/health.controller.js"></script>
 <script src="scripts/app/entities/entity.js"></script>
 <script src="scripts/app/error/error.js"></script>
-<script src="scripts/app/main/main.js"></script>
-<script src="scripts/app/main/main.controller.js"></script>
+
+<script src="scripts/app/dict/dict.service.js"></script>
+<script src="scripts/app/dict/dict.js"></script>
+<script src="scripts/app/dict/dict.controller.js"></script>
 
 <script src="scripts/app/changelog/changelog.js"></script>
 <script src="scripts/app/changelog/changelog.controller.js"></script>
+
+<script src="scripts/app/entities/article/article.service.js"></script>
+<script src="scripts/app/entities/article/article.js"></script>
+<script src="scripts/app/entities/article/article.controller.js"></script>
+<script src="scripts/app/entities/article/article-detail.controller.js"></script>
+
+<script src="scripts/app/rtk/rtk.js"></script>
+<script src="scripts/app/rtk/rtk.controller.js"></script>
+
+<script src="scripts/app/entities/tofu/tofu.service.js"></script>
+<script src="scripts/app/entities/tofu/tofu.js"></script>
+<script src="scripts/app/entities/tofu/tofu.controller.js"></script>
+<script src="scripts/app/entities/tofu/tofu-detail.controller.js"></script>
 <!-- endbuild -->
 
-<!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.
 <script>
     (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
     function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
     e=o.createElement(i);r=o.getElementsByTagName(i)[0];
     e.src='//www.google-analytics.com/analytics.js';
     r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-    ga('create','UA-XXXXX-X');ga('send','pageview');
-</script>-->
+    ga('create','UA-46602271-1');ga('send','pageview');
+</script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 package ee.esutoniagodesu.service;
 
 import ee.esutoniagodesu.repository.project.KanjiDB;
-import ee.esutoniagodesu.util.persistence.ProjectDAO;
+import ee.esutoniagodesu.bean.ProjectDAO;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

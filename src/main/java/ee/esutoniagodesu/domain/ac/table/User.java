@@ -74,10 +74,9 @@ public final class User extends AbstractAuditingEntity implements Serializable {
     @ManyToMany
     @JoinTable(
         name = "user_authority", schema = "ac",
-        joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-        inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")})
+        joinColumns = {@JoinColumn(name = "login", referencedColumnName = "login")},
+        inverseJoinColumns = {@JoinColumn(name = "name", referencedColumnName = "name")})
     private Set<Authority> authorities = new HashSet<>();
-
 
     public boolean getActivated() {
         return activated;

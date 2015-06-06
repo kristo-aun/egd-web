@@ -1,6 +1,6 @@
 package ee.esutoniagodesu.repository.project;
 
-import ee.esutoniagodesu.util.persistence.ProjectDAO;
+import ee.esutoniagodesu.bean.ProjectDAO;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Repository;
 

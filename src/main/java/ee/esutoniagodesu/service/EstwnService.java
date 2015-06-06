@@ -1,9 +1,9 @@
 package ee.esutoniagodesu.service;
 
+import ee.esutoniagodesu.bean.ProjectDAO;
 import ee.esutoniagodesu.domain.estwn.table.Example;
 import ee.esutoniagodesu.domain.estwn.table.Variant;
 import ee.esutoniagodesu.domain.estwn.table.WordMeaning;
-import ee.esutoniagodesu.util.persistence.ProjectDAO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;

@@ -1,7 +1,7 @@
 package ee.esutoniagodesu.web.rest;
 
 import ee.esutoniagodesu.domain.jmdict.table.Entr;
-import ee.esutoniagodesu.util.persistence.ProjectDAO;
+import ee.esutoniagodesu.bean.ProjectDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

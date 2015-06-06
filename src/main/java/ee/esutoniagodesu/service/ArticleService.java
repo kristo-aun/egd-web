@@ -11,7 +11,7 @@ import ee.esutoniagodesu.repository.project.TestRepository;
 import ee.esutoniagodesu.util.PaginationUtil;
 import ee.esutoniagodesu.util.commons.JCIOUtils;
 import ee.esutoniagodesu.util.jasperreports.JSGeneratorType;
-import ee.esutoniagodesu.util.persistence.ProjectDAO;
+import ee.esutoniagodesu.bean.ProjectDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;

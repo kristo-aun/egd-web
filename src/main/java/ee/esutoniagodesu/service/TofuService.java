@@ -6,7 +6,7 @@ import ee.esutoniagodesu.domain.freq.table.TofuSentenceTranslation;
 import ee.esutoniagodesu.repository.domain.freq.TofuSentenceRepository;
 import ee.esutoniagodesu.repository.project.FreqRepository;
 import ee.esutoniagodesu.util.PaginationUtil;
-import ee.esutoniagodesu.util.persistence.ProjectDAO;
+import ee.esutoniagodesu.bean.ProjectDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;

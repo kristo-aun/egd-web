@@ -10,7 +10,7 @@ import ee.esutoniagodesu.domain.kanjidic2.table.Kanji;
 import ee.esutoniagodesu.pojo.test.compound.*;
 import ee.esutoniagodesu.repository.project.*;
 import ee.esutoniagodesu.util.JCString;
-import ee.esutoniagodesu.util.persistence.ProjectDAO;
+import ee.esutoniagodesu.bean.ProjectDAO;
 import junit.framework.TestCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

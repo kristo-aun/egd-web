@@ -2,7 +2,7 @@ package ee.esutoniagodesu.web.rest;
 
 import ee.esutoniagodesu.domain.publik.table.Audio;
 import ee.esutoniagodesu.util.JCFile;
-import ee.esutoniagodesu.util.persistence.ProjectDAO;
+import ee.esutoniagodesu.bean.ProjectDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;

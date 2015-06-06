@@ -1,11 +1,11 @@
 package ee.esutoniagodesu.service;
 
+import ee.esutoniagodesu.bean.ProjectDAO;
 import ee.esutoniagodesu.domain.heisig.view.VHeisig6Custom;
 import ee.esutoniagodesu.repository.project.Heisig4DB;
 import ee.esutoniagodesu.repository.project.Heisig6DB;
 import ee.esutoniagodesu.repository.project.KanjiDB;
 import ee.esutoniagodesu.util.lang.alphab.LatinAlphabet;
-import ee.esutoniagodesu.util.persistence.ProjectDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

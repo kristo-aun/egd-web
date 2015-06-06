@@ -1,7 +1,7 @@
 package ee.esutoniagodesu.service;
 
+import ee.esutoniagodesu.bean.ProjectDAO;
 import ee.esutoniagodesu.domain.publik.table.Image;
-import ee.esutoniagodesu.util.persistence.ProjectDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

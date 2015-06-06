@@ -1,10 +1,10 @@
 package ee.esutoniagodesu.service;
 
+import ee.esutoniagodesu.bean.ProjectDAO;
 import ee.esutoniagodesu.domain.publik.table.*;
 import ee.esutoniagodesu.pojo.cf.ECfAudioQuality;
 import ee.esutoniagodesu.pojo.cf.ECfOrigin;
 import ee.esutoniagodesu.repository.project.SentenceDB;
-import ee.esutoniagodesu.util.persistence.ProjectDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;

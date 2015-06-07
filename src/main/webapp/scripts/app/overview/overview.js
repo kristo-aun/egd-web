@@ -3,7 +3,7 @@
 egdApp
     .config(function ($stateProvider) {
         $stateProvider
-            .state('stats', {
+            .state('overview', {
                 abstract: true,
                 parent: 'site'
             });

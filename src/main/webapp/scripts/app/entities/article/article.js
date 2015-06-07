@@ -24,7 +24,7 @@ egdApp
                 }
             })
             .state('articleDetail', {
-                parent: 'entity',
+                parent: 'article',
                 url: '/article/:id',
                 data: {
                     roles: [],

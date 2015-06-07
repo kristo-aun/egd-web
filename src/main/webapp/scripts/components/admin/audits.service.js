@@ -1,7 +1,7 @@
 'use strict';
 
 egdApp
-    .factory('AuditsService', function ($http) {
+    .factory('AuditsService', function ($http, Moment) {
         return {
             findAll: function () {
                 return $http.get('api/audits/all').then(function (response) {
@@ -9,15 +9,12 @@ egdApp
                 });
             },
             findByDates: function (fromDate, toDate) {
-
-                var formatDate =  function (dateToFormat) {
-                    if (dateToFormat !== undefined && !angular.isString(dateToFormat)) {
-                        return dateToFormat.getYear() + '-' + dateToFormat.getMonth() + '-' + dateToFormat.getDay();
+                return $http.get('api/audits/byDates', {
+                    params: {
+                        fromDate: Moment.serializeDateTime(fromDate),
+                        toDate: Moment.serializeDateTime(toDate)
                     }
-                    return dateToFormat;
-                };
-
-                return $http.get('api/audits/byDates', {params: {fromDate: formatDate(fromDate), toDate: formatDate(toDate)}}).then(function (response) {
+                }).then(function (response) {
                     return response.data;
                 });
             }

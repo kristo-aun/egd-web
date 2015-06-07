@@ -62,7 +62,6 @@ public class OAuth2ServerConfiguration {
                 .antMatchers("/api/**").authenticated()
                 .antMatchers("/health/**").hasAuthority(AuthoritiesConstants.ADMIN)
                 .antMatchers("/protected/**").authenticated();
-
         }
     }
 

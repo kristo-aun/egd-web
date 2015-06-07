@@ -24,7 +24,7 @@ egdApp
                 }
             })
             .state('tofuDetail', {
-                parent: 'entity',
+                parent: 'tofu',
                 url: '/tofu/:id',
                 data: {
                     roles: ['ROLE_USER'],

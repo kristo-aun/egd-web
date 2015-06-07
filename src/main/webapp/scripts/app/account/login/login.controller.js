@@ -15,7 +15,7 @@ egdApp
                 rememberMe: $scope.rememberMe
             }).then(function () {
                 $scope.authenticationError = false;
-                $rootScope.$broadcast('login');
+                $rootScope.$broadcast('accountChange');
                 if ($rootScope.previousStateName === 'register') {
                     $state.go('home');
                 } else {

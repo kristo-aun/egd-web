@@ -61,6 +61,11 @@ egdApp
             return input;
         };
     })
+    .filter("sanitize", ['$sce', function($sce) {
+        return function(htmlCode){
+            return $sce.trustAsHtml(htmlCode);
+        }
+    }])
     .filter('words', function () {
         return function (input, words) {
             if (isNaN(words)) {

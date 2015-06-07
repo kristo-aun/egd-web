@@ -1,26 +1,19 @@
 'use strict';
 
 egdApp
-    .controller('NavbarController', function ($scope, $location, $state, $log, Auth, Principal) {
+    .controller('NavbarController', function ($rootScope, $scope, $location, $state, $log, Auth, Principal) {
         $scope.isAuthenticated = Principal.isAuthenticated;
         $scope.isInRole = Principal.isInRole;
         $scope.$state = $state;
 
         $scope.identity = function() {
-            Principal.identity().then(function(account) {
-                $scope.account = account;
-            });
+            $rootScope.$broadcast('accountChange');
         };
-
         $scope.identity();
-
-        $scope.$on('login', function (event) {
-            $scope.identity();
-        });
 
         $scope.logout = function () {
             Auth.logout();
-            $scope.account = null;
+            $scope.identity();
             $state.go('home');
         };
     });

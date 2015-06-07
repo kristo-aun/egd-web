@@ -1,25 +1,24 @@
 'use strict';
 
 egdApp
-    .controller('SettingsController', function ($scope, Principal, Auth, Language, $translate) {
+    .controller('SettingsController', function ($rootScope, $scope, Principal, Auth, Language, $translate) {
         $scope.success = null;
         $scope.error = null;
         Principal.identity(true).then(function(account) {
-            $scope.settingsAccount = account;
+            $scope.settingsAccount = angular.copy(account);
         });
 
         $scope.save = function () {
             Auth.updateAccount($scope.settingsAccount).then(function() {
                 $scope.error = null;
                 $scope.success = 'OK';
-                Principal.identity().then(function(account) {
-                    $scope.settingsAccount = account;
-                });
+
                 Language.getCurrent().then(function(current) {
                     if ($scope.settingsAccount.langKey !== current) {
                         $translate.use($scope.settingsAccount.langKey);
                     }
                 });
+                $rootScope.$broadcast('accountChange');
             }).catch(function() {
                 $scope.success = null;
                 $scope.error = 'ERROR';

@@ -39,6 +39,9 @@
                 "field": "Väli",
                 "value": "Väärtus"
             },
+            "error": {
+                "dontmatch": "Parool ja kinnitus ei kattu."
+            },
             "warn": {
                 "notfound": "Ei leitud"
             },

@@ -242,6 +242,37 @@ egdApp
 	        });
 	    };
 	})
+    .directive('ngMessageDanger', function ($translate) {
+        return {
+            scope: {
+                i18n: '@',
+                show: '='
+            },
+            replace: true,
+            templateUrl: 'scripts/components/util/directive/ngMessageDanger.html',
+            link: function (scope) {
+                    $translate(scope.i18n).then(function (data) {
+                        scope.translated = data;
+                    });
+
+            }
+        }
+    })
+    .directive('ngMessageSuccess', function ($translate) {
+        return {
+            scope: {
+                i18n: '@',
+                show: '='
+            },
+            replace: true,
+            templateUrl: 'scripts/components/util/directive/ngMessageSuccess.html',
+            link: function (scope) {
+                $translate(scope.i18n).then(function (data) {
+                    scope.translated = data;
+                });
+            }
+        }
+    })
     .directive('ngMaskTime', function () {
         return {
             restrict: 'A',

@@ -3,9 +3,8 @@
         <div class="col-md-4 col-md-offset-4">
             <h1 translate="login.title"></h1>
 
-            <div class="alert alert-danger" ng-show="authenticationError"
-                 translate="login.messages.error.authentication">
-            </div>
+            <ng-message-danger show="authenticationError" i18n="login.messages.error.authentication"></ng-message-danger>
+
             <form class="form" role="form" ng-submit="login($event)">
                 <div class="form-group">
                     <label for="username" translate="global.label.username"></label>
@@ -20,12 +19,13 @@
                 </div>
                 <button type="submit" class="btn btn-primary" translate="login.form.button"></button>
             </form>
+            <!--
             <p></p>
-
             <div class="alert alert-warning">
                 <a ui-sref="requestReset" translate="login.password.forgot"></a>
             </div>
             <div class="alert alert-warning" translate="global.messages.info.register"></div>
+            -->
         </div>
     </div>
 </div>

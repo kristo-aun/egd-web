@@ -19,7 +19,7 @@ var egdApp = angular.module('egdApp', [
 ]);
 
 egdApp
-    .run(function ($rootScope, $location, $window, $http, $state, $translate, Auth, Principal, Language, ENV) {
+    .run(function ($rootScope, $location, $window, $http, $state, $translate, $log, Auth, Principal, Language, ENV) {
         $rootScope.ENV = ENV;
         $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
             $rootScope.toState = toState;
@@ -48,6 +48,15 @@ egdApp
             $translate(titleKey).then(function (title) {
                 // Change window title with translated one
                 $window.document.title = title;
+            });
+        });
+
+        $rootScope.$on('accountChange', function () {
+            $log.debug("accountChange");
+            Principal.identity(true).then(function(account) {
+                $rootScope.account = angular.copy(account);
+            }, function() {
+                delete $rootScope.account;
             });
         });
 

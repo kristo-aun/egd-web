@@ -18,14 +18,16 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/test/compound")
+@RequestMapping(TestCompoundResource.BASE_URL)
 public class TestCompoundResource {
 
-    @Inject
-    private UserService userService;
+    public static final String BASE_URL = "/api/test/compound";
 
     @Inject
     private TestCompoundService service;
+
+    @Inject
+    private UserService userService;
 
     private User getSessionUser() {
         return userService.getUserWithAuthorities();
@@ -55,7 +57,8 @@ public class TestCompoundResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed(AuthoritiesConstants.USER)
-    public List<KanjiCompound> submit(@Valid @RequestBody TestCompoundSubmitDTO submit) {
-        return service.submit(submit, getSessionUser());
+    public ResponseEntity<List<KanjiCompound>> submit(@Valid @RequestBody TestCompoundSubmitDTO submit) {
+        List<KanjiCompound> result = service.submit(submit, getSessionUser());
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

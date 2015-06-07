@@ -12,7 +12,7 @@
                     <select class="form-control"
                             ng-model="formDefaultId"
                             ng-change="onDefaultFormChange(formDefaultId)"
-                            ng-options="key as value for (key, value) in params.formDefaultMap">
+                            ng-options="key as ('test.compound.defaultFormMap.values.' + value | translate) for (key, value) in params.formDefaultMap">
                         <option value=""></option>
                     </select>
                 </div>
@@ -31,9 +31,9 @@
                     <select ng-model="facts.filterType"
                             class="form-control"
                             ng-required
-                            style="width: 200px"
+                            style="width: 240px"
                             ng-change="onFilterTypeChange()"
-                            ng-options="key as value for (key, value) in params.filterTypeMap">
+                            ng-options="key as ('test.compound.filterType.values.' + value | translate) for (key, value) in params.filterTypeMap">
                         <option value=""></option>
                     </select>
                 </div>
@@ -51,11 +51,11 @@
                     </div>
                     <div class="col-lg-8">
                         <label class="radio-inline">
-                            <input type="radio" ng-model="facts.kanjiIntervalType" value="level">
+                            <input type="radio" ng-model="facts.kanjiIntervalType" value="level" ng-change="onFilterTypeChange()">
                             {{'test.compound.intervalByLevel' | translate}}
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" ng-model="facts.kanjiIntervalType" value="index">
+                            <input type="radio" ng-model="facts.kanjiIntervalType" value="index" ng-change="onFilterTypeChange()">
                             {{'test.compound.intervalByIndex' | translate}}
                         </label>
                     </div>
@@ -85,11 +85,15 @@
                     <div class="col-lg-8 col-lg-offset-4 form-group">
                         <input type="number"
                                style="width: 100px;padding-left: 12px;"
+                               min="1"
+                               max="3000"
                                class="form-control col-md-5"
                                ng-model="facts.kanjiInterval[0]">
                         <span class="interval-space col-md-1">-</span>
                         <input type="number"
                                style="width: 100px;padding-left: 12px;"
+                               min="1"
+                               max="3000"
                                class="form-control col-md-5"
                                ng-model="facts.kanjiInterval[1]">
                     </div>
@@ -104,9 +108,9 @@
                 </div>
                 <div class="col-lg-7">
                     <select class="form-control"
-                            style="width: 200px"
+                            style="width: 240px"
                             ng-model="facts.dictionary"
-                            ng-options="key as value for (key, value) in params.dictionaryMap">
+                            ng-options="key as ('test.compound.dictSelect.values.' + value | translate) for (key, value) in params.dictionaryMap">
                         <option value=""></option>
                     </select>
                 </div>
@@ -165,11 +169,15 @@
                 <div class="col-lg-7">
                     <input type="number"
                            class="form-control col-md-5"
+                           min="1"
+                           max="{{facts.compLengthInterval[1]}}"
                            style="width: 100px;padding-left: 12px;"
                            ng-model="facts.compLengthInterval[0]">
                     <span class="interval-space col-md-1">-</span>
                     <input type="number"
                            class="form-control col-md-5"
+                           min="{{facts.compLengthInterval[0]}}"
+                           max="7"
                            style="width: 100px;padding-left: 12px;"
                            ng-model="facts.compLengthInterval[1]">
                 </div>
@@ -187,8 +195,8 @@
                 <div class="col-lg-7">
                     <select class="form-control"
                             ng-model="facts.orderByType"
-                            style="width: 200px"
-                            ng-options="key as value for (key, value) in params.orderByTypeMap">
+                            style="width: 240px"
+                            ng-options="key as ('test.compound.orderByType.values.' + value | translate) for (key, value) in params.orderByTypeMap">
                         <option value=""></option>
                     </select>
                 </div>
@@ -245,10 +253,18 @@
         <div class="row form-group" style="margin-top:20px">
             <div class="col-xs-8 col-xs-offset-2">
                 <a ng-click="doSubmit()" ng-disabled="form.$invalid" class="btn btn-block btn-default">
-                    {{'global.messages.action.forward' | translate}}
+                    {{'global.messages.action.generate' | translate}}
                     <span class="glyphicon glyphicon-circle-arrow-right"></span>
                 </a>
             </div>
         </div>
     </div>
 </form>
+<style>
+    .interval-space {
+        margin-top: 6px;
+        margin-right: 0;
+        width: 14px;
+        margin-left: 8px;
+    }
+</style>

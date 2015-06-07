@@ -1,12 +1,29 @@
 {
     "test": {
         "compound": {
-            "defaultFormMap": "Eeltäidetud vormid",
+            "defaultFormMap": "Eeltäidetud vorm",
+            "defaultFormMap.values": {
+                "ilo_heisig6_1_100": "Taskusõnastiku sõnavara, Heisig6 kanjid 1-100",
+                "core6k_heisig6_1_900": "Core6k sõnavara, Heisig6 kanjid 1-900",
+                "core10k_jlpt_1_3": "Core10k sõnavara, JLPT tase 1-3 kanjid"
+            },
             "filterType": "Testitavad kanjid",
+            "filterType.values": {
+                "grade": "Koolitasemed",
+                "jlpt": "JLPT kanji",
+                "jouyou": "Jojō kanji",
+                "heisig6": "Heisig RTK 6. raamat",
+                "heisig4": "Heisig RTK 4. raamat"
+            },
             "intervalType": "intervalli määramine:",
             "intervalByLevel": "taseme järgi",
             "intervalByIndex": "indeksi järgi",
-            "dictSelect": "Sõnade kogum",
+            "dictSelect": "Sõnavara kogum",
+            "dictSelect.values": {
+                "ilo_yellow_jp_et": "Taskusõnastiku sõnavara",
+                "core10k": "Core6k sõnavara",
+                "core6k": "Core10k sõnavara"
+            },
             "generateCount": "Testitavate sõnade arv",
             "compLengthInterval": "Mitu kanjit võib sõna sisaldada",
             "hints": "Vihjed",
@@ -14,6 +31,10 @@
             "radicalHintVisible": "Paku radikaale vihjeks",
             "radicalHint": "Paku radikaale vihjeks",
             "orderByType": "Sõnade järjestus",
+            "orderByType.values": {
+                "random": "Juhuslik",
+                "filter_id": "Nimekirjas paiknemise järgi"
+            },
             "meaningComponents": "Sõna tähenduse esitamine",
             "notesVisible": "Koos sõnaliikide ja märgenditega",
             "noEnIfHasEt": "Peida inglisekeelne tõlge kui eestikeelne on olemas",

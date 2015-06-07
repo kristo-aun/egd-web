@@ -29,7 +29,7 @@ egdApp
             $log.debug("filterTypeChange: filterType=" + filterType + ", intervalType=" + intervalType);
 
             if (intervalType == 'level') {
-                switch (parseInt(intervalType)) {
+                switch (parseInt(filterType)) {
                     case 1: {
                         $scope.kanjiLevelMap = $scope.params.gradeLevelMap;
                         break;

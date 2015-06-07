@@ -23,6 +23,7 @@
         },
         "messages": {
             "action": {
+                "generate": "Genereeri",
                 "refresh": "Uuenda",
                 "search": "Otsi",
                 "forward": "Edasi",

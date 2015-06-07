@@ -18,11 +18,9 @@ egdApp
                 });
             },
             submit: function (submit) {
-                return $http({
-                    method: 'POST',
-                    url: 'api/test/compound/submit',
-                    data: $.param(submit)}).then(function (response) {
-                    return response.data;
+                var context = "api/test/compound/submit";
+                return $http.post(context, submit).then(function (response) {
+                   return response.data;
                 });
             }
         }

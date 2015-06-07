@@ -15,13 +15,11 @@ egdApp
             RTKResource.findByBookAndQuery(book, query).then(function(data) {
                 $scope.frames = data;
             }, function(e) {
-                $log.debug("RTKController.load");
                 $scope.error = "global.messages.warn.notfound";
             });
         };
 
         if ($stateParams.book && $stateParams.query) {
-
             $scope.load($stateParams.book, $stateParams.query);
             $scope.book = $stateParams.book;
             $scope.query = $stateParams.query;

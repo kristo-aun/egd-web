@@ -5,44 +5,47 @@ import ee.esutoniagodesu.service.HeisigService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/rtk")
+@RequestMapping(HeisigResource.BASE_URL)
 public class HeisigResource {
+
+    public static final String BASE_URL = "/api/rtk";
 
     @Inject
     private HeisigService service;
 
-    @RequestMapping(value = "/search/{book}/{query}",
+    @RequestMapping(value = "/byBookAndQuery",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<VHeisig6Custom> search(@PathVariable("book") int book, @PathVariable("query") String query) {
-        return service.getCollection(book, query);
+    public ResponseEntity<List<VHeisig6Custom>> byBookAndQuery(@RequestParam("book") int book, @RequestParam("query") String query) {
+        return Optional.ofNullable(service.findByBookAndQuery(book, query))
+            .map(entity -> new ResponseEntity<>(
+                entity,
+                HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @RequestMapping(value = "",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<VHeisig6Custom> getAll() {
-        return service.getAll();
+    public ResponseEntity<List<VHeisig6Custom>> getAll() {
+        return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<VHeisig6Custom> get(@PathVariable Integer id) {
-        VHeisig6Custom entity = service.getHeisig6(id);
-
-        if (entity == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(entity, HttpStatus.OK);
+        return Optional.ofNullable(service.getHeisig6(id))
+            .map(entity -> new ResponseEntity<>(
+                entity,
+                HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }

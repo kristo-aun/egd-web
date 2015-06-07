@@ -21,10 +21,10 @@
             }
         },
         "rtkForm": {
-            "tip1": "Heisigi indeksi järgi otsimine toimib vaid numbrit sisestades. Toetatud indekseid on 2200.",
+            "tip1": "Heisigi indeksi järgi otsimine toimib numbriga. Lubatud indeksid on 1-2200.",
             "tip2": "Märksõna võib olla inglise- või eesti keeles. Eestikeelne märksõna on kanjidel vahemikus 1-900.",
             "tip3": "Vaikimisi otsitakse Heisigi \"Remember The Kanji\" 6. raamatu indeksist. ",
-            "tip4": "Primitiivide all on mõeldud Heisigi raamatus esitatud inglisekeelsed kanji osade tähistused. Need ei kattu täielikult Jaapanis kasutatavate radikaalidega."
+            "tip4": "Primitiividena on Heisigi raamatus kasutatud kanji osade inglisekeelsed tähendused. Kattuvus Jaapanis kasutatava radikaalide süsteemiga on osaline."
         }
     }
 }

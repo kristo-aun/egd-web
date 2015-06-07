@@ -39,6 +39,9 @@
                 "field": "Väli",
                 "value": "Väärtus"
             },
+            "warn": {
+                "notfound": "Ei leitud"
+            },
             "info": {
                 "register": "<a href=\"#/register\">Registreeri konto</a>"
             },

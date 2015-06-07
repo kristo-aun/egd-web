@@ -22,7 +22,7 @@ egdApp
                         return $translate.refresh();
                     }]
                 }
-            }).state('rtkDetail', {
+            }).state('rtk.detail', {
                 parent: 'site',
                 url: '/rtk/:book/:query',
                 data: {

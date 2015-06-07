@@ -8,6 +8,8 @@ import ee.esutoniagodesu.repository.project.KanjiDB;
 import ee.esutoniagodesu.util.lang.alphab.LatinAlphabet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,11 +44,16 @@ public class HeisigService {
         return dao.find(VHeisig6Custom.class, id);
     }
 
-    public List<VHeisig6Custom> getAll() {
+    public List<VHeisig6Custom> findAll() {
         return getCollection(6, null);
     }
 
-    public List<VHeisig6Custom> getCollection(int book, String query) {
+    public List<VHeisig6Custom> findByBookAndQuery(int book, String query) {
+        List<VHeisig6Custom> result = getCollection(book, query);
+        return result.size() > 0 ? result : null;
+    }
+
+    private List<VHeisig6Custom> getCollection(int book, String query) {
         StringBuilder msg = new StringBuilder("rtk: book=" + book + ", query=" + query);
         if ((book != 6 && book != 4) || query == null) throw new IllegalArgumentException(msg.toString());
         log.debug(msg.toString());

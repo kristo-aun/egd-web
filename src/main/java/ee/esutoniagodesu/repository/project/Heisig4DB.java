@@ -58,9 +58,8 @@ public class Heisig4DB extends AbstractProjectRepository {
             long ms = System.currentTimeMillis();
             con = dao.getConnection();
 
-            s = con.prepareCall("select kanji from heisig.heisig4 where keyword_en=? or keyword_et=?");
+            s = con.prepareCall("select kanji from heisig.heisig4 where keyword_en=?");
             s.setString(1, keyword);
-            s.setString(2, keyword);
             rs = s.executeQuery();
 
             while (rs.next()) {

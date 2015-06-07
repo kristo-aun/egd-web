@@ -1,10 +1,10 @@
 <div>
-    <p translate="rtk.intro1"></p>
-    <p translate="rtk.intro2"></p>
+    <span translate="rtk.intro1"></span>
+    <span translate="rtk.intro2"></span>
 </div>
 
 <div class="row" style="margin-top:20px">
-    <div class="col-md-6 col-md-offset-3">
+    <div class="col-md-8 col-md-offset-2">
         <form class="form" role="form" ng-submit="search(6)">
             <div style="clear:none;margin-top: 9px;margin-right:5px;float:left;"
                  ng-tip placement="bottom" template="'scripts/components/tip/tipRTKForm.html'">
@@ -22,7 +22,7 @@
     </div>
 </div>
 
-<div id="sentenceDismantleResult" nf-if="frames.length > 0">
+<div class="row" id="sentenceDismantleResult" nf-if="frames.length > 0">
     <div class="heisig6Data" ng-repeat="item in frames">
         <span class="kanji japanese">【{{item.kanji}}】</span>
         <article>
@@ -89,8 +89,11 @@
             </div>
         </article>
     </div>
-    <div class="rtk-no-results" ng-if="frames.length == 0">
-        <i>{{'rtk.no_results' | translate}}</i>
+
+    <div class="col-md-8 col-md-offset-2" ng-show="error">
+        <div class="alert alert-danger" style="margin-left:20px;cursor:pointer; width: 90%" ng-click="error=false">
+            <strong>{{error | translate}}</strong><i class="fa fa-times pull-right"></i>
+        </div>
     </div>
 </div>
 

@@ -25,6 +25,60 @@ egdApp
             }
         };
     })
+    .factory('TranslatorResource', function ($http, $log) {
+        return {
+            translate: function (from, to, string) {
+                var context = "api/translator/" + from + "/" + to + "/" + string;
+                return $http.get(context).then(function (response) {
+                    return response.data;
+                });
+            }
+        }
+    })
+    .factory('DictResource', function ($http, $log) {
+        return {
+            autocomplete: function (phrasepart) {
+                var context = "api/dict/autocomplete/" + phrasepart;
+                return $http.get(context).then(function (response) {
+                    $log.debug("DictResource.autocomplete: response=", response);
+                    return response.data;
+                });
+            },
+            jmtrans: function (phrase) {
+                var context = "api/dict/jmtrans/" + phrase;
+                return $http.get(context).then(function (response) {
+                    $log.debug("DictResource.jmtrans: response=", response);
+                    return response.data;
+                });
+            }
+        }
+    })
+    .factory('ArticleResource', function ($resource) {
+        return $resource('api/articles/:id', {}, {
+            'query': { method: 'GET', isArray: true},
+            'get': {
+                method: 'GET',
+                transformResponse: function (data) {
+                    data = angular.fromJson(data);
+                    return data;
+                }
+            },
+            'update': { method:'PUT' }
+        });
+    })
+    .factory('TofuResource', function ($resource) {
+        return $resource('api/tofus/:id', {}, {
+            'query': { method: 'GET', isArray: true},
+            'get': {
+                method: 'GET',
+                transformResponse: function (data) {
+                    data = angular.fromJson(data);
+                    return data;
+                }
+            },
+            'update': { method:'PUT' }
+        });
+    })
     .factory('StatResource', function ($http) {
         return {
             counters: function () {

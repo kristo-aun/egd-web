@@ -1,7 +1,7 @@
 'use strict';
 
 egdApp
-    .controller('DictController', function ($window, $rootScope, $scope, $http, $location, $stateParams, $translate, $log, Principal, DictService) {
+    .controller('DictController', function ($window, $rootScope, $scope, $http, $location, $stateParams, $translate, $log, Principal, DictResource) {
         Principal.identity().then(function() {
             $scope.isAuthenticated = Principal.isAuthenticated;
         });
@@ -16,7 +16,7 @@ egdApp
 
             $scope.rows = {};
 
-            DictService.jmtrans($scope.phrase).then(function (data) {
+            DictResource.jmtrans($scope.phrase).then(function (data) {
                 $scope.rows = data;
             });
         }
@@ -65,7 +65,7 @@ egdApp
             if (phrasepart && phrasepart.length > 1) {
                 var context = "api/dict/autocomplete/" + phrasepart;
                 return $http.get(context).then(function (response) {
-                    $log.debug("DictService.autocomplete: response=", response);
+                    $log.debug("DictResource.autocomplete: response=", response);
                     $scope.toggleButtonDisabled = false;
                     return response.data;
                 });

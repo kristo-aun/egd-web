@@ -24,8 +24,10 @@ import java.util.Optional;
  * REST controller for managing Tofu.
  */
 @RestController
-@RequestMapping("/api/tofus")
+@RequestMapping(TofuResource.BASE_URL)
 public class TofuResource {
+
+    public static final String BASE_URL = "/api/tofus";
 
     @Inject
     private TofuService service;
@@ -37,9 +39,6 @@ public class TofuResource {
         return userService.getUserWithAuthorities();
     }
 
-    /**
-     * PUT  /tofus -> Updates an existing tofu.
-     */
     @RequestMapping(value = "",
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
@@ -52,9 +51,6 @@ public class TofuResource {
         return ResponseEntity.ok().build();
     }
 
-    /**
-     * GET  /tofus -> get all the tofus.
-     */
     @RequestMapping(value = "",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
@@ -63,13 +59,10 @@ public class TofuResource {
         throws URISyntaxException {
 
         Page<TofuSentence> result = service.getTofusByUser(page, limit, getSessionUser());
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(result, "/api/tofus", page, limit);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(result, BASE_URL, page, limit);
         return new ResponseEntity<>(result.getContent(), headers, HttpStatus.OK);
     }
 
-    /**
-     * GET  /tofus/:id -> get the "id" tofu.
-     */
     @RequestMapping(value = "/{id}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)

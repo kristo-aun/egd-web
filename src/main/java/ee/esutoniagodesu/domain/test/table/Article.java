@@ -19,7 +19,7 @@ public final class Article extends AbstractAuditingEntity implements Serializabl
     private static final Logger log = LoggerFactory.getLogger(Article.class);
 
     public Article() {
-        log.info("New instance of " + getClass() + ", @=" + toString());
+        //log.info("New instance of " + getClass() + ", @=" + toString());
     }
 
     @Id

@@ -1,14 +1,14 @@
 'use strict';
 
 egdApp
-    .controller('ArticleController', function ($scope, $location, $log, ArticleService, ParseLinks, Principal) {
+    .controller('ArticleController', function ($scope, $location, $log, ArticleResource, ParseLinks, Principal) {
         $scope.articles = [];
 
         $scope.page = 1;
         $scope.limit = 20;
 
         $scope.loadAll = function() {
-            ArticleService.query({page: $scope.page, limit: $scope.limit}, function(result, headers) {
+            ArticleResource.query({page: $scope.page, limit: $scope.limit}, function(result, headers) {
                 $scope.links = ParseLinks.parse(headers('link'));
                 $log.debug("ArticleController: totalCount=", headers('X-Total-Count'));
                 $scope.totalCount = headers('X-Total-Count');
@@ -33,7 +33,7 @@ egdApp
         };
 
         $scope.delete = function (id) {
-            ArticleService.delete({id: id},
+            ArticleResource.delete({id: id},
                 function () {
                     $scope.loadAll();
                 });

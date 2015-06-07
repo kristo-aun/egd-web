@@ -32,7 +32,7 @@ egdApp
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/entities/tofu/tofu-detail.html',
+                        templateUrl: 'scripts/app/entities/tofu/tofu.detail.html',
                         controller: 'TofuDetailController'
                     }
                 },

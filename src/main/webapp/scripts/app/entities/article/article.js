@@ -32,7 +32,7 @@ egdApp
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/entities/article/article-detail.html',
+                        templateUrl: 'scripts/app/entities/article/article.detail.html',
                         controller: 'ArticleDetailController'
                     }
                 },

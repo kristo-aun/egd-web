@@ -41,7 +41,7 @@ egdApp
             templateUrl: 'scripts/components/directive/gridEt.html'
         }
     })
-    .directive('phraseAutocomplete', function (DictService, $timeout, $log) {
+    .directive('phraseAutocomplete', function (DictResource, $timeout, $log) {
         return {
             restrict: 'A',
             scope: {
@@ -54,7 +54,7 @@ egdApp
                     source: function (request, response) {
                         $log.debug("phraseAutocomplete.term=", request.term);
 
-                        DictService.autocomplete(scope.lang, request.term).then(function (data) {
+                        DictResource.autocomplete(scope.lang, request.term).then(function (data) {
                             $log.debug("phraseAutocomplete.autocomplete: data=", data);
                             response(
                                 $.map(data, function (item) {

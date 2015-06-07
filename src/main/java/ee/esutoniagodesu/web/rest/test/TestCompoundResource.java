@@ -17,7 +17,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/test/compounds")
+@RequestMapping("/api/test/compound")
 public class TestCompoundResource {
 
     @Inject

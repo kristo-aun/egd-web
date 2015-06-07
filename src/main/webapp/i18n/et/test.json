@@ -1,0 +1,30 @@
+{
+    "test": {
+        "compound": {
+            "defaultFormMap": "Eeltäidetud vormid",
+            "filterType": "Testitavad kanjid",
+            "intervalType": "intervalli määramine:",
+            "intervalByLevel": "taseme järgi",
+            "intervalByIndex": "indeksi järgi",
+            "dictSelect": "Sõnade kogum",
+            "generateCount": "Testitavate sõnade arv",
+            "compLengthInterval": "Mitu kanjit võib sõna sisaldada",
+            "hints": "Vihjed",
+            "strokeCountHint": "Näita joonte arvu",
+            "radicalHintVisible": "Paku radikaale vihjeks",
+            "radicalHint": "Paku radikaale vihjeks",
+            "orderByType": "Sõnade järjestus",
+            "meaningComponents": "Sõna tähenduse esitamine",
+            "notesVisible": "Koos sõnaliikide ja märgenditega",
+            "noEnIfHasEt": "Peida inglisekeelne tõlge kui eestikeelne on olemas",
+            "export": "Ekspordifail",
+            "generatePdf": "Genereeri PDF",
+            "grade": "Grade",
+            "jlpt": "JLPT",
+            "jouyou": "Jōjō",
+            "heisig4": "Heisig 4",
+            "heisig6": "Heisig 6",
+            "submit": "Koosta test"
+        }
+    }
+}

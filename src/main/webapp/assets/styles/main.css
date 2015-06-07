@@ -99,6 +99,10 @@ a.tip {
     color: #777;
 }
 
+.tip-body-max {
+    width:340px;
+}
+
 a.tip:focus, a.tip:hover {
     color: #333;
     background-color: transparent;

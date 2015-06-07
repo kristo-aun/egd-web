@@ -1,6 +1,33 @@
 'use strict';
 
 egdApp
+    .factory('TestCompoundResource', function ($http, $log) {
+        return {
+            params: function () {
+                var context = "api/test/compound/params";
+                return $http.get(context).then(function (response) {
+                    $log.debug("TestCompoundResource.params: response=", response);
+                    return response.data;
+                });
+            },
+            formDefault: function (defaultId) {
+                var context = "api/test/compound/form-default/" + defaultId;
+                return $http.get(context).then(function (response) {
+                    $log.debug("TestCompoundResource.formDefault: response=", response);
+                    return response.data;
+                });
+            },
+            submit: function (submit) {
+                return $http({
+                    method: 'POST',
+                    url: 'api/test/compound/submit',
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    data: $.param(submit)}).then(function (response) {
+                    return response.data;
+                });
+            }
+        }
+    })
     .factory('RTKResource', function ($http) {//heisig
         return {
             findByBookAndQuery: function (book, query) {

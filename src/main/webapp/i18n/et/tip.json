@@ -1,12 +1,12 @@
 {
     "tip": {
         "studyMode": {
-            "title": "Keele vahetamisel muutub kasutajaliidese toimimine",
+            "title": "Muutused kasutajaliideses keele vahetamisel",
             "et": {
                 "title": "Eesti",
                 "dictDirection": "Kasutusel Jaapani-Eesti sõnastik.",
-                "audioFor": "Audio on jaapanikeelesetele sõnadele. JMAudio baasil.",
-                "exampleSentencesFor": "Näitelausetes on audio ja selgitused jaapanikeelse lause kohta."
+                "audioFor": "Audio lisatakse jaapanikeelesetele sõnadele ja näitelausetele.",
+                "exampleSentencesFor": "Näitelaused on jaapani keeles."
             },
             "en": {
                 "title": "Inglise",
@@ -14,16 +14,16 @@
             },
             "ja": {
                 "title": "Jaapani",
-                "objective": "Eesmärgiks on olemasolevate lahenduste baasil pakkuda väärtust jaapanlastele.",
+                "objective": "Eesmärgiks on Jaapani-Eesti sõnastiku põõrates pakkuda väärtust Eesti-Jaapani suunal.",
                 "dictDirection": "Kasutusel Eesti-Jaapani sõnastik. Saadud JMDict jooksval pööramisel.",
-                "audioFor": "Audio on eestikeelesetele sõnadele. Hetkel töös EKI kõnesüntesaatori abil häälduste loomine.",
-                "exampleSentencesFor": "Eestikeelsed näitelaused. Hetkel ilma tõlketa. TEKSauruse baasil. Ideaalis võiks lisada ka naturaalse häälduse."
+                "audioFor": "Audio lisatakse eestikeelesetele sõnadele. Hetkel töös EKI kõnesüntesaatori abil häälduste loomine.",
+                "exampleSentencesFor": "Eestikeelsed näitelaused. Hetkel ilma tõlketa. TEKSauruse baasil."
             }
         },
         "rtkForm": {
-            "tip1": "Heisigi ID järgi otsimine toimib vaid siis kui ühtegi tähemärki lisaks numbritele ei ole. Toetatud ID-sid on 2200.",
-            "tip2": "Märksõna võib olla nii inglise- kui eesti keeles. Eestikeelseid märksõnu on 900.",
-            "tip3": "ID järgi otsimisel on vaikimisi kasutusel \"Remember The Kanji\" 6. raamat. ",
+            "tip1": "Heisigi indeksi järgi otsimine toimib vaid numbrit sisestades. Toetatud indekseid on 2200.",
+            "tip2": "Märksõna võib olla inglise- või eesti keeles. Eestikeelne märksõna on kanjidel vahemikus 1-900.",
+            "tip3": "Vaikimisi otsitakse Heisigi \"Remember The Kanji\" 6. raamatu indeksist. ",
             "tip4": "Primitiivide all on mõeldud Heisigi raamatus esitatud inglisekeelsed kanji osade tähistused. Need ei kattu täielikult Jaapanis kasutatavate radikaalidega."
         }
     }

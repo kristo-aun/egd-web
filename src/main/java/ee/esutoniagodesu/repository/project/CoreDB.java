@@ -131,7 +131,7 @@ public class CoreDB extends AbstractProjectRepository {
             throw new IllegalArgumentException(msg.toString());
 
         try {
-            Query query = null;//dao.getSession().getNamedQuery("f_compd_ilo_by_kanji");
+            Query query = null;//em.createNativeQuery("f_compd_ilo_by_kanji");
             query.setString(0, chars);
             query.setInteger(1, cpdlen_from);
             query.setInteger(2, cpdlen_to);

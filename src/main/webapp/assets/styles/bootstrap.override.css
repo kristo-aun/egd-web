@@ -18,6 +18,7 @@
 .centered  {
     margin: 0 auto !important;
     float: none !important;
+    text-align: center;
 }
 
 .nav-pills > li > a {

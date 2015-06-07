@@ -21,7 +21,6 @@ egdApp
                 return $http({
                     method: 'POST',
                     url: 'api/test/compound/submit',
-                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                     data: $.param(submit)}).then(function (response) {
                     return response.data;
                 });

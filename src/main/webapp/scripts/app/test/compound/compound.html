@@ -1,6 +1,9 @@
 <form name="form" role="form" ng-submit="doSubmit()" novalidate show-validation>
-    <div id="cmpd-fact-wr" class="col-lg-6 col-lg-offset-3">
-        <div class="row form-group">
+    <div class="col-lg-6 col-lg-offset-3">
+        <div class="row centered">
+            <h2>Testi genereerimine</h2>
+        </div>
+        <div class="row form-group" style="margin-top:20px">
             <label class="vertical-align">
                 <div class="col-lg-4">
                     <span translate="test.compound.defaultFormMap"></span>
@@ -239,173 +242,13 @@
                 </div>
             </div>
         </div>
+        <div class="row form-group" style="margin-top:20px">
+            <div class="col-xs-8 col-xs-offset-2">
+                <a ng-click="doSubmit()" ng-disabled="form.$invalid" class="btn btn-block btn-default">
+                    {{'global.messages.action.forward' | translate}}
+                    <span class="glyphicon glyphicon-circle-arrow-right"></span>
+                </a>
+            </div>
+        </div>
     </div>
 </form>
-<style>
-    .cmpd-fact-wr {
-        max-width:500px;
-    }
-
-
-
-
-    td.sign-box {
-        border: 2px solid #888888;
-        height: 50px;
-        width: 50px;
-        vertical-align: middle;
-        text-align: center;
-        font-size: 24px;
-    }
-
-    td.rdng-box {
-        height: 50px;
-        width: 20px;
-        vertical-align: middle;
-        text-align: center;
-        font-size: 24px;
-    }
-
-    span.cmpd-et {
-        margin-top: 6px;
-        font-size: 18px;
-    }
-
-    span.cmpd-en {
-        margin-top: 6px;
-        font-size: 18px;
-        font-style: italic;
-    }
-
-    span.strokecount {
-        color: darkblue;
-        font-weight: bold;
-    }
-
-    td.sign-hint {
-
-    }
-
-    div.radical-hint-wr {
-        width: 50px;
-        margin: 2px;
-        word-wrap: break-word;
-        display: inherit;
-    }
-
-    .upright {
-        -webkit-writing-mode: vertical-rl;
-        -moz-writing-mode: vertical-rl;
-        -o-writing-mode: vertical-rl;
-        -ms-writing-mode: vertical-rl;
-        writing-mode: vertical-rl;
-        -webkit-text-orientation: upright;
-        -moz-text-orientation: upright;
-        -o-text-orientation: upright;
-        -ms-text-orientation: mixed;
-        text-orientation: upright;
-    }
-
-    td.sign-rdng, span.sign-box-rdng {
-
-    }
-
-    span.cmpd-reading {
-        color: darkred;
-        margin-left: 5px;
-        font-size: 27px;
-    }
-
-    div.cmpd-wr {
-        vertical-align: top;
-        margin: 10px;
-        padding: 3px 15px 2px 15px;
-        min-height: 90px;
-        border: 2px solid #888888;
-        background: white;
-        display: inline-table;
-        width: 400px;
-    }
-
-    div.cmpd-header-wr {
-        margin-top:4px;
-        float: left;
-    }
-
-    div.cmpd-answer-wr {
-        margin-top:6px;
-        width: 100%;
-        float: left;
-        margin-bottom: 6px;
-    }
-
-    div.cmpd-header-wr span {
-        float:left;
-    }
-
-    div.cmpd-header-wr span + span {
-        margin-left:10px;
-    }
-
-    span.cmpd-en {
-        font-style: italic;
-    }
-
-
-    li.fact-wr, li.space {
-        list-style: none;
-    }
-
-    li.fact-wr label {
-        *width: 140px;
-        *margin-top: 6px;
-    }
-
-    li.fact-wr,
-    li.space,
-    li.fact-wr label,
-    li.fact-wr div.fact-value-wr,
-    div.fact-value-wr input,
-    div.fact-value-wr select,
-    div.fact-form-submit-wr {
-        *float: left;
-    }
-
-    div.fact-form-submit-wr {
-        *clear: both;
-    }
-
-    span.interval-space {
-        margin-top: 6px;
-        margin-right: 2px;
-        text-align: right;
-    }
-
-    ul.fact-tree-wr {
-        float: left;
-        margin: 0;
-        padding: 10px;
-        border: 2px solid #bfbfbf;
-        min-width: 500px;
-    }
-
-    ul.fact-tree-wr li.fact-wr {
-        padding: 10px;
-        *clear: both;
-    }
-
-    ul.fact-tree-wr > li.fact-wr > label {
-        *width: 210px;
-    }
-
-    ul.fact-tree-wr li.fact-wr + li.space {
-        *margin-top: 10px;
-    }
-
-    li.space {
-        border-top: 2px solid #bfbfbf;
-        width: 100%;
-        height: 4px;
-    }
-</style>
-

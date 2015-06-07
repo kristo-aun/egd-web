@@ -19,7 +19,6 @@ egdApp
             TestCompoundResource.params().then(function (data) {
                 $scope.params = data;
             });
-            $scope.formVisible = true;
             $scope.setFactsToDefault();
         };
         $scope.load();
@@ -79,8 +78,8 @@ egdApp
             $log.debug("doSubmit: facts=", $scope.facts);
 
             TestCompoundResource.submit($scope.facts).then(function (data) {
-                $scope.formVisible = false;
                 $scope.compounds = data;
+                $state.go(".submit");
             });
         };
     });

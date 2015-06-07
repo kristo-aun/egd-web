@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -54,7 +55,7 @@ public class TestCompoundResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed(AuthoritiesConstants.USER)
-    public List<KanjiCompound> submit(@RequestBody TestCompoundSubmitDTO submit) {
+    public List<KanjiCompound> submit(@Valid @RequestBody TestCompoundSubmitDTO submit) {
         return service.submit(submit, getSessionUser());
     }
 }

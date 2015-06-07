@@ -22,5 +22,9 @@ egdApp
                         return $translate.refresh();
                     }]
                 }
+            })
+            .state('compound.submit', {
+                parent: "compound",
+                templateUrl: 'scripts/app/test/compound/compound.submit.html'
             });
     });

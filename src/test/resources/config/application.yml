@@ -24,3 +24,10 @@ mail:
     protocol: smtp
     tls: false
     auth: false
+
+authentication:
+    oauth:
+        clientid: egdapp
+        secret: mySecretOAuthSecret
+        # Token is valid 30 minutes
+        tokenValidityInSeconds: 1800

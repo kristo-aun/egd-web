@@ -85,6 +85,10 @@ public class TestCompoundResourceTest extends WebappTestEnvironment {
     private void submit_dto(TestCompoundSubmitDTO dto) throws Exception {
         mockMvc.perform(
             post(TestCompoundResource.BASE_URL + "/submit")
+                .with(request -> {
+                    request.setRemoteUser(USERNAME);
+                    return request;
+                })
                 .session(session)
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(dto)))

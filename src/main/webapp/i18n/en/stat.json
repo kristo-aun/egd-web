@@ -1,7 +1,48 @@
 {
-    "stat" : {
-        "home": {
-            "title": "Sõnastiku statistika"
+    "stat": {
+        "counters": {
+            "header": "Dictionary statistics",
+            "jmdictVersion": "JMDict version",
+            "countJpEntry": "Japanese entry count",
+            "countTranslatedEntries": "Translated entries",
+            "countEtTranslations": "Translations in Estonian",
+            "countSentencePairs": "Pairs of example sentences",
+            "countEstwnExamples": "Estonian Wordnet sentences",
+            "etTransOrigin": "Origins of translations",
+            "countOriginJatik": "JATIK",
+            "countOriginIlo": "ILO's yellow pocket dictionary",
+            "countOriginEgd": "EsutoniaGoDesu",
+            "countJpSearchWords": "Queries in Japanese",
+            "countJpSearchWithResults": "- with results",
+            "countEtSearchWords": "Queries in Estonian",
+            "countEtSearchWithResults": "- with results",
+            "countKanjiInDb": "Kanji count",
+            "countKanjisDescribedWithHeisig": "- described in Heisig's RTK",
+            "countStrokeDiagrams": "Stroke diagrams"
+        },
+        "core": {
+            "header": "Vocabulary statistics",
+            "resource": "Resource",
+            "wordCount": "Word count",
+            "wordsWithKanjiCount": "With kanjis",
+            "kanjiCount": "Kanji count per word",
+            "withJmdictCount": "Has JMDict",
+            "withJmdictShare": "JMDict share"
+        },
+        "jmdict": {
+            "header": "JMDict statistics",
+            "translatedEntrRatio": "Translation count per entry",
+            "chart": {
+                "xaxis":"Gloss count",
+                "yaxis":"Entr count"
+            }
+        },
+        "freq": {
+            "header": "Frequency indexes",
+            "chart": {
+                "xaxis":"Gloss count",
+                "yaxis":"sum(frequency)"
+            }
         }
     }
 }

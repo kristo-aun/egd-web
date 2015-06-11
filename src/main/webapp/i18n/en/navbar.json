@@ -1,34 +1,38 @@
 {
     "navbar": {
-        "home": "Sõnastik",
-        "poll": "Küsitlus",
-        "overview": "Ülevaade",
-        "rtk": "Kirjamärgid",
-        "entities": {
-            "main": "Õppematerjalid",
-            "articles": "Artiklid",
-            "tofus": "Tofu laused"
+        "home": "Dictionary",
+        "poll": "Poll",
+        "overview": "Overview",
+        "rtk": "Kanji",
+        "entity": {
+            "main": "Study materials",
+            "articles": "Articles",
+            "tofus": "Tofu sentences"
         },
         "test": {
-            "main": "Keeletestid",
-            "compound": "Sõna kirjutamine"
+            "main": "Proficiency tests",
+            "compound": "Compound writing"
         },
         "stats": {
-            "statistics": "Sõnastiku statistika"
+            "statistics": "Dictionary statistics"
         },
         "account": {
-            "main": "Konto",
-            "settings": "Seaded",
-            "password": "Parool",
-            "login": "Logi sisse",
-            "logout": "Logi välja",
-            "register": "Registreeri"
+            "main": "Account",
+            "settings": "Settings",
+            "password": "Password",
+            "health": "Health",
+            "configuration": "Configuration",
+            "logs": "Logs",
+            "audits": "Audits",
+            "login": "Authenticate",
+            "logout": "Log out",
+            "register": "Register"
         },
         "admin": {
             "main": "Administration",
             "health": "Health",
-            "configuration": "Konfiguratsioon",
-            "audits": "Sisselogimised"
+            "configuration": "Configuration",
+            "audits": "Audits"
         },
         "language": "Language"
     }

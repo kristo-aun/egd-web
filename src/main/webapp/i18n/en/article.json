@@ -1,17 +1,16 @@
 {
     "article": {
-        "title": "Lugemisharjutused",
+        "title": "Reading exercises",
         "home": {
-            "createLabel": "Lisa uus"
+            "createLabel": "Add new story"
         },
-
         "grid": {
-            "author": "Autor",
-            "copyright": "Autoriõigused",
-            "title": "Pealkiri",
-            "transcriptLang": "Tõlke keel",
-            "created": "Loodud",
-            "lastModified": "Viimati muudetud"
+            "author": "Author",
+            "copyright": "Copyright",
+            "title": "Title",
+            "transcriptLang": "Transcript language",
+            "created": "Created",
+            "lastModified": "Last modified"
         }
     }
 }

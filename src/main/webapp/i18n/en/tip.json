@@ -1,30 +1,30 @@
 {
     "tip": {
         "studyMode": {
-            "title": "Kasutajaliidese omapärad erinevates keeltes",
+            "title": "Interface peculiarities with each language",
             "et": {
-                "title": "Eesti",
-                "dictDirection": "Kasutusel Jaapani-Eesti sõnastik.",
-                "audioFor": "Audio on jaapanikeelesetele sõnadele. JMAudio baasil.",
-                "exampleSentencesFor": "Näitelausetes on audio ja selgitused jaapanikeelse lause kohta."
+                "title": "Estonian",
+                "dictDirection": "Translation takes place in Japanese-Estonian direction.",
+                "audioFor": "Audio is in Japanese. Work is in progress to include JMAudio.",
+                "exampleSentencesFor": "In pairs of example sentences the Japanese side is explained and has audio."
             },
             "en": {
-                "title": "Inglise",
-                "description": "Kõik on samamoodi nagu Eesti keele puhul."
+                "title": "English",
+                "description": "Interface works just like it does in Estonian mode."
             },
             "ja": {
-                "title": "Jaapani",
-                "objective": "Eesmärgiks on olemasolevate lahenduste baasil pakkuda väärtust jaapanlastele.",
-                "dictDirection": "Kasutusel Eesti-Jaapani sõnastik. Saadud JMDict jooksval pööramisel.",
-                "audioFor": "Audio on eestikeelesetele sõnadele. Hetkel töös EKI kõnesüntesaatori abil häälduste loomine.",
-                "exampleSentencesFor": "Eestikeelsed näitelaused. Hetkel ilma tõlketa. TEKSauruse baasil. Ideaalis võiks lisada ka naturaalse häälduse."
+                "title": "Japanese",
+                "objective": "Objective is to offer some value to Japanese speakers by inversion of existing datasources.",
+                "dictDirection": "Dictionary is translating in Estonian-Japanese direction. Based on inversion of JMDict during runtime.",
+                "audioFor": "Audio is for Estonian words. Work is in progress to generate pronunciations using EKI's TTS synthesizer.",
+                "exampleSentencesFor": "Example sentences are in Estonian. At the moment without translation. Based on TEKSaurus. Ideally there should be natural audio for example sentences."
             }
         },
         "rtkForm": {
-            "tip1": "Heisigi ID järgi otsimine toimib vaid siis kui ühtegi tähemärki lisaks numbritele ei ole. Toetatud ID-sid on 2200.",
-            "tip2": "Märksõna võib olla nii inglise- kui eesti keeles. Eestikeelseid märksõnu on 900.",
-            "tip3": "ID järgi otsimisel on vaikimisi kasutusel \"Remember The Kanji\" 6. raamat. ",
-            "tip4": "Primitiivide all on mõeldud Heisigi raamatus esitatud inglisekeelsed kanji osade tähistused. Need ei kattu täielikult Jaapanis kasutatavate radikaalidega."
+            "tip1": "ID search works if only numbers are used. Supported ID range is 1-2200.",
+            "tip2": "Keyword can either be in English or Estonian. 900 keywords have been translated to Estonian.",
+            "tip3": "ID search uses RTK's 6. edition by default.",
+            "tip4": "Primitives are the ones used in RTK. They are different from the radicals used in Japan."
         }
     }
 }

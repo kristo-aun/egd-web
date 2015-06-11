@@ -1,8 +1,8 @@
 {
     "activate": {
-        "title": "Aktiveeri",
+        "title": "Activate",
         "messages": {
-            "success": "<strong>Teie kasutaja on aktiveeritud.</strong> <a href=\"#/login\">Logige sisse</a>.",
+            "success": "<strong>You account has been activated.</strong> <a href=\"#/login\">Log in</a>.",
             "error": "<strong>Your user could not be activated.</strong> Please use the registration form to sign up."
         }
     }

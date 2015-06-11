@@ -32,8 +32,8 @@
                 "confirm": "Are you sure?"
             },
             "detail": {
-                "field": "Väli",
-                "value": "Väärtus"
+                "field": "Field",
+                "value": "Value"
             },
             "info": {
                 "register": "<a href=\"#/register\">Registreeri konto</a>"
@@ -49,27 +49,27 @@
                 "pattern": "Lubatud muster on {{pattern}}.",
                 "number": "Lubatud on ainult numbrid.",
                 "newpassword": {
-                    "required": "Parooli sisestamine on kohustuslik.",
-                    "minlength": "Parooli pikkus peab olema vähemalt 5 tähemärki",
-                    "maxlength": "Parooli suurim lubatud pikkus on 50 tähemärki",
-                    "strength": "Parooli tugevus:"
+                    "required": "Your password is required.",
+                    "minlength": "Your password is required to be at least 5 characters",
+                    "maxlength": "Your password cannot be longer than 50 characters",
+                    "strength": "Password strength:"
                 },
                 "confirmpassword": {
-                    "required": "Parooli kinnituse sisestamine on kohustuslik.",
-                    "minlength": "Parooli kinnituse pikkus peab olema vähemalt 5 tähemärki",
-                    "maxlength": "Parooli kinnituse suurim lubatud pikkus on 50 tähemärki",
-                    "dontmatch": "Parool ja selle kinnitus ei kattu!"
+                    "required": "Your confirmation password is required.",
+                    "minlength": "Your confirmation password is required to be at least 5 characters",
+                    "maxlength": "Your confirmation password cannot be longer than 50 characters",
+                    "dontmatch": "Password and confirmation don't match!"
                 },
                 "email": {
-                    "emailexists": "E-posti aadress on juba kasutusel.",
-                    "invalid": "Ebakorrektne e-posti aadress.",
-                    "minlength": "E-posti aadressi pikkus peab olema vähemalt 5 tähemärki",
-                    "maxlength": "E-posti aadressi suurim lubatud pikkus on 127 tähemärki"
+                    "required": "Your e-mail is required.",
+                    "invalid": "Your e-mail is invalid.",
+                    "minlength": "Your e-mail is required to be at least 5 characters",
+                    "maxlength": "Your e-mail cannot be longer than 50 characters"
                 }
             }
         }
     },
     "footer": {
-        "lastUpdated": "Viimane uuendus"
+        "lastUpdated": "Last updated"
     }
 }

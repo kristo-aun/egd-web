@@ -3,7 +3,7 @@
         "title": "Aktiveeri",
         "messages": {
             "success": "<strong>Teie kasutaja on aktiveeritud.</strong> <a href=\"#/login\">Logige sisse</a>.",
-            "error": "<strong>Your user could not be activated.</strong> Please use the registration form to sign up."
+            "error": "<strong>Konto aktiveerimine ebaõnnestus.</strong> Registreerida saate registreerimise vormil."
         }
     }
 }

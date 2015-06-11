@@ -7,9 +7,9 @@
             "title": "Tofu"
         },
         "grid": {
-            "word": "Word",
-            "sentence": "Sentence",
-            "translation": "Translation"
+            "word": "Sõna",
+            "sentence": "Lause",
+            "translation": "Tõlge"
         }
     }
 }

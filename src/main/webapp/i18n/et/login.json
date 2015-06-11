@@ -1,17 +1,17 @@
 {
     "login": {
-        "title": "Authentication",
+        "title": "Logi sisse",
         "form": {
-            "rememberme": "Automatic Login",
-            "button": "Authenticate"
+            "rememberme": "Automaatne sisselogimine",
+            "button": "Logi sisse"
         },
         "messages": {
             "error": {
-                "authentication": "<strong>Authentication failed!</strong> Please check your credentials and try again."
+                "authentication": "<strong>Viga sisselogimisel!</strong> Kontrollige kasutajanime ja parooli."
             }
         },
-        "password" : {
-            "forgot": "Did you forget your password?"
+        "password": {
+            "forgot": "Kas unustasite parooli?"
         }
     }
 }

@@ -3,19 +3,19 @@
         "title": "EsutoniaGoDesu",
         "browsehappy": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
         "label": {
-            "specify": "Täpsustatud",
-            "search": "Otsi",
-            "word": "Sõna",
-            "usage": "Kasutus",
-            "level": "Tase",
-            "index": "Indeks",
-            "username": "Kasutajanimi",
-            "password": "Parool",
-            "newpassword": "Uus parool",
-            "confirmpassword": "Parooli kinnitus",
+            "specify": "Specify",
+            "search": "Search",
+            "word": "Word",
+            "usage": "Usage",
+            "level": "Level",
+            "index": "Index",
+            "username": "Login",
+            "password": "Password",
+            "newpassword": "New password",
+            "confirmpassword": "New password confirmation",
             "email": "E-mail",
-            "even": "paaris",
-            "odd": "paaritu"
+            "even": "Even",
+            "odd": "Odd"
         },
         "messages": {
             "action": {
@@ -36,18 +36,20 @@
                 "value": "Value"
             },
             "info": {
-                "register": "<a href=\"#/register\">Registreeri konto</a>"
+                "register": "You don't have an account yet? <a href=\"#/register\">Register a new account</a>"
             },
-            "confirm": "Olete kindel?",
+            "confirm": "Confirm operation?",
             "validate": {
-                "required": "Kohustuslik väli.",
-                "length": "Pikkus peab olema {{length}} tähemärki.",
-                "minlength": "Pikkus peab olema vähemalt {{min}} tähemärki.",
-                "maxlength": "Suurim lubatud pikkus on {{max}} tähemärki.",
-                "min": "Pikkus peab olema rohkem kui {{min}} tähemärki.",
-                "max": "Pikkus ei tohi ületada {{max}} tähemärki.",
-                "pattern": "Lubatud muster on {{pattern}}.",
-                "number": "Lubatud on ainult numbrid.",
+                "required": "This field is required.",
+                "minlength": "This field is required to be at least {{min}} characters.",
+                "maxlength": "This field cannot be longer than {{max}} characters.",
+                "min": "This field should be more than {{min}}.",
+                "max": "This field cannot be more than {{max}}.",
+                "pattern": "This field should follow pattern {{pattern}}.",
+                "number": "This field should be a number.",
+                "datetimelocal": "This field should be a date and time.",
+                "length": "This field should be {{length}} characters.",
+
                 "newpassword": {
                     "required": "Your password is required.",
                     "minlength": "Your password is required to be at least 5 characters",

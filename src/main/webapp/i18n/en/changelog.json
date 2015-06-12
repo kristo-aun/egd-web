@@ -8,7 +8,7 @@
             "fix": "Fix",
             "fix.descr": "with Github issue ID.",
             "update":"Data update",
-            "update.descr":"tõlgete parandamine, uued näitelaused, artiklid, testid, sõnavara vms.",
+            "update.descr":"i18n improvements, new content, new tests, new vocabulary etc.",
             "code": "Source improvement",
             "code.descr": "ei mõjuta funktsionaalsust (formaatimine, muutujate ühtlustamine, algoritmi parandamine, komponentide uuendamine)."
         }

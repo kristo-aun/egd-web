@@ -52,13 +52,14 @@
             "confirm": "Olete kindel?",
             "validate": {
                 "required": "Kohustuslik väli.",
-                "length": "Pikkus peab olema {{length}} tähemärki.",
                 "minlength": "Pikkus peab olema vähemalt {{min}} tähemärki.",
                 "maxlength": "Suurim lubatud pikkus on {{max}} tähemärki.",
                 "min": "Pikkus peab olema rohkem kui {{min}} tähemärki.",
                 "max": "Pikkus ei tohi ületada {{max}} tähemärki.",
                 "pattern": "Lubatud muster on {{pattern}}.",
                 "number": "Lubatud on ainult numbrid.",
+                "datetimelocal": "This field should be a date and time.",
+                "length": "Pikkus peab olema {{length}} tähemärki.",
                 "newpassword": {
                     "required": "Parooli sisestamine on kohustuslik.",
                     "minlength": "Parooli pikkus peab olema vähemalt 5 tähemärki",

@@ -1,4 +1,4 @@
-// Generated on 2015-06-06 using generator-jhipster 2.15.0
+// Generated on 2015-06-12 using generator-jhipster 2.16.0
 'use strict';
 var fs = require('fs');
 
@@ -144,9 +144,9 @@ module.exports = function (grunt) {
                             js: ['concat', 'uglifyjs'],
                             css: ['cssmin', useminAutoprefixer] // Let cssmin concat files so it corrects relative paths to fonts and images
                         },
-                            post: {}
-                        }
+                        post: {}
                     }
+                }
             }
         },
         usemin: {
@@ -168,7 +168,7 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     cwd: 'src/main/webapp/assets/images',
-                src: '**/*.{jpg,jpeg}', // we don't optimize PNG files as it doesn't work on Linux. If you are not on Linux, feel free to use '**/*.{png,jpg,jpeg}'
+                    src: '**/*.{jpg,jpeg}', // we don't optimize PNG files as it doesn't work on Linux. If you are not on Linux, feel free to use '**/*.{png,jpg,jpeg}'
                     dest: '<%= yeoman.dist %>/assets/images'
                 }]
             }
@@ -257,23 +257,13 @@ module.exports = function (grunt) {
                 }]
             },
             generateOpenshiftDirectory: {
-                    expand: true,
-                    dest: 'deploy/openshift',
-                    src: [
-                        'pom.xml',
-                        'src/main/**'
+                expand: true,
+                dest: 'deploy/openshift',
+                src: [
+                    'pom.xml',
+                    'src/main/**'
                 ]
             }
-        },
-        concurrent: {
-            server: [
-            ],
-            test: [
-            ],
-            dist: [
-                'imagemin',
-                'svgmin'
-            ]
         },
         karma: {
             unit: {
@@ -337,7 +327,6 @@ module.exports = function (grunt) {
         'clean:server',
         'wiredep',
         'ngconstant:dev',
-        'concurrent:server',
         'browserSync',
         'watch'
     ]);
@@ -351,7 +340,7 @@ module.exports = function (grunt) {
         'clean:server',
         'wiredep:test',
         'ngconstant:dev',
-        'concurrent:test'
+        'karma'
     ]);
 
     grunt.registerTask('build', [
@@ -360,7 +349,8 @@ module.exports = function (grunt) {
         'ngconstant:prod',
         'useminPrepare',
         'ngtemplates',
-        'concurrent:dist',
+        'imagemin',
+        'svgmin',
         'concat',
         'copy:dist',
         'ngAnnotate',
@@ -372,27 +362,27 @@ module.exports = function (grunt) {
         'htmlmin'
     ]);
 
-	grunt.registerTask('appendSkipBower', 'Force skip of bower for Gradle', function () {
+    grunt.registerTask('appendSkipBower', 'Force skip of bower for Gradle', function () {
 
-		if (!grunt.file.exists(filepath)) {
-			// Assume this is a maven project
-			return true;
-		}
+        if (!grunt.file.exists(filepath)) {
+            // Assume this is a maven project
+            return true;
+        }
 
-		var fileContent = grunt.file.read(filepath);
-		var skipBowerIndex = fileContent.indexOf("skipBower=true");
+        var fileContent = grunt.file.read(filepath);
+        var skipBowerIndex = fileContent.indexOf("skipBower=true");
 
-		if (skipBowerIndex != -1) {
-			return true;
-		}
+        if (skipBowerIndex != -1) {
+            return true;
+        }
 
-		grunt.file.write(filepath, fileContent + "\nskipBower=true\n");
-	});
+        grunt.file.write(filepath, fileContent + "\nskipBower=true\n");
+    });
 
     grunt.registerTask('buildOpenshift', [
         'test',
         'build',
-        'copy:generateOpenshiftDirectory'
+        'copy:generateOpenshiftDirectory',
     ]);
 
     grunt.registerTask('deployOpenshift', [

@@ -38,6 +38,12 @@ module.exports = function (config) {
             'main/webapp/bower_components/angular-strap/dist/angular-strap.js',
             'main/webapp/bower_components/angular-strap/dist/angular-strap.tpl.js',
             'main/webapp/bower_components/jquery.maskedinput/dist/jquery.maskedinput.js',
+            'main/webapp/bower_components/angular-ui-chart/src/chart.js',
+            'main/webapp/bower_components/angular-ui-grid/ui-grid.js',
+            'main/webapp/bower_components/angular-audio/app/angular.audio.js',
+            'main/webapp/bower_components/sifter/sifter.js',
+            'main/webapp/bower_components/microplugin/src/microplugin.js',
+            'main/webapp/bower_components/selectize/dist/js/selectize.js',
             'main/webapp/bower_components/angular-mocks/angular-mocks.js',
             // endbower
             'main/webapp/scripts/app/app.js',

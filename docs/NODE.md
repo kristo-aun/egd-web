@@ -54,7 +54,12 @@ Install grunt via npm
 
 To solve an imagemin during compile time
 ====
-    npm install grunt-contrib-imagemin --save-dev
-    npm install -save-dev
+    npm install -g grunt-contrib-imagemin --save-dev
+    npm install -g -save-dev
+    
+
+If you get "ROOT: Error during : npm install" during compilation, run
+
+    sudo chown -R $(whoami) ~/.npm
 
     

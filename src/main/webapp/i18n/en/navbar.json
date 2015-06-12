@@ -4,7 +4,7 @@
         "poll": "Poll",
         "overview": "Overview",
         "rtk": "Kanji",
-        "entity": {
+        "entities": {
             "main": "Study materials",
             "articles": "Articles",
             "tofus": "Tofu sentences"
@@ -20,10 +20,6 @@
             "main": "Account",
             "settings": "Settings",
             "password": "Password",
-            "health": "Health",
-            "configuration": "Configuration",
-            "logs": "Logs",
-            "audits": "Audits",
             "login": "Authenticate",
             "logout": "Log out",
             "register": "Register"

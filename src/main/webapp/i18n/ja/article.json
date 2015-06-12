@@ -1,0 +1,20 @@
+{
+    "article": {
+        "title": "Reading exercises",
+        "home": {
+            "createLabel": "Add new story"
+        },
+        "grid": {
+            "author": "作家",
+            "_author": "sakka",
+            "copyright": "コピーライト",
+            "title": "タイトル",
+            "transcriptLang": "音訳言語",
+            "_transcriptLang": "onyakugengo",
+            "created": "書かれた",
+            "_created": "kakareta",
+            "lastModified": "変更されました",
+            "_lastModified": "henkou saremashita"
+        }
+    }
+}

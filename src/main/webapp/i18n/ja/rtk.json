@@ -1,0 +1,30 @@
+{
+    "rtk": {
+        "title": "Heisig RTK",
+        "intro1": "This program filters out kanjis from a text and provides them with on/kun readings and various other information from <a target=\"_blank\" href=\"http://www.edrdg.org/kanjidic/kanjd2index.html\">KANJIDIC2</a>. If the kanji is enlisted in James W. Heisig's RTK1 book, its keyword and frame numbers are included from the book. 6395 kanjis have stroke diagrams, provided by <a target=\"_blank\" href=\"http://kanjivg.tagaini.net\">KanjiVG</a>.",
+        "intro2": "What differs this from traditional kanji dictionaries is the ability to analyze multiple kanjis at once and its RTK integration. Insufficient contextual information can be counted as a disadvantage. For a more sizable dictionary, you might want to take a look at <a target=\"_blank\" href=\"http://jisho.org\">jisho.org</a>.",
+
+        "find_kanjis": "Explain kanjis",
+        "query": "文か見出し語かイド",
+        "_query": "bun to midashigo to ido",
+        "find_kanjis_v6": "バージョン６で",
+        "_find_kanjis_v6": "baajon 6 de",
+        "find_kanjis_v4": "バージョン４で",
+        "_find_kanjis_v4": "baajon 4 de",
+        "no_results": "得られなかった",
+
+        "frame": {
+            "frameNo" : "V6 kaardi nr.",
+            "keyword" : "見出し語",
+            "_keyword" : "midashigo",
+
+            "lessonNo" : "H6 õppetükk nr.",
+            "constituent" : "Primitiivid",
+            "strokeCount" : "Jooni",
+            "onYomi" : "音読み",
+            "kunYomi" : "訓読み",
+            "frameNo4" : "V4 kaardi nr.",
+            "exampleWords": "言葉"
+        }
+    }
+}

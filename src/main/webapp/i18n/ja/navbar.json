@@ -1,0 +1,47 @@
+{
+    "navbar": {
+        "home": "辞書",
+        "_home": "jisho",
+        "poll": "意向調査",
+        "_poll": "ikouchousa",
+        "overview": "Ülevaade",
+        "rtk": "漢字",
+        "entities": {
+            "main": "資料",
+            "_main": "shiryou",
+            "articles": "文学",
+            "_articles": "bungaku",
+            "tofus": "トフー文"
+        },
+        "test": {
+            "main": "能力試験",
+            "_main": "nouryokushiken",
+            "compound": "文字",
+            "_compound": "moji"
+        },
+        "stats": {
+            "statistics": "Sõnastiku statistika"
+        },
+        "language": "Language",
+        "language.iso": {
+            "et": "Estonian",
+            "en": "English",
+            "ja": "Japanese"
+        },
+        "account": {
+            "main": "アカウント",
+            "settings": "Settings",
+            "password": "パスワード",
+            "login": "ログイン",
+            "logout": "ログアウト",
+            "register": "Register"
+        },
+        "admin": {
+            "main": "アカウント",
+            "health": "健康",
+            "_health": "kenkou",
+            "configuration": "Configuration",
+            "audits": "Audits"
+        }
+    }
+}

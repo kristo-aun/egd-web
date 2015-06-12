@@ -1,0 +1,80 @@
+{
+    "global": {
+        "title": "エストニア語です",
+        "browsehappy": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
+        "label": {
+            "specify": "Täpsustatud",
+            "search": "検索",
+            "word": "言葉",
+            "dictionary": "辞書",
+            "kanjis": "漢字",
+            "usage": "使い",
+            "level": "Level",
+            "index": "Index",
+            "username": "Login",
+            "password": "Password",
+            "newpassword": "New password",
+            "confirmpassword": "New password confirmation",
+            "email": "メアド",
+            "even": "Even",
+            "odd": "Odd"
+        },
+        "messages": {
+            "action": {
+                "refresh": "Refresh",
+                "search": "Search",
+                "forward": "Forward",
+                "back": "帰ります",
+                "cancel": "キャンセル",
+                "delete": "Delete",
+                "edit": "Edit",
+                "save": "Save",
+                "view": "開けます",
+                "create": "Create new",
+                "confirm": "Are you sure?"
+            },
+            "detail": {
+                "field": "Field",
+                "value": "Value"
+            },
+            "info": {
+                "register": "You don't have an account yet? <a href=\"#/register\">Register a new account</a>"
+            },
+            "confirm": "Confirm operation?",
+            "validate": {
+                "required": "This field is required.",
+                "minlength": "This field is required to be at least {{min}} characters.",
+                "maxlength": "This field cannot be longer than {{max}} characters.",
+                "min": "This field should be more than {{min}}.",
+                "max": "This field cannot be more than {{max}}.",
+                "pattern": "This field should follow pattern {{pattern}}.",
+                "number": "This field should be a number.",
+                "datetimelocal": "This field should be a date and time.",
+                "length": "This field should be {{length}} characters.",
+
+                "newpassword": {
+                    "required": "Your password is required.",
+                    "minlength": "Your password is required to be at least 5 characters",
+                    "maxlength": "Your password cannot be longer than 50 characters",
+                    "strength": "Password strength:"
+                },
+                "confirmpassword": {
+                    "required": "Your confirmation password is required.",
+                    "minlength": "Your confirmation password is required to be at least 5 characters",
+                    "maxlength": "Your confirmation password cannot be longer than 50 characters",
+                    "dontmatch": "Password and confirmation don't match!"
+                },
+                "email": {
+                    "required": "Your e-mail is required.",
+                    "invalid": "Your e-mail is invalid.",
+                    "minlength": "Your e-mail is required to be at least 5 characters",
+                    "maxlength": "Your e-mail cannot be longer than 50 characters"
+                }
+            }
+        }
+    },
+    "footer": {
+        "lastUpdated": "最終更新",
+        "_lastUpdated": "saishuukoushin"
+    }
+}

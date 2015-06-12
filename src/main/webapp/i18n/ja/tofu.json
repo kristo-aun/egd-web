@@ -1,0 +1,15 @@
+{
+    "tofu" : {
+        "home": {
+            "title": "Tofu sentences"
+        },
+        "detail": {
+            "title": "Tofu"
+        },
+        "grid": {
+            "word": "Word",
+            "sentence": "Sentence",
+            "translation": "Translation"
+        }
+    }
+}

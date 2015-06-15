@@ -15,7 +15,8 @@ var egdApp = angular.module('egdApp', [
     'ngAudio',
     'ui.chart',
     'ui.select',
-    'ui.grid.pagination'
+    'ui.grid.pagination',
+    'angular-loading-bar'
 ]);
 
 egdApp

@@ -1,2 +1,4 @@
 #!/bin/sh
-mvn clean package -Dmaven.test.skip=true -Pprod -e
+
+#mvn install spring-boot:repackage -Dmaven.test.skip=true
+mvn package -Dmaven.test.skip=true -Pprod -e

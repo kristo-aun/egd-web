@@ -1,13 +1,13 @@
-// Generated on 2015-06-12 using generator-jhipster 2.16.0
+// Generated on 2015-06-15 using generator-jhipster 2.16.0
 'use strict';
 var fs = require('fs');
 
 var parseString = require('xml2js').parseString;
 // Returns the second occurence of the version number
-var parseVersionFromPomXml = function() {
+var parseVersionFromPomXml = function () {
     var version;
     var pomXml = fs.readFileSync('pom.xml', "utf8");
-    parseString(pomXml, function (err, result){
+    parseString(pomXml, function (err, result) {
         version = result.project.version[0];
     });
     return version;
@@ -16,8 +16,8 @@ var parseVersionFromPomXml = function() {
 // usemin custom step
 var useminAutoprefixer = {
     name: 'autoprefixer',
-    createConfig: function(context, block) {
-        if(block.src.length === 0) {
+    createConfig: function (context, block) {
+        if (block.src.length === 0) {
             return {};
         } else {
             return require('grunt-usemin/lib/config/cssmin').createConfig(context, block) // Reuse cssmins createConfig
@@ -77,7 +77,7 @@ module.exports = function (grunt) {
         browserSync: {
             dev: {
                 bsFiles: {
-                    src : [
+                    src: [
                         'src/main/webapp/**/*.html',
                         'src/main/webapp/**/*.json',
                         'src/main/webapp/assets/styles/**/*.css',
@@ -189,7 +189,7 @@ module.exports = function (grunt) {
             }
             // src and dest is configured in a subtask called "generated" by usemin
         },
-        ngtemplates:    {
+        ngtemplates: {
             dist: {
                 cwd: 'src/main/webapp',
                 src: ['scripts/app/**/*.html', 'scripts/components/**/*.html',],
@@ -197,7 +197,7 @@ module.exports = function (grunt) {
                 options: {
                     module: 'egdApp',
                     usemin: 'scripts/app.js',
-                    htmlmin:  {
+                    htmlmin: {
                         removeCommentsFromCDATA: true,
                         // https://github.com/yeoman/grunt-usemin/issues/44
                         collapseWhitespace: true,
@@ -340,7 +340,6 @@ module.exports = function (grunt) {
         'clean:server',
         'wiredep:test',
         'ngconstant:dev'
-
     ]);
 
     grunt.registerTask('build', [

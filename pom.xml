@@ -625,10 +625,6 @@
                         <version>2.6</version>
                         <executions>
                             <execution>
-                                <id>default-war</id>
-                                <phase>none</phase>
-                            </execution>
-                            <execution>
                                 <id>war-exploded</id>
                                 <phase>package</phase>
                                 <goals>
@@ -641,10 +637,12 @@
                             <archive>
                                 <addMavenDescriptor>false</addMavenDescriptor>
                             </archive>
-                            <warSourceExcludes>WEB-INF/classes/config/application-dev.yml,
+                            <warSourceExcludes>
+                                WEB-INF/classes/config/application-dev.yml,
                                 WEB-INF/lib/tomcat-*.jar,
                                 WEB-INF/lib/javax.servlet-api-*.jar,
                                 assets/**,
+                                dist/**,
                                 bower_components/**,
                                 scripts/**,
                                 index.html

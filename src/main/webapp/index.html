@@ -39,7 +39,7 @@
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
 <![endif]-->
-<div ng-show="alerts" id="alert-wr" ng-controller="AlertController" ui-scrollfix="+100">
+<div ng-show="alerts" id="alert-wr" ng-controller="AlertController" ui-scrollfix="+100" ng-cloak>
     <alert ng-if="alerts" ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
         <span ng-if="alert.count > 1" style="margin-right:10px"><strong>({{alert.count}})</strong></span>
         <span ng-bind-html="alert.msg | unsafe"></span>

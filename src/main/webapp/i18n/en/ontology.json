@@ -2,9 +2,9 @@
     "ontology": {
         "kanjidetails": "Kanji details",
         "dictionary": "Dictionary",
-        "kanjis": "漢字",
-        "alphabet": "アルファベット",
-        "hiragana": "平仮名",
+        "kanjis": "Kanjis",
+        "alphabet": "Alphabet",
+        "hiragana": "Hiragana",
         "katakana": "Katakana",
         "jmdomain": {
             "domain": {

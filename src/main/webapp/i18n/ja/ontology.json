@@ -1,11 +1,11 @@
 {
     "ontology": {
-        "kanjidetails": "Kanji details",
-        "dictionary": "Dictionary",
-        "kanjis": "Kanjis",
-        "alphabet": "Alphabet",
-        "hiragana": "Hiragana",
-        "katakana": "Katakana",
+        "kanjidetails": "漢字の説明",
+        "dictionary": "辞書",
+        "kanjis": "漢字",
+        "alphabet": "アルファベット",
+        "hiragana": "平仮名",
+        "katakana": "片仮名",
         "jmdomain": {
             "domain": {
                 "archit": "architecture",

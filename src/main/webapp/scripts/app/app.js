@@ -101,6 +101,9 @@ egdApp
             }
         };
     })
+    .config(function(cfpLoadingBarProvider) {
+        cfpLoadingBarProvider.includeSpinner = false;
+    })
     .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider,
                       $logProvider, $translateProvider, tmhDynamicLocaleProvider,
                       httpRequestInterceptorCacheBusterProvider, ENV) {

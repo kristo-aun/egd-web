@@ -1,17 +1,18 @@
 {
     "login": {
-        "title": "ログイン",
+        "title": "Authentication",
         "form": {
-            "password": "パスワード",
+            "password": "Password",
+            "password.placeholder": "Your password",
             "rememberme": "Automatic Login",
-            "button": "ログイン"
+            "button": "Authenticate"
         },
         "messages": {
             "error": {
                 "authentication": "<strong>Authentication failed!</strong> Please check your credentials and try again."
             }
         },
-        "password" : {
+        "password": {
             "forgot": "Did you forget your password?"
         }
     }

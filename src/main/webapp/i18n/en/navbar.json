@@ -30,6 +30,11 @@
             "configuration": "Configuration",
             "audits": "Audits"
         },
-        "language": "Language"
+        "language": "Language",
+        "language.iso": {
+            "et": "Estonian",
+            "en": "English",
+            "ja": "Japanese"
+        }
     }
 }

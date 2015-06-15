@@ -11,13 +11,18 @@
             "usage": "使い",
             "level": "Level",
             "index": "Index",
-            "username": "Login",
-            "password": "Password",
+            "username": "ログイン",
+            "password": "パスワード",
             "newpassword": "New password",
             "confirmpassword": "New password confirmation",
             "email": "メアド",
             "even": "Even",
             "odd": "Odd"
+        },
+        "language": {
+            "et": "エストニア語",
+            "en": "英語",
+            "ja": "日本語"
         },
         "messages": {
             "action": {

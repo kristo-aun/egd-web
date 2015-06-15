@@ -1,89 +1,86 @@
-<div>
-    <div class="row">
-        <div class="col-md-4 col-md-offset-4">
-            <h2 translate="settings.title" translate-values="{username: '{{settingsAccount.login}}'}"></h2>
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <h2 translate="settings.title" translate-values="{username: '{{settingsAccount.login}}'}"></h2>
 
-            <ng-message-success show="success" i18n="settings.messages.success"></ng-message-success>
-            <ng-message-danger show="errorEmailExists" i18n="settings.messages.error.emailexists"></ng-message-danger>
-            <ng-message-danger show="error" i18n="settings.messages.error.fail"></ng-message-danger>
+        <ng-message-success show="success" i18n="settings.messages.success"></ng-message-success>
+        <ng-message-danger show="errorEmailExists" i18n="settings.messages.error.emailexists"></ng-message-danger>
+        <ng-message-danger show="error" i18n="settings.messages.error.fail"></ng-message-danger>
 
-            <form name="form" role="form" novalidate ng-submit="save()" show-validation>
+        <form name="form" role="form" novalidate ng-submit="save()" show-validation>
 
-                <div class="form-group">
-                    <label translate="settings.form.firstname"></label>
-                    <input type="text"
-                           class="form-control"
-                           name="firstName"
-                           ng-model="settingsAccount.firstName"
-                           ng-minlength=1
-                           ng-maxlength=50
-                           required
-                           maxlength="50">
+            <div class="form-group">
+                <label translate="settings.form.firstname"></label>
+                <input type="text"
+                       class="form-control"
+                       name="firstName"
+                       ng-model="settingsAccount.firstName"
+                       ng-minlength=1
+                       ng-maxlength=50
+                       required
+                       maxlength="50">
 
-                    <div ng-show="form.firstName.$dirty && form.firstName.$invalid">
-                        <p class="help-block"
-                           ng-show="form.firstName.$error.required"
-                           translate="settings.messages.validate.firstname.required">
-                        </p>
-                        <p class="help-block"
-                           ng-show="form.firstName.$error.minlength"
-                           translate="settings.messages.validate.firstname.minlength">
-                        </p>
-                        <p class="help-block"
-                           ng-show="form.firstName.$error.maxlength"
-                           translate="settings.messages.validate.firstname.maxlength">
-                        </p>
-                    </div>
+                <div ng-show="form.firstName.$dirty && form.firstName.$invalid">
+                    <p class="help-block"
+                       ng-show="form.firstName.$error.required"
+                       translate="settings.messages.validate.firstname.required">
+                    </p>
+                    <p class="help-block"
+                       ng-show="form.firstName.$error.minlength"
+                       translate="settings.messages.validate.firstname.minlength">
+                    </p>
+                    <p class="help-block"
+                       ng-show="form.firstName.$error.maxlength"
+                       translate="settings.messages.validate.firstname.maxlength">
+                    </p>
                 </div>
-                <div class="form-group">
-                    <label translate="settings.form.lastname"></label>
-                    <input type="text"
-                           class="form-control"
-                           name="lastName"
-                           ng-model="settingsAccount.lastName"
-                           ng-minlength=1
-                           ng-maxlength=50
-                           required
-                           maxlength="50">
+            </div>
+            <div class="form-group">
+                <label translate="settings.form.lastname"></label>
+                <input type="text"
+                       class="form-control"
+                       name="lastName"
+                       ng-model="settingsAccount.lastName"
+                       ng-minlength=1
+                       ng-maxlength=50
+                       required
+                       maxlength="50">
 
-                    <div ng-show="form.lastName.$dirty && form.lastName.$invalid">
-                        <p class="help-block"
-                           ng-show="form.lastName.$error.required"
-                           translate="settings.messages.validate.lastname.required">
-                        </p>
-                        <p class="help-block"
-                           ng-show="form.lastName.$error.minlength"
-                           translate="settings.messages.validate.lastname.minlength">
-                        </p>
-                        <p class="help-block"
-                           ng-show="form.lastName.$error.maxlength"
-                           translate="settings.messages.validate.lastname.maxlength">
-                        </p>
-                    </div>
+                <div ng-show="form.lastName.$dirty && form.lastName.$invalid">
+                    <p class="help-block"
+                       ng-show="form.lastName.$error.required"
+                       translate="settings.messages.validate.lastname.required">
+                    </p>
+                    <p class="help-block"
+                       ng-show="form.lastName.$error.minlength"
+                       translate="settings.messages.validate.lastname.minlength">
+                    </p>
+                    <p class="help-block"
+                       ng-show="form.lastName.$error.maxlength"
+                       translate="settings.messages.validate.lastname.maxlength">
+                    </p>
                 </div>
-                <div class="form-group">
-                    <label translate="global.label.email"></label>
-                    <input type="email" class="form-control" name="email"
-                           ng-model="settingsAccount.email"
-                           ng-minlength=5
-                           ng-maxlength=100
-                           required
-                           maxlength="100">
+            </div>
+            <div class="form-group">
+                <label translate="global.label.email"></label>
+                <input type="email" class="form-control" name="email"
+                       ng-model="settingsAccount.email"
+                       ng-minlength=5
+                       ng-maxlength=100
+                       required
+                       maxlength="100">
 
-                    <ng-validate-email field="form.email"></ng-validate-email>
-                </div>
-                <div class="form-group">
-                    <label translate="settings.form.language"></label>
-                    <select name="langKey" class="form-control" ng-model="settingsAccount.langKey"
-                            ng-controller="LanguageController"
-                            ng-options="code as ('global.language.' + code | translate) for code in languages"></select>
-                </div>
+                <ng-validate-email field="form.email"></ng-validate-email>
+            </div>
+            <div class="form-group">
+                <label translate="settings.form.language"></label>
+                <select name="langKey" class="form-control" ng-model="settingsAccount.langKey"
+                        ng-controller="LanguageController"
+                        ng-options="code as ('global.language.' + code | translate) for code in languages"></select>
+            </div>
 
-                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary"
-                        translate="global.messages.action.save">
-                </button>
-            </form>
-        </div>
+            <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary"
+                    translate="global.messages.action.save">
+            </button>
+        </form>
     </div>
-
 </div>

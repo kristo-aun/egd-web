@@ -1,29 +1,27 @@
-<div>
-    <div class="row">
-        <div class="col-md-4 col-md-offset-4" style="padding-top:40px">
-            <ng-message-danger show="authenticationError" i18n="login.messages.error.authentication"></ng-message-danger>
+<div class="row">
+    <div class="col-md-4 col-md-offset-4" style="padding-top:40px">
+        <ng-message-danger show="authenticationError" i18n="login.messages.error.authentication"></ng-message-danger>
 
-            <form class="form" role="form" ng-submit="login($event)">
-                <div class="form-group">
-                    <label for="username" translate="global.label.username"></label>
-                    <input type="text" class="form-control" id="username" ng-model="username">
-                </div>
-                <div class="form-group">
-                    <label for="password" translate="global.label.password"></label>
-                    <input type="password"
-                           class="form-control"
-                           id="password"
-                           ng-model="password">
-                </div>
-                <button type="submit" class="btn btn-primary" translate="login.form.button"></button>
-            </form>
-            <!--
-            <p></p>
-            <div class="alert alert-warning">
-                <a ui-sref="requestReset" translate="login.password.forgot"></a>
+        <form class="form" role="form" ng-submit="login($event)">
+            <div class="form-group">
+                <label for="username" translate="global.label.username"></label>
+                <input type="text" class="form-control" id="username" ng-model="username">
             </div>
-            <div class="alert alert-warning" translate="global.messages.info.register"></div>
-            -->
+            <div class="form-group">
+                <label for="password" translate="global.label.password"></label>
+                <input type="password"
+                       class="form-control"
+                       id="password"
+                       ng-model="password">
+            </div>
+            <button type="submit" class="btn btn-primary" translate="login.form.button"></button>
+        </form>
+        <!--
+        <p></p>
+        <div class="alert alert-warning">
+            <a ui-sref="requestReset" translate="login.password.forgot"></a>
         </div>
+        <div class="alert alert-warning" translate="global.messages.info.register"></div>
+        -->
     </div>
 </div>

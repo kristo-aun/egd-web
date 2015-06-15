@@ -476,6 +476,12 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
                     <packagingExcludes>WEB-INF/lib/tomcat-*.jar</packagingExcludes>
+                    <archive>
+                        <manifestEntries>
+                            <Main-Class>org.springframework.boot.loader.WarLauncher</Main-Class>
+                            <Start-Class>ee.esutoniagodesu.Application</Start-Class>
+                        </manifestEntries>
+                    </archive>
                 </configuration>
             </plugin>
             <plugin>

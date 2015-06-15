@@ -4,7 +4,7 @@
     <!--Realm className="ee.id.tomcat.authenticator.X509Realm"/-->
     <Valve className="org.apache.catalina.valves.AccessLogValve"
            directory="logs/access/apps/egd"
-           prefix="egd.access."
+           prefix="egd.access"
            suffix=".log"
            pattern="combined"
            resolveHosts="false"/>

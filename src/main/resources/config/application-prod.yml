@@ -1,4 +1,7 @@
 spring:
+    jmx:
+        enabled: false
+
     profiles:
         active: prod
 

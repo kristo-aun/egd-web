@@ -2,12 +2,6 @@
 management.security.enabled: true
 security.basic.enabled: false
 
-# Disable Jolokia - An http/json bridge for remote JMX access
-endpoints.jolokia.enabled: false
-
-# security configuration (this key should be unique for your application, and kept secret)
-app.security.rememberme.key: $4$lSqAdGCI$ZnRxsMR+w5jnkHRcvA8ZkSxlup0$
-
 async:
     corePoolSize: 2
     maxPoolSize: 50

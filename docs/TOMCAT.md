@@ -49,7 +49,7 @@ openssl req -x509 -new -nodes -key rootCA.key -out rootCA.crt -days 1825 -subj "
  
 Tomcat needs a Java keystore file<br/>
 ```
-keytool -genkey -keyalg RSA -alias tomcat -dname "CN=localhost, OU=Development, O=EsutoniaGoDesu, L=Tallinn, S=Harju, C=EE" -keystore egd-localhost.keystore
+keytool -genkey -keyalg RSA -alias tomcat -dname "CN=localhost, OU=Development, O=EsutoniaGoDesu, L=Tallinn, S=Harju, C=EE" -keystore localhost.keystore
 ```
 <br/>Common practice is to use changeit for keystore password. Don't enter keypassword for tomcat (3. prompt).
  
@@ -57,19 +57,19 @@ keytool -genkey -keyalg RSA -alias tomcat -dname "CN=localhost, OU=Development, 
 
 Apply for a signed certificate<br/>
 ```
-keytool -certreq -alias tomcat -keyalg RSA -file egd-localhost.csr -keystore egd-localhost.keystore
+keytool -certreq -alias tomcat -keyalg RSA -file localhost.csr -keystore localhost.keystore
 ```
  
 Sign the certificate request yourself<br/>
 ```
-openssl x509 -req -in egd-localhost.csr -CA rootCA.crt -CAkey rootCA.key -CAcreateserial -out egd-localhost.crt -days 1825
+openssl x509 -req -in localhost.csr -CA rootCA.crt -CAkey rootCA.key -CAcreateserial -out localhost.crt -days 1825
 ```
  
 ### Securing tomcat
 
 Install CA to keystore<br/>
 ```
-keytool -import -alias root -keystore egd-localhost.keystore -trustcacerts -file rootCA.crt
+keytool -import -alias root -keystore localhost.keystore -trustcacerts -file rootCA.crt
 ```
 <br/>Type yes when asked to trust this certificate
 
@@ -77,7 +77,7 @@ keytool -import -alias root -keystore egd-localhost.keystore -trustcacerts -file
 Install CA reply to keystore<br/>
 
 ```
-keytool -import -alias tomcat -keystore egd-localhost.keystore -file egd-localhost.crt
+keytool -import -alias tomcat -keystore localhost.keystore -file localhost.crt
 ```
 <br/>You should get "Certificate reply was installed in keystore" for reply. 
  

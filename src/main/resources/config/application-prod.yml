@@ -3,7 +3,7 @@ spring:
         active: prod
 
     datasource:
-        jndi-name: java:comp/env/jdbc/egd
+        jndi: java:comp/env/jdbc/egd
 
     mail:
         baseUrl: https://localhost:8443

@@ -8,12 +8,22 @@ import ee.esutoniagodesu.domain.freq.table.NresBase;
 import ee.esutoniagodesu.util.persistence.JDBCUtil;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.Query;
-import javax.persistence.StoredProcedureQuery;
+import javax.persistence.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@NamedStoredProcedureQueries({
+    @NamedStoredProcedureQuery(name = "f_compd_ilo_by_kanji", procedureName = "f_compd_ilo_by_kanji",
+        resultClasses = Ilo.class,
+        parameters = {
+            @StoredProcedureParameter(name = "kanjis", type = String.class, mode = ParameterMode.IN),
+            @StoredProcedureParameter(name = "compdlfrom", type = Integer.class, mode = ParameterMode.IN),
+            @StoredProcedureParameter(name = "compdlto", type = Integer.class, mode = ParameterMode.IN),
+            @StoredProcedureParameter(name = "ilo_by_kanji", type = void.class, mode = ParameterMode.REF_CURSOR)
+
+        })
+})
 @Repository
 public class CoreDB extends AbstractProjectRepository {
 

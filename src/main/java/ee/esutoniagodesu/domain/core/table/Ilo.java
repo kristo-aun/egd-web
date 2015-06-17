@@ -1,28 +1,8 @@
 package ee.esutoniagodesu.domain.core.table;
 
-import org.hibernate.jpa.QueryHints;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
-
-
-@NamedStoredProcedureQueries({ //
-    @NamedStoredProcedureQuery(name = "f_compd_ilo_by_kanji", procedureName = "public.f_compd_ilo_by_kanji",
-        hints = { @QueryHint(name = "org.hibernate.callable", value = "true")
-            , @QueryHint(name = "org.hibernate.readOnly", value = "true")
-        },
-
-        resultClasses = Ilo.class, parameters = {
-
-        @StoredProcedureParameter(name = "kanjis", type = String.class, mode = ParameterMode.IN),
-        @StoredProcedureParameter(name = "compdlfrom", type = Integer.class, mode = ParameterMode.IN),
-        @StoredProcedureParameter(name = "compdlto", type = Integer.class, mode = ParameterMode.IN),
-        @StoredProcedureParameter(name = "ilo_by_kanji", type = void.class, mode = ParameterMode.REF_CURSOR)
-
-    })
-})
-
 
 @Table(name = "ilo", schema = "core", catalog = "egd")
 @Entity

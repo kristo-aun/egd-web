@@ -77,8 +77,7 @@ public class TestCompoundResourceTest extends WebappTestEnvironment {
     @Test
     public void t1_submit_defaults() throws Exception {
 
-        coreDB.getIloWordsByKanjis("四五六", 1, 3);
-        //service.submit(FilterCompoundSubmitDefaults.getIloHeisig6(), null);
+        service.submit(FilterCompoundSubmitDefaults.getIloHeisig6(), null);
         //submit_dto(FilterCompoundSubmitDefaults.getIloHeisig6());
         //submit_dto(FilterCompoundSubmitDefaults.getCore6KHeisig6());
         //submit_dto(FilterCompoundSubmitDefaults.getCore10KJLPT());

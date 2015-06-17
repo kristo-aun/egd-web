@@ -8,6 +8,18 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 
+@NamedStoredProcedureQueries({
+    @NamedStoredProcedureQuery(name = "f_sens_by_kanj_and_rdng", procedureName = "f_sens_by_kanj_and_rdng",
+        resultClasses = Sens.class,
+        parameters = {
+            @StoredProcedureParameter(name = "kanj", type = String.class, mode = ParameterMode.IN),
+            @StoredProcedureParameter(name = "rdng", type = String.class, mode = ParameterMode.IN),
+            @StoredProcedureParameter(name = "sens", type = Integer.class, mode = ParameterMode.IN),
+            @StoredProcedureParameter(name = "jm_sens", type = void.class, mode = ParameterMode.REF_CURSOR)
+
+        })
+})
+
 @Entity
 @Immutable
 @IdClass(SensPK.class)

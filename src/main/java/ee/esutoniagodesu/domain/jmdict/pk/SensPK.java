@@ -10,6 +10,14 @@ public final class SensPK implements Serializable {
     private int entr;
     private int sens;
 
+    public SensPK() {
+    }
+
+    public SensPK(int entr, int sens) {
+        this.entr = entr;
+        this.sens = sens;
+    }
+
     @Column(name = "entr", nullable = false, insertable = true, updatable = true)
     @Id
     public int getEntr() {

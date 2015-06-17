@@ -233,9 +233,15 @@ public class TestCompoundService {
         Map<Integer, Integer> result = new HashMap<>();
         int deficit = 0;
         int count = 0;
+        int countAll = 0;
         for (int p = compdlto; p >= compdlfrom; p--) {
             //selle kanjide arvuga sõnu kui palju on saadaval
             int available = candicates.get(p).size();
+
+            if (p == compdlfrom) {
+                deficit = generateCount - countAll - countWish;
+            }
+
             if (countWish > available) {//kui soovitakse rohkem saada kui on saadaval
                 //siis võtame nii palju kui saada on ja määrame defitsiidi
                 deficit += countWish - available;
@@ -251,14 +257,12 @@ public class TestCompoundService {
             }
 
             result.put(p, count);
+            countAll += count;
         }
 
         if (deficit > 0) {
             log.warn("getDrawCountsLinear: deficit=" + deficit);
         }
-
-        System.out.println(result);
-        System.exit(0);
 
         return result;
     }

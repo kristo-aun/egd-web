@@ -1,5 +1,8 @@
 package ee.esutoniagodesu.repository.project;
 
+import ee.esutoniagodesu.domain.core.table.Core6K;
+import ee.esutoniagodesu.domain.core.table.Ilo;
+import ee.esutoniagodesu.domain.jmdict.pk.SensPK;
 import ee.esutoniagodesu.domain.jmdict.table.Entr;
 import ee.esutoniagodesu.domain.jmdict.table.Sens;
 import ee.esutoniagodesu.pojo.entity.JapEst;
@@ -9,6 +12,7 @@ import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
+import javax.persistence.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,22 +30,40 @@ public class JMDictDB extends AbstractProjectRepository {
     }
 
     public Sens getFirstSensByKanjAndRdng(String kanj, String rdng) {
-        StringBuilder msg = new StringBuilder("getFirstSensByKanjAndRdng: kanj=" + kanj + ", rdng=" + rdng);
-        Assert.isTrue(kanj != null && rdng != null);
-        long ms = System.currentTimeMillis();
+
+        Connection con = null;
+        CallableStatement s = null;
+        ResultSet rs = null;
+        Sens result = null;
 
         try {
-            Query query = null;//dao.getSession().getNamedQuery("f_sens_by_kanj_and_rdng");
-            query.setString(0, kanj);
-            query.setString(1, rdng);
-            query.setInteger(2, 1);
-            Sens result = (Sens) query.uniqueResult();
-            log.debug(msg.append(", result=").append(result).append(", time=").append(System.currentTimeMillis() - ms).toString());
-            return result;
-        } catch (Exception e) {
-            log.error(msg.append(", msg=").append(e.getMessage()).toString(), e);
-            throw e;
+            con = dao.getConnection();
+            con.setAutoCommit(false);
+
+            String sql = "{? = call f_sens_by_kanj_and_rdng(?,?,?)}";
+            s = con.prepareCall(sql);
+
+            s.registerOutParameter(1, Types.OTHER);//cursor
+            s.setString(2, kanj);
+            s.setString(3, rdng);
+            s.setInt(4, 1);
+
+            s.execute();
+            rs = (ResultSet) s.getObject(1);
+
+            if (rs.next()) {
+                SensPK pk = new SensPK(rs.getInt(1), rs.getInt(2));
+                result = em.find(Sens.class, pk);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            JDBCUtil.close(rs, s, con);
         }
+
+        return result;
+
     }
 
     public List<Integer> findEntrIdsFromRkValidity(String kanj, String rdng) {

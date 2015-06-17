@@ -2,8 +2,8 @@ package ee.esutoniagodesu.web.rest.test;
 
 import ee.esutoniagodesu.domain.ac.table.User;
 import ee.esutoniagodesu.pojo.test.compound.KanjiCompound;
-import ee.esutoniagodesu.pojo.test.compound.TestCompoundParamsDTO;
-import ee.esutoniagodesu.pojo.test.compound.TestCompoundSubmitDTO;
+import ee.esutoniagodesu.pojo.test.compound.FilterCompoundParamsDTO;
+import ee.esutoniagodesu.pojo.test.compound.FilterCompoundSubmitDTO;
 import ee.esutoniagodesu.security.AuthoritiesConstants;
 import ee.esutoniagodesu.service.TestCompoundService;
 import ee.esutoniagodesu.service.UserService;
@@ -37,7 +37,7 @@ public class TestCompoundResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed(AuthoritiesConstants.USER)
-    public TestCompoundParamsDTO getAllParams() {
+    public FilterCompoundParamsDTO getAllParams() {
         return service.params();
     }
 
@@ -45,8 +45,8 @@ public class TestCompoundResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed(AuthoritiesConstants.USER)
-    public ResponseEntity<TestCompoundSubmitDTO> getFormDefault(@PathVariable("defaultId") int defaultId) {
-        TestCompoundSubmitDTO result = service.getFormDefault(defaultId);
+    public ResponseEntity<FilterCompoundSubmitDTO> getFormDefault(@PathVariable("defaultId") int defaultId) {
+        FilterCompoundSubmitDTO result = service.getFormDefault(defaultId);
         if (result == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -57,7 +57,7 @@ public class TestCompoundResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed(AuthoritiesConstants.USER)
-    public ResponseEntity<List<KanjiCompound>> submit(@Valid @RequestBody TestCompoundSubmitDTO submit) {
+    public ResponseEntity<List<KanjiCompound>> submit(@Valid @RequestBody FilterCompoundSubmitDTO submit) {
         List<KanjiCompound> result = service.submit(submit, getSessionUser());
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

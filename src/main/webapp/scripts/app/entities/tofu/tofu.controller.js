@@ -35,11 +35,8 @@ egdApp
             TofuResource.get({id: id}, function(result) {
                 $scope.tofu = result;
                 $('#saveTofuModal').modal('show');
-                console.log("sees");
                 if ($scope.tofu.translation == null) {
-
                     TranslatorResource.translate("ja", "en", $scope.tofu.sentence).then(function(result) {
-
                         $scope.tofu.sentenceHint = result;
                     });
                 }
@@ -47,8 +44,13 @@ egdApp
         };
 
         $scope.clear = function () {
-            $scope.tofu = {word: null, sentence: null, id: null};
+            delete $scope.tofu;
+            delete $scope.tofuFilter;
             $scope.editForm.$setPristine();
             $scope.editForm.$setUntouched();
+        };
+
+        $scope.doFilter = function() {
+
         };
     });

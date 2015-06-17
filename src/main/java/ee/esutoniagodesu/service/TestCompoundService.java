@@ -45,21 +45,21 @@ public class TestCompoundService {
     @Inject
     private CoreDB coreDB;
 
-    private static final TestCompoundParamsDTO _params = new TestCompoundParamsDTO();
+    private static final FilterCompoundParamsDTO _params = new FilterCompoundParamsDTO();
 
     //------------------------------ enne submitti ------------------------------
 
-    public TestCompoundParamsDTO params() {
+    public FilterCompoundParamsDTO params() {
         return _params;
     }
 
-    public TestCompoundSubmitDTO getFormDefault(int paramId) {
-        return TestCompoundSubmitDefaults.getValueById(paramId).VALUE;
+    public FilterCompoundSubmitDTO getFormDefault(int paramId) {
+        return FilterCompoundSubmitDefaults.getValueById(paramId).VALUE;
     }
 
     //------------------------------ peale submitti ------------------------------
 
-    public List<KanjiCompound> submit(TestCompoundSubmitDTO s, User sessionUser) {
+    public List<KanjiCompound> submit(FilterCompoundSubmitDTO s, User sessionUser) {
         log.info("generate: s=" + s);
         long ms = System.currentTimeMillis();
 

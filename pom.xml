@@ -67,7 +67,7 @@
         <gatling.version>2.1.5</gatling.version>
 
         <genericdao.version>1.2.0</genericdao.version>
-        <hibernate.version>4.3.8.Final</hibernate.version>
+        <hibernate.version>4.3.10.Final</hibernate.version>
         <jasperreports>6.1.0</jasperreports>
         <java.version>1.8</java.version>
         <javax.inject.version>1</javax.inject.version>

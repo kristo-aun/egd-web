@@ -1,8 +1,8 @@
 package ee.esutoniagodesu.web.rest;
 
 import ee.esutoniagodesu.bean.ProjectDAO;
-import ee.esutoniagodesu.pojo.test.compound.TestCompoundSubmitDTO;
-import ee.esutoniagodesu.pojo.test.compound.TestCompoundSubmitDefaults;
+import ee.esutoniagodesu.pojo.test.compound.FilterCompoundSubmitDTO;
+import ee.esutoniagodesu.pojo.test.compound.FilterCompoundSubmitDefaults;
 import ee.esutoniagodesu.repository.project.*;
 import ee.esutoniagodesu.service.TestCompoundService;
 import ee.esutoniagodesu.web.rest.test.TestCompoundResource;
@@ -76,13 +76,15 @@ public class TestCompoundResourceTest extends WebappTestEnvironment {
      */
     @Test
     public void t1_submit_defaults() throws Exception {
-        //service.submit(dto, null);
-        submit_dto(TestCompoundSubmitDefaults.getIloHeisig6());
-        submit_dto(TestCompoundSubmitDefaults.getCore6KHeisig6());
-        submit_dto(TestCompoundSubmitDefaults.getCore10KJLPT());
+
+        coreDB.getIloWordsByKanjis("四五六", 1, 3);
+        //service.submit(FilterCompoundSubmitDefaults.getIloHeisig6(), null);
+        //submit_dto(FilterCompoundSubmitDefaults.getIloHeisig6());
+        //submit_dto(FilterCompoundSubmitDefaults.getCore6KHeisig6());
+        //submit_dto(FilterCompoundSubmitDefaults.getCore10KJLPT());
     }
 
-    private void submit_dto(TestCompoundSubmitDTO dto) throws Exception {
+    private void submit_dto(FilterCompoundSubmitDTO dto) throws Exception {
         mockMvc.perform(
             post(TestCompoundResource.BASE_URL + "/submit")
                 .with(request -> {

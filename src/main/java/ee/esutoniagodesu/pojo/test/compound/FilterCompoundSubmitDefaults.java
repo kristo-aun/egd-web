@@ -3,22 +3,22 @@ package ee.esutoniagodesu.pojo.test.compound;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public enum TestCompoundSubmitDefaults {
+public enum FilterCompoundSubmitDefaults {
 
     ilo_heisig6_1_100(1, getIloHeisig6()),
     core6k_heisig6_1_900(2, getCore6KHeisig6()),
     core10k_jlpt_1_3(3, getCore10KJLPT());
 
     public final int ID;
-    public final TestCompoundSubmitDTO VALUE;
+    public final FilterCompoundSubmitDTO VALUE;
 
-    TestCompoundSubmitDefaults(int id, TestCompoundSubmitDTO form) {
+    FilterCompoundSubmitDefaults(int id, FilterCompoundSubmitDTO form) {
         ID = id;
         VALUE = form;
     }
 
-    public static TestCompoundSubmitDefaults getValueById(int id) {
-        for (TestCompoundSubmitDefaults p : values()) {
+    public static FilterCompoundSubmitDefaults getValueById(int id) {
+        for (FilterCompoundSubmitDefaults p : values()) {
             if (p.ID == id) return p;
         }
         return null;
@@ -26,7 +26,7 @@ public enum TestCompoundSubmitDefaults {
 
     public static Map<Integer, String> asMap() {
         Map<Integer, String> result = new LinkedHashMap<>();
-        for (TestCompoundSubmitDefaults p : values()) {
+        for (FilterCompoundSubmitDefaults p : values()) {
             result.put(p.ID, p.name().toLowerCase());
         }
         return result;
@@ -34,8 +34,8 @@ public enum TestCompoundSubmitDefaults {
 
     //------------------------------ vormid ------------------------------
 
-    public static TestCompoundSubmitDTO getIloHeisig6() {
-        TestCompoundSubmitDTO submit = new TestCompoundSubmitDTO();
+    public static FilterCompoundSubmitDTO getIloHeisig6() {
+        FilterCompoundSubmitDTO submit = new FilterCompoundSubmitDTO();
 
         submit.dictionary = EDictionary.ilo_yellow_jp_et.ID;
         submit.generateCount = 100;
@@ -58,8 +58,8 @@ public enum TestCompoundSubmitDefaults {
         return submit;
     }
 
-    public static TestCompoundSubmitDTO getCore6KHeisig6() {
-        TestCompoundSubmitDTO submit = new TestCompoundSubmitDTO();
+    public static FilterCompoundSubmitDTO getCore6KHeisig6() {
+        FilterCompoundSubmitDTO submit = new FilterCompoundSubmitDTO();
 
         submit.dictionary = EDictionary.core6k.ID;
         submit.generateCount = 100;
@@ -82,8 +82,8 @@ public enum TestCompoundSubmitDefaults {
         return submit;
     }
 
-    public static TestCompoundSubmitDTO getCore10KJLPT() {
-        TestCompoundSubmitDTO submit = new TestCompoundSubmitDTO();
+    public static FilterCompoundSubmitDTO getCore10KJLPT() {
+        FilterCompoundSubmitDTO submit = new FilterCompoundSubmitDTO();
 
         submit.dictionary = EDictionary.core10k.ID;
         submit.generateCount = 100;

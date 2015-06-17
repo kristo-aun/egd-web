@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import javax.persistence.*;
 import java.io.Serializable;
 
+
 @Entity
 @Table(name = "tofu_sentence", schema = "freq", catalog = "egd")
 public final class TofuSentence implements Serializable {

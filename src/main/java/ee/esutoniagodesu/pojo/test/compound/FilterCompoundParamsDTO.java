@@ -6,10 +6,11 @@ import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public final class TestCompoundParamsDTO implements Serializable {
+public final class FilterCompoundParamsDTO implements Serializable {
+
     private static final long serialVersionUID = -4846810847410530439L;
 
-    public final Map<Integer, String> formDefaultMap = TestCompoundSubmitDefaults.asMap();
+    public final Map<Integer, String> formDefaultMap = FilterCompoundSubmitDefaults.asMap();
 
     public final Map<Integer, String> dictionaryMap = JCMap.toMap(EDictionary.values());
     public final Map<Integer, String> core10kLevelMap = JCMap.toIntLinkedHashMap(1, 10);

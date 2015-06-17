@@ -2,6 +2,8 @@ package ee.esutoniagodesu.web.rest;
 
 import ee.esutoniagodesu.domain.ac.table.User;
 import ee.esutoniagodesu.domain.freq.table.TofuSentence;
+import ee.esutoniagodesu.pojo.test.compound.FilterCompoundSubmitDTO;
+import ee.esutoniagodesu.pojo.test.compound.KanjiCompound;
 import ee.esutoniagodesu.security.AuthoritiesConstants;
 import ee.esutoniagodesu.service.TofuService;
 import ee.esutoniagodesu.service.UserService;
@@ -61,6 +63,15 @@ public class TofuResource {
         Page<TofuSentence> result = service.getTofusByUser(page, limit, getSessionUser());
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(result, BASE_URL, page, limit);
         return new ResponseEntity<>(result.getContent(), headers, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/byFilter",
+        method = RequestMethod.POST,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @RolesAllowed(AuthoritiesConstants.USER)
+    public ResponseEntity<List<TofuSentence>> byFilter(@Valid @RequestBody FilterCompoundSubmitDTO filter) {
+        List<TofuSentence> result = service.byFilter(filter);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}",

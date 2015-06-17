@@ -1,9 +1,133 @@
-<div class="row">
+<div>
+    <div class="row">
+        <div class="col-lg-4">
+            <h2 translate="tofu.home.title"></h2>
+        </div>
+        <div class="col-lg-8">
+            <form name="form" role="form" ng-submit="doFilter()" novalidate show-validation>
+                <div class="row form-group">
+                    <label class="vertical-align">
+                        <div class="col-lg-4">
+                            <span translate="test.compound.filterType"></span>
+                        </div>
+                        <div class="col-lg-7">
+                            <select ng-model="tofuFilter.filterType"
+                                    class="form-control"
+                                    ng-required
+                                    style="width: 240px"
+                                    ng-change="onFilterTypeChange()"
+                                    ng-options="key as ('test.compound.filterType.values.' + value | translate) for (key, value) in params.filterTypeMap">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                        <div class="col-lg-1">
+                            <ng-tip template="'scripts/components/tip/tipTestCompoundFiltertype.html'" placement="right"></ng-tip>
+                        </div>
+                    </label>
+                </div>
 
-    <h2 translate="tofu.home.title"></h2>
+                <div ng-if="tofuFilter.filterType" ng-switch="tofuFilter.kanjiIntervalType">
+                    <div class="row form-group">
+                        <div class="vertical-align">
+                            <div class="col-lg-3 col-lg-offset-1">
+                                <span translate="test.compound.intervalType"></span>
+                            </div>
+                            <div class="col-lg-8">
+                                <label class="radio-inline">
+                                    <input type="radio" ng-model="tofuFilter.kanjiIntervalType" value="level" ng-change="onFilterTypeChange()">
+                                    {{'test.compound.intervalByLevel' | translate}}
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" ng-model="tofuFilter.kanjiIntervalType" value="index" ng-change="onFilterTypeChange()">
+                                    {{'test.compound.intervalByIndex' | translate}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
 
-    <div class="modal fade" id="saveTofuModal" tabindex="-1" role="dialog" aria-labelledby="myTofuLabel"
-         aria-hidden="true">
+                    <div ng-switch-when="level" class="row">
+                        <div class="vertical-align">
+                            <div class="col-lg-8 col-lg-offset-4 form-group">
+                                <select ng-model="tofuFilter.kanjiInterval[0]"
+                                        class="form-control col-md-5"
+                                        style="width: 100px;padding-left: 12px;"
+                                        ng-options="key as value for (key, value) in kanjiLevelMap">
+                                </select>
+                                <span class="interval-space col-md-1">-</span>
+                                <select ng-model="tofuFilter.kanjiInterval[1]"
+                                        style="width: 100px;padding-left: 12px;"
+                                        class="form-control col-md-5"
+                                        ng-options="key as value for (key, value) in kanjiLevelMap">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-switch-when="index" class="row">
+                        <div class="vertical-align">
+                            <div class="col-lg-8 col-lg-offset-4 form-group">
+                                <input type="number"
+                                       style="width: 100px;padding-left: 12px;"
+                                       min="1"
+                                       max="3000"
+                                       class="form-control col-md-5"
+                                       ng-model="tofuFilter.kanjiInterval[0]">
+                                <span class="interval-space col-md-1">-</span>
+                                <input type="number"
+                                       style="width: 100px;padding-left: 12px;"
+                                       min="1"
+                                       max="3000"
+                                       class="form-control col-md-5"
+                                       ng-model="tofuFilter.kanjiInterval[1]">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <ng-pagination page="page"
+                       limit="limit"
+                       links="links"
+                       load-page="loadPage"
+                       hide-if-limit-count="totalCount"></ng-pagination>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th style="width: 80px;">ID</th>
+                <th style="width: 200px;" translate="tofu.grid.word"></th>
+                <th style="width: 450px;" translate="tofu.grid.sentence"></th>
+                <th translate="tofu.grid.translation"></th>
+                <th style="width: 100px;"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="tofu in tofus">
+                <td><a ui-sref="tofuDetail({id:tofu.id})">{{tofu.id}}</a></td>
+                <td>{{tofu.word}}</td>
+                <td>{{tofu.sentence}}</td>
+                <td>{{tofu.translation.translation}}</td>
+                <td>
+                    <button type="submit"
+                            ng-click="show(tofu.id)"
+                            class="btn btn-primary">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+                        translate="global.messages.action.edit"></span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <ng-pagination page="page"
+                       limit="limit"
+                       links="links"
+                       load-page="loadPage"
+                       hide-if-limit-count="totalCount"></ng-pagination>
+    </div>
+
+    <div class="modal fade" id="saveTofuModal" tabindex="-1" role="dialog" aria-labelledby="myTofuLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-lg">
             <div class="modal-content">
                 <form name="editForm" role="form" novalidate ng-submit="update()" show-validation>
@@ -53,45 +177,5 @@
                 </form>
             </div>
         </div>
-    </div>
-
-    <div class="col-md-12">
-        <ng-pagination page="page"
-                       limit="limit"
-                       links="links"
-                       load-page="loadPage"
-                       hide-if-limit-count="totalCount"></ng-pagination>
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th style="width: 80px;">ID</th>
-                <th style="width: 200px;" translate="tofu.grid.word"></th>
-                <th style="width: 450px;" translate="tofu.grid.sentence"></th>
-                <th translate="tofu.grid.translation"></th>
-                <th style="width: 100px;"></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="tofu in tofus">
-                <td><a ui-sref="tofuDetail({id:tofu.id})">{{tofu.id}}</a></td>
-                <td>{{tofu.word}}</td>
-                <td>{{tofu.sentence}}</td>
-                <td>{{tofu.translation.translation}}</td>
-                <td>
-                    <button type="submit"
-                            ng-click="show(tofu.id)"
-                            class="btn btn-primary">
-                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
-                        translate="global.messages.action.edit"></span>
-                    </button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <ng-pagination page="page"
-                       limit="limit"
-                       links="links"
-                       load-page="loadPage"
-                       hide-if-limit-count="totalCount"></ng-pagination>
     </div>
 </div>

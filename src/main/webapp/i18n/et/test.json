@@ -21,8 +21,8 @@
             "dictSelect": "Sõnavara kogum",
             "dictSelect.values": {
                 "ilo_yellow_jp_et": "Taskusõnastiku sõnavara",
-                "core10k": "Core6k sõnavara",
-                "core6k": "Core10k sõnavara"
+                "core10k": "Core10k sõnavara",
+                "core6k": "Core6k sõnavara"
             },
             "generateCount": "Testitavate sõnade arv",
             "compLengthInterval": "Mitu kanjit võib sõna sisaldada",

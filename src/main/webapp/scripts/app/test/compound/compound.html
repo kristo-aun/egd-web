@@ -12,7 +12,7 @@
                     <select class="form-control"
                             ng-model="formDefaultId"
                             ng-change="onDefaultFormChange(formDefaultId)"
-                            ng-options="key as ('test.compound.defaultFormMap.values.' + value | translate) for (key, value) in params.formDefaultMap">
+                            ng-options="key*1 as ('test.compound.defaultFormMap.values.' + value | translate) for (key, value) in params.formDefaultMap">
                         <option value=""></option>
                     </select>
                 </div>
@@ -33,7 +33,7 @@
                             ng-required
                             style="width: 240px"
                             ng-change="onFilterTypeChange()"
-                            ng-options="key as ('test.compound.filterType.values.' + value | translate) for (key, value) in params.filterTypeMap">
+                            ng-options="key*1 as ('test.compound.filterType.values.' + value | translate) for (key, value) in params.filterTypeMap">
                         <option value=""></option>
                     </select>
                 </div>
@@ -68,13 +68,13 @@
                         <select ng-model="facts.kanjiInterval[0]"
                                 class="form-control col-md-5"
                                 style="width: 100px;padding-left: 12px;"
-                                ng-options="key as value for (key, value) in kanjiLevelMap">
+                                ng-options="key*1 as value for (key, value) in kanjiLevelMap">
                         </select>
                         <span class="interval-space col-md-1">-</span>
                         <select ng-model="facts.kanjiInterval[1]"
                                 style="width: 100px;padding-left: 12px;"
                                 class="form-control col-md-5"
-                                ng-options="key as value for (key, value) in kanjiLevelMap">
+                                ng-options="key*1 as value for (key, value) in kanjiLevelMap">
                         </select>
                     </div>
                 </div>
@@ -110,7 +110,7 @@
                     <select class="form-control"
                             style="width: 240px"
                             ng-model="facts.dictionary"
-                            ng-options="key as ('test.compound.dictSelect.values.' + value | translate) for (key, value) in params.dictionaryMap">
+                            ng-options="key*1 as ('test.compound.dictSelect.values.' + value | translate) for (key, value) in params.dictionaryMap">
                         <option value=""></option>
                     </select>
                 </div>
@@ -196,7 +196,7 @@
                     <select class="form-control"
                             ng-model="facts.orderByType"
                             style="width: 240px"
-                            ng-options="key as ('test.compound.orderByType.values.' + value | translate) for (key, value) in params.orderByTypeMap">
+                            ng-options="key*1 as ('test.compound.orderByType.values.' + value | translate) for (key, value) in params.orderByTypeMap">
                         <option value=""></option>
                     </select>
                 </div>

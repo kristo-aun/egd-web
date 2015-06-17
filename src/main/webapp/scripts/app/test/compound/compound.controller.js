@@ -1,10 +1,15 @@
 'use strict';
 
 egdApp
-    .controller('CompoundController', function ($scope, $translate, $log, TestCompoundResource) {
+    .controller('CompoundController', function ($state, $scope, $translate, $log, TestCompoundResource) {
 
         $scope.clear = function() {
             delete $scope.params;
+        };
+
+        $scope.clearError = function() {
+            delete $scope.errorI18n;
+            delete $scope.error;
         };
 
         $scope.setFactsToDefault = function() {
@@ -56,9 +61,10 @@ egdApp
 
         $scope.onDefaultFormChange = function(defaultForm) {
             $log.debug("onDefaultFormChange: defaultForm=", defaultForm);
+            $scope.formDefaultId = defaultForm;
             if (defaultForm) {
                 $log.debug("onDefaultFormChange: will change form values");
-                TestCompoundResource.formDefault($scope.formDefaultId).then(function (data) {
+                TestCompoundResource.formDefault(defaultForm).then(function (data) {
                     $scope.facts = data;
                 });
             } else {
@@ -75,11 +81,14 @@ egdApp
         };
 
         $scope.doSubmit = function() {
-            $log.debug("doSubmit: facts=", $scope.facts);
-
+            $scope.clearError();
             TestCompoundResource.submit($scope.facts).then(function (data) {
                 $scope.compounds = data;
-                $state.go(".submit");
+                $state.go("compound.second");
+            }, function() {
+                $scope.error = true;
+                $scope.errorI18n = "global.messages.error.fail";
             });
         };
+        $state.go(".first");
     });

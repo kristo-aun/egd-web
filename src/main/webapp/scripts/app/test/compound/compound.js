@@ -23,8 +23,12 @@ egdApp
                     }]
                 }
             })
-            .state('compound.submit', {
+            .state('compound.first', {
                 parent: "compound",
-                templateUrl: 'scripts/app/test/compound/compound.submit.html'
+                templateUrl: 'scripts/app/test/compound/compound.first.html'
+            })
+            .state('compound.second', {
+                parent: "compound",
+                templateUrl: 'scripts/app/test/compound/compound.second.html'
             });
     });

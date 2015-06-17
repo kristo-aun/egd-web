@@ -101,4 +101,8 @@ public final class Pos implements Serializable {
         result = 31 * result + kw;
         return result;
     }
+
+    public String toString() {
+        return kwposByKw != null ? kwposByKw.getKw() : null;
+    }
 }

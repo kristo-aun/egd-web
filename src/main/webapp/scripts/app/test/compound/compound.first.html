@@ -1,0 +1,273 @@
+<form name="form" role="form" ng-submit="doSubmit()" novalidate show-validation>
+    <div class="col-lg-6 col-lg-offset-3">
+        <div class="row centered">
+            <h2>Testi genereerimine</h2>
+        </div>
+        <div class="row form-group" style="margin-top:20px">
+            <label class="vertical-align">
+                <div class="col-lg-4">
+                    <span translate="test.compound.defaultFormMap"></span>
+                </div>
+                <div class="col-lg-7">
+                    <select class="form-control"
+                            ng-model="formDefaultId"
+                            ng-change="onDefaultFormChange(formDefaultId)"
+                            ng-options="key*1 as ('test.compound.defaultFormMap.values.' + value | translate) for (key, value) in params.formDefaultMap">
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div class="col-lg-1">
+                    <ng-tip template="'scripts/components/tip/tipTestCompoundDefaultform.html'" placement="right"></ng-tip>
+                </div>
+            </label>
+        </div>
+
+        <div class="row form-group">
+            <label class="vertical-align">
+                <div class="col-lg-4">
+                    <span translate="test.compound.filterType"></span>
+                </div>
+                <div class="col-lg-7">
+                    <select ng-model="facts.filterType"
+                            class="form-control"
+                            ng-required
+                            style="width: 240px"
+                            ng-change="onFilterTypeChange()"
+                            ng-options="key*1 as ('test.compound.filterType.values.' + value | translate) for (key, value) in params.filterTypeMap">
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div class="col-lg-1">
+                    <ng-tip template="'scripts/components/tip/tipTestCompoundFiltertype.html'" placement="right"></ng-tip>
+                </div>
+            </label>
+        </div>
+
+        <div ng-if="facts.filterType" ng-switch="facts.kanjiIntervalType">
+            <div class="row form-group">
+                <div class="vertical-align">
+                    <div class="col-lg-3 col-lg-offset-1">
+                        <span translate="test.compound.intervalType"></span>
+                    </div>
+                    <div class="col-lg-8">
+                        <label class="radio-inline">
+                            <input type="radio" ng-model="facts.kanjiIntervalType" value="level" ng-change="onFilterTypeChange()">
+                            {{'test.compound.intervalByLevel' | translate}}
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" ng-model="facts.kanjiIntervalType" value="index" ng-change="onFilterTypeChange()">
+                            {{'test.compound.intervalByIndex' | translate}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-switch-when="level" class="row">
+                <div class="vertical-align">
+                    <div class="col-lg-8 col-lg-offset-4 form-group">
+                        <select ng-model="facts.kanjiInterval[0]"
+                                class="form-control col-md-5"
+                                style="width: 100px;padding-left: 12px;"
+                                ng-options="key*1 as value for (key, value) in kanjiLevelMap">
+                        </select>
+                        <span class="interval-space col-md-1">-</span>
+                        <select ng-model="facts.kanjiInterval[1]"
+                                style="width: 100px;padding-left: 12px;"
+                                class="form-control col-md-5"
+                                ng-options="key*1 as value for (key, value) in kanjiLevelMap">
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-switch-when="index" class="row">
+                <div class="vertical-align">
+                    <div class="col-lg-8 col-lg-offset-4 form-group">
+                        <input type="number"
+                               style="width: 100px;padding-left: 12px;"
+                               min="1"
+                               max="3000"
+                               class="form-control col-md-5"
+                               ng-model="facts.kanjiInterval[0]">
+                        <span class="interval-space col-md-1">-</span>
+                        <input type="number"
+                               style="width: 100px;padding-left: 12px;"
+                               min="1"
+                               max="3000"
+                               class="form-control col-md-5"
+                               ng-model="facts.kanjiInterval[1]">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <label class="vertical-align">
+                <div class="col-lg-4">
+                    <span translate="test.compound.dictSelect"></span>
+                </div>
+                <div class="col-lg-7">
+                    <select class="form-control"
+                            style="width: 240px"
+                            ng-model="facts.dictionary"
+                            ng-options="key*1 as ('test.compound.dictSelect.values.' + value | translate) for (key, value) in params.dictionaryMap">
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div class="col-lg-1">
+                    <ng-tip template="'scripts/components/tip/tipTestCompoundDictionary.html'" placement="right"></ng-tip>
+                </div>
+            </label>
+        </div>
+
+        <div class="row">
+            <div class="vertical-align">
+                <div class="col-lg-4">
+                    <span translate="test.compound.meaningComponents"></span>
+                </div>
+                <div class="col-lg-7 form-group" style="margin-bottom: 0;">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox"
+                                   ng-model="facts.noEnIfHasEt">
+                            {{'test.compound.noEnIfHasEt' | translate}}
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox"
+                                   ng-model="facts.notesVisible">
+                            {{'test.compound.notesVisible' | translate}}
+                        </label>
+                    </div>
+                </div>
+                <div class="col-lg-1">
+                    <ng-tip template="'scripts/components/tip/tipTestCompoundMeaning.html'" placement="right"></ng-tip>
+                </div>
+            </div>
+        </div>
+
+        <div class="row form-group">
+            <label class="vertical-align">
+                <div class="col-lg-4">
+                    <span translate="test.compound.generateCount"></span>
+                </div>
+                <div class="col-lg-8">
+                    <input type="number"
+                           class="form-control"
+                           style="width: 100px"
+                           ng-model="facts.generateCount">
+                </div>
+            </label>
+        </div>
+
+        <div class="row">
+            <div class="vertical-align form-group">
+                <div class="col-lg-4">
+                    <span translate="test.compound.compLengthInterval"></span>
+                </div>
+                <div class="col-lg-7">
+                    <input type="number"
+                           class="form-control col-md-5"
+                           min="1"
+                           max="{{facts.compLengthInterval[1]}}"
+                           style="width: 100px;padding-left: 12px;"
+                           ng-model="facts.compLengthInterval[0]">
+                    <span class="interval-space col-md-1">-</span>
+                    <input type="number"
+                           class="form-control col-md-5"
+                           min="{{facts.compLengthInterval[0]}}"
+                           max="7"
+                           style="width: 100px;padding-left: 12px;"
+                           ng-model="facts.compLengthInterval[1]">
+                </div>
+                <div class="col-lg-1">
+                    <ng-tip template="'scripts/components/tip/tipTestCompoundComplength.html'" placement="right"></ng-tip>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="vertical-align form-group">
+                <div class="col-lg-4">
+                    <span translate="test.compound.orderByType"></span>
+                </div>
+                <div class="col-lg-7">
+                    <select class="form-control"
+                            ng-model="facts.orderByType"
+                            style="width: 240px"
+                            ng-options="key*1 as ('test.compound.orderByType.values.' + value | translate) for (key, value) in params.orderByTypeMap">
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div class="col-lg-1">
+                    <ng-tip template="'scripts/components/tip/tipTestCompoundOrderby.html'" placement="right"></ng-tip>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="vertical-align">
+                <div class="col-lg-4">
+                    <span translate="test.compound.hints"></span>
+                </div>
+                <div class="col-lg-7 form-group" style="margin-bottom:0">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox"
+                                   ng-model="facts.strokeCountHintVisible">
+                            {{'test.compound.strokeCountHint' | translate}}
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox"
+                                   ng-model="facts.radicalHintVisible">
+                            {{'test.compound.radicalHintVisible' | translate}}
+                        </label>
+                    </div>
+                </div>
+                <div class="col-lg-1">
+                    <ng-tip template="'scripts/components/tip/tipTestCompoundHints.html'" placement="right"></ng-tip>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="vertical-align">
+                <div class="col-lg-4">
+                    <span translate="test.compound.export"></span>
+                </div>
+                <div class="col-lg-7 form-group checkbox">
+                    <label>
+                        <input type="checkbox"
+                               ng-model="facts.generatePdf">
+                        {{'test.compound.generatePdf' | translate}}
+                    </label>
+                </div>
+                <div class="col-lg-1">
+                    <ng-tip template="'scripts/components/tip/tipTestCompoundExport.html'" placement="right"></ng-tip>
+                </div>
+            </div>
+        </div>
+        <div class="row form-group" style="margin-top:20px">
+            <div class="col-xs-8 col-xs-offset-2">
+                <a ng-click="doSubmit()" ng-disabled="form.$invalid" class="btn btn-block btn-default">
+                    {{'global.messages.action.generate' | translate}}
+                    <span class="glyphicon glyphicon-circle-arrow-right"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</form>
+<div ng-show="error" class="col-xs-4 col-xs-offset-4" style="padding-right:20px">
+    <ng-message-danger show="error" i18n="errorI18n"></ng-message-danger>
+</div>
+<style>
+    .interval-space {
+        margin-top: 6px;
+        margin-right: 0;
+        width: 14px;
+        margin-left: 8px;
+    }
+</style>

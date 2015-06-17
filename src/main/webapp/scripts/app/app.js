@@ -38,7 +38,6 @@ egdApp
 
         $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
             var titleKey = 'global.title';
-
             $rootScope.previousStateName = fromState.name;
             $rootScope.previousStateParams = fromParams;
 

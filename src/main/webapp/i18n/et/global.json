@@ -41,6 +41,8 @@
                 "value": "Väärtus"
             },
             "error": {
+                "fail": "Toiming ebaõnnestus!",
+                "deleteError": "Kustutamine ebaõnnestus!",
                 "dontmatch": "Parool ja kinnitus ei kattu."
             },
             "warn": {

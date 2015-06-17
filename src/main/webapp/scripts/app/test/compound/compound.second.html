@@ -1,5 +1,13 @@
 <div class="row">
-    <div class="col-lg-12" ng-if="compounds.length > 0" ng-repeat="p in compounds">
+    <div class="col-xs-4 col-xs-offset-4">
+        <a ui-sref="compound.first" class="btn btn-block btn-default">
+            <span class="glyphicon glyphicon-circle-arrow-left"></span>
+            {{'global.messages.action.back' | translate}}
+        </a>
+    </div>
+</div>
+<div class="col-lg-12">
+    <div class="cmpd-wr" ng-if="compounds.length > 0" ng-repeat="p in compounds">
         <div class="cmpd-header-wr">
             <span class="cmpd-reading">{{p.reading}}</span>
             <span ng-if="p.et" class="cmpd-et">{{p.et}}</span>
@@ -42,16 +50,18 @@
         </div>
     </div>
 </div>
-<div class="row" style="margin-top:20px;">
-    <div class="col-xs-4 col-xs-offset-4">
-        <a ui-sref="compound" class="btn btn-block btn-default">
-            <span class="glyphicon glyphicon-circle-arrow-left"></span>
-            {{'global.messages.action.back' | translate}}
-        </a>
-    </div>
-</div>
 
 <style>
+    div.cmpd-wr {
+        vertical-align: top;
+        margin: 10px;
+        padding: 3px 15px 2px 15px;
+        min-height: 90px;
+        border: 2px solid #888888;
+        background: white;
+        display: inline-table;
+        width: 400px;
+    }
 
     td.sign-box {
         border: 2px solid #888888;

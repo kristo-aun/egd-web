@@ -1,12 +1,10 @@
 package ee.esutoniagodesu.web.rest.test;
 
-import ee.esutoniagodesu.domain.ac.table.User;
-import ee.esutoniagodesu.pojo.test.compound.KanjiCompound;
 import ee.esutoniagodesu.pojo.test.compound.FilterCompoundParamsDTO;
 import ee.esutoniagodesu.pojo.test.compound.FilterCompoundSubmitDTO;
+import ee.esutoniagodesu.pojo.test.compound.KanjiCompound;
 import ee.esutoniagodesu.security.AuthoritiesConstants;
 import ee.esutoniagodesu.service.TestCompoundService;
-import ee.esutoniagodesu.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,13 +23,6 @@ public class TestCompoundResource {
 
     @Inject
     private TestCompoundService service;
-
-    @Inject
-    private UserService userService;
-
-    private User getSessionUser() {
-        return userService.getUserWithAuthorities();
-    }
 
     @RequestMapping(value = "/params",
         method = RequestMethod.GET,
@@ -58,7 +49,7 @@ public class TestCompoundResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed(AuthoritiesConstants.USER)
     public ResponseEntity<List<KanjiCompound>> submit(@Valid @RequestBody FilterCompoundSubmitDTO submit) {
-        List<KanjiCompound> result = service.submit(submit, getSessionUser());
+        List<KanjiCompound> result = service.submit(submit);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

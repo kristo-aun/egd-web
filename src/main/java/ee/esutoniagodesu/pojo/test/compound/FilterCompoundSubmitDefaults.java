@@ -21,7 +21,7 @@ public enum FilterCompoundSubmitDefaults {
         for (FilterCompoundSubmitDefaults p : values()) {
             if (p.ID == id) return p;
         }
-        return null;
+        throw new NullPointerException("id=" + id);
     }
 
     public static Map<Integer, String> asMap() {

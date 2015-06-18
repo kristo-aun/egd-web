@@ -1,7 +1,7 @@
 package ee.esutoniagodesu.service;
 
 import com.google.common.base.Joiner;
-import ee.esutoniagodesu.domain.ac.table.User;
+import ee.esutoniagodesu.bean.ProjectDAO;
 import ee.esutoniagodesu.domain.core.table.IHasCoreWord;
 import ee.esutoniagodesu.domain.freq.table.NresBase;
 import ee.esutoniagodesu.domain.jmdict.table.Sens;
@@ -10,7 +10,6 @@ import ee.esutoniagodesu.domain.kanjidic2.table.Kanji;
 import ee.esutoniagodesu.pojo.test.compound.*;
 import ee.esutoniagodesu.repository.project.*;
 import ee.esutoniagodesu.util.JCString;
-import ee.esutoniagodesu.bean.ProjectDAO;
 import junit.framework.TestCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,7 +58,7 @@ public class TestCompoundService {
 
     //------------------------------ peale submitti ------------------------------
 
-    public List<KanjiCompound> submit(FilterCompoundSubmitDTO s, User sessionUser) {
+    public List<KanjiCompound> submit(FilterCompoundSubmitDTO s) {
         log.info("generate: s=" + s);
         long ms = System.currentTimeMillis();
 
@@ -94,7 +93,10 @@ public class TestCompoundService {
             Sens sens = jmDictDB.getFirstSensByKanjAndRdng(p.answer, p.reading);
 
             //peab olema Jim Breeni sõnaraamatus olemas
-            if (sens == null) throw new IllegalStateException("sens==null: jp=" + p.answer + ", reading=" + p.reading);
+            if (sens == null) {
+                log.warn("submit: sens==null, jp={}, reading={}", p.answer, p.reading);
+                continue;
+            }
 
             if (p.et == null) {//ilo sõnastik määrab ET ise
                 p.et = join(sens.getGlosses());
@@ -113,15 +115,13 @@ public class TestCompoundService {
                 p.notes = JCString.join(", ", poses, flds);
             }
 
-            for (KanjiCompound.Calligraphy q : p.signs) {
-                if (q.kanji) {
-                    if (s.strokeCountHintVisible)
-                        q.strokeCountHint = kanjis.get(q.sign).getStrokeCount();
-                    if (s.radicalHintVisible)
-                        q.radicalHint = kanjis.get(q.sign).getRadicalHint();
+            p.signs.stream().filter(q -> q.kanji).forEach(q -> {
+                if (s.strokeCountHintVisible)
+                    q.strokeCountHint = kanjis.get(q.sign).getStrokeCount();
+                if (s.radicalHintVisible)
+                    q.radicalHint = kanjis.get(q.sign).getRadicalHint();
 
-                }
-            }
+            });
         }
 
         log.info("generate: time=" + (System.currentTimeMillis() - ms) + ", result.size=" + result.size() + ", s=" + s);
@@ -232,7 +232,7 @@ public class TestCompoundService {
 
         Map<Integer, Integer> result = new HashMap<>();
         int deficit = 0;
-        int count = 0;
+        int count;
         int countAll = 0;
         for (int p = compdlto; p >= compdlfrom; p--) {
             //selle kanjide arvuga sõnu kui palju on saadaval
@@ -347,7 +347,7 @@ public class TestCompoundService {
     private <U> Map<Integer, List<U>> getNewCompdLenMap(int compdlfrom, int compdlto) {
         Map<Integer, List<U>> bresByKanjiCount = new HashMap<>();
         for (int p = compdlfrom; p <= compdlto; p++) {
-            bresByKanjiCount.put(p, new ArrayList<U>());
+            bresByKanjiCount.put(p, new ArrayList<>());
         }
         return bresByKanjiCount;
     }

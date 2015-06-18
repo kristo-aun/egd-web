@@ -2,7 +2,6 @@ package ee.esutoniagodesu.security;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -64,7 +63,12 @@ public final class SecurityUtils {
         if (authentication != null) {
             if (authentication.getPrincipal() instanceof UserDetails) {
                 UserDetails springSecurityUser = (UserDetails) authentication.getPrincipal();
-                return springSecurityUser.getAuthorities().contains(new SimpleGrantedAuthority(role));
+
+                for (GrantedAuthority authority : springSecurityUser.getAuthorities()) {
+                    if (authority.getAuthority().equals(role)) return true;
+                }
+
+                return false;
             }
         }
         return false;

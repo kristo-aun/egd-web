@@ -339,6 +339,11 @@ public class TestCompoundService {
         log.debug("divideIntoGroups: candicates.size=" + candicates.size() + ", compdlfrom=" + compdlfrom + ", compdlto=" + compdlto);
         Map<Integer, List<U>> result = getNewCompdLenMap(compdlfrom, compdlto);
         for (U p : candicates) {
+            if (p.getCountKanjis() < 1) {
+                log.error("no kanjis {}",p);
+                continue;
+            }
+
             result.get(p.getCountKanjis()).add(p);
         }
         return result;

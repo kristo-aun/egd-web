@@ -11,13 +11,16 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.MediaType;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
@@ -71,14 +74,27 @@ public class TestCompoundResourceTest extends WebappTestEnvironment {
 
     }
 
+    @Test
+    public void t0_testAuthenticatedUser() throws Exception {
+        mockMvc.perform(get("/api/authenticate")
+            .with(request -> {
+                request.setRemoteUser("admin");
+                return request;
+            })
+            .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andExpect(content().string("admin"));
+    }
+
+
     /**
      * Saadab kõik eeltäidetud vormid testigeneratorile läbi http.
      */
     @Test
     public void t1_submit_defaults() throws Exception {
 
-        service.submit(FilterCompoundSubmitDefaults.getIloHeisig6());
-        //submit_dto(FilterCompoundSubmitDefaults.getIloHeisig6());
+        //service.submit(FilterCompoundSubmitDefaults.getIloHeisig6());
+        submit_dto(FilterCompoundSubmitDefaults.getIloHeisig6());
         //submit_dto(FilterCompoundSubmitDefaults.getCore6KHeisig6());
         //submit_dto(FilterCompoundSubmitDefaults.getCore10KJLPT());
     }
@@ -86,11 +102,7 @@ public class TestCompoundResourceTest extends WebappTestEnvironment {
     private void submit_dto(FilterCompoundSubmitDTO dto) throws Exception {
         mockMvc.perform(
             post(TestCompoundResource.BASE_URL + "/submit")
-                .with(request -> {
-                    request.setRemoteUser(USERNAME);
-                    return request;
-                })
-                .session(session)
+                .principal(principal).session(session)
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
                 .content(TestUtil.convertObjectToJsonBytes(dto)))
             .andExpect(status().isOk());

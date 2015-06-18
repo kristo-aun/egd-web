@@ -1,15 +1,24 @@
 package ee.esutoniagodesu.web.rest;
 
 import ee.esutoniagodesu.Application;
+import ee.esutoniagodesu.config.Constants;
+import ee.esutoniagodesu.security.AuthoritiesConstants;
+import ee.esutoniagodesu.security.SecurityUtils;
+import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.FilterChainProxy;
@@ -17,6 +26,7 @@ import org.springframework.security.web.context.HttpSessionSecurityContextReposi
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -25,10 +35,19 @@ import javax.inject.Inject;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.io.Serializable;
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
+
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration
+@IntegrationTest
 public class WebappTestEnvironment {
 
     @Resource
@@ -69,6 +88,7 @@ public class WebappTestEnvironment {
     }
 
     protected MockHttpSession session;
+    protected UsernamePasswordAuthenticationToken principal;
 
     protected UsernamePasswordAuthenticationToken getPrincipal(String username) {
 
@@ -83,14 +103,33 @@ public class WebappTestEnvironment {
         return authentication;
     }
 
-    protected void setSession(String username) {
-        UsernamePasswordAuthenticationToken principal = getPrincipal(username);
+    protected void setSession(String username) throws Exception {
+        principal = getPrincipal(username);
 
         session = new MockHttpSession();
         session.setAttribute(
             HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
             new MockSecurityContext(principal)
         );
+
+        UserDetails user = userDetailsService.loadUserByUsername(username);
+        Authentication newAuth = new UsernamePasswordAuthenticationToken(user, username, user.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(newAuth);
+
+
+        TestCase.assertTrue(SecurityUtils.isAuthenticated());
+        TestCase.assertEquals(SecurityUtils.getCurrentLogin(), username);
+        TestCase.assertTrue(SecurityUtils.isUserInRole(AuthoritiesConstants.ADMIN));
+
+
+
+        MvcResult mvcresult = mockMvc
+            .perform(
+                get("/oauth/token")
+                    .principal(principal)).andDo(print())
+            .andExpect(status().isOk()).andReturn();
+        MockHttpServletRequest mockhttp = mvcresult.getRequest();
+        System.out.println(mockhttp.toString());
     }
 
     @Before

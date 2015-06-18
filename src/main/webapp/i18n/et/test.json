@@ -27,6 +27,7 @@
                 "core6k": "Core6k sõnavara"
             },
             "generateCount": "Testitavate sõnade arv",
+            "wordCount": "Sõnade arv",
             "compLengthInterval": "Mitu kanjit võib sõna sisaldada",
             "hints": "Vihjed",
             "strokeCountHint": "Näita joonte arvu",

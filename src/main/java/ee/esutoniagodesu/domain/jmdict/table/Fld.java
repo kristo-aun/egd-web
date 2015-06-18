@@ -101,4 +101,8 @@ public final class Fld implements Serializable {
         result = 31 * result + kw;
         return result;
     }
+
+    public String toString() {
+        return kwfldByKw != null ? kwfldByKw.getKw() : null;
+    }
 }

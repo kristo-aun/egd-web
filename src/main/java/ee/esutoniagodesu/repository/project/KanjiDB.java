@@ -381,7 +381,7 @@ public class KanjiDB extends AbstractProjectRepository {
     public List<Kanji> getHeisig6KanjisByLesson(int from, int to) {
         String sql = "SELECT a.* FROM kanjidic2.kanji a LEFT JOIN heisig.heisig6 b" +
             " ON a.literal = b.kanji " +
-            " WHERE b.lessonNo BETWEEN ?1 AND ?2 ORDER BY b.id";
+            " WHERE b.lesson_no BETWEEN ?1 AND ?2 ORDER BY b.id";
         return sqlToKanjis(sql, from, to);
     }
 
@@ -395,7 +395,7 @@ public class KanjiDB extends AbstractProjectRepository {
     public List<Kanji> getHeisig4KanjisByLesson(int from, int to) {
         String sql = "SELECT a.* FROM kanjidic2.kanji a LEFT JOIN heisig.heisig4 b" +
             " ON a.literal = b.kanji " +
-            " WHERE b.lessonNo BETWEEN ?1 AND ?2 ORDER BY b.id";
+            " WHERE b.lesson_no BETWEEN ?1 AND ?2 ORDER BY b.id";
         return sqlToKanjis(sql, from, to);
     }
 

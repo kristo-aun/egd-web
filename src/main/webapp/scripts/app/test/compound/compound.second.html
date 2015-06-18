@@ -1,12 +1,25 @@
 <div class="row">
-    <div class="col-xs-4 col-xs-offset-4">
+    <div class="col-lg-4">
+        <button type="button" class="{{showAnswer | ie: 'btn btn-success':'btn btn-default'}}"
+                ng-model="showAnswer" btn-checkbox>
+            {{'test.compound.showAnswer' | translate}}
+        </button>
+        <button type="button"
+                ng-disabled="!first.radicalHintVisible"
+                class="{{showHints | ie: 'btn btn-success':'btn btn-default'}}"
+                ng-model="showHints"
+                btn-checkbox>
+            {{'test.compound.showHints' | translate}}
+        </button>
+    </div>
+    <div class="col-lg-4">
         <a ui-sref="compound.first" class="btn btn-block btn-default">
             <span class="glyphicon glyphicon-circle-arrow-left"></span>
             {{'global.messages.action.back' | translate}}
         </a>
     </div>
 </div>
-<div class="col-lg-12">
+<div class="col-lg-12" style="margin-top:10px">
     <div class="cmpd-wr" ng-if="compounds.length > 0" ng-repeat="p in compounds">
         <div class="cmpd-header-wr">
             <span class="cmpd-reading">{{p.reading}}</span>
@@ -18,43 +31,37 @@
         <div class="cmpd-answer-wr">
             <table>
                 <tr>
-                    <td ng-repeat="q in p.signs" class="{{q.kanji | ie: 'sign-box':'rdng-box'}} ">
-                        <span class="sign-wr">{{q.sign}}</span>
+                    <td ng-repeat="q in p.signs"
+                        class="{{q.kanji | ie: 'sign-box':'rdng-box'}}"
+                        ng-click="showSign=!showSign">
+                        <div ng-show="showAnswer || showSign || !q.kanji" class="sign-wr">{{q.sign}}</div>
                     </td>
                 </tr>
                 <tr>
                     <td ng-repeat="q in p.signs" class="sign-hint">
                         <div ng-if="q.kanji && (q.radicalHint || q.strokeCountHint)" class="radical-hint-wr">
                             <span ng-if="q.strokeCountHint" class="strokecount">{{q.strokeCountHint}}</span>
-                            {{q.radicalHint}}
+                            <span ng-if="showHints && q.radicalHint">{{q.radicalHint}}</span>
                         </div>
                     </td>
                 </tr>
-                <!--
-                <tr ng-repeat="(qkey,qval) in p.signs">
-                    <td class="sign-box　{{current() == 'links' | ie: 'k-tab-on-top k-state-active':''}}">
-                        <span ng-if="!qval" class="sign-box-rdng">{{qkey}}</span>
-                    </td>
-                    <td class="sign-rdng">
-                        <span ng-if="!qval" class="sign-box-rdng">{{qkey}}</span>
-                    </td>
-                    <td>
-                        <span class="sign-stroke-count-hint">{{qval['strokeCountHint']}}</span>
-                    </td>
-                    <td>
-                        <span class="sign-radical-hint">{{qval['radicalHint']}}</span>
-                    </td>
-                </tr>
-                -->
             </table>
         </div>
     </div>
 </div>
-
 <style>
+    td.sign-box {
+        cursor: pointer;
+    }
+
+    td.sign-box:hover {
+        background-color: #EEE;
+    }
+
     div.cmpd-wr {
         vertical-align: top;
-        margin: 10px;
+        margin-bottom:10px;
+        margin-right:10px;
         padding: 3px 15px 2px 15px;
         min-height: 90px;
         border: 2px solid #888888;

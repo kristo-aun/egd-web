@@ -1,7 +1,7 @@
 <form name="form" role="form" ng-submit="doSubmit()" novalidate show-validation>
     <div class="col-lg-6 col-lg-offset-3">
         <div class="row centered">
-            <h2>Testi genereerimine</h2>
+            <h2 translate="test.compound.title"></h2>
         </div>
         <div class="row form-group" style="margin-top:20px">
             <label class="vertical-align">
@@ -28,7 +28,7 @@
                     <span translate="test.compound.filterType"></span>
                 </div>
                 <div class="col-lg-7">
-                    <select ng-model="facts.filterType"
+                    <select ng-model="first.filterType"
                             class="form-control"
                             ng-required
                             style="width: 240px"
@@ -43,7 +43,7 @@
             </label>
         </div>
 
-        <div ng-if="facts.filterType" ng-switch="facts.kanjiIntervalType">
+        <div ng-if="first.filterType" ng-switch="first.kanjiIntervalType">
             <div class="row form-group">
                 <div class="vertical-align">
                     <div class="col-lg-3 col-lg-offset-1">
@@ -51,11 +51,11 @@
                     </div>
                     <div class="col-lg-8">
                         <label class="radio-inline">
-                            <input type="radio" ng-model="facts.kanjiIntervalType" value="level" ng-change="onFilterTypeChange()">
+                            <input type="radio" ng-model="first.kanjiIntervalType" value="level" ng-change="onFilterTypeChange()">
                             {{'test.compound.intervalByLevel' | translate}}
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" ng-model="facts.kanjiIntervalType" value="index" ng-change="onFilterTypeChange()">
+                            <input type="radio" ng-model="first.kanjiIntervalType" value="index" ng-change="onFilterTypeChange()">
                             {{'test.compound.intervalByIndex' | translate}}
                         </label>
                     </div>
@@ -65,13 +65,13 @@
             <div ng-switch-when="level" class="row">
                 <div class="vertical-align">
                     <div class="col-lg-8 col-lg-offset-4 form-group">
-                        <select ng-model="facts.kanjiInterval[0]"
+                        <select ng-model="first.kanjiInterval[0]"
                                 class="form-control col-md-5"
                                 style="width: 100px;padding-left: 12px;"
                                 ng-options="key*1 as value for (key, value) in kanjiLevelMap">
                         </select>
                         <span class="interval-space col-md-1">-</span>
-                        <select ng-model="facts.kanjiInterval[1]"
+                        <select ng-model="first.kanjiInterval[1]"
                                 style="width: 100px;padding-left: 12px;"
                                 class="form-control col-md-5"
                                 ng-options="key*1 as value for (key, value) in kanjiLevelMap">
@@ -88,14 +88,14 @@
                                min="1"
                                max="3000"
                                class="form-control col-md-5"
-                               ng-model="facts.kanjiInterval[0]">
+                               ng-model="first.kanjiInterval[0]">
                         <span class="interval-space col-md-1">-</span>
                         <input type="number"
                                style="width: 100px;padding-left: 12px;"
                                min="1"
                                max="3000"
                                class="form-control col-md-5"
-                               ng-model="facts.kanjiInterval[1]">
+                               ng-model="first.kanjiInterval[1]">
                     </div>
                 </div>
             </div>
@@ -109,7 +109,7 @@
                 <div class="col-lg-7">
                     <select class="form-control"
                             style="width: 240px"
-                            ng-model="facts.dictionary"
+                            ng-model="first.dictionary"
                             ng-options="key*1 as ('test.compound.dictSelect.values.' + value | translate) for (key, value) in params.dictionaryMap">
                         <option value=""></option>
                     </select>
@@ -129,14 +129,14 @@
                     <div class="checkbox">
                         <label>
                             <input type="checkbox"
-                                   ng-model="facts.noEnIfHasEt">
+                                   ng-model="first.noEnIfHasEt">
                             {{'test.compound.noEnIfHasEt' | translate}}
                         </label>
                     </div>
                     <div class="checkbox">
                         <label>
                             <input type="checkbox"
-                                   ng-model="facts.notesVisible">
+                                   ng-model="first.notesVisible">
                             {{'test.compound.notesVisible' | translate}}
                         </label>
                     </div>
@@ -156,7 +156,7 @@
                     <input type="number"
                            class="form-control"
                            style="width: 100px"
-                           ng-model="facts.generateCount">
+                           ng-model="first.generateCount">
                 </div>
             </label>
         </div>
@@ -170,16 +170,16 @@
                     <input type="number"
                            class="form-control col-md-5"
                            min="1"
-                           max="{{facts.compLengthInterval[1]}}"
+                           max="{{first.compLengthInterval[1]}}"
                            style="width: 100px;padding-left: 12px;"
-                           ng-model="facts.compLengthInterval[0]">
+                           ng-model="first.compLengthInterval[0]">
                     <span class="interval-space col-md-1">-</span>
                     <input type="number"
                            class="form-control col-md-5"
-                           min="{{facts.compLengthInterval[0]}}"
+                           min="{{first.compLengthInterval[0]}}"
                            max="7"
                            style="width: 100px;padding-left: 12px;"
-                           ng-model="facts.compLengthInterval[1]">
+                           ng-model="first.compLengthInterval[1]">
                 </div>
                 <div class="col-lg-1">
                     <ng-tip template="'scripts/components/tip/tipTestCompoundComplength.html'" placement="right"></ng-tip>
@@ -194,7 +194,7 @@
                 </div>
                 <div class="col-lg-7">
                     <select class="form-control"
-                            ng-model="facts.orderByType"
+                            ng-model="first.orderByType"
                             style="width: 240px"
                             ng-options="key*1 as ('test.compound.orderByType.values.' + value | translate) for (key, value) in params.orderByTypeMap">
                         <option value=""></option>
@@ -215,14 +215,14 @@
                     <div class="checkbox">
                         <label>
                             <input type="checkbox"
-                                   ng-model="facts.strokeCountHintVisible">
+                                   ng-model="first.strokeCountHintVisible">
                             {{'test.compound.strokeCountHint' | translate}}
                         </label>
                     </div>
                     <div class="checkbox">
                         <label>
                             <input type="checkbox"
-                                   ng-model="facts.radicalHintVisible">
+                                   ng-model="first.radicalHintVisible">
                             {{'test.compound.radicalHintVisible' | translate}}
                         </label>
                     </div>
@@ -241,7 +241,7 @@
                 <div class="col-lg-7 form-group checkbox">
                     <label>
                         <input type="checkbox"
-                               ng-model="facts.generatePdf">
+                               ng-model="first.generatePdf">
                         {{'test.compound.generatePdf' | translate}}
                     </label>
                 </div>

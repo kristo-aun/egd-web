@@ -1,6 +1,8 @@
 {
     "test": {
         "compound": {
+            "title": "Testi genereerimine",
+
             "defaultFormMap": "Eeltäidetud vorm",
             "defaultFormMap.values": {
                 "ilo_heisig6_1_100": "Taskusõnastiku sõnavara, Heisig6 kanjid 1-100",
@@ -45,7 +47,9 @@
             "jouyou": "Jōjō",
             "heisig4": "Heisig 4",
             "heisig6": "Heisig 6",
-            "submit": "Koosta test"
+
+            "showAnswer": "Näita vastuseid",
+            "showHints": "Näita vihjeid"
         }
     }
 }

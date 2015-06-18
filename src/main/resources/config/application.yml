@@ -21,6 +21,6 @@ authentication:
     oauth:
         clientid: egdapp
         secret: mySecretOAuthSecret
-        # Token is valid 30 minutes
-        tokenValidityInSeconds: 1800
+        # Token is valid 2 hours
+        tokenValidityInSeconds: 7200
 

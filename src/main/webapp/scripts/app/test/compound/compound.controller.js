@@ -3,6 +3,8 @@
 egdApp
     .controller('CompoundController', function ($state, $scope, $translate, $log, TestCompoundResource) {
 
+        //------------------------------ first ------------------------------
+
         $scope.clear = function() {
             delete $scope.params;
         };
@@ -13,10 +15,10 @@ egdApp
         };
 
         $scope.setFactsToDefault = function() {
-            $scope.facts = {
+            $scope.first = {
                 kanjiInterval: [1, 100]
             };
-            $log.debug("setFactsToDefault", $scope.facts);
+            $log.debug("setFactsToDefault", $scope.first);
         };
 
         $scope.load = function() {
@@ -29,8 +31,8 @@ egdApp
         $scope.load();
 
         $scope.filterTypeChange = function() {
-            var filterType = $scope.facts.filterType;
-            var intervalType = $scope.facts.kanjiIntervalType;//level or index
+            var filterType = $scope.first.filterType;
+            var intervalType = $scope.first.kanjiIntervalType;//level or index
             $log.debug("filterTypeChange: filterType=" + filterType + ", intervalType=" + intervalType);
 
             if (intervalType == 'level') {
@@ -65,7 +67,7 @@ egdApp
             if (defaultForm) {
                 $log.debug("onDefaultFormChange: will change form values");
                 TestCompoundResource.formDefault(defaultForm).then(function (data) {
-                    $scope.facts = data;
+                    $scope.first = data;
                 });
             } else {
                 $scope.setFactsToDefault();
@@ -82,7 +84,7 @@ egdApp
 
         $scope.doSubmit = function() {
             $scope.clearError();
-            TestCompoundResource.submit($scope.facts).then(function (data) {
+            TestCompoundResource.submit($scope.first).then(function (data) {
                 $scope.compounds = data;
                 $state.go("compound.second");
             }, function() {
@@ -91,4 +93,9 @@ egdApp
             });
         };
         $state.go(".first");
+
+        //------------------------------ second ------------------------------
+
+        $scope.showAnswer = false;
+        $scope.showHints = false;
     });

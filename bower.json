@@ -45,7 +45,7 @@
     "jquery": "2.1.4"
   },
   "overrides": {
-    "fontawesome": {
+    "components-font-awesome": {
       "main": [
         "src/main/webapp/assets/styles/font-awesome.css"
       ]

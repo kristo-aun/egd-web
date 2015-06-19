@@ -4,15 +4,23 @@
     }
 }
 
+.navbar {
+    border-radius: 0;
+    margin-bottom: 15px;
+}
+
 .container {
     padding-left: 7px;
     padding-right: 7px;
     width: 100%;
 }
 
-.navbar {
-    border-radius: 0;
-    margin-bottom: 8px;
+
+div.footer {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 0.7em;
+    padding-bottom: 12px;
 }
 
 .centered  {

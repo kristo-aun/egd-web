@@ -2,6 +2,9 @@
 management.security.enabled: true
 security.basic.enabled: false
 
+# Disable default favicon
+spring.mvc.favicon.enabled: false
+
 async:
     corePoolSize: 2
     maxPoolSize: 50

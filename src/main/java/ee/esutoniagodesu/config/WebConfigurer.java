@@ -69,8 +69,14 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
         compressingFilter.addMappingForUrlPatterns(disps, true, "*.json");
         compressingFilter.addMappingForUrlPatterns(disps, true, "*.html");
         compressingFilter.addMappingForUrlPatterns(disps, true, "*.js");
+
+        compressingFilter.addMappingForUrlPatterns(disps, true, "*.otf");
+        compressingFilter.addMappingForUrlPatterns(disps, true, "*.eot");
         compressingFilter.addMappingForUrlPatterns(disps, true, "*.svg");
         compressingFilter.addMappingForUrlPatterns(disps, true, "*.ttf");
+        compressingFilter.addMappingForUrlPatterns(disps, true, "*.woff");
+        compressingFilter.addMappingForUrlPatterns(disps, true, "*.woff2");
+
         compressingFilter.addMappingForUrlPatterns(disps, true, "/api/*");
         compressingFilter.setAsyncSupported(true);
     }

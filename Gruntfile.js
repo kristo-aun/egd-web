@@ -238,12 +238,6 @@ module.exports = function (grunt) {
             dist: {
                 files: [{
                     expand: true,
-                    flatten: true,
-                    cwd: 'src/main/webapp',
-                    dest: '<%= yeoman.dist %>/assets/fonts',
-                    src: 'assets/fonts/*'
-                    }, {
-                    expand: true,
                     dot: true,
                     cwd: 'src/main/webapp',
                     dest: '<%= yeoman.dist %>',

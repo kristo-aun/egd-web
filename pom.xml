@@ -56,6 +56,7 @@
     </issueManagement>
 
     <properties>
+        <tomcat.maven.deploy.url>http://192.168.72.100:8080/manager/text</tomcat.maven.deploy.url>
 
         <assertj-core.version>1.0.0m1</assertj-core.version>
         <awaitility.version>1.4.0</awaitility.version>

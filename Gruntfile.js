@@ -192,7 +192,7 @@ module.exports = function (grunt) {
         ngtemplates: {
             dist: {
                 cwd: 'src/main/webapp',
-                src: ['scripts/app/**/*.html', 'scripts/components/**/*.html',],
+                src: ['scripts/app/**/*.html', 'scripts/components/**/*.html'],
                 dest: '.tmp/templates/templates.js',
                 options: {
                     module: 'egdApp',
@@ -238,14 +238,19 @@ module.exports = function (grunt) {
             dist: {
                 files: [{
                     expand: true,
+                    flatten: true,
+                    cwd: 'src/main/webapp',
+                    dest: '<%= yeoman.dist %>/assets/fonts',
+                    src: 'assets/fonts/*'
+                    }, {
+                    expand: true,
                     dot: true,
                     cwd: 'src/main/webapp',
                     dest: '<%= yeoman.dist %>',
                     src: [
                         '*.html',
                         'scripts/**/*.html',
-                        'assets/images/**/*.{png,gif,webp,jpg,jpeg,svg}',
-                        'assets/fonts/*'
+                        'assets/images/**/*.{png,gif,webp,jpg,jpeg,svg}'
                     ]
                 }, {
                     expand: true,

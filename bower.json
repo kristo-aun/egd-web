@@ -4,16 +4,16 @@
   "appPath": "src/main/webapp",
   "testPath": "src/test/javascript/spec",
   "dependencies": {
-    "bootstrap": "3.3.4",
+    "bootstrap": "3.3.5",
     "modernizr": "2.8.3",
     "jquery": "2.1.4",
     "json3": "3.3.2",
     "angular-ui-router": "0.2.13",
-    "angular": "1.4.0",
-    "angular-resource": "1.4.0",
-    "angular-cookies": "1.4.0",
-    "angular-sanitize": "1.4.0",
-    "angular-i18n": "1.4.0",
+    "angular": "1.4.1",
+    "angular-resource": "1.4.1",
+    "angular-cookies": "1.4.1",
+    "angular-sanitize": "1.4.1",
+    "angular-i18n": "1.4.1",
     "angular-translate": "2.7.2",
     "angular-translate-storage-cookie": "2.7.2",
     "angular-translate-loader-partial": "2.7.2",
@@ -21,7 +21,7 @@
     "angular-local-storage": "0.2.0",
     "angular-cache-buster": "0.4.3",
     "ngInfiniteScroll": "1.2.0",
-    "angular-animate": "1.4.0",
+    "angular-animate": "1.4.1",
     "jquery-ui": "1.11.4",
     "angular-ui-select": "0.12.0",
     "angular-bootstrap": "0.13.0",
@@ -36,12 +36,12 @@
     "angular-loading-bar": "~0.7.1"
   },
   "devDependencies": {
-    "angular-mocks": "1.4.0",
-    "angular-scenario": "1.4.0"
+    "angular-mocks": "1.4.1",
+    "angular-scenario": "1.4.1"
   },
   "resolutions": {
-    "angular": "1.4.0",
-    "angular-cookies": "1.4.0",
+    "angular": "1.4.1",
+    "angular-cookies": "1.4.1",
     "jquery": "2.1.4"
   }
 }

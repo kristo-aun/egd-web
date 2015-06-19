@@ -1,5 +1,6 @@
 package ee.esutoniagodesu.repository.domain.ac;
 
+import ee.esutoniagodesu.config.Constants;
 import ee.esutoniagodesu.config.audit.AuditEventConverter;
 import ee.esutoniagodesu.domain.ac.table.PersistentAuditEvent;
 import org.joda.time.LocalDateTime;
@@ -49,6 +50,9 @@ public class CustomAuditEventRepository {
             @Transactional(propagation = Propagation.REQUIRES_NEW)
             public void add(AuditEvent event) {
                 if (Objects.equals(event.getPrincipal(), "anonymousUser")) return;
+                //sisse- väljalogimist logitakse autentikaatoris, siin logime ainult veaolukorrad
+                if (event.getType().equals(Constants.AUTHENTICATION_SUCCESS)) return;
+
                 PersistentAuditEvent persistentAuditEvent = new PersistentAuditEvent();
                 persistentAuditEvent.setPrincipal(event.getPrincipal());
                 persistentAuditEvent.setAuditEventType(event.getType());

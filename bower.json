@@ -43,5 +43,17 @@
     "angular": "1.4.1",
     "angular-cookies": "1.4.1",
     "jquery": "2.1.4"
+  },
+  "overrides": {
+    "components-font-awesome": {
+      "main": [
+        "src/main/webapp/assets/styles/font-awesome.css"
+      ]
+    },
+    "bootstrap": {
+      "main": [
+        "src/main/webapp/assets/styles/bootstrap.css"
+      ]
+    }
   }
 }

@@ -1,7 +1,15 @@
 'use strict';
 
 egdApp
-    .controller('LoginController', function ($rootScope, $scope, $state, $timeout, Auth) {
+    .controller('LoginController', function ($rootScope, $scope, $state, $timeout, $location, $window, Auth) {
+
+        $scope.forceSSL = function () {
+            if ($location.protocol() !== 'https') {
+                $window.location.href = $location.absUrl().replace('http', 'https');
+            }
+        };
+        $scope.forceSSL();
+
         $scope.user = {};
         $scope.errors = {};
 

@@ -127,8 +127,11 @@ egdApp
         $scope.isInRole = Principal.isInRole;
 
         $scope.toggleSign = function(showSign, index, compound) {
-            if (index == 0) {
-                compound.showSign = showSign;
-            }
+            angular.forEach(compound.signs, function(sign) {
+                if (sign.kanji) {
+                    compound.showSign = showSign;
+                    return true;
+                }
+            });
         };
     });

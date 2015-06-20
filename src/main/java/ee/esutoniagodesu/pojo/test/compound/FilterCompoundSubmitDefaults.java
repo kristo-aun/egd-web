@@ -6,6 +6,7 @@ import java.util.Map;
 public enum FilterCompoundSubmitDefaults {
 
     ilo_heisig6_1_100(1, getIloHeisig6()),
+    ilo_heisig6_100_300(4, getIloHeisig6Intermediate()),
     core6k_heisig6_1_900(2, getCore6KHeisig6()),
     core10k_jlpt_1_3(3, getCore10KJLPT());
 
@@ -33,6 +34,30 @@ public enum FilterCompoundSubmitDefaults {
     }
 
     //------------------------------ vormid ------------------------------
+
+    public static FilterCompoundSubmitDTO getIloHeisig6Intermediate() {
+        FilterCompoundSubmitDTO submit = new FilterCompoundSubmitDTO();
+
+        submit.dictionary = EDictionary.ilo_yellow_jp_et.ID;
+        submit.generateCount = 500;
+
+        submit.notesVisible = true;
+        submit.compLengthInterval[0] = 1;
+        submit.compLengthInterval[1] = 3;
+        submit.filterType = EFilterType.heisig6.ID;//heisig
+
+        submit.kanjiIntervalType = "index";
+        submit.kanjiInterval[0] = 100;//heisig frame from
+        submit.kanjiInterval[1] = 300;
+
+        submit.orderByType = EOrderByType.random.ID;//filter_id
+
+        submit.strokeCountHintVisible = false;
+        submit.radicalHintVisible = false;
+        submit.noEnIfHasEt = true;
+
+        return submit;
+    }
 
     public static FilterCompoundSubmitDTO getIloHeisig6() {
         FilterCompoundSubmitDTO submit = new FilterCompoundSubmitDTO();

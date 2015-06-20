@@ -42,12 +42,11 @@
             <span ng-if="p.et" class="cmpd-et">{{p.et}}</span>
             <span ng-if="p.en" class="cmpd-en">{{p.en}}</span>
             <span ng-if="p.notes" class="cmpd-notes">({{p.notes}})</span>
-            <span ng-if="p.showSign && !p.heisigEquals" style="float:right;">
-                 <button class="btn btn-sm btn-default"
-                         type="button"
-                         class="{{p.showHeisig | ie: 'btn btn-success':'btn btn-default'}}"
-                         ng-click="p.showHeisig=!p.showHeisig"
-                         style="font-size: 0.5em;">H</button>
+            <span ng-if="p.showSign" style="float:right;">
+                <button type="button"
+                        class="{{p.heisigEquals | ie: 'btn btn-sm btn-success':'btn btn-sm btn-default'}}"
+                        ng-click="p.showHeisig=!p.showHeisig"
+                        style="font-size: 0.5em;">H</button>
             </span>
         </div>
 

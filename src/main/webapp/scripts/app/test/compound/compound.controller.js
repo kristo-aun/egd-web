@@ -127,11 +127,8 @@ egdApp
         $scope.isInRole = Principal.isInRole;
 
         $scope.toggleSign = function(showSign, index, compound) {
-            $log.debug(showSign, index, compound);
-
             if (index == 0) {
-                compound.showHeisig = showSign;
+                compound.showSign = showSign;
             }
-
         };
     });

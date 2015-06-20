@@ -42,9 +42,9 @@
             <span ng-if="p.et" class="cmpd-et">{{p.et}}</span>
             <span ng-if="p.en" class="cmpd-en">{{p.en}}</span>
             <span ng-if="p.notes" class="cmpd-notes">({{p.notes}})</span>
-            <span ng-if="p.showSign" style="float:right;">
+            <span ng-if="isInRole('ROLE_ADMIN') && (p.showSign || showAnswer)" style="float:right;">
                 <button type="button"
-                        class="{{p.heisigEquals | ie: 'btn btn-sm btn-success':'btn btn-sm btn-default'}}"
+                        class="{{!p.heisigEquals | ie: 'btn btn-sm btn-danger':'btn btn-sm btn-default'}}"
                         ng-click="p.showHeisig=!p.showHeisig"
                         style="font-size: 0.5em;">H</button>
             </span>
@@ -56,7 +56,8 @@
                     <td
                         class="sign-box"
                         ng-click="showSign=!showSign;toggleSign(showSign, $index, p)">
-                        <div ng-show="showAnswer || showSign" class="sign-wr" style="width:250px;">{{p.reading}}</div>
+                        <div ng-show="showAnswer || showSign" class="sign-wr"
+                             style="text-align:left;width:250px">{{p.reading}}</div>
                     </td>
                 </tr>
                 <tr ng-show="!turnCompound">

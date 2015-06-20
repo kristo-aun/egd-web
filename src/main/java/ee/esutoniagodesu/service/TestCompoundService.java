@@ -138,7 +138,7 @@ public class TestCompoundService {
                 }
                 heisigCoreKwRepository.findOneByKanji(kanji).ifPresent(item ->
                     p.heisigCoreKw = item.getId() + "-" + item.getKeywordEn() + "-" +
-                        item.getWord() + "-" + item.getWordTranslation());
+                        item.getWord() + "-" + item.getWordReading() + "-" +item.getWordTranslation());
             }
         }
 

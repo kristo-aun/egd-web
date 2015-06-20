@@ -118,7 +118,8 @@ egdApp
             var wordTranslation = compound.et ? compound.et : compound.en;
 
             RTKResource.setDefaultHeisigWord(kanji, word, wordReading, wordTranslation).then(function (data) {
-                compound.heisigCoreKw = data.id  + "-" +  data.keywordEn + "-" + data.word + "-" + data.wordTranslation;
+                compound.heisigCoreKw = data.id  + "-" +  data.keywordEn + "-" + data.word + "-" +
+                    data.wordReading + "-" + data.wordTranslation;
                 $scope.setCompoundHeisigCoreKw(data.kanji, compound.heisigCoreKw);
             });
         };

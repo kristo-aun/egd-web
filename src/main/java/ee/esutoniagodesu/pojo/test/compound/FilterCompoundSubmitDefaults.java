@@ -38,7 +38,7 @@ public enum FilterCompoundSubmitDefaults {
         FilterCompoundSubmitDTO submit = new FilterCompoundSubmitDTO();
 
         submit.dictionary = EDictionary.ilo_yellow_jp_et.ID;
-        submit.generateCount = 100;
+        submit.generateCount = 50;
 
         submit.notesVisible = true;
         submit.compLengthInterval[0] = 1;
@@ -51,8 +51,8 @@ public enum FilterCompoundSubmitDefaults {
 
         submit.orderByType = EOrderByType.random.ID;//filter_id
 
-        submit.strokeCountHintVisible = true;
-        submit.radicalHintVisible = true;
+        submit.strokeCountHintVisible = false;
+        submit.radicalHintVisible = false;
         submit.noEnIfHasEt = true;
 
         return submit;
@@ -62,7 +62,7 @@ public enum FilterCompoundSubmitDefaults {
         FilterCompoundSubmitDTO submit = new FilterCompoundSubmitDTO();
 
         submit.dictionary = EDictionary.core6k.ID;
-        submit.generateCount = 100;
+        submit.generateCount = 50;
 
         submit.notesVisible = true;
         submit.compLengthInterval[0] = 1;
@@ -75,7 +75,7 @@ public enum FilterCompoundSubmitDefaults {
 
         submit.orderByType = EOrderByType.random.ID;//filter_id
 
-        submit.strokeCountHintVisible = true;
+        submit.strokeCountHintVisible = false;
         submit.radicalHintVisible = false;
         submit.noEnIfHasEt = false;
 
@@ -86,7 +86,7 @@ public enum FilterCompoundSubmitDefaults {
         FilterCompoundSubmitDTO submit = new FilterCompoundSubmitDTO();
 
         submit.dictionary = EDictionary.core10k.ID;
-        submit.generateCount = 100;
+        submit.generateCount = 50;
 
         submit.notesVisible = true;
         submit.compLengthInterval[0] = 1;
@@ -99,7 +99,7 @@ public enum FilterCompoundSubmitDefaults {
 
         submit.orderByType = EOrderByType.random.ID;//
 
-        submit.strokeCountHintVisible = true;
+        submit.strokeCountHintVisible = false;
         submit.radicalHintVisible = false;
         submit.noEnIfHasEt = false;
 

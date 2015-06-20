@@ -1,7 +1,7 @@
 'use strict';
 
 egdApp
-    .controller('CompoundController', function ($state, $scope, $translate, $log, TestCompoundResource) {
+    .controller('CompoundController', function ($state, $scope, $translate, $log, TestCompoundResource, RTKResource, Principal) {
 
         //------------------------------ first ------------------------------
 
@@ -98,4 +98,39 @@ egdApp
 
         $scope.showAnswer = false;
         $scope.showHints = false;
+        $scope.showHeisigCores = false;
+        $scope.turnCompound = false;
+
+        $scope.setCompoundHeisigCoreKw = function(kanji, heisigCoreKw) {
+            angular.forEach($scope.compounds, function(compound) {
+                angular.forEach(compound.signs, function(sign) {
+                    if (sign.kanji && sign.sign == kanji) {
+                        sign.heisigCoreKw = heisigCoreKw;
+                    }
+                });
+            });
+        };
+
+        $scope.setDefaultHeisigWord = function(compound) {
+            var kanji = compound.signs[0].sign;
+            var word = compound.answer;
+            var wordReading = compound.reading;
+            var wordTranslation = compound.et ? compound.et : compound.en;
+
+            RTKResource.setDefaultHeisigWord(kanji, word, wordReading, wordTranslation).then(function (data) {
+                compound.heisigCoreKw = data.id  + "-" +  data.keywordEn + "-" + data.word + "-" + data.wordTranslation;
+                $scope.setCompoundHeisigCoreKw(data.kanji, compound.heisigCoreKw);
+            });
+        };
+
+        $scope.isInRole = Principal.isInRole;
+
+        $scope.toggleSign = function(showSign, index, compound) {
+            $log.debug(showSign, index, compound);
+
+            if (index == 0) {
+                compound.showHeisig = showSign;
+            }
+
+        };
     });

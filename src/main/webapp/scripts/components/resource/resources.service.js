@@ -46,6 +46,21 @@ egdApp
                 return $http.get('api/rtk/' + frameId).then(function (response) {
                     return response.data;
                 });
+            },
+            setDefaultHeisigWord: function (kanji, word, wordReading, wordTranslation) {
+                return $http({
+                    method: 'POST',
+                    url: 'api/rtk/defaultWord',
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    data: $.param({
+                        kanji: kanji,
+                        word: word,
+                        wordReading: wordReading,
+                        wordTranslation: wordTranslation
+                    })
+                }).then(function (response) {
+                    return response.data;
+                });
             }
         };
     })

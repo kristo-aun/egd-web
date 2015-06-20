@@ -1,18 +1,31 @@
 <div class="row">
-    <div class="col-lg-4">
+    <div class="col-lg-6">
         <button type="button" class="{{showAnswer | ie: 'btn btn-success':'btn btn-default'}}"
                 ng-model="showAnswer" btn-checkbox>
             {{'test.compound.showAnswer' | translate}}
         </button>
         <button type="button"
-                ng-disabled="!first.radicalHintVisible"
+                ng-disabled="!first.radicalHintVisible || turnCompound"
                 class="{{showHints | ie: 'btn btn-success':'btn btn-default'}}"
                 ng-model="showHints"
                 btn-checkbox>
             {{'test.compound.showHints' | translate}}
         </button>
+        <button type="button"
+                class="{{turnCompound | ie: 'btn btn-success':'btn btn-default'}}"
+                ng-model="turnCompound"
+                btn-checkbox>
+            {{'test.compound.turnCompound' | translate}}
+        </button>
+        <button type="button"
+                ng-show="isInRole('ROLE_ADMIN')"
+                class="{{showHeisigCores | ie: 'btn btn-success':'btn btn-default'}}"
+                ng-model="showHeisigCores"
+                btn-checkbox>
+            {{'test.compound.showHeisigCores' | translate}}
+        </button>
     </div>
-    <div class="col-lg-4">
+    <div class="col-lg-2">
         <a ui-sref="compound.first" class="btn btn-block btn-default">
             <span class="glyphicon glyphicon-circle-arrow-left"></span>
             {{'global.messages.action.back' | translate}}
@@ -25,7 +38,7 @@
 <div class="col-lg-12" style="margin-top:10px">
     <div class="cmpd-wr" ng-if="compounds.length > 0" ng-repeat="p in compounds">
         <div class="cmpd-header-wr">
-            <span class="cmpd-reading">{{p.reading}}</span>
+            <span class="cmpd-reading">{{turnCompound ? p.answer : p.reading}}</span>
             <span ng-if="p.et" class="cmpd-et">{{p.et}}</span>
             <span ng-if="p.en" class="cmpd-en">{{p.en}}</span>
             <span ng-if="p.notes" class="cmpd-notes">({{p.notes}})</span>
@@ -33,14 +46,21 @@
 
         <div class="cmpd-answer-wr">
             <table>
-                <tr>
-                    <td ng-repeat="q in p.signs"
+                <tr ng-show="turnCompound">
+                    <td
+                        class="sign-box"
+                        ng-click="showSign=!showSign;toggleSign(showSign, $index, p)">
+                        <div ng-show="showAnswer || showSign" class="sign-wr" style="width:250px;">{{p.reading}}</div>
+                    </td>
+                </tr>
+                <tr ng-show="!turnCompound">
+                    <td ng-repeat="q in p.signs track by $index"
                         class="{{q.kanji | ie: 'sign-box':'rdng-box'}}"
-                        ng-click="showSign=!showSign">
+                        ng-click="showSign=!showSign;toggleSign(showSign, $index, p)">
                         <div ng-show="showAnswer || showSign || !q.kanji" class="sign-wr">{{q.sign}}</div>
                     </td>
                 </tr>
-                <tr>
+                <tr ng-show="!turnCompound">
                     <td ng-repeat="q in p.signs" class="sign-hint">
                         <div ng-if="q.kanji && (q.radicalHint || q.strokeCountHint)" class="radical-hint-wr">
                             <span ng-if="q.strokeCountHint" class="strokecount">{{q.strokeCountHint}}</span>
@@ -49,6 +69,13 @@
                     </td>
                 </tr>
             </table>
+        </div>
+        <div class="cmpd-answer-wr" ng-show="showHeisigCores && isInRole('ROLE_ADMIN') && p.showHeisig">
+             <span style="float:right">
+                <button class="btn btn-sm btn-default" type="button" ng-click="setDefaultHeisigWord(p)" style="font-size: 0.8em;">
+                    {{p.heisigCoreKw ? p.heisigCoreKw : 'KW'}}
+                </button>
+            </span>
         </div>
     </div>
 </div>
@@ -65,7 +92,7 @@
         vertical-align: top;
         margin-bottom:10px;
         margin-right:10px;
-        padding: 3px 15px 2px 15px;
+        padding: 3px 8px 2px 15px;
         min-height: 90px;
         border: 2px solid #888888;
         background: white;
@@ -122,6 +149,7 @@
     div.cmpd-header-wr {
         margin-top:4px;
         float: left;
+        width: 100%;
     }
 
     div.cmpd-answer-wr {

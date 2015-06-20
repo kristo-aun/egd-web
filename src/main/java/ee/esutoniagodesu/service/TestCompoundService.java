@@ -2,12 +2,14 @@ package ee.esutoniagodesu.service;
 
 import com.google.common.base.Joiner;
 import ee.esutoniagodesu.bean.ProjectDAO;
+import ee.esutoniagodesu.domain.ac.table.User;
 import ee.esutoniagodesu.domain.core.table.IHasCoreWord;
 import ee.esutoniagodesu.domain.freq.table.NresBase;
 import ee.esutoniagodesu.domain.jmdict.table.Sens;
 import ee.esutoniagodesu.domain.jmdict_en.table.EN_Sens;
 import ee.esutoniagodesu.domain.kanjidic2.table.Kanji;
 import ee.esutoniagodesu.pojo.test.compound.*;
+import ee.esutoniagodesu.repository.domain.heisig.HeisigCoreKwRepository;
 import ee.esutoniagodesu.repository.project.*;
 import ee.esutoniagodesu.util.JCString;
 import junit.framework.TestCase;
@@ -44,6 +46,9 @@ public class TestCompoundService {
     @Inject
     private CoreDB coreDB;
 
+    @Inject
+    private HeisigCoreKwRepository heisigCoreKwRepository;
+
     private static final FilterCompoundParamsDTO _params = new FilterCompoundParamsDTO();
 
     //------------------------------ enne submitti ------------------------------
@@ -58,7 +63,7 @@ public class TestCompoundService {
 
     //------------------------------ peale submitti ------------------------------
 
-    public List<KanjiCompound> submit(FilterCompoundSubmitDTO s) {
+    public List<KanjiCompound> submit(FilterCompoundSubmitDTO s, User user) {
         log.info("generate: s=" + s);
         long ms = System.currentTimeMillis();
 
@@ -122,6 +127,19 @@ public class TestCompoundService {
                     q.radicalHint = kanjis.get(q.sign).getRadicalHint();
 
             });
+
+            if (user.hasRoleAdmin()) {
+                String kanji = null;
+                for (KanjiCompound.Calligraphy sign : p.signs) {
+                    if (sign.kanji) {
+                        kanji = String.valueOf(sign.sign);
+                        break;
+                    }
+                }
+                heisigCoreKwRepository.findOneByKanji(kanji).ifPresent(item ->
+                    p.heisigCoreKw = item.getId() + "-" + item.getKeywordEn() + "-" +
+                        item.getWord() + "-" + item.getWordTranslation());
+            }
         }
 
         log.info("generate: time=" + (System.currentTimeMillis() - ms) + ", result.size=" + result.size() + ", s=" + s);
@@ -340,7 +358,7 @@ public class TestCompoundService {
         Map<Integer, List<U>> result = getNewCompdLenMap(compdlfrom, compdlto);
         for (U p : candicates) {
             if (p.getCountKanjis() < 1) {
-                log.error("no kanjis {}",p);
+                log.error("no kanjis {}", p);
                 continue;
             }
 

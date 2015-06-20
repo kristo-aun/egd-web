@@ -1,15 +1,15 @@
 package ee.esutoniagodesu.service;
 
 import ee.esutoniagodesu.bean.ProjectDAO;
+import ee.esutoniagodesu.domain.heisig.table.HeisigCoreKw;
 import ee.esutoniagodesu.domain.heisig.view.VHeisig6Custom;
+import ee.esutoniagodesu.repository.domain.heisig.HeisigCoreKwRepository;
 import ee.esutoniagodesu.repository.project.Heisig4DB;
 import ee.esutoniagodesu.repository.project.Heisig6DB;
 import ee.esutoniagodesu.repository.project.KanjiDB;
 import ee.esutoniagodesu.util.lang.alphab.LatinAlphabet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,6 +35,10 @@ public class HeisigService {
 
     @Inject
     private Heisig6DB heisig6DB;
+
+    @Inject
+    private HeisigCoreKwRepository heisigCoreKwRepository;
+
 
     private static enum QueryType {
         FRAME, SENTENCE, KEYWORD
@@ -174,5 +178,20 @@ public class HeisigService {
             arr[i] = chars.get(i);
         }
         return findBySigns(arr);
+    }
+
+    public HeisigCoreKw setDefaultHeisigWord(String kanji, String word, String wordReading, String wordTranslation) {
+        return heisigCoreKwRepository.findOneByKanji(kanji).map(u -> {
+
+            if (u.getId() <= 130) throw new IllegalStateException("Ei luba allapoole jäävaid enam muuta");
+
+            u.setWord(word);
+            u.setWordReading(wordReading);
+            u.setWordTranslation(wordTranslation);
+            u.setAudioAddr(null);
+            u.setWordAudio(null);
+            u.setWordAudioFileName(null);
+            return heisigCoreKwRepository.save(u);
+        }).orElseThrow(() -> new IllegalArgumentException(kanji + " was not found in the Heisig kanji list"));
     }
 }

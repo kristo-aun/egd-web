@@ -50,7 +50,9 @@
             "heisig6": "Heisig 6",
 
             "showAnswer": "Näita vastuseid",
-            "showHints": "Näita vihjeid"
+            "showHints": "Näita vihjeid",
+            "showHeisigCores": "Näita H6 sõna",
+            "turnCompound": "Pööra küsimus"
         }
     }
 }

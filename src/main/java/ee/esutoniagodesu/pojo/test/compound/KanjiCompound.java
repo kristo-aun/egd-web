@@ -18,6 +18,7 @@ public final class KanjiCompound implements ICountKanjis, Serializable {
     public final List<Calligraphy> signs = new ArrayList<>();
 
     public String heisigCoreKw;
+    public boolean heisigEquals;
 
     public int getCountKanjis() {
         int result = 0;

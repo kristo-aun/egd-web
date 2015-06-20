@@ -136,9 +136,14 @@ public class TestCompoundService {
                         break;
                     }
                 }
-                heisigCoreKwRepository.findOneByKanji(kanji).ifPresent(item ->
+                heisigCoreKwRepository.findOneByKanji(kanji).ifPresent(item -> {
+                    if (item.getWord().equals(p.answer)) {
+                        p.heisigEquals = true;
+                    }
                     p.heisigCoreKw = item.getId() + "-" + item.getKeywordEn() + "-" +
-                        item.getWord() + "-" + item.getWordReading() + "-" +item.getWordTranslation());
+                        item.getWord() + "-" + item.getWordReading() + "-" +item.getWordTranslation();
+                });
+
             }
         }
 

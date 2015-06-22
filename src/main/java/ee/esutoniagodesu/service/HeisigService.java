@@ -183,7 +183,7 @@ public class HeisigService {
     public HeisigCoreKw setDefaultHeisigWord(String kanji, String word, String wordReading, String wordTranslation) {
         return heisigCoreKwRepository.findOneByKanji(kanji).map(u -> {
 
-            if (u.getId() <= 130) throw new IllegalStateException("Ei luba allapoole jäävaid enam muuta");
+            if (u.getId() <= 10) throw new IllegalStateException("Ei luba allapoole jäävaid enam muuta");
 
             u.setWord(word);
             u.setWordReading(wordReading);

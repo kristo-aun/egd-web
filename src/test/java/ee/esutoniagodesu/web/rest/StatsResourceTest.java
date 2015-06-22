@@ -65,10 +65,7 @@ public class StatsResourceTest extends WebappTestEnvironment {
         List<VCoreStats> stats = dao.findAll(VCoreStats.class);
         VCoreStats first = stats.get(0);
 
-        mockMvc.perform(get("/api/stats/core_stats"))
-            .andExpect(status().isOk());
-
-        mockMvc.perform(get("/api/stats/core_stats").session(session))
+        mockMvc.perform(get(StatsResource.BASE_URL + "/core_stats").session(session))
             .andExpect(status().isOk())
             .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.[0].resource").value(first.getResource()));

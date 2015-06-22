@@ -25,10 +25,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.anyObject;
@@ -153,7 +150,7 @@ public class AccountResourceTest {
             "Shmoe",                // lastName
             "joe@example.com",      // e-mail
             "en",                   // langKey
-            Arrays.asList(AuthoritiesConstants.USER)
+            Collections.singletonList(AuthoritiesConstants.USER)
         );
 
         restMvc.perform(
@@ -176,7 +173,7 @@ public class AccountResourceTest {
             "One",                  // lastName
             "funky@example.com",    // e-mail
             "en",                   // langKey
-            Arrays.asList(AuthoritiesConstants.USER)
+            Collections.singletonList(AuthoritiesConstants.USER)
         );
 
         restUserMockMvc.perform(
@@ -199,7 +196,7 @@ public class AccountResourceTest {
             "Green",            // lastName
             "invalid",          // e-mail <-- invalid
             "en",               // langKey
-            Arrays.asList(AuthoritiesConstants.USER)
+            Collections.singletonList(AuthoritiesConstants.USER)
         );
 
         restUserMockMvc.perform(
@@ -223,7 +220,7 @@ public class AccountResourceTest {
             "Something",            // lastName
             "alice@example.com",    // e-mail
             "en",                   // langKey
-            Arrays.asList(AuthoritiesConstants.USER)
+            Collections.singletonList(AuthoritiesConstants.USER)
         );
 
         // Duplicate login, different e-mail
@@ -259,7 +256,7 @@ public class AccountResourceTest {
             "Doe",                  // lastName
             "john@example.com",     // e-mail
             "en",                   // langKey
-            Arrays.asList(AuthoritiesConstants.USER)
+            Collections.singletonList(AuthoritiesConstants.USER)
         );
 
         // Duplicate e-mail, different login
@@ -294,7 +291,7 @@ public class AccountResourceTest {
             "Guy",                  // lastName
             "badguy@example.com",   // e-mail
             "en",                   // langKey
-            Arrays.asList(AuthoritiesConstants.ADMIN) // <-- only admin should be able to do that
+            Collections.singletonList(AuthoritiesConstants.ADMIN) // <-- only admin should be able to do that
         );
 
         restMvc.perform(

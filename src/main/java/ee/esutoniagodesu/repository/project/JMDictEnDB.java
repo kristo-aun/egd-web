@@ -1,6 +1,8 @@
 package ee.esutoniagodesu.repository.project;
 
 import com.googlecode.genericdao.search.Search;
+import ee.esutoniagodesu.domain.core.table.Ilo;
+import ee.esutoniagodesu.domain.jmdict_en.pk.EN_SensPK;
 import ee.esutoniagodesu.domain.jmdict_en.table.EN_Sens;
 import ee.esutoniagodesu.domain.jmdict_en.view.EN_Essum;
 import ee.esutoniagodesu.util.persistence.JDBCUtil;
@@ -8,32 +10,58 @@ import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class JMDictEnDB extends AbstractProjectRepository {
 
     public EN_Sens getFirstSensByKanjAndRdng(String kanj, String rdng) {
-        StringBuilder msg = new StringBuilder("getFirstSensByKanjAndRdng (en): kanj=" + kanj + ", rdng=" + rdng);
-        Assert.isTrue(kanj != null && rdng != null);
-        long ms = System.currentTimeMillis();
+
+        Connection con = null;
+        CallableStatement s = null;
+        ResultSet rs = null;
+        EN_Sens result = null;
 
         try {
-            Query query = null;//dao.getSession().getNamedQuery("f_en_sens_by_kanj_and_rdng");
-            query.setString(0, kanj);
-            query.setString(1, rdng);
-            query.setInteger(2, 1);
-            EN_Sens result = (EN_Sens) query.uniqueResult();
-            log.debug(msg.append(", result=").append(result).append(", time=").append(System.currentTimeMillis() - ms).toString());
-            return result;
-        } catch (Exception e) {
-            log.error(msg.append(", msg=").append(e.getMessage()).toString(), e);
-            throw e;
+            con = dao.getConnection();
+            con.setAutoCommit(false);
+
+            String sql = "{? = call f_compd_ilo_by_kanji(?,?,?)}";
+            s = con.prepareCall(sql);
+
+            s.registerOutParameter(1, Types.OTHER);//cursor
+
+            s.setString(2, kanj);
+            s.setString(3, rdng);
+            s.setInt(4, 1);
+
+            s.execute();
+            rs = (ResultSet) s.getObject(1);
+            JDBCUtil.explainResultSetMetaData(rs.getMetaData());
+
+            if (rs.next()) {
+                EN_SensPK pk = new EN_SensPK(rs.getInt(1), rs.getShort(2));
+
+                result = dao.find(EN_Sens.class, pk);
+            }
+
+        } catch (SQLException e) {
+
+            System.exit(0);
+
+            throw new RuntimeException(e);
+        } finally {
+            JDBCUtil.close(rs, s, con);
         }
+
+        System.exit(0);
+
+        return result;
+
+
+
     }
 
     public List<EN_Essum> getEssumByKanj(String kanj) {

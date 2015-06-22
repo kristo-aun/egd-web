@@ -11,6 +11,14 @@ public final class EN_SensPK implements Serializable {
     private int entr;
     private short sens;
 
+    public EN_SensPK() {
+    }
+
+    public EN_SensPK(int entr, short sens) {
+        this.entr = entr;
+        this.sens = sens;
+    }
+
     @Column(name = "entr", nullable = false, insertable = true, updatable = true)
     @Id
     public int getEntr() {

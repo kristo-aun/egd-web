@@ -75,17 +75,18 @@ public class TestCompoundResourceTest extends WebappTestEnvironment {
     }
 
     @Test
-    public void t0_testAuthenticatedUser() throws Exception {
-        mockMvc.perform(get("/api/authenticate")
-            .with(request -> {
-                request.setRemoteUser("admin");
-                return request;
-            })
-            .accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk())
-            .andExpect(content().string("admin"));
+    public void t1_get_params() throws Exception {
+        mockMvc.perform(get(TestCompoundResource.BASE_URL + "/params"))
+            .andExpect(status().isOk());
     }
 
+    @Test
+    public void t1_get_form_defaults() throws Exception {
+        for (FilterCompoundSubmitDefaults p : FilterCompoundSubmitDefaults.values()) {
+            mockMvc.perform(get(TestCompoundResource.BASE_URL + "/form-default/" + p.ID))
+                .andExpect(status().isOk());
+        }
+    }
 
     /**
      * Saadab kõik eeltäidetud vormid testigeneratorile läbi http.

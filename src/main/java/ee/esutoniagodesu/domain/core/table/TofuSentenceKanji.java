@@ -7,16 +7,16 @@ import java.io.Serializable;
 import java.util.Collection;
 
 @Immutable
-@Table(name = "core_10k_kanji", schema = "core", catalog = "egd")
+@Table(name = "tofu_sentence_kanji", schema = "core", catalog = "egd")
 @Entity
-public final class Core10KKanji implements Serializable {
+public final class TofuSentenceKanji implements Serializable {
 
     private static final long serialVersionUID = 856122524713834732L;
     private Integer id;
     private String kanji;
-    private Collection<MtmCore10KKanji> mtmCore10KKanjis;
+    private Collection<MtmTofuSentenceKanji> mtmTofuSentenceKanjis;
 
-    @SequenceGenerator(name = "seq", sequenceName = "core.core_10k_kanji_id_seq", allocationSize = 1)
+    @SequenceGenerator(name = "seq", sequenceName = "core.tofu_sentence_kanji_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
     @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
     @Id
@@ -38,13 +38,13 @@ public final class Core10KKanji implements Serializable {
         this.kanji = kanji;
     }
 
-    @OneToMany(mappedBy = "core10KKanji")
-    public Collection<MtmCore10KKanji> getMtmCore10KKanjis() {
-        return mtmCore10KKanjis;
+    @OneToMany(mappedBy = "tofuSentenceKanji")
+    public Collection<MtmTofuSentenceKanji> getMtmTofuSentenceKanjis() {
+        return mtmTofuSentenceKanjis;
     }
 
-    public void setMtmCore10KKanjis(Collection<MtmCore10KKanji> mtmCore10KKanjis) {
-        this.mtmCore10KKanjis = mtmCore10KKanjis;
+    public void setMtmTofuSentenceKanjis(Collection<MtmTofuSentenceKanji> mtmTofuSentenceKanjis) {
+        this.mtmTofuSentenceKanjis = mtmTofuSentenceKanjis;
     }
 
     @Override
@@ -52,7 +52,7 @@ public final class Core10KKanji implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Core10KKanji that = (Core10KKanji) o;
+        TofuSentenceKanji that = (TofuSentenceKanji) o;
 
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
         if (kanji != null ? !kanji.equals(that.kanji) : that.kanji != null) return false;

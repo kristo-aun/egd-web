@@ -1,9 +1,12 @@
 package ee.esutoniagodesu.domain.core.table;
 
+import org.hibernate.annotations.Immutable;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 
+@Immutable
 @Table(name = "core_10k", schema = "core", catalog = "egd")
 @Entity
 public final class Core10K implements IHasCoreWord, IHasCoreSentence, Serializable {
@@ -27,6 +30,8 @@ public final class Core10K implements IHasCoreWord, IHasCoreSentence, Serializab
     private String wordAltDef;
     private boolean withJmdict;
     private Collection<MtmCore10KKanji> mtmCore10KKanjis;
+
+    private int wordKanjiCount;
 
     @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
     @Id
@@ -179,7 +184,11 @@ public final class Core10K implements IHasCoreWord, IHasCoreSentence, Serializab
 
     @Transient
     public int getWordKanjiCount() {
-        return mtmCore10KKanjis.size();
+        return wordKanjiCount;
+    }
+
+    public void setWordKanjiCount(int wordKanjiCount) {
+        this.wordKanjiCount = wordKanjiCount;
     }
 
     @Override

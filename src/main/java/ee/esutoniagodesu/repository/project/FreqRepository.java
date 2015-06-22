@@ -1,7 +1,7 @@
 package ee.esutoniagodesu.repository.project;
 
-import ee.esutoniagodesu.domain.freq.table.TofuSentence;
-import ee.esutoniagodesu.domain.freq.table.TofuSentenceTranslation;
+import ee.esutoniagodesu.domain.core.table.TofuSentence;
+import ee.esutoniagodesu.domain.core.table.TofuSentenceTranslation;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.NoResultException;

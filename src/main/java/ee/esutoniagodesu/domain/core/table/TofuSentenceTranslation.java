@@ -1,4 +1,4 @@
-package ee.esutoniagodesu.domain.freq.table;
+package ee.esutoniagodesu.domain.core.table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.data.annotation.CreatedBy;
@@ -7,7 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-@Table(name = "tofu_sentence_translation", schema = "freq", catalog = "egd")
+@Table(name = "tofu_sentence_translation", schema = "core", catalog = "egd")
 @Entity
 public class TofuSentenceTranslation implements Serializable {
 
@@ -18,7 +18,7 @@ public class TofuSentenceTranslation implements Serializable {
     @JsonIgnore
     private TofuSentence tofuSentence;
 
-    @SequenceGenerator(name = "seq", sequenceName = "freq.tofu_sentence_translation_id_seq", allocationSize = 1)
+    @SequenceGenerator(name = "seq", sequenceName = "core.tofu_sentence_translation_id_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
     @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
     @Id

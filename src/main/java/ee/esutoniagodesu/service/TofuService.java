@@ -1,10 +1,9 @@
 package ee.esutoniagodesu.service;
 
 import ee.esutoniagodesu.domain.ac.table.User;
-import ee.esutoniagodesu.domain.freq.table.TofuSentence;
-import ee.esutoniagodesu.domain.freq.table.TofuSentenceTranslation;
+import ee.esutoniagodesu.domain.core.table.TofuSentence;
+import ee.esutoniagodesu.domain.core.table.TofuSentenceTranslation;
 import ee.esutoniagodesu.pojo.test.compound.FilterCompoundSubmitDTO;
-import ee.esutoniagodesu.pojo.test.compound.KanjiCompound;
 import ee.esutoniagodesu.repository.domain.freq.TofuSentenceRepository;
 import ee.esutoniagodesu.repository.project.FreqRepository;
 import ee.esutoniagodesu.util.PaginationUtil;

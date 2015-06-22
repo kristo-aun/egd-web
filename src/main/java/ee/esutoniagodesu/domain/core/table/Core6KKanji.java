@@ -1,9 +1,12 @@
 package ee.esutoniagodesu.domain.core.table;
 
+import org.hibernate.annotations.Immutable;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 
+@Immutable
 @Table(name = "core_6k_kanji", schema = "core", catalog = "egd")
 @Entity
 public final class Core6KKanji implements Serializable {

@@ -1,8 +1,11 @@
 package ee.esutoniagodesu.domain.core.table;
 
+import org.hibernate.annotations.Immutable;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
+@Immutable
 @Table(name = "mtm_core_6k_kanji", schema = "core", catalog = "egd")
 @Entity
 public final class MtmCore6KKanji implements Serializable {

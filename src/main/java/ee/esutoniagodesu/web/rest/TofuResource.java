@@ -1,9 +1,8 @@
 package ee.esutoniagodesu.web.rest;
 
 import ee.esutoniagodesu.domain.ac.table.User;
-import ee.esutoniagodesu.domain.freq.table.TofuSentence;
+import ee.esutoniagodesu.domain.core.table.TofuSentence;
 import ee.esutoniagodesu.pojo.test.compound.FilterCompoundSubmitDTO;
-import ee.esutoniagodesu.pojo.test.compound.KanjiCompound;
 import ee.esutoniagodesu.security.AuthoritiesConstants;
 import ee.esutoniagodesu.service.TofuService;
 import ee.esutoniagodesu.service.UserService;

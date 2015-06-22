@@ -98,7 +98,7 @@ public class TestCompoundResourceTest extends WebappTestEnvironment {
     @Test
     public void t1_submit_defaults() throws Exception {
 
-        FilterCompoundSubmitDTO par =  FilterCompoundSubmitDefaults.getIloHeisig6();
+        FilterCompoundSubmitDTO par =  FilterCompoundSubmitDefaults.getCore10KJLPT();
         par.noEnIfHasEt = false;
 
         service.submit(par, userRepository.findOne(USERNAME));

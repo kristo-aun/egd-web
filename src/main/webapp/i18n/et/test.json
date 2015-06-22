@@ -41,7 +41,7 @@
             },
             "meaningComponents": "Sõna tähenduse esitamine",
             "notesVisible": "Koos sõnaliikide ja märgenditega",
-            "noEnIfHasEt": "Peida inglisekeelne tõlge kui eestikeelne on olemas",
+            "noEnIfHasEt": "Peida JMDict tõlge kui ",
             "export": "Ekspordifail",
             "generatePdf": "Genereeri PDF",
             "grade": "Grade",

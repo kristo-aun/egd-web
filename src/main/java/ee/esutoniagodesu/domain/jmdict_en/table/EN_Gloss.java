@@ -128,4 +128,8 @@ public final class EN_Gloss implements Serializable {
         result = 31 * result + (txt != null ? txt.hashCode() : 0);
         return result;
     }
+
+    public String toString() {
+        return txt;
+    }
 }

@@ -1,19 +1,20 @@
-package ee.esutoniagodesu.domain.freq.table;
+package ee.esutoniagodesu.domain.core.table;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import org.hibernate.annotations.Immutable;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
-
+@Immutable
 @Entity
-@Table(name = "tofu_sentence", schema = "freq", catalog = "egd")
+@Table(name = "tofu_sentence", schema = "core", catalog = "egd")
 public final class TofuSentence implements Serializable {
 
     private static final long serialVersionUID = -1044326675149260942L;
 
-    @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
+    @Column(name = "id", nullable = false, insertable = false, updatable = true, length = 10, precision = 0)
     @Id
     private Integer id;
     @Column(name = "word", nullable = false, insertable = true, updatable = true, length = 2147483647, precision = 0)

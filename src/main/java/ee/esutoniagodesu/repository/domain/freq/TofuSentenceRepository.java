@@ -1,6 +1,6 @@
 package ee.esutoniagodesu.repository.domain.freq;
 
-import ee.esutoniagodesu.domain.freq.table.TofuSentence;
+import ee.esutoniagodesu.domain.core.table.TofuSentence;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,6 +1,5 @@
 package ee.esutoniagodesu.repository.project;
 
-import com.google.common.base.Joiner;
 import ee.esutoniagodesu.domain.core.table.Core10K;
 import ee.esutoniagodesu.domain.core.table.Core6K;
 import ee.esutoniagodesu.domain.core.table.Ilo;
@@ -8,7 +7,10 @@ import ee.esutoniagodesu.domain.freq.table.NresBase;
 import ee.esutoniagodesu.util.persistence.JDBCUtil;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.*;
+import javax.persistence.NamedStoredProcedureQueries;
+import javax.persistence.NamedStoredProcedureQuery;
+import javax.persistence.ParameterMode;
+import javax.persistence.StoredProcedureParameter;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -162,29 +164,119 @@ public class CoreDB extends AbstractProjectRepository {
     }
 
     public List<Core6K> getCore6KWordsByKanjis(String kanjis, int compdlfrom, int compdlto) {
-        StoredProcedureQuery query = em.createNamedStoredProcedureQuery("f_compd_core_6k_by_kanji");
-        query.setParameter("kanjis", kanjis);
-        query.setParameter("compdlfrom", compdlfrom);
-        query.setParameter("compdlto", compdlto);
-        query.execute();
-        return (List<Core6K>) query.getOutputParameterValue("core_6k_by_kanji");
+
+        Connection con = null;
+        CallableStatement s = null;
+        ResultSet rs = null;
+        List<Core6K> result = null;
+
+        try {
+            con = dao.getConnection();
+            con.setAutoCommit(false);
+
+            String sql = "{? = call f_compd_core_6k_by_kanji(?,?,?)}";
+            s = con.prepareCall(sql);
+
+            s.registerOutParameter(1, Types.OTHER);//cursor
+            s.setString(2, kanjis);
+            s.setInt(3, compdlfrom);
+            s.setInt(4, compdlto);
+
+            s.execute();
+            rs = (ResultSet) s.getObject(1);
+
+            result = new ArrayList<>();
+
+            while (rs.next()) {
+                Core6K item = new Core6K();
+
+                item.setWord(rs.getString("word"));
+                item.setWordReading(rs.getString("word_reading"));
+                item.setWordFurigana(rs.getString("word_furigana"));
+                item.setWordRomaji(rs.getString("word_romaji"));
+                item.setWordTranslation(rs.getString("word_translation"));
+
+                item.setWordPos(rs.getString("word_pos"));
+                item.setWordAudio(rs.getString("word_audio"));
+                item.setSentence(rs.getString("sentence"));
+                item.setSentenceReading(rs.getString("sentence_reading"));
+                item.setSentenceFurigana(rs.getString("sentence_furigana"));
+
+                item.setSentenceRomaji(rs.getString("sentence_romaji"));
+                item.setSentenceTranslation(rs.getString("sentence_translation"));
+                item.setSentenceAudio(rs.getString("sentence_audio"));
+                item.setSentencePicture(rs.getString("sentence_picture"));
+                item.setId(rs.getInt("id"));
+
+                item.setWithJmdict(rs.getBoolean("with_jmdict"));
+                item.setWordKanjiCount(rs.getInt("kanji_count"));
+
+                result.add(item);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            JDBCUtil.close(rs, s, con);
+        }
+
+        return result;
     }
 
     public List<Core10K> getCore10KWordsByKanjis(String kanjis, int compdlfrom, int compdlto) {
-        StoredProcedureQuery query = em.createNamedStoredProcedureQuery("f_compd_core_10k_by_kanji");
-        query.setParameter("kanjis", kanjis);
-        query.setParameter("compdlfrom", compdlfrom);
-        query.setParameter("compdlto", compdlto);
-        query.execute();
-        return (List<Core10K>) query.getOutputParameterValue("core_10k_by_kanji");
-    }
 
-    public List<NresBase> getFreqNresWordsByKanjis(List<Character> chars, int compdlfrom, int compdlto) {
-        StoredProcedureQuery query = em.createNamedStoredProcedureQuery("f_compd_nres_by_kanji");
-        query.setParameter("kanjis", Joiner.on(",").join(chars));
-        query.setParameter("compdlfrom", compdlfrom);
-        query.setParameter("compdlto", compdlto);
-        query.execute();
-        return (List<NresBase>) query.getOutputParameterValue("nres_by_kanji");
+        Connection con = null;
+        CallableStatement s = null;
+        ResultSet rs = null;
+        List<Core10K> result = null;
+
+        try {
+            con = dao.getConnection();
+            con.setAutoCommit(false);
+
+            String sql = "{? = call f_compd_core_10k_by_kanji(?,?,?)}";
+            s = con.prepareCall(sql);
+
+            s.registerOutParameter(1, Types.OTHER);//cursor
+            s.setString(2, kanjis);
+            s.setInt(3, compdlfrom);
+            s.setInt(4, compdlto);
+
+            s.execute();
+            rs = (ResultSet) s.getObject(1);
+
+            result = new ArrayList<>();
+
+            while (rs.next()) {
+                Core10K item = new Core10K();
+
+                item.setWord(rs.getString("word"));
+                item.setWordReading(rs.getString("word_reading"));
+                item.setSentence(rs.getString("sentence"));
+                item.setSentenceAudio(rs.getString("sentence_audio"));
+                item.setWordAudio(rs.getString("word_audio"));
+
+                item.setWordTranslation(rs.getString("word_translation"));
+                item.setMnemonic(rs.getString("mnemonic"));
+                item.setMasterIndex(rs.getString("master_index"));
+                item.setLevel(rs.getString("level"));
+                item.setSentenceReading(rs.getString("sentence_reading"));
+
+                item.setSentenceTranslation(rs.getString("sentence_translation"));
+                item.setWordAltDef(rs.getString("word_alt_def"));
+                item.setId(rs.getInt("id"));
+                item.setWithJmdict(rs.getBoolean("with_jmdict"));
+                item.setWordKanjiCount(rs.getInt("kanji_count"));
+
+                result.add(item);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            JDBCUtil.close(rs, s, con);
+        }
+
+        return result;
     }
 }

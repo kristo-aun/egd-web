@@ -1,17 +1,13 @@
 package ee.esutoniagodesu.repository.project;
 
 import com.googlecode.genericdao.search.Search;
-import ee.esutoniagodesu.domain.core.table.Ilo;
 import ee.esutoniagodesu.domain.jmdict_en.pk.EN_SensPK;
 import ee.esutoniagodesu.domain.jmdict_en.table.EN_Sens;
 import ee.esutoniagodesu.domain.jmdict_en.view.EN_Essum;
 import ee.esutoniagodesu.util.persistence.JDBCUtil;
-import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.Assert;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -28,7 +24,7 @@ public class JMDictEnDB extends AbstractProjectRepository {
             con = dao.getConnection();
             con.setAutoCommit(false);
 
-            String sql = "{? = call f_compd_ilo_by_kanji(?,?,?)}";
+            String sql = "{? = call f_en_sens_by_kanj_and_rdng(?,?,?)}";
             s = con.prepareCall(sql);
 
             s.registerOutParameter(1, Types.OTHER);//cursor
@@ -39,7 +35,6 @@ public class JMDictEnDB extends AbstractProjectRepository {
 
             s.execute();
             rs = (ResultSet) s.getObject(1);
-            JDBCUtil.explainResultSetMetaData(rs.getMetaData());
 
             if (rs.next()) {
                 EN_SensPK pk = new EN_SensPK(rs.getInt(1), rs.getShort(2));
@@ -48,20 +43,12 @@ public class JMDictEnDB extends AbstractProjectRepository {
             }
 
         } catch (SQLException e) {
-
-            System.exit(0);
-
             throw new RuntimeException(e);
         } finally {
             JDBCUtil.close(rs, s, con);
         }
 
-        System.exit(0);
-
         return result;
-
-
-
     }
 
     public List<EN_Essum> getEssumByKanj(String kanj) {
@@ -110,7 +97,7 @@ public class JMDictEnDB extends AbstractProjectRepository {
         try {
             long ms = System.currentTimeMillis();
             con = dao.getConnection();
-            String sql = "select gloss from jmdict_en.esum where rdng=? and kanj=? limit 1";
+            String sql = "SELECT gloss FROM jmdict_en.esum WHERE rdng=? AND kanj=? LIMIT 1";
             s = con.prepareStatement(sql);
             s.setString(1, rdng);
             s.setString(2, kanj);

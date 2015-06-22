@@ -3,6 +3,7 @@ package ee.esutoniagodesu.web.rest;
 import ee.esutoniagodesu.bean.ProjectDAO;
 import ee.esutoniagodesu.pojo.test.compound.FilterCompoundSubmitDTO;
 import ee.esutoniagodesu.pojo.test.compound.FilterCompoundSubmitDefaults;
+import ee.esutoniagodesu.repository.domain.ac.UserRepository;
 import ee.esutoniagodesu.repository.project.*;
 import ee.esutoniagodesu.service.TestCompoundService;
 import ee.esutoniagodesu.web.rest.test.TestCompoundResource;
@@ -47,6 +48,9 @@ public class TestCompoundResourceTest extends WebappTestEnvironment {
     private KanjiDB kanjiDB;
     @Inject
     private CoreDB coreDB;
+
+    @Inject
+    private UserRepository userRepository;
 
     @Inject
     private TestCompoundService service;
@@ -94,8 +98,11 @@ public class TestCompoundResourceTest extends WebappTestEnvironment {
     @Test
     public void t1_submit_defaults() throws Exception {
 
-        //service.submit(FilterCompoundSubmitDefaults.getIloHeisig6());
-        submit_dto(FilterCompoundSubmitDefaults.getIloHeisig6());
+        FilterCompoundSubmitDTO par =  FilterCompoundSubmitDefaults.getIloHeisig6();
+        par.noEnIfHasEt = false;
+
+        service.submit(par, userRepository.findOne(USERNAME));
+        //submit_dto(FilterCompoundSubmitDefaults.getIloHeisig6());
         //submit_dto(FilterCompoundSubmitDefaults.getCore6KHeisig6());
         //submit_dto(FilterCompoundSubmitDefaults.getCore10KJLPT());
     }

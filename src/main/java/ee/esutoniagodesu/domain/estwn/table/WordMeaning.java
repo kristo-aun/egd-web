@@ -16,10 +16,9 @@ public final class WordMeaning implements Serializable {
     @JsonIgnore
     private Collection<Variant> variants;
 
-    @SequenceGenerator(name = "seq", sequenceName = "estwn.word_meaning_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     @Id
-    @Column(name = "id", nullable = false, insertable = true, updatable = true)
     public Integer getId() {
         return id;
     }

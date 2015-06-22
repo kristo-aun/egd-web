@@ -33,7 +33,7 @@ public final class Core10K implements IHasCoreWord, IHasCoreSentence, Serializab
 
     private int wordKanjiCount;
 
-    @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
+    @Column(name = "id")
     @Id
     public Integer getId() {
         return id;

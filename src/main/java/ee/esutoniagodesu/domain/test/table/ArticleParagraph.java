@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "article_paragraph", schema = "test")
-public final class ArticleParagraph {
+public class ArticleParagraph {
 
     private Integer id;
     private String txt;
@@ -17,9 +17,9 @@ public final class ArticleParagraph {
     @JsonIgnore
     private Article article;
 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     @Id
-    @SequenceGenerator(name = "seq", sequenceName = "test.article_paragraph_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
     public Integer getId() {
         return id;
     }

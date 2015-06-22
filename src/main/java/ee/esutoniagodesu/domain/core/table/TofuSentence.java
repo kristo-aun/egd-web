@@ -14,7 +14,7 @@ public final class TofuSentence implements Serializable {
 
     private static final long serialVersionUID = -1044326675149260942L;
 
-    @Column(name = "id", nullable = false, insertable = false, updatable = true, length = 10, precision = 0)
+    @Column(name = "id")
     @Id
     private Integer id;
     @Column(name = "word", nullable = false, insertable = true, updatable = true, length = 2147483647, precision = 0)

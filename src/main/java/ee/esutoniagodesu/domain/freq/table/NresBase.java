@@ -50,9 +50,8 @@ public final class NresBase implements IntID, ICountKanjis, Serializable {
         this.freq = freq;
     }
 
-    @SequenceGenerator(name = "seq", sequenceName = "freq.jp_freq_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     @Id
     public int getId() {
         return id;

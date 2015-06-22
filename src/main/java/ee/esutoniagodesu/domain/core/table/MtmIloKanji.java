@@ -15,9 +15,8 @@ public final class MtmIloKanji implements Serializable {
     private Ilo ilo;
     private IloKanji iloKanji;
 
-    @SequenceGenerator(name = "seq", sequenceName = "core.mtm_ilo_kanji_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     @Id
     public Integer getId() {
         return id;

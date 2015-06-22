@@ -1,24 +1,26 @@
 package ee.esutoniagodesu.domain.core.table;
 
-import org.hibernate.annotations.Immutable;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 
-@Immutable
 @Table(name = "tofu_sentence_kanji", schema = "core", catalog = "egd")
 @Entity
-public final class TofuSentenceKanji implements Serializable {
+public class TofuSentenceKanji implements Serializable {
 
     private static final long serialVersionUID = 856122524713834732L;
     private Integer id;
     private String kanji;
-    private Collection<MtmTofuSentenceKanji> mtmTofuSentenceKanjis;
 
-    @SequenceGenerator(name = "seq", sequenceName = "core.tofu_sentence_kanji_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
+    public TofuSentenceKanji() {
+    }
+
+    public TofuSentenceKanji(String kanji) {
+        this.kanji = kanji;
+    }
+
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     @Id
     public Integer getId() {
         return id;
@@ -36,15 +38,6 @@ public final class TofuSentenceKanji implements Serializable {
 
     public void setKanji(String kanji) {
         this.kanji = kanji;
-    }
-
-    @OneToMany(mappedBy = "tofuSentenceKanji")
-    public Collection<MtmTofuSentenceKanji> getMtmTofuSentenceKanjis() {
-        return mtmTofuSentenceKanjis;
-    }
-
-    public void setMtmTofuSentenceKanjis(Collection<MtmTofuSentenceKanji> mtmTofuSentenceKanjis) {
-        this.mtmTofuSentenceKanjis = mtmTofuSentenceKanjis;
     }
 
     @Override

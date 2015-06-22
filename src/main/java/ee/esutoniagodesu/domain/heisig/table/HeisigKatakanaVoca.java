@@ -16,9 +16,8 @@ public final class HeisigKatakanaVoca implements Serializable {
     private String wordKana;
     private String wordRomaji;
 
-    @SequenceGenerator(name = "seq", sequenceName = "heisig.heisig_katakana_voca_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     @Id
     public Integer getId() {
         return id;

@@ -25,6 +25,16 @@ public final class Ilo implements IHasCoreWord, Serializable {
     private Collection<MtmIloKanji> mtmIloKanjis;
     private int wordKanjiCount;
 
+    @Column(name = "id")
+    @Id
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     @Column(name = "comment", nullable = true, insertable = true, updatable = true, length = 2147483647, precision = 0)
     @Basic
     public String getComment() {
@@ -33,18 +43,6 @@ public final class Ilo implements IHasCoreWord, Serializable {
 
     public void setComment(String comment) {
         this.comment = comment;
-    }
-
-    @SequenceGenerator(name = "seq", sequenceName = "core.ilo_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
-    @Id
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     @OneToMany(mappedBy = "ilo")

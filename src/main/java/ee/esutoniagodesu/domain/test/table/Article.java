@@ -14,17 +14,11 @@ import java.util.Collection;
  */
 @Entity
 @Table(name = "article", schema = "test")
-public final class Article extends AbstractAuditingEntity implements Serializable {
+public class Article extends AbstractAuditingEntity implements Serializable {
 
-    private static final Logger log = LoggerFactory.getLogger(Article.class);
-
-    public Article() {
-        //log.info("New instance of " + getClass() + ", @=" + toString());
-    }
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     @Id
-    @SequenceGenerator(name = "seq", sequenceName = "test.article_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
     private Integer id;
     @Column(name = "author")
     private String author;

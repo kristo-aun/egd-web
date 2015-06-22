@@ -15,6 +15,17 @@ public final class MtmCore6KKanji implements Serializable {
     private Core6K core6K;
     private Core6KKanji core6KKanji;
 
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    @Id
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     @ManyToOne
     @JoinColumn(name = "core_6k_id", referencedColumnName = "id", nullable = false)
     public Core6K getCore6K() {
@@ -33,18 +44,6 @@ public final class MtmCore6KKanji implements Serializable {
 
     public void setCore6KKanji(Core6KKanji core6KKanji) {
         this.core6KKanji = core6KKanji;
-    }
-
-    @SequenceGenerator(name = "seq", sequenceName = "core.mtm_core_6k_kanji_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
-    @Id
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     @Override

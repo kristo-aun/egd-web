@@ -16,9 +16,8 @@ public final class Core6KKanji implements Serializable {
     private String kanji;
     private Collection<MtmCore6KKanji> mtmCore6KKanjis;
 
-    @SequenceGenerator(name = "seq", sequenceName = "core.core_6k_kanji_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     @Id
     public Integer getId() {
         return id;

@@ -15,9 +15,8 @@ public class MtmJmSensJpSentence implements Serializable {
     private String kanj;
     private JpSentence jpSentence;
 
-    @SequenceGenerator(name = "seq", sequenceName = "public.mtm_jm_sens_jp_sentence_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     @Id
     public Integer getId() {
         return id;

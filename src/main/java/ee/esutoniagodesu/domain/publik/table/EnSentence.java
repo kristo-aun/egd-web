@@ -50,9 +50,8 @@ public final class EnSentence implements Serializable {
         this.en = en;
     }
 
-    @SequenceGenerator(name = "seq", sequenceName = "public.en_sentence_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     @Id
     public Integer getId() {
         return id;

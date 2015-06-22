@@ -36,7 +36,7 @@ public final class Core6K implements IHasCoreWord, IHasCoreSentence, Serializabl
 
     private int wordKanjiCount;
 
-    @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
+    @Column(name = "id")
     @Id
     public Integer getId() {
         return id;

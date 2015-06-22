@@ -31,7 +31,7 @@ public final class HeisigCoreKw implements Serializable {
         this.audioAddr = audioAddr;
     }
 
-    @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
+    @Column(name = "id")
     @Id
     public Integer getId() {
         return id;

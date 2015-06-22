@@ -27,10 +27,9 @@ public final class PersistentAuditEvent implements Serializable {
     private String auditEventType;
     private Map<String, String> data = new HashMap<>();
 
-    @Id
-    @SequenceGenerator(name = "seq", sequenceName = "ac.persistent_audit_event_event_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "event_id")
+    @Id
     public int getId() {
         return id;
     }

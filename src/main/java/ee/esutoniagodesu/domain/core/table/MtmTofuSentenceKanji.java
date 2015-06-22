@@ -1,11 +1,8 @@
 package ee.esutoniagodesu.domain.core.table;
 
-import org.hibernate.annotations.Immutable;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Immutable
 @Table(name = "mtm_tofu_sentence_kanji", schema = "core", catalog = "egd")
 @Entity
 public final class MtmTofuSentenceKanji implements Serializable {
@@ -15,9 +12,16 @@ public final class MtmTofuSentenceKanji implements Serializable {
     private TofuSentence tofuSentence;
     private TofuSentenceKanji tofuSentenceKanji;
 
-    @SequenceGenerator(name = "seq", sequenceName = "core.mtm_tofu_sentence_kanji_id_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
-    @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
+    public MtmTofuSentenceKanji() {
+    }
+
+    public MtmTofuSentenceKanji(TofuSentence tofuSentence, TofuSentenceKanji tofuSentenceKanji) {
+        this.tofuSentence = tofuSentence;
+        this.tofuSentenceKanji = tofuSentenceKanji;
+    }
+
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     @Id
     public Integer getId() {
         return id;

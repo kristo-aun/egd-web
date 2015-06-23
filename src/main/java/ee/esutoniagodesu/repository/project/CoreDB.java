@@ -1,16 +1,11 @@
 package ee.esutoniagodesu.repository.project;
 
-import ee.esutoniagodesu.domain.core.table.Core10K;
-import ee.esutoniagodesu.domain.core.table.Core6K;
-import ee.esutoniagodesu.domain.core.table.Ilo;
+import ee.esutoniagodesu.domain.core.table.*;
 import ee.esutoniagodesu.domain.freq.table.NresBase;
 import ee.esutoniagodesu.util.persistence.JDBCUtil;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.NamedStoredProcedureQueries;
-import javax.persistence.NamedStoredProcedureQuery;
-import javax.persistence.ParameterMode;
-import javax.persistence.StoredProcedureParameter;
+import javax.persistence.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +23,49 @@ import java.util.List;
 })
 @Repository
 public class CoreDB extends AbstractProjectRepository {
+
+    public List<TofuSentence> findUserTofus(int from, int to, String createdBy) {
+        String sql = "SELECT * from core.tofu_sentence where id between ?1 and ?2 order by id";
+        Query q = em.createNativeQuery(sql, TofuSentence.class);
+        q.setParameter(1, from);
+        q.setParameter(2, to);
+
+        List<TofuSentence> result = q.getResultList();
+
+        for (TofuSentence p : result) {
+            p.setTranslation(findUserTofuSentenceTranslation(p.getId(), createdBy));
+        }
+        return result;
+    }
+
+    public TofuSentence findUserTofuById(int id, String createdBy) {
+        String sql = "SELECT * from core.tofu_sentence where id = ?1";
+        Query q = em.createNativeQuery(sql, TofuSentence.class);
+        q.setParameter(1, id);
+
+        TofuSentence result = (TofuSentence) q.getSingleResult();
+        result.setTranslation(findUserTofuSentenceTranslation(result.getId(), createdBy));
+
+        return result;
+    }
+
+    public TofuSentenceTranslation findUserTofuSentenceTranslation(int tofuSentenceId, String createdBy) {
+        if (tofuSentenceId < 1 || createdBy == null) throw new IllegalArgumentException("findUserTofuSentenceTranslation");
+
+        try {
+            String sql = "SELECT * FROM core.tofu_sentence_translation WHERE tofu_sentence_id=?1 AND created_by=?2";
+            Query q = em.createNativeQuery(sql, TofuSentenceTranslation.class);
+            q.setParameter(1, tofuSentenceId);
+            q.setParameter(2, createdBy);
+
+            return (TofuSentenceTranslation) q.getSingleResult();
+        } catch (NoResultException ignored) {
+            return null;
+        } catch (Exception e) {
+            log.error("msg=" + e.getMessage(), e);
+            throw e;
+        }
+    }
 
     /**
      * @param countGlossEq kui -1, siis loendame kõik sagedused

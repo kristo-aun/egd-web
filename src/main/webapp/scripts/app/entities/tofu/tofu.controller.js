@@ -1,7 +1,7 @@
 'use strict';
 
 egdApp
-    .controller('TofuController', function ($scope, $log, TofuResource, ParseLinks, TranslatorResource) {
+    .controller('TofuController', function ($q, $scope, $log, TofuResource, ParseLinks, TranslatorResource) {
         $scope.tofus = [];
 
         $scope.page = 1;
@@ -22,35 +22,61 @@ egdApp
         };
         $scope.loadAll();
 
-        $scope.update = function () {
+        //------------------------------ tofu dialoog ------------------------------
+
+        $scope.saveTofu = function () {
+            var deferred = $q.defer();
             TofuResource.update($scope.tofu,
                 function () {
-                    $scope.loadAll();
-                    $('#saveTofuModal').modal('hide');
-                    $scope.clear();
+                    deferred.resolve();
                 });
+            return deferred.promise;
         };
 
-        $scope.show = function (id) {
+        $scope.loadTofu = function(id) {
+            var deferred = $q.defer();
             TofuResource.get({id: id}, function(result) {
                 $scope.tofu = result;
-                $('#saveTofuModal').modal('show');
+                deferred.resolve();
                 if ($scope.tofu.translation == null) {
                     TranslatorResource.translate("ja", "en", $scope.tofu.sentence).then(function(result) {
                         $scope.tofu.sentenceHint = result;
                     });
                 }
             });
+            return deferred.promise;
         };
 
-        $scope.clear = function () {
-            delete $scope.tofu;
-            delete $scope.tofuFilter;
+        $scope.show = function (id) {
+            $scope.loadTofu(id).then(function() {
+                $('#saveTofuModal').modal('show');
+            });
+        };
+
+        $scope.nextTofu = function() {
+            $scope.clearForm();
+            $scope.loadTofu($scope.tofu.id + 1);
+        };
+
+        $scope.prevTofu = function() {
+            $scope.clearForm();
+            $scope.loadTofu($scope.tofu.id - 1);
+        };
+
+        $scope.submitTofu = function() {
+            $scope.saveTofu().then(function() {
+                $scope.nextTofu();
+            });
+        };
+
+        $scope.clearForm = function () {
             $scope.editForm.$setPristine();
             $scope.editForm.$setUntouched();
         };
 
-        $scope.doFilter = function() {
-
+        $scope.cancel = function () {
+            $scope.clearForm();
+            delete $scope.tofu;
+            $scope.loadAll();
         };
     });

@@ -1,6 +1,5 @@
 package ee.esutoniagodesu.repository.domain.heisig;
 
-import ee.esutoniagodesu.domain.ac.table.User;
 import ee.esutoniagodesu.domain.heisig.table.HeisigCoreKw;
 import org.springframework.data.jpa.repository.JpaRepository;
 

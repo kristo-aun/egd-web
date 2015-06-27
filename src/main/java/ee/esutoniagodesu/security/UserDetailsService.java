@@ -33,7 +33,7 @@ public class UserDetailsService implements org.springframework.security.core.use
         log.debug("Authenticating {}", login);
         String lowercaseLogin = login.toLowerCase();
         Optional<User> userFromDatabase = userRepository.findOneByLogin(lowercaseLogin);
-        UserDetails result = userFromDatabase.map(user -> {
+        return userFromDatabase.map(user -> {
             if (!user.getActivated()) {
                 throw new UserNotActivatedException("User " + lowercaseLogin + " was not activated");
             }
@@ -44,8 +44,5 @@ public class UserDetailsService implements org.springframework.security.core.use
                 user.getPassword(),
                 grantedAuthorities);
         }).orElseThrow(() -> new UsernameNotFoundException("User " + lowercaseLogin + " was not found in the database"));
-
-        log.debug("UserDetailsService found {}", result);
-        return result;
     }
 }

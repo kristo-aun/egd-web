@@ -50,7 +50,8 @@ public class CoreDB extends AbstractProjectRepository {
     }
 
     public TofuSentenceTranslation findUserTofuSentenceTranslation(int tofuSentenceId, String createdBy) {
-        if (tofuSentenceId < 1 || createdBy == null) throw new IllegalArgumentException("findUserTofuSentenceTranslation");
+        if (tofuSentenceId < 1 || createdBy == null)
+            throw new IllegalArgumentException("findUserTofuSentenceTranslation");
 
         try {
             String sql = "SELECT * FROM core.tofu_sentence_translation WHERE tofu_sentence_id=?1 AND created_by=?2";

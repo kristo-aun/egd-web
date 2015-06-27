@@ -19,10 +19,8 @@ import java.util.Set;
  * A user.
  */
 @Entity
-@Table(name = "user", schema = "ac")
-public final class User extends AbstractAuditingEntity implements Serializable {
-
-    private static final long serialVersionUID = 2721105186064983182L;
+@Table(schema = "ac", name = "user")
+public class User extends AbstractAuditingEntity implements Serializable {
 
     @Id
     @NotNull
@@ -33,8 +31,8 @@ public final class User extends AbstractAuditingEntity implements Serializable {
 
     @JsonIgnore
     @NotNull
-    @Size(min = 5, max = 100)
-    @Column(length = 100)
+    @Size(min = 60, max = 60)
+    @Column(length = 60)
     private String password;
 
     @Size(max = 50)
@@ -73,86 +71,15 @@ public final class User extends AbstractAuditingEntity implements Serializable {
     @JsonIgnore
     @ManyToMany
     @JoinTable(
-        name = "user_authority", schema = "ac",
+        schema = "ac",
+        name = "user_authority",
         joinColumns = {@JoinColumn(name = "login", referencedColumnName = "login")},
         inverseJoinColumns = {@JoinColumn(name = "name", referencedColumnName = "name")})
     private Set<Authority> authorities = new HashSet<>();
 
-    public boolean getActivated() {
-        return activated;
-    }
-
-    public void setActivated(boolean activated) {
-        this.activated = activated;
-    }
-
-    public String getActivationKey() {
-        return activationKey;
-    }
-
-    public void setActivationKey(String activationKey) {
-        this.activationKey = activationKey;
-    }
-
-    public Set<Authority> getAuthorities() {
-        return authorities;
-    }
-
-    public void setAuthorities(Set<Authority> authorities) {
-        this.authorities = authorities;
-    }
-
-    @Transient
-    private boolean hasRole(String authority) {
-        return authority.contains(authority);
-    }
-
-    @Transient
-    public boolean hasRoleAdmin() {
-        return hasRole(AuthoritiesConstants.ADMIN);
-    }
-
-    @Transient
-    public boolean hasRoleSensei() {
-        return hasRole(AuthoritiesConstants.SENSEI);
-    }
-
-    @Transient
-    public boolean hasRoleUser() {
-        return hasRole(AuthoritiesConstants.USER);
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLangKey() {
-        return langKey;
-    }
-
-    public void setLangKey(String langKey) {
-        this.langKey = langKey;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user")
+    private Set<PersistentToken> persistentTokens = new HashSet<>();
 
     public String getLogin() {
         return login;
@@ -170,8 +97,44 @@ public final class User extends AbstractAuditingEntity implements Serializable {
         this.password = password;
     }
 
-    public boolean isActivated() {
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public boolean getActivated() {
         return activated;
+    }
+
+    public void setActivated(boolean activated) {
+        this.activated = activated;
+    }
+
+    public String getActivationKey() {
+        return activationKey;
+    }
+
+    public void setActivationKey(String activationKey) {
+        this.activationKey = activationKey;
     }
 
     public String getResetKey() {
@@ -188,6 +151,30 @@ public final class User extends AbstractAuditingEntity implements Serializable {
 
     public void setResetDate(DateTime resetDate) {
         this.resetDate = resetDate;
+    }
+
+    public String getLangKey() {
+        return langKey;
+    }
+
+    public void setLangKey(String langKey) {
+        this.langKey = langKey;
+    }
+
+    public Set<Authority> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(Set<Authority> authorities) {
+        this.authorities = authorities;
+    }
+
+    public Set<PersistentToken> getPersistentTokens() {
+        return persistentTokens;
+    }
+
+    public void setPersistentTokens(Set<PersistentToken> persistentTokens) {
+        this.persistentTokens = persistentTokens;
     }
 
     @Override
@@ -217,15 +204,36 @@ public final class User extends AbstractAuditingEntity implements Serializable {
     public String toString() {
         return "User{" +
             "login='" + login + '\'' +
+            ", password='" + password + '\'' +
             ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +
             ", email='" + email + '\'' +
-            ", activated=" + activated +
+            ", activated='" + activated + '\'' +
             ", langKey='" + langKey + '\'' +
             ", activationKey='" + activationKey + '\'' +
-            ", resetKey='" + resetKey + '\'' +
-            ", resetDate=" + resetDate +
-            ", authorities=" + authorities +
-            '}';
+            "}";
+    }
+
+    @Transient
+    private boolean hasRole(String authority) {
+        for (Authority p : authorities) {
+            if (p.getName().equals(authority)) return true;
+        }
+        return false;
+    }
+
+    @Transient
+    public boolean hasRoleAdmin() {
+        return hasRole(AuthoritiesConstants.ADMIN);
+    }
+
+    @Transient
+    public boolean hasRoleSensei() {
+        return hasRole(AuthoritiesConstants.SENSEI);
+    }
+
+    @Transient
+    public boolean hasRoleUser() {
+        return hasRole(AuthoritiesConstants.USER);
     }
 }

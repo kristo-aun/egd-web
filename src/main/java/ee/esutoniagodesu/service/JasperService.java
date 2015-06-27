@@ -1,5 +1,6 @@
 package ee.esutoniagodesu.service;
 
+import ee.esutoniagodesu.bean.ProjectDAO;
 import ee.esutoniagodesu.domain.heisig.view.VHeisig6Custom;
 import ee.esutoniagodesu.pojo.assets.EGDAssets;
 import ee.esutoniagodesu.pojo.cf.ECfReportType;
@@ -10,7 +11,6 @@ import ee.esutoniagodesu.util.commons.JCIOUtils;
 import ee.esutoniagodesu.util.jasperreports.CSVGenerator;
 import ee.esutoniagodesu.util.jasperreports.JSGeneratorType;
 import ee.esutoniagodesu.util.lang.alphab.JCKana;
-import ee.esutoniagodesu.bean.ProjectDAO;
 import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;

@@ -1,5 +1,6 @@
 package ee.esutoniagodesu.service;
 
+import ee.esutoniagodesu.bean.ProjectDAO;
 import ee.esutoniagodesu.domain.ac.table.User;
 import ee.esutoniagodesu.domain.publik.table.Audio;
 import ee.esutoniagodesu.domain.test.dto.ArticleDTO;
@@ -11,7 +12,6 @@ import ee.esutoniagodesu.repository.project.TestRepository;
 import ee.esutoniagodesu.util.PaginationUtil;
 import ee.esutoniagodesu.util.commons.JCIOUtils;
 import ee.esutoniagodesu.util.jasperreports.JSGeneratorType;
-import ee.esutoniagodesu.bean.ProjectDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;

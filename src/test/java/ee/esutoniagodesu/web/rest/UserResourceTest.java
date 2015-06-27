@@ -38,7 +38,7 @@ public class UserResourceTest {
     @Before
     public void setup() {
         UserResource userResource = new UserResource();
-        ReflectionTestUtils.setField(userResource, "repository", userRepository);
+        ReflectionTestUtils.setField(userResource, "userRepository", userRepository);
         this.restUserMockMvc = MockMvcBuilders.standaloneSetup(userResource).build();
     }
 
@@ -48,7 +48,7 @@ public class UserResourceTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json"))
-                .andExpect(jsonPath("$.lastName").value("A"));
+                .andExpect(jsonPath("$.lastName").value("Administrator"));
     }
 
     @Test

@@ -1,10 +1,10 @@
 package ee.esutoniagodesu.web.rest;
 
 import ee.esutoniagodesu.domain.ac.table.User;
-import ee.esutoniagodesu.web.rest.dto.VocabularyDTO;
 import ee.esutoniagodesu.security.AuthoritiesConstants;
 import ee.esutoniagodesu.service.KuromojiService;
 import ee.esutoniagodesu.service.UserService;
+import ee.esutoniagodesu.web.rest.dto.VocabularyDTO;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

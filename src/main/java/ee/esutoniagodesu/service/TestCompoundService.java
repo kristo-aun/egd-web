@@ -142,7 +142,7 @@ public class TestCompoundService {
                         p.heisigEquals = true;
                     }
                     p.heisigCoreKw = item.getId() + "-" + item.getKeywordEn() + "-" +
-                        item.getWord() + "-" + item.getWordReading() + "-" +item.getWordTranslation();
+                        item.getWord() + "-" + item.getWordReading() + "-" + item.getWordTranslation();
                 });
 
             }

@@ -23,18 +23,18 @@ import java.util.List;
 public class AuditEventService {
 
     @Inject
-    private PersistenceAuditEventRepository repository;
+    private PersistenceAuditEventRepository persistenceAuditEventRepository;
 
     @Inject
     private AuditEventConverter auditEventConverter;
 
     public List<AuditEvent> findAll() {
-        return auditEventConverter.convertToAuditEvent(repository.findAll());
+        return auditEventConverter.convertToAuditEvent(persistenceAuditEventRepository.findAll());
     }
 
     public List<AuditEvent> findByDates(LocalDateTime fromDate, LocalDateTime toDate) {
         List<PersistentAuditEvent> persistentAuditEvents =
-            repository.findAllByAuditEventDateBetween(fromDate, toDate);
+            persistenceAuditEventRepository.findAllByAuditEventDateBetween(fromDate, toDate);
 
         return auditEventConverter.convertToAuditEvent(persistentAuditEvents);
     }

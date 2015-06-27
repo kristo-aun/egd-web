@@ -5,7 +5,6 @@ import org.joda.time.LocalDateTime;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,61 +14,38 @@ import java.util.Map;
  * @see org.springframework.boot.actuate.audit.AuditEvent
  */
 @Entity
-@Table(name = "persistent_audit_event", schema = "ac")
-public final class PersistentAuditEvent implements Serializable {
+@Table(schema = "ac", name = "persistent_audit_event")
+public class PersistentAuditEvent {
 
-    private static final long serialVersionUID = 1701187813434104565L;
-
-    private int id;
-    @NotNull
-    private String principal;
-    private LocalDateTime auditEventDate;
-    private String auditEventType;
-    private Map<String, String> data = new HashMap<>();
-
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "event_id")
     @Id
-    public int getId() {
-        return id;
-    }
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "event_id")
+    private Integer id;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    @NotNull
+    @Column(nullable = false)
+    private String principal;
 
     @Column(name = "event_date")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
-    public LocalDateTime getAuditEventDate() {
-        return auditEventDate;
-    }
-
-    public void setAuditEventDate(LocalDateTime auditEventDate) {
-        this.auditEventDate = auditEventDate;
-    }
-
+    private LocalDateTime auditEventDate;
     @Column(name = "event_type")
-    public String getAuditEventType() {
-        return auditEventType;
-    }
-
-    public void setAuditEventType(String auditEventType) {
-        this.auditEventType = auditEventType;
-    }
+    private String auditEventType;
 
     @ElementCollection
     @MapKeyColumn(name = "name")
     @Column(name = "value")
-    @CollectionTable(name = "persistent_audit_event_data", schema = "ac", joinColumns = @JoinColumn(name = "event_id"))
-    public Map<String, String> getData() {
-        return data;
+    @CollectionTable(schema = "ac", name = "persistent_audit_event_data", joinColumns = @JoinColumn(name = "event_id"))
+    private Map<String, String> data = new HashMap<>();
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setData(Map<String, String> data) {
-        this.data = data;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    @Column(nullable = false)
     public String getPrincipal() {
         return principal;
     }
@@ -78,13 +54,27 @@ public final class PersistentAuditEvent implements Serializable {
         this.principal = principal;
     }
 
-    public String toString() {
-        return "PersistentAuditEvent{" +
-            "id=" + id +
-            ", principal='" + principal + '\'' +
-            ", auditEventDate=" + auditEventDate +
-            ", auditEventType='" + auditEventType + '\'' +
-            ", data=" + data +
-            '}';
+    public LocalDateTime getAuditEventDate() {
+        return auditEventDate;
+    }
+
+    public void setAuditEventDate(LocalDateTime auditEventDate) {
+        this.auditEventDate = auditEventDate;
+    }
+
+    public String getAuditEventType() {
+        return auditEventType;
+    }
+
+    public void setAuditEventType(String auditEventType) {
+        this.auditEventType = auditEventType;
+    }
+
+    public Map<String, String> getData() {
+        return data;
+    }
+
+    public void setData(Map<String, String> data) {
+        this.data = data;
     }
 }

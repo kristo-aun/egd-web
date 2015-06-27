@@ -13,10 +13,8 @@ import java.io.Serializable;
  * An authority (a security role) used by Spring Security.
  */
 @Entity
-@Table(name = "authority", schema = "ac")
-public final class Authority implements Serializable {
-
-    private static final long serialVersionUID = 2148236507670638618L;
+@Table(schema = "ac", name = "authority")
+public class Authority implements Serializable {
 
     @NotNull
     @Size(min = 0, max = 50)
@@ -32,6 +30,7 @@ public final class Authority implements Serializable {
         this.name = name;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -49,7 +48,15 @@ public final class Authority implements Serializable {
         return true;
     }
 
+    @Override
     public int hashCode() {
         return name != null ? name.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Authority{" +
+            "name='" + name + '\'' +
+            "}";
     }
 }

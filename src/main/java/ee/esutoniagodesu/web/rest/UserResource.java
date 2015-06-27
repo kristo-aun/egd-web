@@ -19,28 +19,34 @@ import java.util.List;
  * REST controller for managing users.
  */
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api")
 public class UserResource {
 
-    private static final Logger log = LoggerFactory.getLogger(UserResource.class);
+    private final Logger log = LoggerFactory.getLogger(UserResource.class);
 
     @Inject
-    private UserRepository repository;
+    private UserRepository userRepository;
 
-    @RequestMapping(value = "",
+    /**
+     * GET  /users -> get all users.
+     */
+    @RequestMapping(value = "/users",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     public List<User> getAll() {
         log.debug("REST request to get all Users");
-        return repository.findAll();
+        return userRepository.findAll();
     }
 
-    @RequestMapping(value = "/{login}",
+    /**
+     * GET  /users/:login -> get the "login" user.
+     */
+    @RequestMapping(value = "/users/{login}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> getUser(@PathVariable String login) {
+    ResponseEntity<User> getUser(@PathVariable String login) {
         log.debug("REST request to get User : {}", login);
-        return repository.findOneByLogin(login)
+        return userRepository.findOneByLogin(login)
             .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

@@ -1,5 +1,6 @@
 package ee.esutoniagodesu.service;
 
+import ee.esutoniagodesu.bean.ProjectDAO;
 import ee.esutoniagodesu.domain.ac.table.User;
 import ee.esutoniagodesu.domain.core.table.TofuSentence;
 import ee.esutoniagodesu.domain.core.table.TofuSentenceTranslation;
@@ -7,7 +8,6 @@ import ee.esutoniagodesu.pojo.test.compound.FilterCompoundSubmitDTO;
 import ee.esutoniagodesu.repository.domain.freq.TofuSentenceRepository;
 import ee.esutoniagodesu.repository.project.CoreDB;
 import ee.esutoniagodesu.util.PaginationUtil;
-import ee.esutoniagodesu.bean.ProjectDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;

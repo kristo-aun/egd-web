@@ -3,7 +3,7 @@ server:
     address: localhost
 
 # security configuration (this key should be unique for your application, and kept secret)
-app.security.rememberme.key: 7eeb6f5b26972c2440ea9b7131d4997cc86bfe37
+jhipster.security.rememberme.key: 388e8e186183c839451e1df7b0aceb3892fff430
 
 async:
     corePoolSize: 2

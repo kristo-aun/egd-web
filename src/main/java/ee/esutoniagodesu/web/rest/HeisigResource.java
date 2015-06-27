@@ -55,9 +55,9 @@ public class HeisigResource {
     @RequestMapping(value = "/defaultWord", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed(AuthoritiesConstants.ADMIN)
     public ResponseEntity<HeisigCoreKw> defaultWord(@RequestParam String kanji,
-                                                      @RequestParam String word,
-                                                      @RequestParam String wordReading,
-                                                      @RequestParam String wordTranslation) {
+                                                    @RequestParam String word,
+                                                    @RequestParam String wordReading,
+                                                    @RequestParam String wordTranslation) {
         return new ResponseEntity<>(
             service.setDefaultHeisigWord(kanji, word, wordReading, wordTranslation),
             HttpStatus.OK);

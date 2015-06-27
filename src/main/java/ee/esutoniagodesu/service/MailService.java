@@ -28,7 +28,7 @@ import java.util.Locale;
 @Service
 public class MailService {
 
-    private static final Logger log = LoggerFactory.getLogger(MailService.class);
+    private final Logger log = LoggerFactory.getLogger(MailService.class);
 
     @Inject
     private Environment env;
@@ -55,7 +55,7 @@ public class MailService {
     @Async
     public void sendEmail(String to, String subject, String content, boolean isMultipart, boolean isHtml) {
         log.debug("Send e-mail[multipart '{}' and html '{}'] to '{}' with subject '{}' and content={}",
-            isMultipart, isHtml, to, subject, content);
+                isMultipart, isHtml, to, subject, content);
 
         // Prepare message using a Spring helper
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();

@@ -1,9 +1,9 @@
 package ee.esutoniagodesu.service;
 
+import ee.esutoniagodesu.bean.ProjectDAO;
 import ee.esutoniagodesu.domain.core.view.VCoreStats;
 import ee.esutoniagodesu.domain.publik.view.VStats;
 import ee.esutoniagodesu.repository.project.ReportDB;
-import ee.esutoniagodesu.bean.ProjectDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

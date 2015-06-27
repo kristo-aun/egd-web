@@ -3,10 +3,12 @@ package ee.esutoniagodesu.service;
 import ee.esutoniagodesu.domain.ac.table.Authority;
 import ee.esutoniagodesu.domain.ac.table.User;
 import ee.esutoniagodesu.repository.domain.ac.AuthorityRepository;
+import ee.esutoniagodesu.repository.domain.ac.PersistentTokenRepository;
 import ee.esutoniagodesu.repository.domain.ac.UserRepository;
 import ee.esutoniagodesu.security.SecurityUtils;
 import ee.esutoniagodesu.util.RandomUtil;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -27,13 +29,16 @@ import java.util.Set;
 @Transactional
 public class UserService {
 
-    private static final Logger log = LoggerFactory.getLogger(UserService.class);
+    private final Logger log = LoggerFactory.getLogger(UserService.class);
 
     @Inject
     private PasswordEncoder passwordEncoder;
 
     @Inject
     private UserRepository userRepository;
+
+    @Inject
+    private PersistentTokenRepository persistentTokenRepository;
 
     @Inject
     private AuthorityRepository authorityRepository;
@@ -53,31 +58,31 @@ public class UserService {
     }
 
     public Optional<User> completePasswordReset(String newPassword, String key) {
-        log.debug("Reset user password for reset key {}", key);
+       log.debug("Reset user password for reset key {}", key);
 
-        return userRepository.findOneByResetKey(key)
-            .filter(user -> {
-                DateTime oneDayAgo = DateTime.now().minusHours(24);
-                return user.getResetDate().isAfter(oneDayAgo.toInstant().getMillis());
-            })
-            .map(user -> {
-                user.setPassword(passwordEncoder.encode(newPassword));
-                user.setResetKey(null);
-                user.setResetDate(null);
-                userRepository.save(user);
-                return user;
-            });
+       return userRepository.findOneByResetKey(key)
+           .filter(user -> {
+               DateTime oneDayAgo = DateTime.now().minusHours(24);
+               return user.getResetDate().isAfter(oneDayAgo.toInstant().getMillis());
+           })
+           .map(user -> {
+               user.setPassword(passwordEncoder.encode(newPassword));
+               user.setResetKey(null);
+               user.setResetDate(null);
+               userRepository.save(user);
+               return user;
+           });
     }
 
     public Optional<User> requestPasswordReset(String mail) {
-        return userRepository.findOneByEmail(mail)
-            .filter(user -> user.getActivated() == true)
-            .map(user -> {
-                user.setResetKey(RandomUtil.generateResetKey());
-                user.setResetDate(DateTime.now());
-                userRepository.save(user);
-                return user;
-            });
+       return userRepository.findOneByEmail(mail)
+           .filter(user -> user.getActivated() == true)
+           .map(user -> {
+               user.setResetKey(RandomUtil.generateResetKey());
+               user.setResetDate(DateTime.now());
+               userRepository.save(user);
+               return user;
+           });
     }
 
     public User createUserInformation(String login, String password, String firstName, String lastName, String email,
@@ -117,7 +122,7 @@ public class UserService {
     }
 
     public void changePassword(String password) {
-        userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).ifPresent(u -> {
+        userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).ifPresent(u-> {
             String encryptedPassword = passwordEncoder.encode(password);
             u.setPassword(encryptedPassword);
             userRepository.save(u);
@@ -130,6 +135,25 @@ public class UserService {
         User currentUser = userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).get();
         currentUser.getAuthorities().size(); // eagerly load the association
         return currentUser;
+    }
+
+    /**
+     * Persistent Token are used for providing automatic authentication, they should be automatically deleted after
+     * 30 days.
+     * <p/>
+     * <p>
+     * This is scheduled to get fired everyday, at midnight.
+     * </p>
+     */
+    @Scheduled(cron = "0 0 0 * * ?")
+    public void removeOldPersistentTokens() {
+        LocalDate now = new LocalDate();
+        persistentTokenRepository.findByTokenDateBefore(now.minusMonths(1)).stream().forEach(token ->{
+            log.debug("Deleting token {}", token.getSeries());
+            User user = token.getUser();
+            user.getPersistentTokens().remove(token);
+            persistentTokenRepository.delete(token);
+        });
     }
 
     /**

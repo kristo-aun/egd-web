@@ -1,18 +1,13 @@
 package ee.esutoniagodesu.repository.project;
 
-import ee.esutoniagodesu.domain.core.table.Core6K;
-import ee.esutoniagodesu.domain.core.table.Ilo;
 import ee.esutoniagodesu.domain.jmdict.pk.SensPK;
 import ee.esutoniagodesu.domain.jmdict.table.Entr;
 import ee.esutoniagodesu.domain.jmdict.table.Sens;
 import ee.esutoniagodesu.pojo.entity.JapEst;
 import ee.esutoniagodesu.util.JCString;
 import ee.esutoniagodesu.util.persistence.JDBCUtil;
-import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.Assert;
 
-import javax.persistence.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

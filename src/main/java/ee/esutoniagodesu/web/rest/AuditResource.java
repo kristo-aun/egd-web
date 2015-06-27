@@ -37,7 +37,7 @@ public class AuditResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed(AuthoritiesConstants.ADMIN)
     public List<AuditEvent> byDates(@RequestParam(value = "fromDate") LocalDateTime fromDate,
-                                        @RequestParam(value = "toDate") LocalDateTime toDate) {
+                                    @RequestParam(value = "toDate") LocalDateTime toDate) {
         return auditEventService.findByDates(fromDate, toDate);
     }
 }

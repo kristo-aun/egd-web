@@ -1,8 +1,6 @@
 package ee.esutoniagodesu.domain.test.table;
 
 import ee.esutoniagodesu.domain.AbstractAuditingEntity;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;

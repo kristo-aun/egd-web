@@ -30,21 +30,6 @@ import javax.inject.Inject;
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    public static final String[] permitAll = {
-        "/api/articles",
-        "/api/articles/*",
-        "/api/git",
-        "/api/dict/**",
-        "/api/images/*",
-        "/api/audio/*",
-        "/api/rtk/**",
-        "/api/morphology/**",
-        "/api/translator",
-        "/api/register",
-        "/api/activate",
-        "/api/account/reset_password/init",
-        "/api/account/reset_password/finish"
-    };
 
     @Inject
     private Environment env;
@@ -134,7 +119,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .rememberMe()
             .rememberMeServices(rememberMeServices)
             .rememberMeParameter("remember-me")
-            .key(env.getProperty("jhipster.security.rememberme.key"))
+            .key(env.getProperty("app.security.rememberme.key"))
             .and()
             .formLogin()
             .loginProcessingUrl("/api/authentication")
@@ -156,28 +141,34 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .disable()
             .and()
             .authorizeRequests()
-            .antMatchers("/api/register").permitAll()
-            .antMatchers("/api/activate").permitAll()
-            .antMatchers("/api/authenticate").permitAll()
-            .antMatchers("/api/account/reset_password/init").permitAll()
-            .antMatchers("/api/account/reset_password/finish").permitAll()
-            .antMatchers("/api/logs/**").hasAuthority(AuthoritiesConstants.ADMIN)
+            .antMatchers(permitAll).permitAll()
             .antMatchers("/api/**").authenticated()
-            .antMatchers("/metrics/**").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/health/**").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/trace/**").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/dump/**").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/shutdown/**").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/beans/**").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/configprops/**").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/info/**").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/autoconfig/**").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/env/**").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/trace/**").hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/api-docs/**").hasAuthority(AuthoritiesConstants.ADMIN)
+            .antMatchers(permitAdmin).hasAuthority(AuthoritiesConstants.ADMIN)
             .antMatchers("/protected/**").authenticated();
-
     }
+
+    public static final String[] permitAll = {
+        "/api/articles",
+        "/api/articles/*",
+        "/api/git",
+        "/api/dict/**",
+        "/api/images/*",
+        "/api/audio/*",
+        "/api/rtk/**",
+        "/api/morphology/**",
+        "/api/translator",
+        "/api/register",
+        "/api/activate",
+        "/api/authenticate",
+        "/api/account/reset_password/init",
+        "/api/account/reset_password/finish"
+    };
+
+    public static final String[] permitAdmin = {
+        "/api/audits/**",
+        "/health/**",
+        "/configprops/**"
+    };
 
     @Bean
     public SecurityEvaluationContextExtension securityEvaluationContextExtension() {

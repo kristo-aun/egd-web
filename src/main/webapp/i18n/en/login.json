@@ -14,6 +14,10 @@
         },
         "password": {
             "forgot": "Did you forget your password?"
+        },
+        "social": {
+            "google": "Sign in with Google",
+            "facebook": "Sign in with Facebook"
         }
     }
 }

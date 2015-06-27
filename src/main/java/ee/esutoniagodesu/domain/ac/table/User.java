@@ -81,6 +81,18 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user")
     private Set<PersistentToken> persistentTokens = new HashSet<>();
 
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user")
+    private Set<ExternalAccount> externalAccounts = new HashSet<>();
+
+    public Set<ExternalAccount> getExternalAccounts() {
+        return externalAccounts;
+    }
+
+    public void setExternalAccounts(Set<ExternalAccount> externalAccountIds) {
+        this.externalAccounts = externalAccountIds;
+    }
+
     public String getLogin() {
         return login;
     }

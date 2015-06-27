@@ -1,10 +1,12 @@
 package ee.esutoniagodesu.config;
 
 import ee.esutoniagodesu.security.*;
+import ee.esutoniagodesu.security.social.SocialLoginExceptionMapper;
 import ee.esutoniagodesu.web.filter.CsrfCookieGeneratorFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
+import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,6 +19,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
 import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.social.security.SocialAuthenticationException;
+import org.springframework.social.security.SocialAuthenticationFilter;
+import org.springframework.social.security.SpringSocialConfigurer;
 
 import javax.inject.Inject;
 
@@ -85,6 +90,37 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/console/**");
     }
 
+    /**
+     * Build a configurer that can be applied to an HttpSecurity instance.  When the configurer is applied,
+     * Spring Social Security's {@link org.springframework.social.security.SocialAuthenticationFilter}
+     * will be added to the HttpSecurity's SecurityFilterChain.
+     */
+    protected SpringSocialConfigurer buildSpringSocialConfigurer() {
+        // build an AuthenticationFailureHandler that is aware of our own exception types
+        final SocialLoginExceptionMapper handler = new SocialLoginExceptionMapper("/#/register-external")
+            .add(SocialAuthenticationException.class, "/#/register-external/rejected")
+            .add(UserNotActivatedException.class, "/#/activate");
+
+        SpringSocialConfigurer configurer = new SpringSocialConfigurer()
+            .postLoginUrl("/")
+            .alwaysUsePostLoginUrl(true);
+
+        // configure options not available using the standard configurer
+        configurer.addObjectPostProcessor(
+            new ObjectPostProcessor<SocialAuthenticationFilter>() {
+                public SocialAuthenticationFilter postProcess(SocialAuthenticationFilter object) {
+                    // replace the default exception
+                    object.setAuthenticationFailureHandler(handler);
+
+                    object.setSignupUrl("/#/register-external");
+                    return object;
+                }
+            }
+        );
+
+        return configurer;
+    }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -108,6 +144,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .passwordParameter("j_password")
             .permitAll()
             .and()
+            .apply(buildSpringSocialConfigurer()).and()
             .logout()
             .logoutUrl("/api/logout")
             .logoutSuccessHandler(ajaxLogoutSuccessHandler)

@@ -1,5 +1,5 @@
-<div class="row">
-    <div class="col-md-4 col-md-offset-4" style="padding-top:40px">
+<div class="row" style="padding-top:40px">
+    <div class="col-md-4 col-md-offset-2" style="border-right:1px solid rgba(0,0,0,0.2);padding-right:20px;">
         <ng-message-danger show="authenticationError" i18n="login.messages.error.authentication"></ng-message-danger>
 
         <form class="form" role="form" ng-submit="login($event)">
@@ -27,5 +27,16 @@
             <a ui-sref="requestReset" translate="login.password.forgot"></a>
         </div>
         <div class="alert alert-warning" translate="global.messages.info.register"></div>
+    </div>
+
+    <div class="col-md-4" style="margin-left:20px;">
+        <jh-social type='block'
+                   style="margin-top: 23px;"
+                   create-auth-link
+                   external-account-provider="'facebook'">{{'login.social.facebook' | translate}}</jh-social>
+        <jh-social type='block'
+                   style="margin-top: 40px;"
+                   create-auth-link
+                   external-account-provider="'google'">{{'login.social.google' | translate}}</jh-social>
     </div>
 </div>

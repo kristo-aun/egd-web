@@ -27,6 +27,16 @@ spring:
         mode: XHTML
         cache: false
 
+    social:
+        # see https://developers.google.com/+/web/signin/server-side-flow#step_1_create_a_client_id_and_client_secret
+        google:
+            clientId: 849281270323-r1iepm02kgbcalq5im9sin0otle4ragl.apps.googleusercontent.com
+            clientSecret: wK_37xy1K8sq30X_YQynSiI-
+
+        facebook:
+            clientId: 1597103220538979
+            clientSecret: 56a0d7878eb9bd54ca5e609b0c4cfc98
+
 microsoft:
     translate-service:
         id: esutoniagodesu

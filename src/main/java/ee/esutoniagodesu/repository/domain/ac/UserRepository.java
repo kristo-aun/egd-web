@@ -1,9 +1,11 @@
 package ee.esutoniagodesu.repository.domain.ac;
 
 
+import ee.esutoniagodesu.domain.ac.table.ExternalAccountProvider;
 import ee.esutoniagodesu.domain.ac.table.User;
 import org.joda.time.DateTime;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,4 +28,6 @@ public interface UserRepository extends JpaRepository<User, String> {
     @Override
     void delete(User t);
 
+    @Query("select u from User u inner join u.externalAccounts ea where ea.externalProvider = ?1 and ea.externalIdentifier = ?2")
+    User findOneByExternalAccount(ExternalAccountProvider provider, String externalIdentifier);
 }

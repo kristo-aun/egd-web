@@ -1,4 +1,4 @@
-<form ng-if="article" name="form" role="form" novalidate
+<form ng-if="reading" name="form" role="form" novalidate
       class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
       ng-submit="save()">
 
@@ -6,32 +6,32 @@
         <div id="articleModalArticle" class="form-inline">
             <div class="row">
                 <div class="form-group">
-                    <label translate="article.grid.title"></label>
+                    <label translate="reading.grid.title"></label>
                     <input ng-if="!isAnonymous()"
                            type="text"
                            class="form-control"
-                           ng-model="article.title">
-                    <span ng-if="isAnonymous()">{{article.title}}</span>
+                           ng-model="reading.title">
+                    <span ng-if="isAnonymous()">{{reading.title}}</span>
                 </div>
                 <div class="form-group">
-                    <label translate="article.grid.author"></label>
-                    <input ng-if="!isAnonymous()" type="text" class="form-control" ng-model="article.author">
-                    <span ng-if="isAnonymous()">{{article.author}}</span>
+                    <label translate="reading.grid.author"></label>
+                    <input ng-if="!isAnonymous()" type="text" class="form-control" ng-model="reading.author">
+                    <span ng-if="isAnonymous()">{{reading.author}}</span>
                 </div>
                 <div ng-if="!isAnonymous()" class="form-group">
-                    <label translate="article.grid.transcriptLang"></label>
-                    <select class="form-control" ng-model="article.transcriptLang">
+                    <label translate="reading.grid.transcriptLang"></label>
+                    <select class="form-control" ng-model="reading.transcriptLang">
                         <option value="et">{{'language.et' | translate}}</option>
                         <option value="en">{{'language.en' | translate}}</option>
                     </select>
                 </div>
             </div>
-            <div ng-if="!isAnonymous() || article.copyright" class="row" style="margin-top:10px;">
+            <div ng-if="!isAnonymous() || reading.copyright" class="row" style="margin-top:10px;">
                 <div class="form-group" style="width:100%">
-                    <label translate="article.grid.copyright"></label>
+                    <label translate="reading.grid.copyright"></label>
                     <textarea ng-if="!isAnonymous()" class="form-control" style="width: 50%;"
-                              ng-model="article.copyright"></textarea>
-                    <span ng-if="isAnonymous()">{{article.copyright}}</span>
+                              ng-model="reading.copyright"></textarea>
+                    <span ng-if="isAnonymous()">{{reading.copyright}}</span>
                 </div>
             </div>
         </div>
@@ -43,7 +43,7 @@
         <div class="table-responsive" id="articleModalParagraphs">
             <table class="table table-striped">
                 <tbody>
-                <tr ng-switch="isAnonymous()" ng-repeat="item in article.articleParagraphs">
+                <tr ng-switch="isAnonymous()" ng-repeat="item in reading.articleParagraphs">
                     <td>
                         <div ng-if="item.audio">
                             <egd-audio src="getAudioResource(item.audio.id)"/>

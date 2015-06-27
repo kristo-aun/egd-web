@@ -27,7 +27,7 @@ public class EGDAssetsImpl implements EGDAssets, Serializable {
         VHeisig4 = prefix + "VHeisig4.jrxml";
         VKanji = prefix + "VKanji.jrxml";
         VHeisig6Custom = prefix + "VHeisig6Custom.jrxml";
-        Article = prefix + "Article.jrxml";
+        Article = prefix + "Reading.jrxml";
     }
 
     public String getJapEst() {

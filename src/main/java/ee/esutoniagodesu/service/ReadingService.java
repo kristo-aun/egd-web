@@ -2,16 +2,10 @@ package ee.esutoniagodesu.service;
 
 import ee.esutoniagodesu.bean.ProjectDAO;
 import ee.esutoniagodesu.domain.ac.table.User;
-import ee.esutoniagodesu.domain.publik.table.Audio;
-import ee.esutoniagodesu.domain.test.dto.ArticleDTO;
-import ee.esutoniagodesu.domain.test.table.Article;
-import ee.esutoniagodesu.domain.test.table.ArticleParagraph;
-import ee.esutoniagodesu.pojo.cf.ECfReportType;
-import ee.esutoniagodesu.repository.domain.test.ArticleDTORepository;
+import ee.esutoniagodesu.domain.library.table.Reading;
+import ee.esutoniagodesu.repository.domain.library.ReadingRepository;
 import ee.esutoniagodesu.repository.project.TestRepository;
 import ee.esutoniagodesu.util.PaginationUtil;
-import ee.esutoniagodesu.util.commons.JCIOUtils;
-import ee.esutoniagodesu.util.jasperreports.JSGeneratorType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -19,10 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-import java.io.ByteArrayOutputStream;
-import java.util.AbstractMap;
-import java.util.Map;
-import java.util.zip.ZipOutputStream;
 
 /**
  * Lugemisharjutused. Artiklite moodulis saab hallata täispikki Jaapanikeelseid algtekste.
@@ -37,9 +27,9 @@ import java.util.zip.ZipOutputStream;
  */
 @Service
 @Transactional
-public class ArticleService {
+public class ReadingService {
 
-    private static final Logger log = LoggerFactory.getLogger(ArticleService.class);
+    private static final Logger log = LoggerFactory.getLogger(ReadingService.class);
 
     @Inject
     private JasperService jasperService;
@@ -51,7 +41,7 @@ public class ArticleService {
     private TestRepository testRepository;
 
     @Inject
-    private ArticleDTORepository articleDTORepository;
+    private ReadingRepository readingRepository;
 
     @Inject
     private KuromojiService kuromojiService;
@@ -68,19 +58,19 @@ public class ArticleService {
      * Lubatud on muuta ainult enda loodud artikleid.
      * Administraatoril on lubatud kõiki muuta.
      */
-    public void save(Article article, User user) {
-        log.debug("save: article=" + article);
-        if (!user.hasRoleAdmin() && !article.isCreatedBy(user.getLogin()))
-            throw new IllegalAccessError("alert.article.changing-articles-you-dont-own-not-allowed");
+    public void save(Reading reading, User user) {
+        log.debug("save: reading=" + reading);
+        if (!user.hasRoleAdmin() && !reading.isCreatedBy(user.getLogin()))
+            throw new IllegalAccessError("alert.reading.changing-articles-you-dont-own-not-allowed");
 
-        dao.save(article);
+        dao.save(reading);
     }
 
     /**
      * Kasutajale näidatakse tema enda loodud ja avalikke artikleid. Pagineeritud.
      */
-    public Page<ArticleDTO> getArticles(int page, int limit, User user) {
-        return articleDTORepository.findByCreatedBy(user.getLogin(), PaginationUtil.generatePageRequest(page, limit));
+    public Page<Reading> getReadings(int page, int limit, User user) {
+        return readingRepository.findByCreatedBy(user.getLogin(), PaginationUtil.generatePageRequest(page, limit));
     }
 
     /**
@@ -92,25 +82,25 @@ public class ArticleService {
      * Kui võimalik, siis ka sõna hääldus.
      * JALUS: Sõnavara tabelit saab alla laadida XMS/ODS faili.
      */
-    public Article getArticle(int id, User user) {
+    public Reading getReading(int id, User user) {
         log.debug("get: id=" + id);
-        Article article = dao.find(Article.class, id);
-        if (!user.hasRoleAdmin() && !article.isShared() && !article.isCreatedBy(user.getLogin()))
-            throw new IllegalAccessError("alert.article.article-not-public");
+        Reading reading = dao.find(Reading.class, id);
+        if (!user.hasRoleAdmin() && !reading.isShared() && !reading.isCreatedBy(user.getLogin()))
+            throw new IllegalAccessError("alert.reading.reading-not-public");
 
-        return article;
+        return reading;
     }
 
     /**
      * Lubatud on kustutada ainult enda loodud artikleid.
      * Administraatoril on lubatud kõiki kustutada.
      */
-    public void deleteArticle(int id, User user) {
+    public void deleteReading(int id, User user) {
         log.debug("delete: id=", id);
-        if (!user.hasRoleAdmin() && !getArticle(id, user).isCreatedBy(user.getLogin()))
+        if (!user.hasRoleAdmin() && !getReading(id, user).isCreatedBy(user.getLogin()))
             throw new IllegalAccessError("alert.article.delete-not-allowed-if-not-owner");
 
-        dao.removeById(Article.class, id);
+        dao.removeById(Reading.class, id);
     }
 
     //------------------------------ sõnavara vaade ------------------------------
@@ -138,18 +128,19 @@ public class ArticleService {
      * XLS/ODS/PDF - ainult tekstilõigud.
      */
 
+    /*
     public Map.Entry<String, byte[]> getZip(int id, User user) throws Exception {
-        Article article = getArticle(id, user);
+        Reading reading = getReading(id, user);
 
         Map.Entry<String, byte[]> report = jasperService.getReport(ECfReportType.ARTICLE,
-            JSGeneratorType.CSV, article.getArticleParagraphs());
+            JSGeneratorType.CSV, reading.getReadingParagraphs());
 
         ByteArrayOutputStream ostream = new ByteArrayOutputStream();
         ZipOutputStream zos = new ZipOutputStream(ostream);
 
         JCIOUtils.addToZipFile(report, zos);
 
-        for (ArticleParagraph p : article.getArticleParagraphs()) {
+        for (ArticleParagraph p : reading.getArticleParagraphs()) {
             p.getAudio().getAudioFile();
             Audio audio = p.getAudio();
             if (audio.getAudioFile() != null) {
@@ -160,7 +151,8 @@ public class ArticleService {
         zos.close();
         ostream.close();
 
-        return new AbstractMap.SimpleEntry<>(article.getTitle() + ".zip", ostream.toByteArray());
+        return new AbstractMap.SimpleEntry<>(reading.getTitle() + ".zip", ostream.toByteArray());
 
     }
+    //*/
 }

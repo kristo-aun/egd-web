@@ -2,9 +2,9 @@ package ee.esutoniagodesu.web.rest;
 
 import ee.esutoniagodesu.domain.ac.table.User;
 import ee.esutoniagodesu.domain.test.dto.ArticleDTO;
-import ee.esutoniagodesu.domain.test.table.Article;
+import ee.esutoniagodesu.domain.library.table.Reading;
 import ee.esutoniagodesu.security.AuthoritiesConstants;
-import ee.esutoniagodesu.service.ArticleService;
+import ee.esutoniagodesu.service.ReadingService;
 import ee.esutoniagodesu.service.UserService;
 import ee.esutoniagodesu.util.PaginationUtil;
 import org.springframework.data.domain.Page;
@@ -28,7 +28,7 @@ public class ArticleResource {
     public static final String BASE_URL = "/api/articles";
 
     @Inject
-    private ArticleService service;
+    private ReadingService service;
 
     @Inject
     private UserService userService;
@@ -41,7 +41,7 @@ public class ArticleResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed(AuthoritiesConstants.USER)
-    public ResponseEntity<Void> create(@RequestBody Article entity) throws URISyntaxException {
+    public ResponseEntity<Void> create(@RequestBody Reading entity) throws URISyntaxException {
         if (entity.getId() != null) {
             return ResponseEntity.badRequest().header("Failure", "A new article cannot already have an ID").build();
         }
@@ -53,7 +53,7 @@ public class ArticleResource {
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed(AuthoritiesConstants.USER)
-    public ResponseEntity<Void> update(@RequestBody Article entity) throws URISyntaxException {
+    public ResponseEntity<Void> update(@RequestBody Reading entity) throws URISyntaxException {
         if (entity.getId() == null) {
             return create(entity);
         }
@@ -74,7 +74,7 @@ public class ArticleResource {
     @RequestMapping(value = "/{id}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Article> get(@PathVariable Integer id) {
+    public ResponseEntity<Reading> get(@PathVariable Integer id) {
         return Optional.ofNullable(service.getArticle(id, getSessionUser()))
             .map(author -> new ResponseEntity<>(
                 author,

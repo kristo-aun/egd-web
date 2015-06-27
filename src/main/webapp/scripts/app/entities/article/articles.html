@@ -8,43 +8,43 @@
         <table class="table table-striped">
             <thead>
             <tr>
-                <th translate="article.grid.author"></th>
-                <th translate="article.grid.title"></th>
-                <th translate="article.grid.transcriptLang"></th>
-                <th ng-if="!isAnonymous()" translate="article.grid.copyright"></th>
+                <th translate="reading.grid.author"></th>
+                <th translate="reading.grid.title"></th>
+                <th translate="reading.grid.transcriptLang"></th>
+                <th ng-if="!isAnonymous()" translate="reading.grid.copyright"></th>
 
-                <th ng-if="!isAnonymous()" style="width: 180px;" translate="article.grid.lastModified"></th>
-                <th ng-if="!isAnonymous()" style="width: 180px;" translate="article.grid.created"></th>
+                <th ng-if="!isAnonymous()" style="width: 180px;" translate="reading.grid.lastModified"></th>
+                <th ng-if="!isAnonymous()" style="width: 180px;" translate="reading.grid.created"></th>
 
                 <th style="width: 200px;"></th>
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="article in articles">
-                <td><a ui-sref="articleDetail({id:article.id})">{{article.title}}</a></td>
-                <td>{{article.author}}</td>
-                <td>{{'language.' + article.transcriptLang | translate}}</td>
-                <td ng-if="!isAnonymous()">{{article.copyright}}</td>
+            <tr ng-repeat="reading in articles">
+                <td><a ui-sref="articleDetail({id:reading.id})">{{reading.title}}</a></td>
+                <td>{{reading.author}}</td>
+                <td>{{'language.' + reading.transcriptLang | translate}}</td>
+                <td ng-if="!isAnonymous()">{{reading.copyright}}</td>
 
-                <td ng-if="!isAnonymous()">{{article.formattedLastModifiedDate}} - {{article.lastModifiedBy}}</td>
-                <td ng-if="!isAnonymous()">{{article.formattedCreatedDate}} - {{article.createdBy}}</td>
+                <td ng-if="!isAnonymous()">{{reading.formattedLastModifiedDate}} - {{reading.lastModifiedBy}}</td>
+                <td ng-if="!isAnonymous()">{{reading.formattedCreatedDate}} - {{reading.createdBy}}</td>
 
                 <td style="text-align: right;">
-                    <button ng-if="isArticleUpdateAllowed(article)"
-                            ng-click="open(article.id)"
+                    <button ng-if="isArticleUpdateAllowed(reading)"
+                            ng-click="open(reading.id)"
                             class="btn btn-default">
                         <span class="glyphicon glyphicon-pencil"></span>
                         {{'global.messages.action.edit' | translate}}
                     </button>
-                    <button ng-if="isArticleDeleteAllowed(article)"
+                    <button ng-if="isArticleDeleteAllowed(reading)"
                             ng-really-message="{{'grid.confirm' | translate}}"
-                            ng-really-click="delete(article.id)"
+                            ng-really-click="delete(reading.id)"
                             class="btn btn-danger">
                         <span class="glyphicon glyphicon-remove-circle"></span>
                         {{'global.messages.action.delete' | translate}}
                     </button>
                     <button ng-if="isAnonymous()"
-                            ng-click="open(article.id)"
+                            ng-click="open(reading.id)"
                             class="btn btn-default">
                         <span class="glyphicon glyphicon-pencil"></span>
                         {{'global.messages.action.view' | translate}}

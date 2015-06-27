@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 /**
- * Spring Data JPA repository for the Article entity.
+ * Spring Data JPA repository for the Reading entity.
  */
 public interface TofuSentenceRepository extends JpaRepository<TofuSentence, Integer> {
     @Query(value = "select a from TofuSentence a ORDER BY a.id asc")

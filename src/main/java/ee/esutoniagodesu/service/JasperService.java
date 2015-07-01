@@ -10,7 +10,7 @@ import ee.esutoniagodesu.util.JCDateTime;
 import ee.esutoniagodesu.util.commons.JCIOUtils;
 import ee.esutoniagodesu.util.jasperreports.CSVGenerator;
 import ee.esutoniagodesu.util.jasperreports.JSGeneratorType;
-import ee.esutoniagodesu.util.lang.alphab.JCKana;
+import ee.esutoniagodesu.util.lang.lingv.JCKana;
 import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;

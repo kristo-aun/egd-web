@@ -6,7 +6,7 @@ import ee.esutoniagodesu.repository.project.JMDictDB;
 import ee.esutoniagodesu.repository.project.PhraseEtDB;
 import ee.esutoniagodesu.repository.project.PhraseJpDB;
 import ee.esutoniagodesu.repository.project.SentenceDB;
-import ee.esutoniagodesu.util.lang.alphab.JCCharacter;
+import ee.esutoniagodesu.util.lang.lingv.JCCharacter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

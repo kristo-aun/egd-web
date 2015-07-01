@@ -30,7 +30,6 @@ import javax.inject.Inject;
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-
     @Inject
     private Environment env;
 
@@ -148,8 +147,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     public static final String[] permitAll = {
-        "/api/articles",
-        "/api/articles/*",
+        "/api/readings",
+        "/api/readings/*",
         "/api/git",
         "/api/dict/**",
         "/api/images/*",

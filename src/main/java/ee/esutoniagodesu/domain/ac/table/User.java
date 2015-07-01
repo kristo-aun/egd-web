@@ -3,6 +3,7 @@ package ee.esutoniagodesu.domain.ac.table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import ee.esutoniagodesu.domain.AbstractAuditingEntity;
 import ee.esutoniagodesu.security.AuthoritiesConstants;
+import ee.esutoniagodesu.util.lang.ISO6391;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Email;
 import org.joda.time.DateTime;
@@ -51,9 +52,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(nullable = false)
     private boolean activated = false;
 
-    @Size(min = 2, max = 5)
-    @Column(name = "lang_key", length = 5)
-    private String langKey;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "lang_key")
+    private ISO6391 langKey;
 
     @Size(max = 20)
     @Column(name = "activation_key", length = 20)
@@ -165,11 +166,11 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.resetDate = resetDate;
     }
 
-    public String getLangKey() {
+    public ISO6391 getLangKey() {
         return langKey;
     }
 
-    public void setLangKey(String langKey) {
+    public void setLangKey(ISO6391 langKey) {
         this.langKey = langKey;
     }
 

@@ -1,11 +1,11 @@
-package ee.esutoniagodesu.util.lang.alphab;
+package ee.esutoniagodesu.util.lang.lingv;
 
-public enum EstAlphabet {
+public enum Estonian {
     a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, pq, r, s, š, z, ž, t, u, v, w, õ, ä, ö, ü, x, y;
 
-    public static int indexOf(EstAlphabet a) {
+    public static int indexOf(Estonian a) {
         int i = 0;
-        for (EstAlphabet item : EstAlphabet.values()) {
+        for (Estonian item : Estonian.values()) {
             if (a.equals(item)) {
                 return i;
             }
@@ -17,7 +17,7 @@ public enum EstAlphabet {
 
     public static boolean hasEst(String value) {
         String lower = value.toLowerCase();
-        for (EstAlphabet p : values()) {
+        for (Estonian p : values()) {
             if (lower.contains(p.name())) return true;
         }
         return false;

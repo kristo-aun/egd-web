@@ -11,5 +11,8 @@ import org.springframework.data.jpa.repository.Query;
  */
 public interface ReadingRepository extends JpaRepository<Reading, Integer> {
     @Query(value = "select a from Reading a where a.createdBy=?1 or a.shared=true ORDER BY a.id desc")
+    Page<Reading> findAvailable(String createdBy, Pageable pageable);
+
+    @Query(value = "select a from Reading a where a.createdBy=?1 ORDER BY a.id desc")
     Page<Reading> findByCreatedBy(String createdBy, Pageable pageable);
 }

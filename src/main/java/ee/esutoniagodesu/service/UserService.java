@@ -7,6 +7,7 @@ import ee.esutoniagodesu.repository.domain.ac.PersistentTokenRepository;
 import ee.esutoniagodesu.repository.domain.ac.UserRepository;
 import ee.esutoniagodesu.security.SecurityUtils;
 import ee.esutoniagodesu.util.RandomUtil;
+import ee.esutoniagodesu.util.lang.ISO6391;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.slf4j.Logger;
@@ -98,7 +99,7 @@ public class UserService {
         newUser.setFirstName(firstName);
         newUser.setLastName(lastName);
         newUser.setEmail(email);
-        newUser.setLangKey(langKey);
+        newUser.setLangKey(ISO6391.valueOf(langKey));
         // new user is not active
         newUser.setActivated(false);
         // new user gets registration key
@@ -115,7 +116,7 @@ public class UserService {
             u.setFirstName(firstName);
             u.setLastName(lastName);
             u.setEmail(email);
-            u.setLangKey(langKey);
+            u.setLangKey(ISO6391.valueOf(langKey));
             userRepository.save(u);
             log.debug("Changed Information for User: {}", u);
         });

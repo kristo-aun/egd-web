@@ -1,4 +1,4 @@
-package ee.esutoniagodesu.util.lang.alphab;
+package ee.esutoniagodesu.util.lang.lingv;
 
 import java.util.Arrays;
 import java.util.List;

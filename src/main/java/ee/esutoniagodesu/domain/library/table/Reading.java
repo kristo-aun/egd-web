@@ -1,15 +1,16 @@
 package ee.esutoniagodesu.domain.library.table;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonView;
 import ee.esutoniagodesu.domain.AbstractAuditingEntity;
+import ee.esutoniagodesu.util.lang.ISO6391;
 import ee.esutoniagodesu.web.rest.dto.View;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 
 @JsonInclude(Include.NON_NULL)
 @Entity
@@ -26,7 +27,7 @@ public class Reading extends AbstractAuditingEntity implements Serializable {
     @Column(name = "author")
     private String author;
 
-    @JsonView(View.Basic.class)
+    @JsonView(View.Detailed.class)
     @Column(name = "copyright")
     private String copyright;
 
@@ -38,21 +39,21 @@ public class Reading extends AbstractAuditingEntity implements Serializable {
     @Column(name = "body")
     private String body;
 
-    @JsonView(View.Detailed.class)
-    @Size(min = 2, max = 2)
+    @JsonView(View.Basic.class)
+    @Enumerated(EnumType.STRING)
     @Column(name = "body_lang")
-    private String bodyLang;
+    private ISO6391 bodyLang;
 
     @JsonView(View.Detailed.class)
     @Column(name = "transcript")
     private String transcript;
 
     @JsonView(View.Basic.class)
-    @Size(min = 2, max = 2)
+    @Enumerated(EnumType.STRING)
     @Column(name = "transcript_lang")
-    private String transcriptLang;
+    private ISO6391 transcriptLang;
 
-    @JsonView(View.Detailed.class)
+    @JsonView(View.Basic.class)
     @Column(name = "summary")
     private String summary;
 
@@ -60,7 +61,13 @@ public class Reading extends AbstractAuditingEntity implements Serializable {
     @Column(name = "shared")
     private boolean shared;
 
-    private Collection<String> tags;
+    @JsonView(View.Basic.class)
+    @ElementCollection
+    @CollectionTable(schema = "library",
+        name = "reading_tags",
+        joinColumns = @JoinColumn(name = "reading_id", referencedColumnName = "id"))
+    @Column(name = "tag")
+    private List<String> tags;
 
     public Integer getId() {
         return id;
@@ -102,11 +109,11 @@ public class Reading extends AbstractAuditingEntity implements Serializable {
         this.body = body;
     }
 
-    public String getBodyLang() {
+    public ISO6391 getBodyLang() {
         return bodyLang;
     }
 
-    public void setBodyLang(String bodyLang) {
+    public void setBodyLang(ISO6391 bodyLang) {
         this.bodyLang = bodyLang;
     }
 
@@ -118,11 +125,11 @@ public class Reading extends AbstractAuditingEntity implements Serializable {
         this.transcript = transcript;
     }
 
-    public String getTranscriptLang() {
+    public ISO6391 getTranscriptLang() {
         return transcriptLang;
     }
 
-    public void setTranscriptLang(String transcriptLang) {
+    public void setTranscriptLang(ISO6391 transcriptLang) {
         this.transcriptLang = transcriptLang;
     }
 
@@ -142,11 +149,11 @@ public class Reading extends AbstractAuditingEntity implements Serializable {
         this.shared = shared;
     }
 
-    public Collection<String> getTags() {
+    public List<String> getTags() {
         return tags;
     }
 
-    public void setTags(Collection<String> tags) {
+    public void setTags(List<String> tags) {
         this.tags = tags;
     }
 

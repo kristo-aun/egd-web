@@ -1,6 +1,6 @@
 package ee.esutoniagodesu.pojo.test.compound;
 
-import ee.esutoniagodesu.util.lang.alphab.JCCharacter;
+import ee.esutoniagodesu.util.lang.lingv.JCCharacter;
 
 import java.io.Serializable;
 import java.util.ArrayList;

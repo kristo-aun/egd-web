@@ -1,6 +1,6 @@
 // $Id: JapaneseCharacter.java,v 1.2 2002/04/20 18:10:24 djmay Exp $
 // $Id: JapaneseCharacter.java,v 1.2 2002/04/20 18:10:24 djmay Exp $
-package ee.esutoniagodesu.util.lang.alphab;
+package ee.esutoniagodesu.util.lang.lingv;
 
 /**
  * JapaneseCharacter contains static functions to do various tests

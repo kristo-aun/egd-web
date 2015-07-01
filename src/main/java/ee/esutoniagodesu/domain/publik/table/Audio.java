@@ -1,7 +1,6 @@
 package ee.esutoniagodesu.domain.publik.table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import ee.esutoniagodesu.domain.test.table.ArticleParagraph;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -38,8 +37,6 @@ public final class Audio implements Serializable {
 
     @JsonIgnore
     private Collection<PhraseEt> phraseEts;
-    @JsonIgnore
-    private Collection<ArticleParagraph> articleParagraphs;
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -144,15 +141,6 @@ public final class Audio implements Serializable {
 
     public void setPhraseEts(Collection<PhraseEt> phraseEts) {
         this.phraseEts = phraseEts;
-    }
-
-    @OneToMany(mappedBy = "audio")
-    public Collection<ArticleParagraph> getArticleParagraphs() {
-        return articleParagraphs;
-    }
-
-    public void setArticleParagraphs(Collection<ArticleParagraph> articleParagraphs) {
-        this.articleParagraphs = articleParagraphs;
     }
 
     @Override

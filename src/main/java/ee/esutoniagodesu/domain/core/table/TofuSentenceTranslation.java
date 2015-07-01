@@ -1,6 +1,7 @@
 package ee.esutoniagodesu.domain.core.table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import ee.esutoniagodesu.util.lang.ISO6391;
 import org.springframework.data.annotation.CreatedBy;
 
 import javax.persistence.*;
@@ -12,7 +13,7 @@ import java.io.Serializable;
 public class TofuSentenceTranslation implements Serializable {
 
     private Integer id;
-    private String lang;
+    private ISO6391 lang;
     private String translation;
     private String createdBy;
     @JsonIgnore
@@ -50,12 +51,13 @@ public class TofuSentenceTranslation implements Serializable {
         this.tofuSentence = tofuSentence;
     }
 
-    @Column(name = "lang", length = 2)
-    public String getLang() {
+    @Enumerated(EnumType.STRING)
+    @Column(name = "lang")
+    public ISO6391 getLang() {
         return lang;
     }
 
-    public void setLang(String lang) {
+    public void setLang(ISO6391 lang) {
         this.lang = lang;
     }
 

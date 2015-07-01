@@ -4,11 +4,11 @@ import ee.esutoniagodesu.bean.ProjectDAO;
 import ee.esutoniagodesu.domain.ac.table.User;
 import ee.esutoniagodesu.domain.library.table.Reading;
 import ee.esutoniagodesu.repository.domain.library.ReadingRepository;
-import ee.esutoniagodesu.repository.project.TestRepository;
 import ee.esutoniagodesu.util.PaginationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,9 +38,6 @@ public class ReadingService {
     private ProjectDAO dao;
 
     @Inject
-    private TestRepository testRepository;
-
-    @Inject
     private ReadingRepository readingRepository;
 
     @Inject
@@ -58,19 +55,17 @@ public class ReadingService {
      * Lubatud on muuta ainult enda loodud artikleid.
      * Administraatoril on lubatud kõiki muuta.
      */
-    public void save(Reading reading, User user) {
+    @PreAuthorize("hasPermission(#reading, 'reading_update')")
+    public void save(Reading reading) {
         log.debug("save: reading=" + reading);
-        if (!user.hasRoleAdmin() && !reading.isCreatedBy(user.getLogin()))
-            throw new IllegalAccessError("alert.reading.changing-articles-you-dont-own-not-allowed");
-
         dao.save(reading);
     }
 
     /**
      * Kasutajale näidatakse tema enda loodud ja avalikke artikleid. Pagineeritud.
      */
-    public Page<Reading> getReadings(int page, int limit, User user) {
-        return readingRepository.findByCreatedBy(user.getLogin(), PaginationUtil.generatePageRequest(page, limit));
+    public Page<Reading> getReadings(Integer page, Integer limit, User user) {
+        return readingRepository.findAvailable(user.getLogin(), PaginationUtil.generatePageRequest(page, limit));
     }
 
     /**
@@ -82,25 +77,20 @@ public class ReadingService {
      * Kui võimalik, siis ka sõna hääldus.
      * JALUS: Sõnavara tabelit saab alla laadida XMS/ODS faili.
      */
-    public Reading getReading(int id, User user) {
+    @PreAuthorize("hasPermission(#id, 'ee.esutoniagodesu.domain.library.table.Reading', 'reading_read')")
+    public Reading getReading(int id) {
         log.debug("get: id=" + id);
-        Reading reading = dao.find(Reading.class, id);
-        if (!user.hasRoleAdmin() && !reading.isShared() && !reading.isCreatedBy(user.getLogin()))
-            throw new IllegalAccessError("alert.reading.reading-not-public");
-
-        return reading;
+        return dao.find(Reading.class, id);
     }
 
     /**
      * Lubatud on kustutada ainult enda loodud artikleid.
      * Administraatoril on lubatud kõiki kustutada.
      */
-    public void deleteReading(int id, User user) {
+    @PreAuthorize("hasPermission(#id, 'ee.esutoniagodesu.domain.library.table.Reading', 'reading_delete')")
+    public boolean deleteReading(int id) {
         log.debug("delete: id=", id);
-        if (!user.hasRoleAdmin() && !getReading(id, user).isCreatedBy(user.getLogin()))
-            throw new IllegalAccessError("alert.article.delete-not-allowed-if-not-owner");
-
-        dao.removeById(Reading.class, id);
+        return dao.removeById(Reading.class, id);
     }
 
     //------------------------------ sõnavara vaade ------------------------------

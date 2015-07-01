@@ -76,4 +76,25 @@ public final class JCString {
 
         return result != null && result.length() > 0 ? result.toString() : null;
     }
+
+    /**
+     * A common method for all enums since they can't have another base class
+     *
+     * @param <T>         Enum type
+     * @param enumeration enum type. All enums must be all caps.
+     * @param name        case sensitive
+     * @return corresponding enum
+     */
+    public static <T extends Enum<T>> T stringToEnum(String name, Class<T> enumeration) {
+        for (T enumValue : enumeration.getEnumConstants()) {
+            if (enumValue.name().equals(name)) {
+                return enumValue;
+            }
+        }
+
+        throw new IllegalArgumentException(String.format(
+            "There is no value with name '%s' in Enum %s",
+            name, enumeration.getName()
+        ));
+    }
 }

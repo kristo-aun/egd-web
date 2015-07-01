@@ -1,12 +1,12 @@
 package ee.esutoniagodesu.web.rest;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import ee.esutoniagodesu.domain.ac.table.User;
-import ee.esutoniagodesu.domain.test.dto.ArticleDTO;
 import ee.esutoniagodesu.domain.library.table.Reading;
-import ee.esutoniagodesu.security.AuthoritiesConstants;
 import ee.esutoniagodesu.service.ReadingService;
 import ee.esutoniagodesu.service.UserService;
 import ee.esutoniagodesu.util.PaginationUtil;
+import ee.esutoniagodesu.web.rest.dto.View;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,18 +14,18 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(ArticleResource.BASE_URL)
-public class ArticleResource {
+@RequestMapping(ReadingResource.BASE_URL)
+public class ReadingResource {
 
-    public static final String BASE_URL = "/api/articles";
+    public static final String BASE_URL = "/api/readings";
 
     @Inject
     private ReadingService service;
@@ -40,42 +40,42 @@ public class ArticleResource {
     @RequestMapping(value = "",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    @RolesAllowed(AuthoritiesConstants.USER)
-    public ResponseEntity<Void> create(@RequestBody Reading entity) throws URISyntaxException {
+    public ResponseEntity<Void> create(@Valid @RequestBody Reading entity) throws URISyntaxException {
         if (entity.getId() != null) {
             return ResponseEntity.badRequest().header("Failure", "A new article cannot already have an ID").build();
         }
-        service.save(entity, getSessionUser());
+        service.save(entity);
         return ResponseEntity.created(new URI(BASE_URL + "/" + entity.getId())).build();
     }
 
     @RequestMapping(value = "",
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    @RolesAllowed(AuthoritiesConstants.USER)
-    public ResponseEntity<Void> update(@RequestBody Reading entity) throws URISyntaxException {
+    public ResponseEntity<Void> update(@Valid @RequestBody Reading entity) throws URISyntaxException {
         if (entity.getId() == null) {
             return create(entity);
         }
-        service.save(entity, getSessionUser());
+        service.save(entity);
         return ResponseEntity.ok().build();
     }
 
+    @JsonView(View.Basic.class)
     @RequestMapping(value = "",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<ArticleDTO>> getArticles(@RequestParam(value = "page", required = false) Integer page,
-                                                        @RequestParam(value = "limit", required = false) Integer limit) throws URISyntaxException {
-        Page<ArticleDTO> result = service.getArticles(page, limit, getSessionUser());
+    public ResponseEntity<List<Reading>> getReadings(@RequestParam(value = "page", required = false) Integer page,
+                                                     @RequestParam(value = "limit", required = false) Integer limit) throws URISyntaxException {
+        Page<Reading> result = service.getReadings(page, limit, getSessionUser());
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(result, BASE_URL, page, limit);
         return new ResponseEntity<>(result.getContent(), headers, HttpStatus.OK);
     }
 
+    @JsonView(View.Detailed.class)
     @RequestMapping(value = "/{id}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Reading> get(@PathVariable Integer id) {
-        return Optional.ofNullable(service.getArticle(id, getSessionUser()))
+        return Optional.ofNullable(service.getReading(id))
             .map(author -> new ResponseEntity<>(
                 author,
                 HttpStatus.OK))
@@ -85,8 +85,7 @@ public class ArticleResource {
     @RequestMapping(value = "/{id}",
         method = RequestMethod.DELETE,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    @RolesAllowed(AuthoritiesConstants.USER)
     public void delete(@PathVariable Integer id) {
-        service.deleteArticle(id, getSessionUser());
+        service.deleteReading(id);
     }
 }

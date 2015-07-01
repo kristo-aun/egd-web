@@ -7,7 +7,7 @@ import ee.esutoniagodesu.repository.domain.heisig.HeisigCoreKwRepository;
 import ee.esutoniagodesu.repository.project.Heisig4DB;
 import ee.esutoniagodesu.repository.project.Heisig6DB;
 import ee.esutoniagodesu.repository.project.KanjiDB;
-import ee.esutoniagodesu.util.lang.alphab.LatinAlphabet;
+import ee.esutoniagodesu.util.lang.lingv.LatinAlphabet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

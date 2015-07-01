@@ -34,6 +34,17 @@ egdApp
             return (!!input) ? input.replace(/([^\W_]+[^\s-]*) */g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}) : '';
         }
     })
+    .filter('arrayToString', function (Moment, DISPLAY_TIME) {
+        return function (input) {
+            var result = "";
+            angular.forEach(input, function(item) {
+                if (result.length > 0)
+                    result += ", ";
+                result += item;
+            });
+            return result;
+        };
+    })
     .filter('characters', function () {
         return function (input, chars, breakOnWord) {
             if (isNaN(chars)) {

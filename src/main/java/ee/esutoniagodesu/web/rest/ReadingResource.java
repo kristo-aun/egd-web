@@ -70,6 +70,19 @@ public class ReadingResource {
         return new ResponseEntity<>(result.getContent(), headers, HttpStatus.OK);
     }
 
+    @JsonView(View.Basic.class)
+    @RequestMapping(value = "/byTag",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Reading>> byTag(@RequestParam(value = "tag") String tag,
+                                               @RequestParam(value = "page", required = false) Integer page,
+                                               @RequestParam(value = "limit", required = false) Integer limit) throws URISyntaxException {
+
+        Page<Reading> result = service.findByTag(tag, page, limit, getSessionUser());
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(result, BASE_URL, page, limit);
+        return new ResponseEntity<>(result.getContent(), headers, HttpStatus.OK);
+    }
+
     @JsonView(View.Detailed.class)
     @RequestMapping(value = "/{id}",
         method = RequestMethod.GET,

@@ -68,6 +68,11 @@ public class ReadingService {
         return readingRepository.findAvailable(user.getLogin(), PaginationUtil.generatePageRequest(page, limit));
     }
 
+
+    public Page<Reading> findByTag(String tag, Integer page, Integer limit, User sessionUser) {
+        return readingRepository.findByTag(tag, sessionUser.getLogin(), PaginationUtil.generatePageRequest(page, limit));
+    }
+
     /**
      * Leiab tekstist kõik sõnad ja kuvab sõnaraamatuvormi.
      * Server pakub vahendeid teksti tükeldamiseks ja analüüsimiseks, ent ei salvesta sõnavara.

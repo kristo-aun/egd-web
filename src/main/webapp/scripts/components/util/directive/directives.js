@@ -27,7 +27,7 @@ egdApp
             restrict: 'E',
             templateUrl: 'scripts/components/util/directive/ngPagination.html',
             link: function (scope, iElement, attr) {
-                scope.hide = false;
+                scope.hide = scope.hideIfLimitCount || false;
 
                 if (!angular.isDefined(scope.wrapcount) || scope.wrapcount < 1) scope.wrapcount = 3;
 

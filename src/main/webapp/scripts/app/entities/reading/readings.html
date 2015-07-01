@@ -10,11 +10,9 @@
             <tr>
                 <th translate="reading.grid.author"></th>
                 <th translate="reading.grid.title"></th>
+                <th translate="reading.grid.bodyLang"></th>
                 <th translate="reading.grid.transcriptLang"></th>
-                <th ng-if="!isAnonymous()" translate="reading.grid.copyright"></th>
-
-                <th ng-if="!isAnonymous()" style="width: 180px;" translate="reading.grid.lastModified"></th>
-                <th ng-if="!isAnonymous()" style="width: 180px;" translate="reading.grid.created"></th>
+                <th translate="reading.grid.tags"></th>
 
                 <th style="width: 200px;"></th>
             </tr>
@@ -23,11 +21,9 @@
             <tr ng-repeat="reading in readings">
                 <td><a ui-sref="readingDetail({id:reading.id})">{{reading.title}}</a></td>
                 <td>{{reading.author}}</td>
+                <td>{{'global.language.' + reading.bodyLang | translate}}</td>
                 <td>{{'global.language.' + reading.transcriptLang | translate}}</td>
-                <td ng-if="!isAnonymous()">{{reading.copyright}}</td>
-
-                <td ng-if="!isAnonymous()">{{reading.formattedLastModifiedDate}} - {{reading.lastModifiedBy}}</td>
-                <td ng-if="!isAnonymous()">{{reading.formattedCreatedDate}} - {{reading.createdBy}}</td>
+                <td>{{reading.tags | arrayToString}}</td>
 
                 <td style="text-align: right;">
                     <button ng-if="isReadingUpdateAllowed(reading)"
@@ -47,7 +43,7 @@
                             ng-click="open(reading.id)"
                             class="btn btn-default">
                         <span class="glyphicon glyphicon-pencil"></span>
-                        {{'global.messages.action.view' | translate}}
+                        {{'global.messages.action.open' | translate}}
                     </button>
                 </td>
             </tr>

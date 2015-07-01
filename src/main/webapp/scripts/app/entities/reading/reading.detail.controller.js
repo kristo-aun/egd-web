@@ -70,7 +70,7 @@ egdApp
         //------------------------------ scope helpers ------------------------------
 
         $scope.save = function () {
-            ReadingService.save($scope.reading,
+            ReadingResource.save($scope.reading,
                 function () {
                     $log.debug("ReadingController.save");
                     $location.path("/reading");

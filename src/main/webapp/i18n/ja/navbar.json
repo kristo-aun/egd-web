@@ -9,8 +9,8 @@
         "entities": {
             "main": "資料",
             "_main": "shiryou",
-            "articles": "文学",
-            "_articles": "bungaku",
+            "readings": "文学",
+            "_readings": "bungaku",
             "tofus": "トフー文"
         },
         "test": {

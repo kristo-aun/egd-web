@@ -6,7 +6,7 @@
         "rtk": "Kirjamärgid",
         "entities": {
             "main": "Õppematerjalid",
-            "articles": "Artiklid",
+            "readings": "Artiklid",
             "tofus": "Tofu laused"
         },
         "test": {

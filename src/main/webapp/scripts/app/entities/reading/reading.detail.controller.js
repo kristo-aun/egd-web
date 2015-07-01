@@ -1,25 +1,25 @@
 'use strict';
 
 egdApp
-    .controller('ArticleDetailController', function ($window, $rootScope, $scope, $stateParams, $interval, $timeout, $log, Principal, ArticleService) {
-        $scope.article = {};
+    .controller('ReadingDetailController', function ($window, $rootScope, $scope, $stateParams, $interval, $timeout, $log, Principal, ReadingResource) {
+        $scope.reading = {};
         $scope.load = function (id) {
 
             if (id > 0) {
-                ArticleService.get({id: id}, function(article) {
-                    $scope.article = article;
-                    $window.document.title = article.title;
-                    $scope.gridOptions.data = article.articleParagraphs;
+                ReadingResource.get({id: id}, function(reading) {
+                    $scope.reading = reading;
+                    $window.document.title = reading.title;
+                    $scope.gridOptions.data = reading.readingParagraphs;
                 });
             } else {
-                $scope.article = {
+                $scope.reading = {
                     author: null,
                     copyright: null,
                     title: null,
                     transcriptLang: "en",
                     id: null
                 };
-                $window.document.title = "New article";
+                $window.document.title = "New reading";
             }
 
         };
@@ -61,7 +61,7 @@ egdApp
             { name: 'transcript', displayName: 'Inglise keeles' , width: '50%' }
         ];
 
-        //------------------------------ get article from xhr ------------------------------
+        //------------------------------ get reading from xhr ------------------------------
 
         $scope.getAudioResource = function(audioId) {
             return 'api/audio/' + audioId;
@@ -70,14 +70,14 @@ egdApp
         //------------------------------ scope helpers ------------------------------
 
         $scope.save = function () {
-            ArticleService.save($scope.article,
+            ReadingService.save($scope.reading,
                 function () {
-                    $log.debug("ArticleController.save");
-                    $location.path("/article");
+                    $log.debug("ReadingController.save");
+                    $location.path("/reading");
                 });
         };
 
         $scope.clear = function () {
-            $location.path("/article");
+            $location.path("/reading");
         };
     });

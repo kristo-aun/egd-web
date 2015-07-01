@@ -92,8 +92,8 @@ egdApp
             }
         }
     })
-    .factory('ArticleResource', function ($resource) {
-        return $resource('api/articles/:id', {}, {
+    .factory('ReadingResource', function ($resource) {
+        return $resource('api/readings/:id', {}, {
             'query': { method: 'GET', isArray: true},
             'get': {
                 method: 'GET',

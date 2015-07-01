@@ -77,7 +77,7 @@ public class ReadingService {
      * Kui võimalik, siis ka sõna hääldus.
      * JALUS: Sõnavara tabelit saab alla laadida XMS/ODS faili.
      */
-    @PreAuthorize("hasPermission(#id, 'ee.esutoniagodesu.domain.library.table.Reading', 'reading_read')")
+    //@PreAuthorize("hasPermission(#id, 'ee.esutoniagodesu.domain.library.table.Reading', 'reading_read')")
     public Reading getReading(int id) {
         log.debug("get: id=" + id);
         return dao.find(Reading.class, id);

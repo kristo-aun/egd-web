@@ -6,7 +6,7 @@
         "rtk": "Kanji",
         "entities": {
             "main": "Study materials",
-            "articles": "Articles",
+            "readings": "Articles",
             "tofus": "Tofu sentences"
         },
         "test": {

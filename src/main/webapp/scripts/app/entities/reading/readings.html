@@ -20,23 +20,23 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="reading in articles">
-                <td><a ui-sref="articleDetail({id:reading.id})">{{reading.title}}</a></td>
+            <tr ng-repeat="reading in readings">
+                <td><a ui-sref="readingDetail({id:reading.id})">{{reading.title}}</a></td>
                 <td>{{reading.author}}</td>
-                <td>{{'language.' + reading.transcriptLang | translate}}</td>
+                <td>{{'global.language.' + reading.transcriptLang | translate}}</td>
                 <td ng-if="!isAnonymous()">{{reading.copyright}}</td>
 
                 <td ng-if="!isAnonymous()">{{reading.formattedLastModifiedDate}} - {{reading.lastModifiedBy}}</td>
                 <td ng-if="!isAnonymous()">{{reading.formattedCreatedDate}} - {{reading.createdBy}}</td>
 
                 <td style="text-align: right;">
-                    <button ng-if="isArticleUpdateAllowed(reading)"
+                    <button ng-if="isReadingUpdateAllowed(reading)"
                             ng-click="open(reading.id)"
                             class="btn btn-default">
                         <span class="glyphicon glyphicon-pencil"></span>
                         {{'global.messages.action.edit' | translate}}
                     </button>
-                    <button ng-if="isArticleDeleteAllowed(reading)"
+                    <button ng-if="isReadingDeleteAllowed(reading)"
                             ng-really-message="{{'grid.confirm' | translate}}"
                             ng-really-click="delete(reading.id)"
                             class="btn btn-danger">
@@ -55,11 +55,11 @@
         </table>
 
         <div class="row" style="margin-left:16px">
-            <egd-pagination page="page"
-                            limit="limit"
-                            links="links"
-                            load-page="loadPage"
-                            hide-if-limit-count="totalCount"></egd-pagination>
+            <ng-pagination page="page"
+                           limit="limit"
+                           links="links"
+                           load-page="loadPage"
+                           hide-if-limit-count="totalCount"></ng-pagination>
         </div>
     </div>
 </div>

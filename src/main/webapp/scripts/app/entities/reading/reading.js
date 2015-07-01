@@ -3,42 +3,42 @@
 egdApp
     .config(function ($stateProvider) {
         $stateProvider
-            .state('article', {
+            .state('reading', {
                 parent: 'entity',
-                url: '/article',
+                url: '/reading',
                 data: {
                     roles: [],
-                    pageTitle: 'article.home.title'
+                    pageTitle: 'reading.home.title'
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/entities/article/articles.html',
-                        controller: 'ArticleController'
+                        templateUrl: 'scripts/app/entities/reading/readings.html',
+                        controller: 'ReadingController'
                     }
                 },
                 resolve: {
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                        $translatePartialLoader.addPart('article');
+                        $translatePartialLoader.addPart('reading');
                         return $translate.refresh();
                     }]
                 }
             })
-            .state('articleDetail', {
-                parent: 'article',
-                url: '/article/:id',
+            .state('reading.detail', {
+                parent: 'reading',
+                url: '/reading/:id',
                 data: {
                     roles: [],
-                    pageTitle: 'article.detail.title'
+                    pageTitle: 'reading.detail.title'
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/entities/article/article.detail.html',
-                        controller: 'ArticleDetailController'
+                        templateUrl: 'scripts/app/entities/reading/reading.detail.html',
+                        controller: 'ReadingDetailController'
                     }
                 },
                 resolve: {
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                        $translatePartialLoader.addPart('article');
+                        $translatePartialLoader.addPart('reading');
                         return $translate.refresh();
                     }]
                 }

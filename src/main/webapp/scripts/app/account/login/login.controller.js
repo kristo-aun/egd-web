@@ -22,6 +22,7 @@ egdApp
                 password: $scope.password,
                 rememberMe: $scope.rememberMe
             }).then(function () {
+                $rootScope.$broadcast("accountChange");
                 $scope.authenticationError = false;
                 if ($rootScope.previousStateName === 'register') {
                     $state.go('home');

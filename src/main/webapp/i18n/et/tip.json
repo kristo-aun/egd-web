@@ -10,11 +10,11 @@
             },
             "en": {
                 "title": "Inglise",
-                "description": "Kõik on samamoodi nagu Eesti keele puhul."
+                "description": "Kasutajaliides toimib sarnaselt eestikeelsega."
             },
             "ja": {
                 "title": "Jaapani",
-                "objective": "Eesmärgiks on Jaapani-Eesti sõnastiku põõrates pakkuda väärtust Eesti-Jaapani suunal.",
+                "objective": "Eesmärgiks on Jaapani-Eesti sõnastikku pöörates võimaldada tõlkimist Eesti-Jaapani suunal.",
                 "dictDirection": "Kasutusel Eesti-Jaapani sõnastik. Saadud JMDict jooksval pööramisel.",
                 "audioFor": "Audio lisatakse eestikeelesetele sõnadele. Hetkel töös EKI kõnesüntesaatori abil häälduste loomine.",
                 "exampleSentencesFor": "Eestikeelsed näitelaused. Hetkel ilma tõlketa. TEKSauruse baasil."

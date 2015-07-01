@@ -27,16 +27,16 @@
         "messages": {
             "action": {
                 "refresh": "Refresh",
-                "search": "Search",
-                "forward": "Forward",
+                "search": "探します",
+                "forward": "進みます",
                 "back": "帰ります",
                 "cancel": "キャンセル",
                 "delete": "Delete",
                 "edit": "Edit",
                 "save": "Save",
-                "view": "開けます",
-                "open": "Ava",
-                "create": "Create new",
+                "view": "見ます",
+                "open": "開けます",
+                "create": "新しい",
                 "confirm": "Are you sure?"
             },
             "detail": {

@@ -10,9 +10,9 @@
             "copyright": "Autoriõigused",
             "title": "Pealkiri",
             "transcriptLang": "Tõlke keel",
-            "bodyLang": "Keel",
             "created": "Loodud",
             "lastModified": "Viimati muudetud",
+            "bodyLang": "Keel",
             "tags": "Tagid"
         }
     }

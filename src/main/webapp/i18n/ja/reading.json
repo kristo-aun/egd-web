@@ -2,7 +2,7 @@
     "reading": {
         "title": "Reading exercises",
         "home": {
-            "createLabel": "Add new story"
+            "createLabel": "新しい"
         },
         "grid": {
             "author": "作家",
@@ -14,7 +14,9 @@
             "created": "書かれた",
             "_created": "kakareta",
             "lastModified": "変更されました",
-            "_lastModified": "henkou saremashita"
+            "_lastModified": "henkou saremashita",
+            "bodyLang": "語",
+            "tags": "タグ"
         }
     }
 }

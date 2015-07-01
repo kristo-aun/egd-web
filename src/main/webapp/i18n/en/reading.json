@@ -2,7 +2,7 @@
     "reading": {
         "title": "Reading exercises",
         "home": {
-            "createLabel": "Add new story"
+            "createLabel": "Add new reading"
         },
         "grid": {
             "author": "Author",
@@ -10,7 +10,9 @@
             "title": "Title",
             "transcriptLang": "Transcript language",
             "created": "Created",
-            "lastModified": "Last modified"
+            "lastModified": "Last modified",
+            "bodyLang": "Language",
+            "tags": "Tags"
         }
     }
 }

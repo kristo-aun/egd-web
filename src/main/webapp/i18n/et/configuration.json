@@ -1,10 +1,10 @@
 {
     "configuration": {
-        "title": "Configuration",
-        "filter": "Filter (by prefix)",
+        "title": "Konfiguratsioon",
+        "filter": "Filtreeri (eesliite järgi)",
         "table": {
-            "prefix": "Prefix",
-            "properties": "Properties"
+            "prefix": "Eesliide",
+            "properties": "Atribuudid"
         }
     }
 }

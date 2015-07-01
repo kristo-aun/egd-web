@@ -1,15 +1,16 @@
 {
     "tofu" : {
         "home": {
-            "title": "Tofu sentences"
+            "title": "トフ文"
         },
         "detail": {
-            "title": "Tofu"
+            "title": "トフ"
         },
         "grid": {
-            "word": "Word",
-            "sentence": "Sentence",
-            "translation": "Translation"
+            "word": "言葉",
+            "sentence": "文",
+            "translation": "翻訳",
+            "_translation": "honyaku"
         }
     }
 }

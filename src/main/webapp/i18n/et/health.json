@@ -1,13 +1,13 @@
 {
     "health": {
-        "title": "Health checks",
-        "refresh.button": "Refresh",
-        "stacktrace": "Stacktrace",        
+        "title": "Süsteemi korrasolek",
+        "refresh.button": "Uuenda",
+        "stacktrace": "Stacktrace",
         "details": {
-            "details": "Details",
+            "details": "Detailid",
             "properties": "Properties",
-            "name": "Name",
-            "value": "Value",
+            "name": "Nimi",
+            "value": "Väärtus",
             "error": "Error"
         },
         "indicator": {

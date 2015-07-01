@@ -2,25 +2,25 @@
     "audits": {
         "title": "Sisselogimised",
         "filter": {
-            "title": "Filter per date",
-            "from": "from",
-            "to": "to",
+            "title": "Filtreeri kuupäeva järgi",
+            "from": "alates",
+            "to": "kuni",
             "button": {
-                "weeks": "Weeks",
-                "today": "today",
-                "clear": "clear",
-                "close": "close"
+                "weeks": "Nädalad",
+                "today": "täna",
+                "clear": "tühjenda",
+                "close": "sulge"
             }
         },
         "table": {
             "header": {
-                "principal": "User",
-                "date": "Date",
-                "status": "State",
-                "data": "Extra data"
+                "principal": "Kasutaja",
+                "date": "Kuupäev",
+                "status": "Olek",
+                "data": "Muud andmed"
             },
             "data": {
-                "remoteAddress": "Remote Address:"
+                "remoteAddress": "IP Aadress:"
             }
         }
     }

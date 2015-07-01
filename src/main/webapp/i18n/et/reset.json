@@ -6,22 +6,22 @@
                 "button": "Vaheta parool"
             },
             "messages": {
-                "info": "Enter the e-mail address you used to register",
-                "success": "Check your e-mails for details on how to reset your password.",
-                "notfound": "<strong>E-Mail address isn't registered!</strong> Please check and try again"
+                "info": "Sisestage registreermisel kasutatud e-maili aadress",
+                "success": "E-mailile on saadetud kiri lingiga parooli lähtestamisele.",
+                "notfound": "<strong>E-mail ei ole kasutusel!</strong> Kontrollige ja proovige uuesti."
 
             }
         },
         "finish" : {
             "title": "Parooli vahetamine",
             "form": {
-                "button": "Validate new password"
+                "button": "Uus parool"
             },
             "messages": {
                 "info": "Määrake uus parool",
-                "success": "<strong>Your password has been reset.</strong> Please <a href=\"#/login\">authenticate</a>.",
-                "keymissing": "The reset key is missing.",
-                "error": "Your password couldn't be reset. Remember a password request is only valid for 24 hours."
+                "success": "<strong>Parool on vahetatud.</strong> <a href=\"#/login\">Logige sisse</a>.",
+                "keymissing": "Unikaalne võti on puudu.",
+                "error": "Ei saanud parooli vahetada. Parooli saab vahetada 24 tundi peale taotlust."
             }
         }
     }

@@ -32,7 +32,7 @@
         },
         "admin": {
             "main": "Administration",
-            "health": "Health",
+            "health": "Süsteemi korrasolek",
             "configuration": "Konfiguratsioon",
             "audits": "Sisselogimised"
         }

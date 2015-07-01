@@ -14,8 +14,8 @@
             "forgot": "Kas unustasite parooli?"
         },
         "social": {
-            "google": "Sign in with Google",
-            "facebook": "Sign in with Facebook"
+            "google": "Logi sisse Google'i kontoga",
+            "facebook": "Logi sisse Facebook'i kontoga"
         }
     }
 }

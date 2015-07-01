@@ -14,14 +14,14 @@
             },
             "ja": {
                 "title": "Jaapani",
-                "objective": "Eesmärgiks on Jaapani-Eesti sõnastikku pöörates võimaldada tõlkimist Eesti-Jaapani suunal.",
+                "objective": "Eesmärgiks on Jaapani-Eesti ressursse pöörates võimaldada Eesti-Jaapani suunal kasutamist.",
                 "dictDirection": "Kasutusel Eesti-Jaapani sõnastik. Saadud JMDict jooksval pööramisel.",
                 "audioFor": "Audio lisatakse eestikeelesetele sõnadele. Hetkel töös EKI kõnesüntesaatori abil häälduste loomine.",
                 "exampleSentencesFor": "Eestikeelsed näitelaused. Hetkel ilma tõlketa. TEKSauruse baasil."
             }
         },
         "rtkForm": {
-            "tip1": "Heisigi indeksi järgi otsimine toimib numbriga. Lubatud indeksid on 1-2200.",
+            "tip1": "Heisigi indeksi järgi otsimine toimib numbriga. Lubatud indeksi numbrid on 1-2200.",
             "tip2": "Märksõna võib olla inglise- või eesti keeles. Eestikeelne märksõna on kanjidel vahemikus 1-900.",
             "tip3": "Vaikimisi otsitakse Heisigi \"Remember The Kanji\" 6. raamatu indeksist. ",
             "tip4": "Primitiividena on Heisigi raamatus kasutatud kanji osade inglisekeelsed tähendused. Kattuvus Jaapanis kasutatava radikaalide süsteemiga on osaline."

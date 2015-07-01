@@ -28,22 +28,22 @@
             "wordCount": "Sõnu kokku",
             "wordsWithKanjiCount": "Kanjidega sõnu",
             "kanjiCount": "Kanjide arv sõnas",
-            "withJmdictCount": "JMDict kanne olemas",
-            "withJmdictShare": "JMDict kande olemas koguhulgast"
+            "withJmdictCount": "JMDict sissekanne olemas",
+            "withJmdictShare": "JMDict sissekanne olemas koguhulgast"
         },
         "jmdict": {
-            "header": "JMDict statistics",
-            "translatedEntrRatio": "Translation count per entry",
+            "header": "JMDict statistika",
+            "translatedEntrRatio": "Tõlgete arv sissekande (entr) kohta",
             "chart": {
-                "xaxis":"Gloss count",
-                "yaxis":"Entr count"
+                "xaxis":"Tõlgete arv",
+                "yaxis":"Sissekannete (entr) arv"
             }
         },
         "freq": {
-            "header": "Frequency indexes",
+            "header": "Sagedusindeksid",
             "chart": {
-                "xaxis":"Gloss count",
-                "yaxis":"sum(frequency)"
+                "xaxis":"Tõlgete arv",
+                "yaxis":"summa(sagedus)"
             }
         }
     }

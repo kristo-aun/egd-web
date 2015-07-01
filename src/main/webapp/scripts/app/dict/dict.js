@@ -57,5 +57,22 @@ egdApp
                         return $translate.refresh();
                     }]
                 }
+            }).state('abbr', {
+                parent: 'site',
+                url: '/abbr',
+                data: {
+                    roles: []
+                },
+                views: {
+                    'content@': {
+                        templateUrl: 'scripts/app/dict/abbr.html'
+                    }
+                },
+                resolve: {
+                    mainTranslatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate,$translatePartialLoader) {
+                        $translatePartialLoader.addPart('dict');
+                        return $translate.refresh();
+                    }]
+                }
             });
     });

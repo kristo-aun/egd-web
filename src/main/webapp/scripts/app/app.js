@@ -107,7 +107,6 @@ egdApp
 
         $urlRouterProvider.otherwise(function($injector, $location){
             $injector.invoke(function($state, $rootScope, $translate, $log) {
-                $log.debug("urlRouterProvider.otherwise", $location.path());
                 if ($location.path()) {
                     $state.go('error', {code: '404'});
                 } else {

@@ -19,7 +19,8 @@ import javax.inject.Inject;
  */
 @Component("socialConnectionSignUp")
 public class SocialConnectionSignUp implements ConnectionSignUp {
-    private final Logger log = LoggerFactory.getLogger(SocialConnectionSignUp.class);
+
+    private static final Logger log = LoggerFactory.getLogger(SocialConnectionSignUp.class);
 
     @Inject
     private UserRepository userRepository;

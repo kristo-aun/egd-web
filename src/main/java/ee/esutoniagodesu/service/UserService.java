@@ -1,6 +1,7 @@
 package ee.esutoniagodesu.service;
 
 import ee.esutoniagodesu.domain.ac.table.Authority;
+import ee.esutoniagodesu.domain.ac.table.ExternalAccount;
 import ee.esutoniagodesu.domain.ac.table.User;
 import ee.esutoniagodesu.repository.domain.ac.AuthorityRepository;
 import ee.esutoniagodesu.repository.domain.ac.PersistentTokenRepository;
@@ -8,6 +9,7 @@ import ee.esutoniagodesu.repository.domain.ac.UserRepository;
 import ee.esutoniagodesu.security.SecurityUtils;
 import ee.esutoniagodesu.util.RandomUtil;
 import ee.esutoniagodesu.util.lang.ISO6391;
+import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.slf4j.Logger;
@@ -86,16 +88,20 @@ public class UserService {
            });
     }
 
-    public User createUserInformation(String login, String password, String firstName, String lastName, String email,
+    private User createUserFromInformation(String login, String password, String firstName, String lastName, String email,
                                       String langKey) {
 
         User newUser = new User();
         Authority authority = authorityRepository.findOne("ROLE_USER");
         Set<Authority> authorities = new HashSet<>();
-        String encryptedPassword = passwordEncoder.encode(password);
         newUser.setLogin(login);
+
         // new user gets initially a generated password
-        newUser.setPassword(encryptedPassword);
+        if (StringUtils.isNotBlank(password)) {
+            String encryptedPassword = passwordEncoder.encode(password);
+            newUser.setPassword(encryptedPassword);
+        }
+
         newUser.setFirstName(firstName);
         newUser.setLastName(lastName);
         newUser.setEmail(email);
@@ -106,6 +112,24 @@ public class UserService {
         newUser.setActivationKey(RandomUtil.generateActivationKey());
         authorities.add(authority);
         newUser.setAuthorities(authorities);
+        return newUser;
+    }
+
+    public User createUserFromSocial(String login, String firstName, String lastName, String email,
+                                     String langKey, ExternalAccount externalAccount) {
+
+        User newUser = createUserFromInformation(login, null, firstName, lastName, email, langKey);
+        newUser.getExternalAccounts().add(externalAccount);
+        externalAccount.setUser(newUser);
+        userRepository.save(newUser);
+        log.debug("Created Information for Social User: {}", newUser);
+        return newUser;
+    }
+
+    public User createUserInformation(String login, String password, String firstName, String lastName, String email,
+                                      String langKey) {
+
+        User newUser = createUserFromInformation(login, password, firstName, lastName, email, langKey);
         userRepository.save(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;

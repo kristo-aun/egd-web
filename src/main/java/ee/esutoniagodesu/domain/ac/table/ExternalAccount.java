@@ -10,7 +10,7 @@ import java.io.Serializable;
  * account with Google or Facebook.
  */
 @Entity
-@Table(schema = "ac", name = "external_account")
+@Table(schema = "ac", name = "userconnection")
 public class ExternalAccount implements Serializable {
 
     @Id
@@ -19,15 +19,15 @@ public class ExternalAccount implements Serializable {
     private Integer id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "external_provider", length = 20, nullable = false)
+    @Column(name = "providerid", length = 20, nullable = false)
     private ExternalAccountProvider externalProvider;
 
-    @Column(name = "external_uid", length = 50, nullable = false)
+    @Column(name = "providerUserId", length = 50, nullable = false)
     private String externalIdentifier;
 
     @JsonIgnore
     @ManyToOne(optional = false)
-    @JoinColumn(name = "login", referencedColumnName = "login", nullable = false)
+    @JoinColumn(name = "userid", referencedColumnName = "login", nullable = false)
     private User user;
 
     public ExternalAccount() {

@@ -2,22 +2,27 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
 
-            <form ng-show="status != 'failed' && status != 'success'" name="form" role="form" novalidate ng-submit="register()" show-validation>
+            <form ng-show="status != 'failed' && status != 'success'" name="form" role="form"
+                  novalidate ng-submit="register()" show-validation>
                 <p translate="register.form.external.confirm"
                    translate-values="{appTitle: &quot;{{ 'global.title' | translate }}&quot;}">
-                        You're about to create an account on <strong>jhipster</strong> using a login from
-               </p>
+                    You're about to create an account on <strong>jhipster</strong> using a login from
+                </p>
+
                 <div class="text-center">
                     <jh-social type='icon' external-account-provider="externalAccountProvider"></jh-social>
-                    <strong>{{registerAccount.firstName}} {{registerAccount.lastName}} {{registerAccount.email}}</strong>
+                    <strong>{{registerAccount.firstName}} {{registerAccount.lastName}}
+                        {{registerAccount.email}}</strong>
                 </div>
                 <br/>
-                <p translate="register.form.external.chooseLogin">Please choose a login. You won't need your login to authenticate, but it will be used to uniquely identify your account.</p>
 
-                <!-- login -->
-                <ng-include src="'views/register-common-input.html'"></ng-include>
+                <p translate="register.form.external.chooseLogin">Please choose a login. You won't need your login to
+                    authenticate, but it will be used to uniquely identify your account.</p>
 
-                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary" translate="register.form.button">Register</button>
+
+                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary"
+                        translate="register.form.button">Register
+                </button>
             </form>
         </div>
     </div>

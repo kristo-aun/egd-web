@@ -22,5 +22,24 @@ egdApp
                         return $translate.refresh();
                     }]
                 }
+            }).state('register.external', {
+                parent: 'account',
+                url: '/register/external',
+                data: {
+                    roles: [],
+                    pageTitle: 'register.title'
+                },
+                views: {
+                    'content@': {
+                        templateUrl: 'scripts/app/account/register/register.external.html',
+                        controller: 'RegisterExternalController'
+                    }
+                },
+                resolve: {
+                    translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                        $translatePartialLoader.addPart('register');
+                        return $translate.refresh();
+                    }]
+                }
             });
     });

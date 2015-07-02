@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
@@ -35,14 +36,13 @@ public class ProjectDAO extends GeneralDAOImpl {
         super.setSearchProcessor(searchProcessor);
     }
 
-    @Autowired
-    protected JdbcTemplate _jdbcTemplate;
+    @Inject
+    protected JdbcTemplate jdbcTemplate;
 
-    private DataSource getDataSource() {
-        return _jdbcTemplate.getDataSource();
-    }
+    @Inject
+    protected DataSource dataSource;
 
     public Connection getConnection() throws SQLException {
-        return getDataSource().getConnection();
+        return dataSource.getConnection();
     }
 }

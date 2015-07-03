@@ -24,6 +24,16 @@
                     "minlength": "Perekonnanime pikkus peab olema vähemalt 1 tähemärk",
                     "maxlength": "Perekonnanime suurim lubatud pikkus on 50 tähemärki"
                 }
+            },
+            "info": {
+                "delete": {
+                    "confirm": {
+                        "label": "Kustutatakse kogu info"
+                    }
+                }
+            },
+            "action": {
+                "deleteAccount": "Kustuta konto"
             }
         }
     }

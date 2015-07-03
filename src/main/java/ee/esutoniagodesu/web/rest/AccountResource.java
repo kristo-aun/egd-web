@@ -22,6 +22,7 @@ import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.UserProfile;
 import org.springframework.social.connect.web.ProviderSignInAttempt;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.util.WebUtils;
 
 import javax.inject.Inject;
@@ -331,7 +332,7 @@ public class AccountResource implements EnvironmentAware {
     /**
      * Kolm varianti
      * 1) Täiesti uus kasutaja, emailiga kasutajat ei ole, social id on registreerimata. Teha User ja External.
-     * 2) Social providerist saadud emailiga kasutaja on olemas. Lisa External seo User-iga.
+     * 2) Social providerist saadud emailiga kasutaja on olemas. Lisa External ja seo User-iga.
      * 3) Social id on juba registreeritud. Ei lase uuesti registreeruda, isegi kui social email ja konto email erinevad.
      */
     @RequestMapping(value = "/register/external",
@@ -351,7 +352,8 @@ public class AccountResource implements EnvironmentAware {
                                 //kasutajal ei tohi olla sama external provideri juures teise id'ga kontot.
                                 for (ExternalAccount p : user.getExternalAccounts()) {
                                     if (p.getExternalProvider().equals(entry.getKey())) {
-                                        return new ResponseEntity<String>("There is another external login associated with this e-mail",
+                                        return new ResponseEntity<String>(
+                                            "There is another external login associated with this e-mail",
                                             HttpStatus.BAD_REQUEST);
                                     }
                                 }
@@ -360,6 +362,8 @@ public class AccountResource implements EnvironmentAware {
                                 return new ResponseEntity<String>(HttpStatus.CREATED);
                             })
                             .orElseGet(() -> {
+                                userDTO.setLangKey("et");
+                                userDTO.setLogin(userDTO.getEmail());
                                 User user = createUser(userDTO);
                                 createExternal(user, entry, request);
                                 return new ResponseEntity<String>(HttpStatus.CREATED);
@@ -367,6 +371,19 @@ public class AccountResource implements EnvironmentAware {
                     );
             })
             .orElse(new ResponseEntity<String>("could not retreive social account data", HttpStatus.INTERNAL_SERVER_ERROR));
+    }
+
+    /**
+     * GET details of an ongoing registration
+     * @return 200 OK or 404 if there is no ongoing registration
+     */
+    @RequestMapping(value = "/register/external",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> getRegisterAccount(HttpServletRequest request) {
+        return retreiveSocialAsUserDTO(request)
+            .map(userDTO -> new ResponseEntity<>(userDTO, HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     private String getBaseUrl(HttpServletRequest request) {
@@ -378,4 +395,10 @@ public class AccountResource implements EnvironmentAware {
     }
 
 
+    @RequestMapping(value = "/account",
+        method = RequestMethod.DELETE,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    public void delete() {
+        userService.deleteAccount();
+    }
 }

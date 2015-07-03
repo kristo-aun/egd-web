@@ -31,7 +31,16 @@ egdApp
                 AuthServerProvider.logout();
                 Principal.authenticate(null);
             },
-
+            deleteAccount: function () {
+                var deferred = $q.defer();
+                var that = this;
+                Account.delete({},
+                    function () {
+                        that.logout();
+                        deferred.resolve();
+                    });
+                return deferred.promise;
+            },
             authorize: function(force) {
                 return Principal.identity(force)
                     .then(function() {

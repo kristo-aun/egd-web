@@ -5,7 +5,7 @@
             <form ng-show="status != 'failed' && status != 'success'" name="form" role="form"
                   novalidate ng-submit="register()" show-validation>
                 <p translate="register.form.external.confirm"></p>
-
+                {{registerAccount}}
                 <div class="text-center">
                     <strong>{{registerAccount.firstName}} {{registerAccount.lastName}}
                         {{registerAccount.email}}</strong>

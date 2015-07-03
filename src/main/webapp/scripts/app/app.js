@@ -16,7 +16,8 @@ var egdApp = angular.module('egdApp', [
     'ui.chart',
     'ui.select',
     'ui.grid.pagination',
-    'angular-loading-bar'
+    'angular-loading-bar',
+    'angular-confirm'
 ]);
 
 egdApp

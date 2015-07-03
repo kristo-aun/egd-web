@@ -16,6 +16,8 @@ import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -176,6 +178,15 @@ public class UserService {
         User currentUser = userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).get();
         currentUser.getAuthorities().size(); // eagerly load the association
         return currentUser;
+    }
+
+    public void deleteAccount() {
+        if (!SecurityUtils.isAuthenticated()) {
+            throw new AuthenticationCredentialsNotFoundException("not authenticated");
+        }
+        String login = SecurityUtils.getCurrentLogin();
+        userRepository.delete(login);
+        log.debug("Deleted account for User: {}", login);
     }
 
     /**

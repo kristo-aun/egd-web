@@ -1,7 +1,7 @@
 'use strict';
 
 egdApp
-    .controller('SettingsController', function ($rootScope, $scope, Principal, Auth, Language, $translate) {
+    .controller('SettingsController', function ($state, $rootScope, $scope, Principal, Auth, Language, $translate, $confirm) {
         $scope.success = null;
         $scope.error = null;
         Principal.identity(true).then(function(account) {
@@ -23,5 +23,18 @@ egdApp
                 $scope.success = null;
                 $scope.error = 'ERROR';
             });
+        };
+
+        $scope.deleteAccount = function() {
+            Auth.deleteAccount().then(function() {
+                $state.go("login");
+            });
+        };
+
+        $scope.deleteAccountConfirm = function() {
+            $confirm({}, {templateUrl: 'scripts/app/account/settings/account.confirm.delete.html' })
+                .then(function() {
+                    $scope.deleteAccount();
+                });
         };
     });

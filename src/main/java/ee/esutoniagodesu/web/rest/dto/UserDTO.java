@@ -40,7 +40,7 @@ public class UserDTO {
 
     private List<String> roles;
 
-    private Map<ExternalAccountProvider, String> externalAccounts = new HashMap<>();
+    private final Map<ExternalAccountProvider, String> externalAccounts = new HashMap<>();
 
     public UserDTO() {
     }
@@ -63,32 +63,61 @@ public class UserDTO {
         this.externalAccounts.put(externalAccountProvider, account);
     }
 
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
     public String getPassword() {
         return password;
     }
 
-    public String getLogin() {
-        return login;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getFirstName() {
         return firstName;
     }
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
     public String getLastName() {
         return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
         return email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getLangKey() {
         return langKey;
     }
 
+    public void setLangKey(String langKey) {
+        this.langKey = langKey;
+    }
+
     public List<String> getRoles() {
         return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
     }
 
     public Map<ExternalAccountProvider, String> getExternalAccounts() {

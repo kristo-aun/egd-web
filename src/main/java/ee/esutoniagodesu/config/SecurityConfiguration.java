@@ -156,6 +156,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         "/api/morphology/**",
         "/api/translator",
         "/api/register",
+        "/api/register/external",
         "/api/activate",
         "/api/authenticate",
         "/api/account/reset_password/init",

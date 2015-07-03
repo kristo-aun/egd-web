@@ -129,8 +129,13 @@
                 <li ng-class="{active: $state.includes('account')}" class="dropdown pointer">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">
                         <span ng-switch-when="true">
-                            {{account.firstName}}
-                            {{account.lastName}}
+                            <span ng-if="!account.firstName && !account.lastName">
+                                <i class="fa fa-exclamation-triangle" style="color:#d9534f;"></i>
+                            </span>
+                            <span ng-if="account.firstName || account.lastName">
+                                {{account.firstName}}
+                                {{account.lastName}}
+                            </span>
                             <b class="caret"></b>
                         </span>
                         <span ng-switch-when="false">

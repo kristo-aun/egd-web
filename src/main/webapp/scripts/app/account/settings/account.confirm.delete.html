@@ -1,0 +1,24 @@
+<div class="modal-header">
+    <button type="button" class="close"
+            data-dismiss="modal"
+            aria-hidden="true"
+            ng-click="cancel()">&times;</button>
+    <span class="modal-title">&nbsp;</span>
+</div>
+<div class="modal-body">
+    <ul>
+        <li translate="settings.messages.info.delete.confirm.label"></li>
+    </ul>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel()">
+        <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+        translate="global.messages.action.cancel"></span>
+    </button>
+    <button type="button"
+            ng-click="ok()"
+            class="btn btn-danger">
+        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+        translate="global.messages.action.delete"></span>
+    </button>
+</div>

@@ -337,37 +337,36 @@ public class AccountResource implements EnvironmentAware {
     @RequestMapping(value = "/register/external",
         method = RequestMethod.POST,
         produces = MediaType.TEXT_PLAIN_VALUE)
-    public ResponseEntity<?> registerExternal(HttpServletRequest request) {
-
+    public ResponseEntity<String> registerExternal(HttpServletRequest request) {
         //leia requesti järgi social info
         return retreiveSocialAsUserDTO(request)
             .map(userDTO -> {
                 Map.Entry<ExternalAccountProvider, String> entry = userDTO.getExternalAccounts().entrySet().iterator().next();
                 return userRepository.findOneByExternalAccount(entry.getKey(), entry.getValue())
                     //kui Social id on juba registreeritud, siis ei lase uuesti registreerida
-                    .map(user -> new ResponseEntity<>("The external login is already linked to another User",
+                    .map(user -> new ResponseEntity<String>("The external login is already linked to another User",
                         HttpStatus.BAD_REQUEST))
                     .orElseGet(() -> userRepository.findOneByEmail(userDTO.getEmail())
                             .map(user -> {
                                 //kasutajal ei tohi olla sama external provideri juures teise id'ga kontot.
                                 for (ExternalAccount p : user.getExternalAccounts()) {
                                     if (p.getExternalProvider().equals(entry.getKey())) {
-                                        return new ResponseEntity<>("There is another external login associated with this e-mail",
+                                        return new ResponseEntity<String>("There is another external login associated with this e-mail",
                                             HttpStatus.BAD_REQUEST);
                                     }
                                 }
 
                                 createExternal(user, entry, request);
-                                return new ResponseEntity<>(HttpStatus.CREATED);
+                                return new ResponseEntity<String>(HttpStatus.CREATED);
                             })
                             .orElseGet(() -> {
                                 User user = createUser(userDTO);
                                 createExternal(user, entry, request);
-                                return new ResponseEntity<>(HttpStatus.CREATED);
+                                return new ResponseEntity<String>(HttpStatus.CREATED);
                             })
                     );
             })
-            .orElse(new ResponseEntity<>("could not retreive social account data", HttpStatus.INTERNAL_SERVER_ERROR));
+            .orElse(new ResponseEntity<String>("could not retreive social account data", HttpStatus.INTERNAL_SERVER_ERROR));
     }
 
     private String getBaseUrl(HttpServletRequest request) {

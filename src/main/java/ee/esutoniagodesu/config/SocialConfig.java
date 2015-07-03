@@ -14,6 +14,7 @@ import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.ConnectionSignUp;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
+import org.springframework.social.connect.mem.InMemoryUsersConnectionRepository;
 import org.springframework.social.facebook.connect.FacebookConnectionFactory;
 import org.springframework.social.google.connect.GoogleConnectionFactory;
 
@@ -88,12 +89,10 @@ public class SocialConfig implements SocialConfigurer {
     @Override
     public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
 
+        InMemoryUsersConnectionRepository repo = new InMemoryUsersConnectionRepository(connectionFactoryLocator);
 
-
-        JdbcUsersConnectionRepository repo = new JdbcUsersConnectionRepository(dataSource,
-            connectionFactoryLocator, Encryptors.noOpText());
-
-        repo.setTablePrefix("ac.");
+        //JdbcUsersConnectionRepository repo = new JdbcUsersConnectionRepository(dataSource, connectionFactoryLocator, Encryptors.noOpText());
+        //repo.setTablePrefix("ac.");
 
         // register our ConnectionSignUp so that UsersConnectionRepository can resolve external account ids
         // to internal Users

@@ -23,3 +23,5 @@ microsoft:
     translate-service:
         id: esutoniagodesu
         secret: qkAx7U5QVpvDh7kVijUhCkofH7Dd9My4RzlkXPwlM2g
+
+app.security.activation-required: false

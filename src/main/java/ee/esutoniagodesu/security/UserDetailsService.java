@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -38,6 +37,7 @@ public class UserDetailsService implements org.springframework.security.core.use
         log.debug("Authenticating {}", login);
         String lowercaseLogin = login.toLowerCase();
         Optional<User> userFromDatabase = userRepository.findOneByLogin(lowercaseLogin);
+
         return userFromDatabase.map(user -> {
             if (!user.getActivated()) {
                 throw new UserNotActivatedException("User " + lowercaseLogin + " was not activated");
@@ -45,6 +45,7 @@ public class UserDetailsService implements org.springframework.security.core.use
             List<GrantedAuthority> grantedAuthorities = user.getAuthorities().stream()
                 .map(authority -> new SimpleGrantedAuthority(authority.getName()))
                 .collect(Collectors.toList());
+            log.debug("Login successful");
             return new org.springframework.security.core.userdetails.User(lowercaseLogin,
                 user.getPassword(),
                 grantedAuthorities);
@@ -55,9 +56,21 @@ public class UserDetailsService implements org.springframework.security.core.use
     @Transactional(readOnly = true)
     public SocialUserDetails loadUserByUserId(final String login) throws UsernameNotFoundException, DataAccessException {
         log.debug("Authenticating {} from social login", login);
-        UserDetails user = loadUserByUsername(login);
-        Collection<? extends GrantedAuthority> grantedAuthorities = user.getAuthorities();
-        log.debug("Login successful");
-        return new SocialUser(user.getUsername(), "n/a", grantedAuthorities);
+
+        String lowercaseLogin = login.toLowerCase();
+        Optional<User> userFromDatabase = userRepository.findOneByLogin(lowercaseLogin);
+
+        return userFromDatabase.map(user -> {
+            if (!user.getActivated()) {
+                throw new UserNotActivatedException("User " + lowercaseLogin + " was not activated");
+            }
+            List<GrantedAuthority> grantedAuthorities = user.getAuthorities().stream()
+                .map(authority -> new SimpleGrantedAuthority(authority.getName()))
+                .collect(Collectors.toList());
+            log.debug("Login successful");
+            return new SocialUser(lowercaseLogin,
+                "n/a",
+                grantedAuthorities);
+        }).orElseThrow(() -> new UsernameNotFoundException("User " + lowercaseLogin + " was not found in the database"));
     }
 }

@@ -2,6 +2,7 @@ package ee.esutoniagodesu.service;
 
 import ee.esutoniagodesu.domain.ac.table.Authority;
 import ee.esutoniagodesu.domain.ac.table.ExternalAccount;
+import ee.esutoniagodesu.domain.ac.table.ExternalAccountProvider;
 import ee.esutoniagodesu.domain.ac.table.User;
 import ee.esutoniagodesu.repository.domain.ac.AuthorityRepository;
 import ee.esutoniagodesu.repository.domain.ac.PersistentTokenRepository;
@@ -79,7 +80,7 @@ public class UserService {
 
     public Optional<User> requestPasswordReset(String mail) {
        return userRepository.findOneByEmail(mail)
-           .filter(user -> user.getActivated() == true)
+           .filter(User::getActivated)
            .map(user -> {
                user.setResetKey(RandomUtil.generateResetKey());
                user.setResetDate(DateTime.now());
@@ -88,8 +89,13 @@ public class UserService {
            });
     }
 
-    private User createUserFromInformation(String login, String password, String firstName, String lastName, String email,
-                                      String langKey) {
+    private User newUserFromInformation(String login,
+                                           String password,
+                                           String firstName,
+                                           String lastName,
+                                           String email,
+                                           String langKey,
+                                           boolean activationRequired) {
 
         User newUser = new User();
         Authority authority = authorityRepository.findOne("ROLE_USER");
@@ -106,30 +112,36 @@ public class UserService {
         newUser.setLastName(lastName);
         newUser.setEmail(email);
         newUser.setLangKey(ISO6391.valueOf(langKey));
-        // new user is not active
-        newUser.setActivated(false);
-        // new user gets registration key
-        newUser.setActivationKey(RandomUtil.generateActivationKey());
+
+        if (activationRequired) {
+            // new user is not active
+            newUser.setActivated(false);
+            // new user gets registration key
+            newUser.setActivationKey(RandomUtil.generateActivationKey());
+        } else {
+            newUser.setActivated(true);
+        }
+
         authorities.add(authority);
         newUser.setAuthorities(authorities);
         return newUser;
     }
 
-    public User createUserFromSocial(String login, String firstName, String lastName, String email,
-                                     String langKey, ExternalAccount externalAccount) {
-
-        User newUser = createUserFromInformation(login, null, firstName, lastName, email, langKey);
-        newUser.getExternalAccounts().add(externalAccount);
-        externalAccount.setUser(newUser);
-        userRepository.save(newUser);
-        log.debug("Created Information for Social User: {}", newUser);
-        return newUser;
+    public ExternalAccount createExternal(User user, ExternalAccountProvider externalProvider, String externalIdentifier) {
+        ExternalAccount external = new ExternalAccount();
+        external.setExternalProvider(externalProvider);
+        external.setExternalIdentifier(externalIdentifier);
+        external.setUser(user);
+        user.getExternalAccounts().add(external);
+        userRepository.save(user);
+        log.debug("Created External Information {} for Social User: {}", user, external);
+        return external;
     }
 
     public User createUserInformation(String login, String password, String firstName, String lastName, String email,
-                                      String langKey) {
+                                      String langKey, boolean activationRequired) {
 
-        User newUser = createUserFromInformation(login, password, firstName, lastName, email, langKey);
+        User newUser = newUserFromInformation(login, password, firstName, lastName, email, langKey, activationRequired);
         userRepository.save(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
@@ -173,7 +185,7 @@ public class UserService {
     @Scheduled(cron = "0 0 0 * * ?")
     public void removeOldPersistentTokens() {
         LocalDate now = new LocalDate();
-        persistentTokenRepository.findByTokenDateBefore(now.minusMonths(1)).stream().forEach(token ->{
+        persistentTokenRepository.findByTokenDateBefore(now.minusMonths(1)).stream().forEach(token -> {
             log.debug("Deleting token {}", token.getSeries());
             User user = token.getUser();
             user.getPersistentTokens().remove(token);

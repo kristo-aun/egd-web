@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:text="#{email.welcome.title}"></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <p th:text="#{email.welcome.greeting(${user.login})}">
+            Dear
+        </p>
+        <p th:text="#{email.welcome.text1}"></p>
+        <p>
+            <a th:href="@{|${baseUrl}/#/login|}"
+               th:text="|${user.login}|"></a>
+        </p>
+        <p>
+            <span th:text="#{email.welcome.text2}"></span>
+            <br/>
+            <em th:text="#{email.signature}"></em>
+        </p>
+    </body>
+</html>

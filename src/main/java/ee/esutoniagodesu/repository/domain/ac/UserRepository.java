@@ -29,5 +29,5 @@ public interface UserRepository extends JpaRepository<User, String> {
     void delete(User t);
 
     @Query("select u from User u inner join u.externalAccounts ea where ea.externalProvider = ?1 and ea.externalIdentifier = ?2")
-    User findOneByExternalAccount(ExternalAccountProvider provider, String externalIdentifier);
+    Optional<User> findOneByExternalAccount(ExternalAccountProvider provider, String externalIdentifier);
 }

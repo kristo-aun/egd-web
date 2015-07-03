@@ -10,7 +10,9 @@ import ee.esutoniagodesu.web.rest.dto.UserDTO;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.ApplicationContext;
+import org.springframework.boot.bind.RelaxedPropertyResolver;
+import org.springframework.context.EnvironmentAware;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,22 +21,17 @@ import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.UserProfile;
 import org.springframework.social.connect.web.ProviderSignInAttempt;
-import org.springframework.social.connect.web.ProviderSignInUtils;
-import org.springframework.social.facebook.api.Facebook;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.WebUtils;
-import org.thymeleaf.context.IWebContext;
-import org.thymeleaf.spring4.SpringTemplateEngine;
-import org.thymeleaf.spring4.context.SpringWebContext;
 
 import javax.inject.Inject;
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -42,32 +39,52 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/api")
-public class AccountResource {
+public class AccountResource implements EnvironmentAware {
 
-    private final Logger log = LoggerFactory.getLogger(AccountResource.class);
+    private static final Logger log = LoggerFactory.getLogger(AccountResource.class);
 
-    /**
-     * POST  /register -> register the user.
-     */
+    @Inject
+    private UserRepository userRepository;
+
+    @Inject
+    private UserService userService;
+
+    @Inject
+    private PersistentTokenRepository persistentTokenRepository;
+
+    @Inject
+    private MailService mailService;
+
+    @Inject
+    private ConnectionFactoryLocator connectionFactoryLocator;
+
+    private RelaxedPropertyResolver appSecurityPropertyResolver;
+
+    @Override
+    public void setEnvironment(Environment env) {
+        this.appSecurityPropertyResolver = new RelaxedPropertyResolver(env, "app.security.");
+    }
+
+    private boolean isActivationRequired() {
+        return Boolean.valueOf(appSecurityPropertyResolver.getProperty("activationRequired"));
+    }
+
     @RequestMapping(value = "/register",
         method = RequestMethod.POST,
         produces = MediaType.TEXT_PLAIN_VALUE)
-    public ResponseEntity<?> registerAccount(@RequestBody UserDTO userDTO, HttpServletRequest request) {
-
-        if (isSocialRegistration(request)) {
-            return registerExternalAccount(userDTO, request);
-        }
-
+    public ResponseEntity<?> register(@Valid @RequestBody UserDTO userDTO, HttpServletRequest request) {
         return userRepository.findOneByLogin(userDTO.getLogin())
             .map(user -> new ResponseEntity<>("login already in use", HttpStatus.BAD_REQUEST))
             .orElseGet(() -> userRepository.findOneByEmail(userDTO.getEmail())
                     .map(user -> new ResponseEntity<>("e-mail address already in use", HttpStatus.BAD_REQUEST))
                     .orElseGet(() -> {
-                        User user = userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(),
-                            userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail().toLowerCase(),
-                            userDTO.getLangKey());
+                        User user = createUser(userDTO);
+                        if (isActivationRequired()) {
+                            mailService.sendActivationEmail(user, getBaseUrl(request));
+                        } else {
+                            mailService.sendWelcomeEmail(user, getBaseUrl(request));
+                        }
 
-                        mailService.sendActivationEmail(user, getBaseUrl(request));
                         return new ResponseEntity<>(HttpStatus.CREATED);
                     })
             );
@@ -197,21 +214,16 @@ public class AccountResource {
 
         return userService.requestPasswordReset(mail)
             .map(user -> {
-                String baseUrl = request.getScheme() +
-                    "://" +
-                    request.getServerName() +
-                    ":" +
-                    request.getServerPort();
-                mailService.sendPasswordResetMail(user, baseUrl);
+                mailService.sendPasswordResetMail(user, getBaseUrl(request));
                 return new ResponseEntity<>("e-mail was sent", HttpStatus.OK);
             }).orElse(new ResponseEntity<>("e-mail address not registered", HttpStatus.BAD_REQUEST));
-
     }
 
     @RequestMapping(value = "/account/reset_password/finish",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> finishPasswordReset(@RequestParam(value = "key") String key, @RequestParam(value = "newPassword") String newPassword) {
+    public ResponseEntity<String> finishPasswordReset(@RequestParam(value = "key") String key,
+                                                      @RequestParam(value = "newPassword") String newPassword) {
         if (!checkPasswordLength(newPassword)) {
             return new ResponseEntity<>("Incorrect password", HttpStatus.BAD_REQUEST);
         }
@@ -224,16 +236,6 @@ public class AccountResource {
     }
 
 
-
-
-
-
-
-
-
-    @Inject
-    private ConnectionFactoryLocator connectionFactoryLocator;
-
     private final static String EXTERNAL_AUTH_AS_USERDTO_KEY = "AccountResource.signInAsUserDTO";
 
     /**
@@ -244,15 +246,13 @@ public class AccountResource {
      * @return null a valid Connection or null if attempt was null or a Connection could not be established
      */
     private Connection<?> buildConnection(ProviderSignInAttempt attempt) {
-        if (attempt == null)
-            return null;
+        if (attempt == null) return null;
 
         Connection<?> connection = attempt.getConnection(connectionFactoryLocator);
 
-
-
         if (!connection.test()) {
-            log.warn("Social connection to {} for user '{}' failed", connection.getKey().getProviderId(), connection.getKey().getProviderUserId());
+            log.warn("Social connection to {} for user '{}' failed", connection.getKey().getProviderId(),
+                connection.getKey().getProviderUserId());
             return null;
         }
         return connection;
@@ -269,8 +269,11 @@ public class AccountResource {
      * @see org.springframework.social.connect.web.ProviderSignInAttempt
      * @see org.springframework.social.security.SocialAuthenticationFilter#addSignInAttempt(javax.servlet.http.HttpSession, org.springframework.social.connect.Connection) SocialAuthenticationFilter#addSignInAttempt
      */
-    public UserDTO externalAuthAsUserDTO(HttpServletRequest request) {
+    private Optional<UserDTO> retreiveSocialAsUserDTO(HttpServletRequest request) {
         UserDTO userDTO = (UserDTO) WebUtils.getSessionAttribute(request, EXTERNAL_AUTH_AS_USERDTO_KEY);
+
+        log.debug("retrieve social user from request {}", userDTO);
+
         if (userDTO == null) {
             // check if the user was successfully authenticated against an external service
             // but failed to authenticate against this application.
@@ -291,13 +294,12 @@ public class AccountResource {
             String externalAccountProviderName = con.getKey().getProviderId();
             ExternalAccountProvider externalAccountProvider = ExternalAccountProvider.caseInsensitiveValueOf(externalAccountProviderName);
             String externalUserId = con.getKey().getProviderUserId();
-            ExternalAccount externalAccount = new ExternalAccount(externalAccountProvider, externalUserId);
 
             // check that we got the information we needed
             if (StringUtils.isBlank(firstName) || StringUtils.isBlank(lastName) || StringUtils.isBlank(email))
                 throw new ApiException(externalAccountProviderName, "provider failed to return required attributes");
 
-            userDTO = new UserDTO(firstName, lastName, email, externalAccount);
+            userDTO = new UserDTO(firstName, lastName, email, externalAccountProvider, externalUserId);
 
             // save the new UserDTO for later and clean up the HttpSession
             request.getSession().removeAttribute(ProviderSignInAttempt.SESSION_ATTRIBUTE);
@@ -305,49 +307,66 @@ public class AccountResource {
 
             log.debug("Retrieved details from {} for user '{}'", externalAccountProviderName, externalUserId);
         }
-        return userDTO;
+        return Optional.of(userDTO);
     }
 
-    /**
-     * Check if the current request is associated with a social registration.
-     *
-     * @param request a non-null request
-     * @return true if the request is associated with a social registration
-     */
-    public boolean isSocialRegistration(HttpServletRequest request) {
-        return
-            WebUtils.getSessionAttribute(request, EXTERNAL_AUTH_AS_USERDTO_KEY) != null ||
-                WebUtils.getSessionAttribute(request, ProviderSignInAttempt.SESSION_ATTRIBUTE) != null;
+    private User createUser(UserDTO userDTO) {
+        return userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(),
+            userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail().toLowerCase(),
+            userDTO.getLangKey(), isActivationRequired());
     }
 
-    public ResponseEntity<?> registerExternalAccount(UserDTO currentRequestDTO, HttpServletRequest request) {
-        log.debug("Creating user from previous external authentication");
-
-        // get the information from the social provider as a UserDTO
-        UserDTO externalAuthDTO = externalAuthAsUserDTO(request);
-
-        // check that there isn't already another account linked to the current external account
-        ExternalAccount externalAccount = externalAuthDTO.getExternalAccounts().iterator().next();
-        User existingUser = userRepository.findOneByExternalAccount(externalAccount.getExternalProvider(), externalAccount.getExternalIdentifier());
-        if (existingUser != null)
-            return new ResponseEntity<>("The external login is already linked to another User", HttpStatus.BAD_REQUEST);
-
-        // use the email supplied by the user, falling back on the email retrieved from social login
-        String email;
-        if (StringUtils.isNotBlank(currentRequestDTO.getEmail()))
-            email = currentRequestDTO.getEmail();
-        else
-            email = externalAuthDTO.getEmail();
-
-
-        User user = userService.createUserFromSocial(email.toLowerCase(), externalAuthDTO.getFirstName(),
-            externalAuthDTO.getLastName(), email.toLowerCase(), currentRequestDTO.getLangKey(), externalAccount);
-        mailService.sendActivationEmail(user, getBaseUrl(request));
+    private void createExternal(User user, Map.Entry<ExternalAccountProvider, String> entry, HttpServletRequest request) {
+        userService.createExternal(user, entry.getKey(), entry.getValue());
+        if (isActivationRequired()) {
+            mailService.sendActivationEmail(user, getBaseUrl(request));
+        } else {
+            mailService.sendWelcomeEmail(user, getBaseUrl(request));
+        }
 
         // cleanup the social stuff that we've been keeping in the session
         request.getSession().removeAttribute(EXTERNAL_AUTH_AS_USERDTO_KEY);
+    }
 
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    /**
+     * Kolm varianti
+     * 1) Täiesti uus kasutaja, emailiga kasutajat ei ole, social id on registreerimata. Teha User ja External.
+     * 2) Social providerist saadud emailiga kasutaja on olemas. Lisa External seo User-iga.
+     * 3) Social id on juba registreeritud. Ei lase uuesti registreeruda, isegi kui social email ja konto email erinevad.
+     */
+    @RequestMapping(value = "/register/external",
+        method = RequestMethod.POST,
+        produces = MediaType.TEXT_PLAIN_VALUE)
+    public ResponseEntity<?> registerExternal(HttpServletRequest request) {
+        //leia requesti järgi social info
+        return retreiveSocialAsUserDTO(request)
+            .map(userDTO -> {
+                Map.Entry<ExternalAccountProvider, String> entry = userDTO.getExternalAccounts().entrySet().iterator().next();
+                return userRepository.findOneByExternalAccount(entry.getKey(), entry.getValue())
+                    //kui Social id on juba registreeritud, siis ei lase uuesti registreerida
+                    .map(user -> new ResponseEntity<>("The external login is already linked to another User",
+                        HttpStatus.BAD_REQUEST))
+                    .orElseGet(() -> userRepository.findOneByEmail(userDTO.getEmail())
+                            .map(user -> {
+                                //kasutajal ei tohi olla sama external provideri juures teise id'ga kontot.
+                                for (ExternalAccount p : user.getExternalAccounts()) {
+                                    if (p.getExternalProvider().equals(entry.getKey())) {
+                                        return new ResponseEntity<>("There is another external login associated with this e-mail",
+                                            HttpStatus.BAD_REQUEST);
+                                    }
+                                }
+
+                                createExternal(user, entry, request);
+                                return new ResponseEntity<>(HttpStatus.CREATED);
+                            })
+                            .orElseGet(() -> {
+                                User user = createUser(userDTO);
+                                createExternal(user, entry, request);
+                                return new ResponseEntity<>(HttpStatus.CREATED);
+                            })
+                    );
+            })
+            .orElse(new ResponseEntity<>("could not retreive social account data", HttpStatus.INTERNAL_SERVER_ERROR));
     }
 
     private String getBaseUrl(HttpServletRequest request) {
@@ -357,19 +376,6 @@ public class AccountResource {
             ":" +                                  // ":"
             request.getServerPort();
     }
-
-
-    @Inject
-    private UserRepository userRepository;
-
-    @Inject
-    private UserService userService;
-
-    @Inject
-    private PersistentTokenRepository persistentTokenRepository;
-
-    @Inject
-    private MailService mailService;
 
 
 }

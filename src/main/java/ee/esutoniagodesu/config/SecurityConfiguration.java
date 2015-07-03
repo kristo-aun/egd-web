@@ -86,7 +86,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .add(UserNotActivatedException.class, "/#/activate");
 
         SpringSocialConfigurer configurer = new SpringSocialConfigurer()
-            .postLoginUrl("/")
+            .postLoginUrl("/#/")
             .alwaysUsePostLoginUrl(true);
 
         // configure options not available using the standard configurer
@@ -95,7 +95,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 public SocialAuthenticationFilter postProcess(SocialAuthenticationFilter object) {
                     // replace the default exception
                     object.setAuthenticationFailureHandler(handler);
-
                     object.setSignupUrl("/#/register/external");
                     return object;
                 }

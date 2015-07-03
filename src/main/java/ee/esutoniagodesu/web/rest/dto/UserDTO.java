@@ -1,15 +1,15 @@
 package ee.esutoniagodesu.web.rest.dto;
 
-import ee.esutoniagodesu.domain.ac.table.ExternalAccount;
+import ee.esutoniagodesu.domain.ac.table.ExternalAccountProvider;
 import org.hibernate.validator.constraints.Email;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
 public class UserDTO {
 
@@ -40,7 +40,7 @@ public class UserDTO {
 
     private List<String> roles;
 
-    private Set<ExternalAccount> externalAccounts = new HashSet<>();
+    private Map<ExternalAccountProvider, String> externalAccounts = new HashMap<>();
 
     public UserDTO() {
     }
@@ -56,23 +56,11 @@ public class UserDTO {
         this.roles = roles;
     }
 
-    public UserDTO(String login, String password, String firstName, String lastName, String email, String langKey,
-                   List<String> roles, Set<ExternalAccount> externalAccounts) {
-        this.login = login;
-        this.password = password;
+    public UserDTO(String firstName, String lastName, String email, ExternalAccountProvider externalAccountProvider, String account) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.langKey = langKey;
-        this.roles = roles;
-        this.externalAccounts.addAll(externalAccounts);
-    }
-
-    public UserDTO(String firstName, String lastName, String email, ExternalAccount externalAccount) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.externalAccounts.add(externalAccount);
+        this.externalAccounts.put(externalAccountProvider, account);
     }
 
     public String getPassword() {
@@ -103,8 +91,8 @@ public class UserDTO {
         return roles;
     }
 
-    public Set<ExternalAccount> getExternalAccounts() {
-        return Collections.unmodifiableSet(externalAccounts);
+    public Map<ExternalAccountProvider, String> getExternalAccounts() {
+        return Collections.unmodifiableMap(externalAccounts);
     }
 
     public String toString() {

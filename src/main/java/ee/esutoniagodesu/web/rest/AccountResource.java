@@ -282,7 +282,7 @@ public class AccountResource implements EnvironmentAware {
             Connection<?> con = buildConnection(attempt);
 
             if (con == null)
-                return null;
+                throw new ApiException(attempt.toString(), "no connection to social api");
 
             // build a new UserDTO from the external provider's version of the User
             UserProfile profile = con.fetchUserProfile();
@@ -371,7 +371,7 @@ public class AccountResource implements EnvironmentAware {
     }
 
     private String getBaseUrl(HttpServletRequest request) {
-        return request.getScheme() + // "http"
+        return request.getScheme() + // "https"
             "://" +                                // "://"
             request.getServerName() +              // "myhost"
             ":" +                                  // ":"

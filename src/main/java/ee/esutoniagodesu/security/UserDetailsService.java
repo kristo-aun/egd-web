@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 @Component("userDetailsService")
 public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService, SocialUserDetailsService {
 
-    private final Logger log = LoggerFactory.getLogger(UserDetailsService.class);
+    private static final Logger log = LoggerFactory.getLogger(UserDetailsService.class);
 
     @Inject
     private UserRepository userRepository;

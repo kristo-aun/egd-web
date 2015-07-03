@@ -53,7 +53,7 @@ import java.util.Arrays;
 public class CustomPersistentRememberMeServices extends
     AbstractRememberMeServices {
 
-    private final Logger log = LoggerFactory.getLogger(CustomPersistentRememberMeServices.class);
+    private static final Logger log = LoggerFactory.getLogger(CustomPersistentRememberMeServices.class);
 
     // Token is valid for one month
     private static final int TOKEN_VALIDITY_DAYS = 31;

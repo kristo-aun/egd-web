@@ -12,7 +12,6 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockito.MockitoAnnotations;
-import org.springframework.http.MediaType;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -21,7 +20,6 @@ import javax.inject.Inject;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
@@ -98,7 +96,7 @@ public class TestCompoundResourceTest extends WebappTestEnvironment {
     @Test
     public void t1_submit_defaults() throws Exception {
 
-        FilterCompoundSubmitDTO par =  FilterCompoundSubmitDefaults.getCore10KJLPT();
+        FilterCompoundSubmitDTO par = FilterCompoundSubmitDefaults.getCore10KJLPT();
         par.noEnIfHasEt = false;
 
         service.submit(par, userRepository.findOne(USERNAME));

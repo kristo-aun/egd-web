@@ -33,7 +33,7 @@ import java.util.Set;
 @Transactional
 public class UserService {
 
-    private final Logger log = LoggerFactory.getLogger(UserService.class);
+    private static final Logger log = LoggerFactory.getLogger(UserService.class);
 
     @Inject
     private PasswordEncoder passwordEncoder;
@@ -62,40 +62,40 @@ public class UserService {
     }
 
     public Optional<User> completePasswordReset(String newPassword, String key) {
-       log.debug("Reset user password for reset key {}", key);
+        log.debug("Reset user password for reset key {}", key);
 
-       return userRepository.findOneByResetKey(key)
-           .filter(user -> {
-               DateTime oneDayAgo = DateTime.now().minusHours(24);
-               return user.getResetDate().isAfter(oneDayAgo.toInstant().getMillis());
-           })
-           .map(user -> {
-               user.setPassword(passwordEncoder.encode(newPassword));
-               user.setResetKey(null);
-               user.setResetDate(null);
-               userRepository.save(user);
-               return user;
-           });
+        return userRepository.findOneByResetKey(key)
+            .filter(user -> {
+                DateTime oneDayAgo = DateTime.now().minusHours(24);
+                return user.getResetDate().isAfter(oneDayAgo.toInstant().getMillis());
+            })
+            .map(user -> {
+                user.setPassword(passwordEncoder.encode(newPassword));
+                user.setResetKey(null);
+                user.setResetDate(null);
+                userRepository.save(user);
+                return user;
+            });
     }
 
     public Optional<User> requestPasswordReset(String mail) {
-       return userRepository.findOneByEmail(mail)
-           .filter(User::getActivated)
-           .map(user -> {
-               user.setResetKey(RandomUtil.generateResetKey());
-               user.setResetDate(DateTime.now());
-               userRepository.save(user);
-               return user;
-           });
+        return userRepository.findOneByEmail(mail)
+            .filter(User::getActivated)
+            .map(user -> {
+                user.setResetKey(RandomUtil.generateResetKey());
+                user.setResetDate(DateTime.now());
+                userRepository.save(user);
+                return user;
+            });
     }
 
     private User newUserFromInformation(String login,
-                                           String password,
-                                           String firstName,
-                                           String lastName,
-                                           String email,
-                                           String langKey,
-                                           boolean activationRequired) {
+                                        String password,
+                                        String firstName,
+                                        String lastName,
+                                        String email,
+                                        String langKey,
+                                        boolean activationRequired) {
 
         User newUser = new User();
         Authority authority = authorityRepository.findOne("ROLE_USER");
@@ -138,6 +138,10 @@ public class UserService {
         return external;
     }
 
+    public User createUserInformation(String login, String password, String firstName, String lastName, String email, String langKey) {
+        return createUserInformation(login, password, firstName, lastName, email, langKey, false);
+    }
+
     public User createUserInformation(String login, String password, String firstName, String lastName, String email,
                                       String langKey, boolean activationRequired) {
 
@@ -159,7 +163,7 @@ public class UserService {
     }
 
     public void changePassword(String password) {
-        userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).ifPresent(u-> {
+        userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).ifPresent(u -> {
             String encryptedPassword = passwordEncoder.encode(password);
             u.setPassword(encryptedPassword);
             userRepository.save(u);

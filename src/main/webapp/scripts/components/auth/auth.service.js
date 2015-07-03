@@ -1,7 +1,7 @@
 'use strict';
 
 egdApp
-    .factory('Auth', function Auth($rootScope, $state, $q, $translate, Principal, AuthServerProvider, Account, Register, Activate, Password, PasswordResetInit, PasswordResetFinish) {
+    .factory('Auth', function Auth($rootScope, $state, $q, $translate, Principal, AuthServerProvider, Account, Register, RegisterExternal, Activate, Password, PasswordResetInit, PasswordResetFinish) {
         return {
             login: function (credentials, callback) {
                 var cb = callback || angular.noop;
@@ -53,6 +53,17 @@ egdApp
                             }
                         }
                     });
+            },
+            createAccountFromSocial: function (account, callback) {
+                var cb = callback || angular.noop;
+                return RegisterExternal.save(account,
+                    function () {
+                        return cb(account);
+                    },
+                    function (err) {
+                        this.logout();
+                        return cb(err);
+                    }.bind(this)).$promise;
             },
             createAccount: function (account, callback) {
                 var cb = callback || angular.noop;

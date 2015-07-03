@@ -338,6 +338,7 @@ public class AccountResource implements EnvironmentAware {
         method = RequestMethod.POST,
         produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<?> registerExternal(HttpServletRequest request) {
+
         //leia requesti järgi social info
         return retreiveSocialAsUserDTO(request)
             .map(userDTO -> {

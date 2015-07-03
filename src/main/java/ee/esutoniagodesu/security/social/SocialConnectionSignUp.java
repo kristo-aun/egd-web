@@ -1,7 +1,6 @@
 package ee.esutoniagodesu.security.social;
 
 import ee.esutoniagodesu.domain.ac.table.ExternalAccountProvider;
-import ee.esutoniagodesu.domain.ac.table.User;
 import ee.esutoniagodesu.repository.domain.ac.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,14 +43,14 @@ public class SocialConnectionSignUp implements ConnectionSignUp {
         String externalId = key.getProviderUserId();
 
         // try to find an internal user based on the social ConnectionKey.  for example, something like "google" "12345691011".
-        User user = userRepository.findOneByExternalAccount(externalProvider, externalId);
-        if (user != null) {
-            String internalLogin = user.getLogin();
-            log.debug("Returning existing internal User '{}' for external login '{}' from {}", internalLogin, externalId, externalProvider);
-            return internalLogin;
-        } else {
-            log.debug("No internal User for external login '{}' from {}", externalId, externalProvider);
-            return null;
-        }
+        userRepository.findOneByExternalAccount(externalProvider, externalId)
+            .map(user -> {
+                String internalLogin = user.getLogin();
+                log.debug("Returning existing internal User '{}' for external login '{}' from {}", internalLogin, externalId, externalProvider);
+                return internalLogin;
+            });
+
+        log.debug("No internal User for external login '{}' from {}", externalId, externalProvider);
+        return null;
     }
 }

@@ -34,7 +34,7 @@ egdApp
             return (!!input) ? input.replace(/([^\W_]+[^\s-]*) */g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}) : '';
         }
     })
-    .filter('arrayToString', function (Moment, DISPLAY_TIME) {
+    .filter('arrayToString', function () {
         return function (input) {
             var result = "";
             angular.forEach(input, function(item) {
@@ -105,6 +105,12 @@ egdApp
     .filter('checkmark', function () {
         return function (input) {
             return input ? '\u2713' : '\u2718';
+        };
+    })
+    .filter('securehash', function ($location) {
+        return function (input) {
+            var port = window.location.port == 8080 ? ":8443" : "";
+            return "https://" + window.location.hostname + port + input;
         };
     })
     .filter('ie', function () {

@@ -23,7 +23,21 @@ var egdApp = angular.module('egdApp', [
 egdApp
     .run(function ($rootScope, $location, $window, $http, $state, $translate, $log, Auth, Principal, Language, ENV) {
         $rootScope.ENV = ENV;
+
+        $rootScope.forceSSL = function (event) {
+            if ($location.protocol() !== 'https') {
+                event.preventDefault();
+                $window.location.href = $location.absUrl().replace('http', 'https');
+            }
+        };
+
         $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
+
+            //in case someone manually tries to change the protocol
+            if (Principal.isAuthenticated()) {
+                $rootScope.forceSSL(event);
+            }
+
             $rootScope.toState = toState;
             $rootScope.toStateParams = toStateParams;
 

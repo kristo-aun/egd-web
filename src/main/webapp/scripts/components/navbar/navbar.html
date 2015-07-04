@@ -154,10 +154,10 @@
                         <li ui-sref-active="active" ng-switch-when="true"><a href="" ng-click="logout()"><span
                             class="glyphicon glyphicon-log-out"></span>
                             &#xA0;<span translate="navbar.account.logout"></span></a></li>
-                        <li ui-sref-active="active" ng-switch-when="false"><a ui-sref="login"><span
+                        <li ui-sref-active="active" ng-switch-when="false">
+                            <a href="{{'/#/login' | securehash}}"><span
                             class="glyphicon glyphicon-log-in"></span>
                             &#xA0;<span translate="navbar.account.login"></span></a></li>
-
                         <!--
                         <li ui-sref-active="active" ng-switch-when="false"><a ui-sref="register"><span
                             class="glyphicon glyphicon-plus-sign"></span>

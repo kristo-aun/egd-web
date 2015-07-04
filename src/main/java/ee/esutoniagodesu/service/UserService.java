@@ -7,6 +7,7 @@ import ee.esutoniagodesu.domain.ac.table.User;
 import ee.esutoniagodesu.repository.domain.ac.AuthorityRepository;
 import ee.esutoniagodesu.repository.domain.ac.PersistentTokenRepository;
 import ee.esutoniagodesu.repository.domain.ac.UserRepository;
+import ee.esutoniagodesu.security.AuthoritiesConstants;
 import ee.esutoniagodesu.security.SecurityUtils;
 import ee.esutoniagodesu.util.RandomUtil;
 import ee.esutoniagodesu.util.lang.ISO6391;
@@ -182,8 +183,12 @@ public class UserService {
 
     public void deleteAccount() {
         if (!SecurityUtils.isAuthenticated()) {
-            throw new AuthenticationCredentialsNotFoundException("not authenticated");
+            throw new IllegalStateException("not authenticated");
         }
+        if (SecurityUtils.isUserInRole(AuthoritiesConstants.ADMIN)) {
+            throw new IllegalStateException("can't delete admin account");
+        }
+
         String login = SecurityUtils.getCurrentLogin();
         userRepository.delete(login);
         log.debug("Deleted account for User: {}", login);

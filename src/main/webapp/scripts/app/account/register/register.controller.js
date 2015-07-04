@@ -20,7 +20,7 @@ egdApp
 
                 Auth.createAccount($scope.registerAccount).then(function () {
                     Auth.login({
-                        username: $scope.registerAccount.username,
+                        username: $scope.registerAccount.login,
                         password: $scope.registerAccount.password,
                         rememberMe: false
                     }).then(function () {

@@ -145,8 +145,12 @@
                         </span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li ui-sref-active="active" ng-switch-when="true"><a ui-sref="settings"><span
-                            class="glyphicon glyphicon-wrench"></span>
+                        <li ui-sref-active="active" ng-switch-when="true"><a ui-sref="settings">
+
+                            <span ng-if="!account.firstName && !account.lastName">
+                                <i class="fa fa-exclamation-triangle" style="color:#d9534f;"></i>
+                            </span>
+                            <span class="glyphicon glyphicon-wrench"></span>
                             &#xA0;<span translate="navbar.account.settings"></span></a></li>
                         <li ui-sref-active="active" ng-switch-when="true"><a ui-sref="password"><span
                             class="glyphicon glyphicon-lock"></span>

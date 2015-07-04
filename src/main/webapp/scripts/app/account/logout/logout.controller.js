@@ -1,7 +1,6 @@
 'use strict';
 
 egdApp
-    .controller('LogoutController', function ($state, Auth) {
+    .controller('LogoutController', function (Auth) {
         Auth.logout();
-        $state.forceReload();
     });

@@ -59,7 +59,7 @@ public class TofuResource {
                                                      @RequestParam(value = "limit", required = false) Integer limit)
         throws URISyntaxException {
 
-        Page<TofuSentence> result = service.getTofusByUser(page, limit, getSessionUser());
+        Page<TofuSentence> result = service.getTofusByUser(page, limit);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(result, BASE_URL, page, limit);
         return new ResponseEntity<>(result.getContent(), headers, HttpStatus.OK);
     }
@@ -77,7 +77,7 @@ public class TofuResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TofuSentence> get(@PathVariable int id) {
-        return Optional.ofNullable(service.findById(id, getSessionUser()))
+        return Optional.ofNullable(service.findById(id))
             .map(tofu -> new ResponseEntity<>(
                 tofu,
                 HttpStatus.OK))

@@ -1,8 +1,6 @@
 package ee.esutoniagodesu.domain.ac.table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import ee.esutoniagodesu.domain.AbstractAuditingEntity;
-import ee.esutoniagodesu.security.AuthoritiesConstants;
 import ee.esutoniagodesu.util.lang.ISO6391;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Email;
@@ -10,7 +8,6 @@ import org.joda.time.DateTime;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -21,20 +18,16 @@ import java.util.Set;
  */
 @Entity
 @Table(schema = "ac", name = "user")
-public class User extends AbstractAuditingEntity implements Serializable {
+public class User implements Serializable {
 
     @Id
-    @NotNull
-    @Pattern(regexp = "^[a-z0-9]*$")
-    @Size(min = 1, max = 50)
-    @Column(length = 50, unique = true, nullable = false)
-    private String login;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
 
     @JsonIgnore
-    @NotNull
-    @Size(min = 60, max = 60)
-    @Column(length = 60)
-    private String password;
+    @Column(name = "uuid", length = 8, unique = true)
+    private String uuid;
 
     @Size(max = 50)
     @Column(name = "first_name", length = 50)
@@ -53,7 +46,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
     private boolean activated = false;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "lang_key")
+    @Column(name = "lang_key", nullable = false)
     private ISO6391 langKey;
 
     @Size(max = 20)
@@ -61,20 +54,12 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @JsonIgnore
     private String activationKey;
 
-    @Size(max = 20)
-    @Column(name = "reset_key", length = 20)
-    private String resetKey;
-
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    @Column(name = "reset_date", nullable = true)
-    private DateTime resetDate = null;
-
     @JsonIgnore
     @ManyToMany
     @JoinTable(
         schema = "ac",
         name = "user_authority",
-        joinColumns = {@JoinColumn(name = "login", referencedColumnName = "login")},
+        joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
         inverseJoinColumns = {@JoinColumn(name = "name", referencedColumnName = "name")})
     private Set<Authority> authorities = new HashSet<>();
 
@@ -82,32 +67,40 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user")
     private Set<PersistentToken> persistentTokens = new HashSet<>();
 
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    @PrimaryKeyJoinColumn
+    private UserAccountForm accountForm;
+
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user")
-    private Set<ExternalAccount> externalAccounts = new HashSet<>();
+    private Set<UserAccountExternal> accountExternals = new HashSet<>();
 
-    public Set<ExternalAccount> getExternalAccounts() {
-        return externalAccounts;
+    @NotNull
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @Column(name = "created_date", nullable = false)
+    protected DateTime createdDate = DateTime.now();
+
+    public User() {
     }
 
-    public void setExternalAccounts(Set<ExternalAccount> externalAccountIds) {
-        this.externalAccounts = externalAccountIds;
+    public User(String uuid) {
+        this.uuid = uuid;
     }
 
-    public String getLogin() {
-        return login;
+    public Integer getId() {
+        return id;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getPassword() {
-        return password;
+    public String getUuid() {
+        return uuid;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     public String getFirstName() {
@@ -134,36 +127,12 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.email = email;
     }
 
-    public boolean getActivated() {
+    public boolean isActivated() {
         return activated;
     }
 
     public void setActivated(boolean activated) {
         this.activated = activated;
-    }
-
-    public String getActivationKey() {
-        return activationKey;
-    }
-
-    public void setActivationKey(String activationKey) {
-        this.activationKey = activationKey;
-    }
-
-    public String getResetKey() {
-        return resetKey;
-    }
-
-    public void setResetKey(String resetKey) {
-        this.resetKey = resetKey;
-    }
-
-    public DateTime getResetDate() {
-        return resetDate;
-    }
-
-    public void setResetDate(DateTime resetDate) {
-        this.resetDate = resetDate;
     }
 
     public ISO6391 getLangKey() {
@@ -172,6 +141,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     public void setLangKey(ISO6391 langKey) {
         this.langKey = langKey;
+    }
+
+    public String getActivationKey() {
+        return activationKey;
+    }
+
+    public void setActivationKey(String activationKey) {
+        this.activationKey = activationKey;
     }
 
     public Set<Authority> getAuthorities() {
@@ -190,68 +167,61 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.persistentTokens = persistentTokens;
     }
 
+    public UserAccountForm getAccountForm() {
+        return accountForm;
+    }
+
+    public void setAccountForm(UserAccountForm accountForm) {
+        this.accountForm = accountForm;
+    }
+
+    public Set<UserAccountExternal> getAccountExternals() {
+        return accountExternals;
+    }
+
+    public void setAccountExternals(Set<UserAccountExternal> accountExternals) {
+        this.accountExternals = accountExternals;
+    }
+
+    public DateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(DateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
         User user = (User) o;
 
-        if (!login.equals(user.login)) {
-            return false;
-        }
+        return !(id != null ? !id.equals(user.id) : user.id != null);
 
-        return true;
     }
 
     @Override
     public int hashCode() {
-        return login.hashCode();
+        return id != null ? id.hashCode() : 0;
     }
 
     @Override
     public String toString() {
         return "User{" +
-            "login='" + login + '\'' +
-            ", password='" + password + '\'' +
+            "id=" + id +
             ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +
             ", email='" + email + '\'' +
             ", activated=" + activated +
             ", langKey=" + langKey +
             ", activationKey='" + activationKey + '\'' +
-            ", resetKey='" + resetKey + '\'' +
-            ", resetDate=" + resetDate +
             ", authorities=" + authorities +
-            ", externalAccounts=" + externalAccounts +
             ", persistentTokens=" + persistentTokens +
-            "} " + super.toString();
-    }
-
-    @Transient
-    private boolean hasRole(String authority) {
-        for (Authority p : authorities) {
-            if (p.getName().equals(authority)) return true;
-        }
-        return false;
-    }
-
-    @Transient
-    public boolean hasRoleAdmin() {
-        return hasRole(AuthoritiesConstants.ADMIN);
-    }
-
-    @Transient
-    public boolean hasRoleSensei() {
-        return hasRole(AuthoritiesConstants.SENSEI);
-    }
-
-    @Transient
-    public boolean hasRoleUser() {
-        return hasRole(AuthoritiesConstants.USER);
+            ", accountForm=" + accountForm +
+            ", accountExternals=" + accountExternals +
+            ", createdDate=" + createdDate +
+            '}';
     }
 }

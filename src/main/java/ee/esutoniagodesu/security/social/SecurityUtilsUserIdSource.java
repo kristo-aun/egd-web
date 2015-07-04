@@ -6,6 +6,6 @@ import org.springframework.social.UserIdSource;
 public class SecurityUtilsUserIdSource implements UserIdSource {
     @Override
     public String getUserId() {
-        return SecurityUtils.getCurrentLogin();
+        return SecurityUtils.getUserUuid();
     }
 }

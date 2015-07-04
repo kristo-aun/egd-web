@@ -22,7 +22,6 @@ import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.UserProfile;
 import org.springframework.social.connect.web.ProviderSignInAttempt;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.util.WebUtils;
 
 import javax.inject.Inject;
@@ -79,7 +78,7 @@ public class AccountResource implements EnvironmentAware {
             .orElseGet(() -> userRepository.findOneByEmail(userDTO.getEmail())
                     .map(user -> new ResponseEntity<>("e-mail address already in use", HttpStatus.BAD_REQUEST))
                     .orElseGet(() -> {
-                        User user = createUser(userDTO);
+                        User user = userService.createUserWithAccountForm(userDTO);
                         if (isActivationRequired()) {
                             mailService.sendActivationEmail(user, getBaseUrl(request));
                         } else {
@@ -125,7 +124,8 @@ public class AccountResource implements EnvironmentAware {
             .map(user -> {
                 return new ResponseEntity<>(
                     new UserDTO(
-                        user.getLogin(),
+                        user.getUuid(),
+                        null,
                         null,
                         user.getFirstName(),
                         user.getLastName(),
@@ -146,8 +146,8 @@ public class AccountResource implements EnvironmentAware {
         produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> saveAccount(@RequestBody UserDTO userDTO) {
         return userRepository
-            .findOneByLogin(userDTO.getLogin())
-            .filter(u -> u.getLogin().equals(SecurityUtils.getCurrentLogin()))
+            .findOneByUuid(userDTO.getLogin())
+            .filter(u -> u.getUuid().equals(SecurityUtils.getUserUuid()))
             .map(u -> {
                 userService.updateUserInformation(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail(),
                     userDTO.getLangKey());
@@ -177,7 +177,7 @@ public class AccountResource implements EnvironmentAware {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<PersistentToken>> getCurrentSessions() {
-        return userRepository.findOneByLogin(SecurityUtils.getCurrentLogin())
+        return userRepository.findOneByUuid(SecurityUtils.getUserUuid())
             .map(user -> new ResponseEntity<>(
                 persistentTokenRepository.findByUser(user),
                 HttpStatus.OK))
@@ -201,7 +201,7 @@ public class AccountResource implements EnvironmentAware {
         method = RequestMethod.DELETE)
     public void invalidateSession(@PathVariable String series) throws UnsupportedEncodingException {
         String decodedSeries = URLDecoder.decode(series, "UTF-8");
-        userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).ifPresent(u -> {
+        userRepository.findOneByUuid(SecurityUtils.getUserUuid()).ifPresent(u -> {
             persistentTokenRepository.findByUser(u).stream()
                 .filter(persistentToken -> StringUtils.equals(persistentToken.getSeries(), decodedSeries))
                 .findAny().ifPresent(t -> persistentTokenRepository.delete(decodedSeries));
@@ -212,7 +212,6 @@ public class AccountResource implements EnvironmentAware {
         method = RequestMethod.POST,
         produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<?> requestPasswordReset(@RequestBody String mail, HttpServletRequest request) {
-
         return userService.requestPasswordReset(mail)
             .map(user -> {
                 mailService.sendPasswordResetMail(user, getBaseUrl(request));
@@ -291,16 +290,16 @@ public class AccountResource implements EnvironmentAware {
             String lastName = profile.getLastName();
             String email = profile.getEmail();
 
-            // build the ExternalAccount from the ConnectionKey
+            // build the UserAccountExternal from the ConnectionKey
             String externalAccountProviderName = con.getKey().getProviderId();
-            ExternalAccountProvider externalAccountProvider = ExternalAccountProvider.caseInsensitiveValueOf(externalAccountProviderName);
+            ExternalProvider externalProvider = ExternalProvider.caseInsensitiveValueOf(externalAccountProviderName);
             String externalUserId = con.getKey().getProviderUserId();
 
             // check that we got the information we needed
             if (StringUtils.isBlank(firstName) || StringUtils.isBlank(lastName) || StringUtils.isBlank(email))
                 throw new ApiException(externalAccountProviderName, "provider failed to return required attributes");
 
-            userDTO = new UserDTO(firstName, lastName, email, externalAccountProvider, externalUserId);
+            userDTO = new UserDTO(firstName, lastName, email, externalProvider, externalUserId);
 
             // save the new UserDTO for later and clean up the HttpSession
             request.getSession().removeAttribute(ProviderSignInAttempt.SESSION_ATTRIBUTE);
@@ -311,14 +310,7 @@ public class AccountResource implements EnvironmentAware {
         return Optional.of(userDTO);
     }
 
-    private User createUser(UserDTO userDTO) {
-        return userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(),
-            userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail().toLowerCase(),
-            userDTO.getLangKey(), isActivationRequired());
-    }
-
-    private void createExternal(User user, Map.Entry<ExternalAccountProvider, String> entry, HttpServletRequest request) {
-        userService.createExternal(user, entry.getKey(), entry.getValue());
+    private void finishExternal(User user, HttpServletRequest request) {
         if (isActivationRequired()) {
             mailService.sendActivationEmail(user, getBaseUrl(request));
         } else {
@@ -342,7 +334,7 @@ public class AccountResource implements EnvironmentAware {
         //leia requesti järgi social info
         return retreiveSocialAsUserDTO(request)
             .map(userDTO -> {
-                Map.Entry<ExternalAccountProvider, String> entry = userDTO.getExternalAccounts().entrySet().iterator().next();
+                Map.Entry<ExternalProvider, String> entry = userDTO.getExternalAccounts().entrySet().iterator().next();
                 return userRepository.findOneByExternalAccount(entry.getKey(), entry.getValue())
                     //kui Social id on juba registreeritud, siis ei lase uuesti registreerida
                     .map(user -> new ResponseEntity<String>("The external login is already linked to another User",
@@ -350,22 +342,23 @@ public class AccountResource implements EnvironmentAware {
                     .orElseGet(() -> userRepository.findOneByEmail(userDTO.getEmail())
                             .map(user -> {
                                 //kasutajal ei tohi olla sama external provideri juures teise id'ga kontot.
-                                for (ExternalAccount p : user.getExternalAccounts()) {
-                                    if (p.getExternalProvider().equals(entry.getKey())) {
+                                for (UserAccountExternal p : user.getAccountExternals()) {
+                                    if (p.getProvider().equals(entry.getKey())) {
                                         return new ResponseEntity<String>(
                                             "There is another external login associated with this e-mail",
                                             HttpStatus.BAD_REQUEST);
                                     }
                                 }
 
-                                createExternal(user, entry, request);
+                                userService.addExternalToUser(user, entry.getKey(), entry.getValue());
+                                finishExternal(user, request);
+
                                 return new ResponseEntity<String>(HttpStatus.CREATED);
                             })
                             .orElseGet(() -> {
                                 userDTO.setLangKey("et");
-                                userDTO.setLogin(userDTO.getEmail());
-                                User user = createUser(userDTO);
-                                createExternal(user, entry, request);
+                                User user = userService.createUserWithExternal(userDTO, entry.getKey(), entry.getValue());
+                                finishExternal(user, request);
                                 return new ResponseEntity<String>(HttpStatus.CREATED);
                             })
                     );

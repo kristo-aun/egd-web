@@ -24,13 +24,6 @@ public class TestCompoundResource {
     @Inject
     private TestCompoundService service;
 
-    @Inject
-    private UserService userService;
-
-    private User getSessionUser() {
-        return userService.getUserWithAuthorities();
-    }
-
     @RequestMapping(value = "/params",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
@@ -53,7 +46,7 @@ public class TestCompoundResource {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<KanjiCompound>> submit(@Valid @RequestBody FilterCompoundSubmitDTO submit) {
-        List<KanjiCompound> result = service.submit(submit, getSessionUser());
+        List<KanjiCompound> result = service.submit(submit);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

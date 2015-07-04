@@ -18,13 +18,15 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.inject.Inject;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
  * Authenticate a user from the database.
  */
 @Component("userDetailsService")
-public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService, SocialUserDetailsService {
+public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService,
+    SocialUserDetailsService {
 
     private static final Logger log = LoggerFactory.getLogger(UserDetailsService.class);
 
@@ -39,38 +41,37 @@ public class UserDetailsService implements org.springframework.security.core.use
         Optional<User> userFromDatabase = userRepository.findOneByLogin(lowercaseLogin);
 
         return userFromDatabase.map(user -> {
-            if (!user.getActivated()) {
+            if (!user.isActivated()) {
                 throw new UserNotActivatedException("User " + lowercaseLogin + " was not activated");
             }
             List<GrantedAuthority> grantedAuthorities = user.getAuthorities().stream()
                 .map(authority -> new SimpleGrantedAuthority(authority.getName()))
                 .collect(Collectors.toList());
             log.debug("Login successful");
-            return new org.springframework.security.core.userdetails.User(lowercaseLogin,
-                user.getPassword(),
+            return new org.springframework.security.core.userdetails.User(user.getUuid(),
+                user.getAccountForm().getPassword(),
                 grantedAuthorities);
         }).orElseThrow(() -> new UsernameNotFoundException("User " + lowercaseLogin + " was not found in the database"));
     }
 
     @Override
     @Transactional(readOnly = true)
-    public SocialUserDetails loadUserByUserId(final String login) throws UsernameNotFoundException, DataAccessException {
-        log.debug("Authenticating {} from social login", login);
+    public SocialUserDetails loadUserByUserId(final String uuid) throws UsernameNotFoundException, DataAccessException {
+        log.debug("Authenticating {} from social login", uuid);
 
-        String lowercaseLogin = login.toLowerCase();
-        Optional<User> userFromDatabase = userRepository.findOneByLogin(lowercaseLogin);
+        Optional<User> userFromDatabase = userRepository.findOneByUuid(uuid);
 
         return userFromDatabase.map(user -> {
-            if (!user.getActivated()) {
-                throw new UserNotActivatedException("User " + lowercaseLogin + " was not activated");
+            if (!user.isActivated()) {
+                throw new UserNotActivatedException("User " + uuid + " was not activated");
             }
             List<GrantedAuthority> grantedAuthorities = user.getAuthorities().stream()
                 .map(authority -> new SimpleGrantedAuthority(authority.getName()))
                 .collect(Collectors.toList());
             log.debug("Login successful");
-            return new SocialUser(lowercaseLogin,
-                "n/a",
+            return new SocialUser(uuid,
+                UUID.randomUUID().toString(),
                 grantedAuthorities);
-        }).orElseThrow(() -> new UsernameNotFoundException("User " + lowercaseLogin + " was not found in the database"));
+        }).orElseThrow(() -> new UsernameNotFoundException("User " + uuid + " was not found in the database"));
     }
 }

@@ -1,9 +1,6 @@
 package ee.esutoniagodesu.util;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * class for creating random variables of any kind
@@ -74,5 +71,9 @@ public final class JCRandom {
         }
 
         return result;
+    }
+
+    public static String random8B() {
+        return Long.toString(UUID.randomUUID().getLeastSignificantBits(), Character.MAX_RADIX);
     }
 }

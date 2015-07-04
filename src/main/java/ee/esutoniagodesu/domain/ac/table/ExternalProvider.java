@@ -5,15 +5,15 @@ import org.apache.commons.lang.StringUtils;
 /**
  * Supported social providers.  Many other providers are supported, see http://projects.spring.io/spring-social/.
  */
-public enum ExternalAccountProvider {
+public enum ExternalProvider {
     FACEBOOK,
     GOOGLE,
     LINKEDIN,
     TWITTER;
 
-    public static ExternalAccountProvider caseInsensitiveValueOf(String value) {
+    public static ExternalProvider caseInsensitiveValueOf(String value) {
         if (StringUtils.isNotBlank(value))
-            return ExternalAccountProvider.valueOf(value.toUpperCase());
+            return ExternalProvider.valueOf(value.toUpperCase());
         else
             return null;
     }

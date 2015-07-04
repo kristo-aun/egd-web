@@ -50,8 +50,7 @@ import java.util.Arrays;
  * <p/>
  */
 @Service
-public class CustomPersistentRememberMeServices extends
-    AbstractRememberMeServices {
+public class CustomPersistentRememberMeServices extends AbstractRememberMeServices {
 
     private static final Logger log = LoggerFactory.getLogger(CustomPersistentRememberMeServices.class);
 
@@ -83,10 +82,10 @@ public class CustomPersistentRememberMeServices extends
     protected UserDetails processAutoLoginCookie(String[] cookieTokens, HttpServletRequest request, HttpServletResponse response) {
 
         PersistentToken token = getPersistentToken(cookieTokens);
-        String login = token.getUser().getLogin();
+        String uuid = token.getUser().getUuid();
 
         // Token also matches, so login is valid. Update the token value, keeping the *same* series number.
-        log.debug("Refreshing persistent login token for user '{}', series '{}'", login, token.getSeries());
+        log.debug("Refreshing persistent login token for user '{}', series '{}'", uuid, token.getSeries());
         token.setTokenDate(new LocalDate());
         token.setTokenValue(generateTokenData());
         token.setIpAddress(request.getRemoteAddr());
@@ -98,15 +97,15 @@ public class CustomPersistentRememberMeServices extends
             log.error("Failed to update token: ", e);
             throw new RememberMeAuthenticationException("Autologin failed due to data access problem", e);
         }
-        return getUserDetailsService().loadUserByUsername(login);
+        return getUserDetailsService().loadUserByUsername(uuid);
     }
 
     @Override
     protected void onLoginSuccess(HttpServletRequest request, HttpServletResponse response, Authentication successfulAuthentication) {
-        String login = successfulAuthentication.getName();
+        String uuid = successfulAuthentication.getName();
 
-        log.debug("Creating new persistent login for user {}", login);
-        PersistentToken token = userRepository.findOneByLogin(login).map(u -> {
+        log.debug("Creating new persistent login for user {}", uuid);
+        PersistentToken token = userRepository.findOneByUuid(uuid).map(u -> {
             PersistentToken t = new PersistentToken();
             t.setSeries(generateSeriesData());
             t.setUser(u);
@@ -115,7 +114,7 @@ public class CustomPersistentRememberMeServices extends
             t.setIpAddress(request.getRemoteAddr());
             t.setUserAgent(request.getHeader("User-Agent"));
             return t;
-        }).orElseThrow(() -> new UsernameNotFoundException("User " + login + " was not found in the database"));
+        }).orElseThrow(() -> new UsernameNotFoundException("User " + uuid + " was not found in the database"));
         try {
             persistentTokenRepository.saveAndFlush(token);
             addCookie(token, request, response);

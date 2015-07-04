@@ -1,9 +1,9 @@
 package ee.esutoniagodesu.service;
 
 import ee.esutoniagodesu.bean.ProjectDAO;
-import ee.esutoniagodesu.domain.ac.table.User;
 import ee.esutoniagodesu.domain.library.table.Reading;
 import ee.esutoniagodesu.repository.domain.library.ReadingRepository;
+import ee.esutoniagodesu.security.SecurityUtils;
 import ee.esutoniagodesu.util.PaginationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,16 +61,20 @@ public class ReadingService {
         dao.save(reading);
     }
 
+    private String uuid() {
+        return SecurityUtils.getUserUuid();
+    }
+
     /**
      * Kasutajale näidatakse tema enda loodud ja avalikke artikleid. Pagineeritud.
      */
-    public Page<Reading> getReadings(Integer page, Integer limit, User user) {
-        return readingRepository.findAvailable(user.getLogin(), PaginationUtil.generatePageRequest(page, limit));
+    public Page<Reading> getReadings(Integer page, Integer limit) {
+        return readingRepository.findAvailable(uuid(), PaginationUtil.generatePageRequest(page, limit));
     }
 
 
-    public Page<Reading> findByTag(String tag, Integer page, Integer limit, User sessionUser) {
-        return readingRepository.findByTag(tag, sessionUser.getLogin(), PaginationUtil.generatePageRequest(page, limit));
+    public Page<Reading> findByTag(String tag, Integer page, Integer limit) {
+        return readingRepository.findByTag(tag, uuid(), PaginationUtil.generatePageRequest(page, limit));
     }
 
     /**

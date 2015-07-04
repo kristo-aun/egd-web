@@ -1,10 +1,8 @@
 package ee.esutoniagodesu.web.rest;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import ee.esutoniagodesu.domain.ac.table.User;
 import ee.esutoniagodesu.domain.library.table.Reading;
 import ee.esutoniagodesu.service.ReadingService;
-import ee.esutoniagodesu.service.UserService;
 import ee.esutoniagodesu.util.PaginationUtil;
 import ee.esutoniagodesu.web.rest.dto.View;
 import org.springframework.data.domain.Page;
@@ -29,13 +27,6 @@ public class ReadingResource {
 
     @Inject
     private ReadingService service;
-
-    @Inject
-    private UserService userService;
-
-    private User getSessionUser() {
-        return userService.getUserWithAuthorities();
-    }
 
     @RequestMapping(value = "",
         method = RequestMethod.POST,
@@ -65,7 +56,7 @@ public class ReadingResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Reading>> getReadings(@RequestParam(value = "page", required = false) Integer page,
                                                      @RequestParam(value = "limit", required = false) Integer limit) throws URISyntaxException {
-        Page<Reading> result = service.getReadings(page, limit, getSessionUser());
+        Page<Reading> result = service.getReadings(page, limit);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(result, BASE_URL, page, limit);
         return new ResponseEntity<>(result.getContent(), headers, HttpStatus.OK);
     }
@@ -78,7 +69,7 @@ public class ReadingResource {
                                                @RequestParam(value = "page", required = false) Integer page,
                                                @RequestParam(value = "limit", required = false) Integer limit) throws URISyntaxException {
 
-        Page<Reading> result = service.findByTag(tag, page, limit, getSessionUser());
+        Page<Reading> result = service.findByTag(tag, page, limit);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(result, BASE_URL, page, limit);
         return new ResponseEntity<>(result.getContent(), headers, HttpStatus.OK);
     }

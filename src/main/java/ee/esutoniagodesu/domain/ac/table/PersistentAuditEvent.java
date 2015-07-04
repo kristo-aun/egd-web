@@ -77,4 +77,36 @@ public class PersistentAuditEvent {
     public void setData(Map<String, String> data) {
         this.data = data;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PersistentAuditEvent that = (PersistentAuditEvent) o;
+
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (principal != null ? !principal.equals(that.principal) : that.principal != null) return false;
+        return !(auditEventType != null ? !auditEventType.equals(that.auditEventType) : that.auditEventType != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (principal != null ? principal.hashCode() : 0);
+        result = 31 * result + (auditEventType != null ? auditEventType.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "PersistentAuditEvent{" +
+            "id=" + id +
+            ", principal='" + principal + '\'' +
+            ", auditEventDate=" + auditEventDate +
+            ", auditEventType='" + auditEventType + '\'' +
+            ", data=" + data +
+            '}';
+    }
 }

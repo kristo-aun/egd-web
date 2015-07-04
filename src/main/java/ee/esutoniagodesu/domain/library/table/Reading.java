@@ -8,7 +8,6 @@ import ee.esutoniagodesu.util.lang.ISO6391;
 import ee.esutoniagodesu.web.rest.dto.View;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 
@@ -193,19 +192,18 @@ public class Reading extends AbstractAuditingEntity implements Serializable {
         return result;
     }
 
+    @Override
     public String toString() {
         return "Reading{" +
             "id=" + id +
             ", author='" + author + '\'' +
             ", copyright='" + copyright + '\'' +
             ", title='" + title + '\'' +
-            ", body='" + body + '\'' +
-            ", bodyLang='" + bodyLang + '\'' +
-            ", transcript='" + transcript + '\'' +
-            ", transcriptLang='" + transcriptLang + '\'' +
+            ", bodyLang=" + bodyLang +
+            ", transcriptLang=" + transcriptLang +
             ", summary='" + summary + '\'' +
             ", shared=" + shared +
             ", tags=" + tags +
-            '}';
+            "} " + super.toString();
     }
 }

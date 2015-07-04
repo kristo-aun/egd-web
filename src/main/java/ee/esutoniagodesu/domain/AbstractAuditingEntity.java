@@ -26,7 +26,7 @@ public abstract class AbstractAuditingEntity {
 
     @CreatedBy
     @NotNull
-    @Column(name = "created_by", length = 50)
+    @Column(name = "created_by")
     protected String createdBy;
 
     @CreatedDate
@@ -36,7 +36,7 @@ public abstract class AbstractAuditingEntity {
     protected DateTime createdDate = DateTime.now();
 
     @LastModifiedBy
-    @Column(name = "last_modified_by", length = 50)
+    @Column(name = "last_modified_by")
     protected String lastModifiedBy;
 
     @LastModifiedDate
@@ -45,13 +45,13 @@ public abstract class AbstractAuditingEntity {
     protected DateTime lastModifiedDate = DateTime.now();
 
     @Transient
-    public boolean isCreatedBy(String login) {
-        return createdBy != null && login != null && createdBy.equals(login);
+    public boolean isCreatedBy(String userId) {
+        return createdBy != null && userId != null && createdBy.equals(userId);
     }
 
     @Transient
-    public boolean isModifiedBy(String login) {
-        return lastModifiedBy != null && login != null && lastModifiedBy.equals(login);
+    public boolean isModifiedBy(String userId) {
+        return lastModifiedBy != null && userId != null && lastModifiedBy.equals(userId);
     }
 
     public String getCreatedBy() {
@@ -84,5 +84,14 @@ public abstract class AbstractAuditingEntity {
 
     public void setLastModifiedDate(DateTime lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public String toString() {
+        return "AbstractAuditingEntity{" +
+            "createdBy=" + createdBy +
+            ", createdDate=" + createdDate +
+            ", lastModifiedBy=" + lastModifiedBy +
+            ", lastModifiedDate=" + lastModifiedDate +
+            '}';
     }
 }

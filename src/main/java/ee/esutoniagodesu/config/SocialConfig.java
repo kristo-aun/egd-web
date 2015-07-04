@@ -5,7 +5,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.social.UserIdSource;
 import org.springframework.social.config.annotation.ConnectionFactoryConfigurer;
 import org.springframework.social.config.annotation.EnableSocial;
@@ -13,13 +12,11 @@ import org.springframework.social.config.annotation.SocialConfigurer;
 import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.ConnectionSignUp;
 import org.springframework.social.connect.UsersConnectionRepository;
-import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
 import org.springframework.social.connect.mem.InMemoryUsersConnectionRepository;
 import org.springframework.social.facebook.connect.FacebookConnectionFactory;
 import org.springframework.social.google.connect.GoogleConnectionFactory;
 
 import javax.inject.Inject;
-import javax.sql.DataSource;
 
 /**
  * Basic Spring Social configuration. Creates beans necessary to manage Connections to social services and
@@ -33,9 +30,6 @@ public class SocialConfig implements SocialConfigurer {
 
     @Inject
     private ConnectionSignUp signup;
-
-    @Inject
-    private DataSource dataSource;
 
     @Override
     public void addConnectionFactories(ConnectionFactoryConfigurer connectionFactoryConfigurer, Environment environment) {

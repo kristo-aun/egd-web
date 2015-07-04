@@ -1,6 +1,6 @@
 package ee.esutoniagodesu.web.rest.dto;
 
-import ee.esutoniagodesu.domain.ac.table.ExternalAccountProvider;
+import ee.esutoniagodesu.domain.ac.table.ExternalProvider;
 import org.hibernate.validator.constraints.Email;
 
 import javax.validation.constraints.NotNull;
@@ -15,6 +15,10 @@ public class UserDTO {
 
     public static final int PASSWORD_MIN_LENGTH = 5;
     public static final int PASSWORD_MAX_LENGTH = 100;
+
+    @NotNull
+    @Size(min = 8, max = 8)
+    private String uuid;
 
     @Pattern(regexp = "^[a-z0-9]*$")
     @NotNull
@@ -40,13 +44,15 @@ public class UserDTO {
 
     private List<String> roles;
 
-    private final Map<ExternalAccountProvider, String> externalAccounts = new HashMap<>();
+    private final Map<ExternalProvider, String> externalAccounts = new HashMap<>();
 
     public UserDTO() {
     }
 
-    public UserDTO(String login, String password, String firstName, String lastName, String email, String langKey,
+    public UserDTO(String uuid, String login, String password, String firstName, String lastName, String email, String langKey,
                    List<String> roles) {
+
+        this.uuid = uuid;
         this.login = login;
         this.password = password;
         this.firstName = firstName;
@@ -56,13 +62,29 @@ public class UserDTO {
         this.roles = roles;
     }
 
-    public UserDTO(String firstName, String lastName, String email, ExternalAccountProvider externalAccountProvider, String account) {
+    public UserDTO(String firstName, String lastName, String email, ExternalProvider externalProvider, String account) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.externalAccounts.put(externalAccountProvider, account);
+        this.externalAccounts.put(externalProvider, account);
     }
 
+    public UserDTO(String login, String password, String firstName, String lastName, String email, String langKey) {
+        this.login = login;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.langKey = langKey;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
 
     public String getLogin() {
         return login;
@@ -120,13 +142,15 @@ public class UserDTO {
         this.roles = roles;
     }
 
-    public Map<ExternalAccountProvider, String> getExternalAccounts() {
+    public Map<ExternalProvider, String> getExternalAccounts() {
         return Collections.unmodifiableMap(externalAccounts);
     }
 
+    @Override
     public String toString() {
         return "UserDTO{" +
-            "login='" + login + '\'' +
+            "uuid='" + uuid + '\'' +
+            ", login='" + login + '\'' +
             ", password='" + password + '\'' +
             ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +

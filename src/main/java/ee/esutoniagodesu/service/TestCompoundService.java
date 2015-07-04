@@ -2,7 +2,6 @@ package ee.esutoniagodesu.service;
 
 import com.google.common.base.Joiner;
 import ee.esutoniagodesu.bean.ProjectDAO;
-import ee.esutoniagodesu.domain.ac.table.User;
 import ee.esutoniagodesu.domain.core.table.IHasCoreWord;
 import ee.esutoniagodesu.domain.freq.table.NresBase;
 import ee.esutoniagodesu.domain.jmdict.table.Sens;
@@ -11,6 +10,8 @@ import ee.esutoniagodesu.domain.kanjidic2.table.Kanji;
 import ee.esutoniagodesu.pojo.test.compound.*;
 import ee.esutoniagodesu.repository.domain.heisig.HeisigCoreKwRepository;
 import ee.esutoniagodesu.repository.project.*;
+import ee.esutoniagodesu.security.AuthoritiesConstants;
+import ee.esutoniagodesu.security.SecurityUtils;
 import ee.esutoniagodesu.util.JCString;
 import junit.framework.TestCase;
 import org.slf4j.Logger;
@@ -63,7 +64,7 @@ public class TestCompoundService {
 
     //------------------------------ peale submitti ------------------------------
 
-    public List<KanjiCompound> submit(FilterCompoundSubmitDTO s, User user) {
+    public List<KanjiCompound> submit(FilterCompoundSubmitDTO s) {
         log.info("generate: s=" + s);
         long ms = System.currentTimeMillis();
 
@@ -128,7 +129,7 @@ public class TestCompoundService {
 
             });
 
-            if (user.hasRoleAdmin()) {
+            if (SecurityUtils.isUserInRole(AuthoritiesConstants.ADMIN)) {
                 String kanji = null;
                 for (KanjiCompound.Calligraphy sign : p.signs) {
                     if (sign.kanji) {

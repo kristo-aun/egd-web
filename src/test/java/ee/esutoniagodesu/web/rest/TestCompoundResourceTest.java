@@ -99,7 +99,7 @@ public class TestCompoundResourceTest extends WebappTestEnvironment {
         FilterCompoundSubmitDTO par = FilterCompoundSubmitDefaults.getCore10KJLPT();
         par.noEnIfHasEt = false;
 
-        service.submit(par, userRepository.findOne(USERNAME));
+        service.submit(par);
         //submit_dto(FilterCompoundSubmitDefaults.getIloHeisig6());
         //submit_dto(FilterCompoundSubmitDefaults.getCore6KHeisig6());
         //submit_dto(FilterCompoundSubmitDefaults.getCore10KJLPT());

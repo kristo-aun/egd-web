@@ -1,24 +1,23 @@
 package ee.esutoniagodesu.service;
 
-import ee.esutoniagodesu.domain.ac.table.Authority;
-import ee.esutoniagodesu.domain.ac.table.ExternalAccount;
-import ee.esutoniagodesu.domain.ac.table.ExternalAccountProvider;
-import ee.esutoniagodesu.domain.ac.table.User;
+import ee.esutoniagodesu.domain.ac.table.*;
 import ee.esutoniagodesu.repository.domain.ac.AuthorityRepository;
 import ee.esutoniagodesu.repository.domain.ac.PersistentTokenRepository;
 import ee.esutoniagodesu.repository.domain.ac.UserRepository;
 import ee.esutoniagodesu.security.AuthoritiesConstants;
 import ee.esutoniagodesu.security.SecurityUtils;
+import ee.esutoniagodesu.util.JCRandom;
 import ee.esutoniagodesu.util.RandomUtil;
 import ee.esutoniagodesu.util.lang.ISO6391;
-import org.apache.commons.lang.StringUtils;
+import ee.esutoniagodesu.web.rest.dto.UserDTO;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.bind.RelaxedPropertyResolver;
+import org.springframework.context.EnvironmentAware;
+import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,7 +33,7 @@ import java.util.Set;
  */
 @Service
 @Transactional
-public class UserService {
+public class UserService implements EnvironmentAware {
 
     private static final Logger log = LoggerFactory.getLogger(UserService.class);
 
@@ -49,6 +48,18 @@ public class UserService {
 
     @Inject
     private AuthorityRepository authorityRepository;
+
+
+    private RelaxedPropertyResolver appSecurityPropertyResolver;
+
+    @Override
+    public void setEnvironment(Environment env) {
+        this.appSecurityPropertyResolver = new RelaxedPropertyResolver(env, "app.security.");
+    }
+
+    private boolean isActivationRequired() {
+        return Boolean.valueOf(appSecurityPropertyResolver.getProperty("activationRequired"));
+    }
 
     public Optional<User> activateRegistration(String key) {
         log.debug("Activating user for activation key {}", key);
@@ -70,12 +81,12 @@ public class UserService {
         return userRepository.findOneByResetKey(key)
             .filter(user -> {
                 DateTime oneDayAgo = DateTime.now().minusHours(24);
-                return user.getResetDate().isAfter(oneDayAgo.toInstant().getMillis());
+                return user.getAccountForm().getResetDate().isAfter(oneDayAgo.toInstant().getMillis());
             })
             .map(user -> {
-                user.setPassword(passwordEncoder.encode(newPassword));
-                user.setResetKey(null);
-                user.setResetDate(null);
+                user.getAccountForm().setPassword(passwordEncoder.encode(newPassword));
+                user.getAccountForm().setResetKey(null);
+                user.getAccountForm().setResetDate(null);
                 userRepository.save(user);
                 return user;
             });
@@ -83,40 +94,32 @@ public class UserService {
 
     public Optional<User> requestPasswordReset(String mail) {
         return userRepository.findOneByEmail(mail)
-            .filter(User::getActivated)
+            .filter(User::isActivated)
             .map(user -> {
-                user.setResetKey(RandomUtil.generateResetKey());
-                user.setResetDate(DateTime.now());
+                user.getAccountForm().setResetKey(RandomUtil.generateResetKey());
+                user.getAccountForm().setResetDate(DateTime.now());
                 userRepository.save(user);
                 return user;
             });
     }
 
-    private User newUserFromInformation(String login,
-                                        String password,
-                                        String firstName,
-                                        String lastName,
-                                        String email,
-                                        String langKey,
-                                        boolean activationRequired) {
+    private User newUser(String firstName,
+                         String lastName,
+                         String email,
+                         String langKey) {
 
         User newUser = new User();
+        newUser.setUuid(JCRandom.random8B());
+
         Authority authority = authorityRepository.findOne("ROLE_USER");
         Set<Authority> authorities = new HashSet<>();
-        newUser.setLogin(login);
-
-        // new user gets initially a generated password
-        if (StringUtils.isNotBlank(password)) {
-            String encryptedPassword = passwordEncoder.encode(password);
-            newUser.setPassword(encryptedPassword);
-        }
 
         newUser.setFirstName(firstName);
         newUser.setLastName(lastName);
         newUser.setEmail(email);
         newUser.setLangKey(ISO6391.valueOf(langKey));
 
-        if (activationRequired) {
+        if (isActivationRequired()) {
             // new user is not active
             newUser.setActivated(false);
             // new user gets registration key
@@ -130,32 +133,59 @@ public class UserService {
         return newUser;
     }
 
-    public ExternalAccount createExternal(User user, ExternalAccountProvider externalProvider, String externalIdentifier) {
-        ExternalAccount external = new ExternalAccount();
-        external.setExternalProvider(externalProvider);
-        external.setExternalIdentifier(externalIdentifier);
+    public User addExternalToUser(User user, ExternalProvider externalProvider, String externalIdentifier) {
+
+        UserAccountExternal external = new UserAccountExternal();
+        external.setProvider(externalProvider);
+        external.setIdentifier(externalIdentifier);
         external.setUser(user);
-        user.getExternalAccounts().add(external);
+        user.getAccountExternals().add(external);
         userRepository.save(user);
-        log.debug("Created External Information {} for Social User: {}", user, external);
-        return external;
+
+        log.debug("Created External Information {} for Social User: {}", external, user);
+        return user;
     }
 
-    public User createUserInformation(String login, String password, String firstName, String lastName, String email, String langKey) {
-        return createUserInformation(login, password, firstName, lastName, email, langKey, false);
+    public User createUserWithExternal(UserDTO userDTO, ExternalProvider externalProvider, String externalIdentifier) {
+        User newUser = newUser(userDTO.getFirstName(),
+            userDTO.getLastName(),
+            userDTO.getEmail(),
+            userDTO.getLangKey());
+
+        UserAccountExternal external = new UserAccountExternal();
+        external.setProvider(externalProvider);
+        external.setIdentifier(externalIdentifier);
+        external.setUser(newUser);
+        newUser.getAccountExternals().add(external);
+        userRepository.save(newUser);
+
+        log.debug("Created External Information {} for Social User: {}", external, newUser);
+        return newUser;
     }
 
-    public User createUserInformation(String login, String password, String firstName, String lastName, String email,
-                                      String langKey, boolean activationRequired) {
+    public User createUserWithAccountForm(UserDTO userDTO) {
+        User newUser = newUser(userDTO.getFirstName(),
+            userDTO.getLastName(),
+            userDTO.getEmail(),
+            userDTO.getLangKey());
 
-        User newUser = newUserFromInformation(login, password, firstName, lastName, email, langKey, activationRequired);
+        UserAccountForm account = new UserAccountForm();
+        account.setLogin(userDTO.getLogin());
+
+        // new user gets initially a generated password
+        String encryptedPassword = passwordEncoder.encode(userDTO.getPassword());
+        account.setPassword(encryptedPassword);
+
+        account.setUser(newUser);
+        newUser.setAccountForm(account);
+
         userRepository.save(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
     }
 
     public void updateUserInformation(String firstName, String lastName, String email, String langKey) {
-        userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).ifPresent(u -> {
+        userRepository.findOneByLogin(SecurityUtils.getUserUuid()).ifPresent(u -> {
             u.setFirstName(firstName);
             u.setLastName(lastName);
             u.setEmail(email);
@@ -166,9 +196,9 @@ public class UserService {
     }
 
     public void changePassword(String password) {
-        userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).ifPresent(u -> {
+        userRepository.findOneByLogin(SecurityUtils.getUserUuid()).ifPresent(u -> {
             String encryptedPassword = passwordEncoder.encode(password);
-            u.setPassword(encryptedPassword);
+            u.getAccountForm().setPassword(encryptedPassword);
             userRepository.save(u);
             log.debug("Changed password for User: {}", u);
         });
@@ -176,7 +206,7 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public User getUserWithAuthorities() {
-        User currentUser = userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).get();
+        User currentUser = userRepository.findOneByUuid(SecurityUtils.getUserUuid()).get();
         currentUser.getAuthorities().size(); // eagerly load the association
         return currentUser;
     }
@@ -189,9 +219,10 @@ public class UserService {
             throw new IllegalStateException("can't delete admin account");
         }
 
-        String login = SecurityUtils.getCurrentLogin();
-        userRepository.delete(login);
-        log.debug("Deleted account for User: {}", login);
+        userRepository.findOneByUuid(SecurityUtils.getUserUuid()).ifPresent(user -> {
+            userRepository.delete(user);
+            log.debug("Deleted account for User: {}", user);
+        });
     }
 
     /**
@@ -225,7 +256,7 @@ public class UserService {
         DateTime now = new DateTime();
         List<User> users = userRepository.findAllByActivatedIsFalseAndCreatedDateBefore(now.minusDays(3));
         for (User user : users) {
-            log.debug("Deleting not activated user {}", user.getLogin());
+            log.debug("Deleting not activated user {}", user.toString());
             userRepository.delete(user);
         }
     }

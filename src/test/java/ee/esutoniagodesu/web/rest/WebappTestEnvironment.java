@@ -105,7 +105,7 @@ public class WebappTestEnvironment {
 
 
         TestCase.assertTrue(SecurityUtils.isAuthenticated());
-        TestCase.assertEquals(SecurityUtils.getCurrentLogin(), username);
+        TestCase.assertEquals(SecurityUtils.getUserUuid(), username);
         TestCase.assertTrue(SecurityUtils.isUserInRole(AuthoritiesConstants.ADMIN));
 
 

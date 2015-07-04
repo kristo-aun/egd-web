@@ -9,7 +9,7 @@ public enum Permission {
 
     reading_read((object) -> {
         Reading reading = (Reading) object;
-        return reading.isShared() || reading.isCreatedBy(SecurityUtils.getCurrentLogin());
+        return reading.isShared() || reading.isCreatedBy(SecurityUtils.getUserUuid());
     }),
 
     //kõikil on lubatud artiklit luua
@@ -19,12 +19,12 @@ public enum Permission {
     reading_update((object) -> {
         SecurityUtils.isUserInRole(AuthoritiesConstants.SENSEI);
         Reading reading = (Reading) object;
-        return reading.isCreatedBy(SecurityUtils.getCurrentLogin());
+        return reading.isCreatedBy(SecurityUtils.getUserUuid());
     }),
 
     reading_delete((object) -> {
         Reading reading = (Reading) object;
-        return reading.isCreatedBy(SecurityUtils.getCurrentLogin());
+        return reading.isCreatedBy(SecurityUtils.getUserUuid());
     });
 
     private FunctionalPermission functional;

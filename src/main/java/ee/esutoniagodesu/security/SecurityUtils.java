@@ -13,13 +13,10 @@ import java.util.Collection;
  */
 public final class SecurityUtils {
 
-    private SecurityUtils() {
-    }
-
     /**
      * Get the login of the current user.
      */
-    public static String getCurrentLogin() {
+    public static String getUserUuid() {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         Authentication authentication = securityContext.getAuthentication();
         UserDetails springSecurityUser = null;

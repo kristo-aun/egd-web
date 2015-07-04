@@ -7,6 +7,7 @@ import ee.esutoniagodesu.domain.core.table.TofuSentenceTranslation;
 import ee.esutoniagodesu.pojo.test.compound.FilterCompoundSubmitDTO;
 import ee.esutoniagodesu.repository.domain.freq.TofuSentenceRepository;
 import ee.esutoniagodesu.repository.project.CoreDB;
+import ee.esutoniagodesu.security.SecurityUtils;
 import ee.esutoniagodesu.util.PaginationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +36,10 @@ public class TofuService {
     @Inject
     private KuromojiService kuromojiService;
 
+    private String uuid() {
+        return SecurityUtils.getUserUuid();
+    }
+
     public void save(TofuSentence tofu, User user) {
         log.debug("save: tofu=" + tofu);
 
@@ -42,7 +47,7 @@ public class TofuService {
         if (tr.getLang() == null) {
             tr.setLang(user.getLangKey());
         }
-        tr.setCreatedBy(user.getLogin());
+        tr.setCreatedBy(uuid());
         tr.setTofuSentence(tofu);
         log.debug("save: tr=" + tr);
 
@@ -50,15 +55,15 @@ public class TofuService {
         dao.save(tofu);
     }
 
-    public TofuSentence findById(int id, User user) {
-        return coreDB.findUserTofuById(id, user.getLogin());
+    public TofuSentence findById(int id) {
+        return coreDB.findUserTofuById(id, uuid());
     }
 
-    public Page<TofuSentence> getTofusByUser(int page, int limit, User user) {
+    public Page<TofuSentence> getTofusByUser(int page, int limit) {
         Page<TofuSentence> result = tofuSentenceRepository.findAll(PaginationUtil.generatePageRequest(page, limit));
 
         for (TofuSentence p : result) {
-            p.setTranslation(coreDB.findUserTofuSentenceTranslation(p.getId(), user.getLogin()));
+            p.setTranslation(coreDB.findUserTofuSentenceTranslation(p.getId(), uuid()));
         }
 
         return result;

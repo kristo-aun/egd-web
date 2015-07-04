@@ -3,6 +3,27 @@
 egdApp
     .factory('Auth', function Auth($rootScope, $state, $q, $translate, Principal, AuthServerProvider, Account, Register, RegisterExternal, Activate, Password, PasswordResetInit, PasswordResetFinish) {
         return {
+            deleteAccount: function () {
+                var deferred = $q.defer();
+                var that = this;
+                Account.delete({},
+                    function () {
+                        that.logout();
+                        deferred.resolve();
+                    });
+                return deferred.promise;
+            },
+            createAccountFromSocial: function (account, callback) {
+                var cb = callback || angular.noop;
+                return RegisterExternal.save(account,
+                    function () {
+                        return cb(account);
+                    },
+                    function (err) {
+                        this.logout();
+                        return cb(err);
+                    }.bind(this)).$promise;
+            },
             login: function (credentials, callback) {
                 var cb = callback || angular.noop;
                 var deferred = $q.defer();
@@ -31,16 +52,7 @@ egdApp
                 AuthServerProvider.logout();
                 Principal.authenticate(null);
             },
-            deleteAccount: function () {
-                var deferred = $q.defer();
-                var that = this;
-                Account.delete({},
-                    function () {
-                        that.logout();
-                        deferred.resolve();
-                    });
-                return deferred.promise;
-            },
+
             authorize: function(force) {
                 return Principal.identity(force)
                     .then(function() {
@@ -62,17 +74,6 @@ egdApp
                             }
                         }
                     });
-            },
-            createAccountFromSocial: function (account, callback) {
-                var cb = callback || angular.noop;
-                return RegisterExternal.save(account,
-                    function () {
-                        return cb(account);
-                    },
-                    function (err) {
-                        this.logout();
-                        return cb(err);
-                    }.bind(this)).$promise;
             },
             createAccount: function (account, callback) {
                 var cb = callback || angular.noop;

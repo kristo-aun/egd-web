@@ -107,10 +107,14 @@ egdApp
             return input ? '\u2713' : '\u2718';
         };
     })
-    .filter('securehash', function ($location) {
+    .filter('securehash', function () {
         return function (input) {
-            var port = window.location.port == 8080 ? ":8443" : "";
-            return "https://" + window.location.hostname + port + input;
+            var port = window.location.port;
+            if (port == 8443 || port == 443) {
+                return input;
+            }
+            var portstring = port == 8080 ? ":8443" : "";
+            return "https://" + window.location.hostname + portstring + input;
         };
     })
     .filter('ie', function () {

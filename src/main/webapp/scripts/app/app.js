@@ -84,12 +84,12 @@ egdApp
             }
         };
     })
-    .factory('authExpiredInterceptor', function ($rootScope, $q, $injector, localStorageService) {
+    .factory('authExpiredInterceptor', function ($rootScope, $q, $injector) {
         return {
             responseError: function(response) {
                 // If we have an unauthorized request we redirect to the login page
                 // Don't do this check on the account API to avoid infinite loop
-                if (response.status == 401 && response.data.path!="/api/account"){
+                if (response.status == 401 && response.data.path !== undefined && response.data.path.indexOf("/api/account") == -1){
                     var Auth = $injector.get('Auth');
                     var $state = $injector.get('$state');
                     var to = $rootScope.toState;
@@ -106,12 +106,11 @@ egdApp
     .config(function(cfpLoadingBarProvider) {
         cfpLoadingBarProvider.includeSpinner = false;
     })
-    .config(function ($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider,
+    .config(function ($stateProvider, $urlRouterProvider, $httpProvider,
                       $logProvider, $translateProvider, tmhDynamicLocaleProvider,
                       httpRequestInterceptorCacheBusterProvider, ENV) {
 
         $logProvider.debugEnabled(ENV != 'prod');
-        //$httpProvider.interceptors.push('HttpErrorInterceptor');
 
         //enable CSRF
         $httpProvider.defaults.xsrfCookieName = 'CSRF-TOKEN';
@@ -121,7 +120,7 @@ egdApp
         httpRequestInterceptorCacheBusterProvider.setMatchlist([/.*api.*/, /.*protected.*/], true);
 
         $urlRouterProvider.otherwise(function($injector, $location){
-            $injector.invoke(function($state, $rootScope, $translate, $log) {
+            $injector.invoke(function($state) {
                 if ($location.path()) {
                     $state.go('error', {code: '404'});
                 } else {

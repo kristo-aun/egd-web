@@ -1,6 +1,6 @@
 {
     "settings": {
-        "title": "Kasutaja seadistused [<b>{{username}}</b>]",
+        "title": "Kasutaja seadistused",
         "form": {
             "firstname": "Eesnimi",
             "lastname": "Perekonnanimi",

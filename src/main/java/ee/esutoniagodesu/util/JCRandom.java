@@ -73,7 +73,7 @@ public final class JCRandom {
         return result;
     }
 
-    public static String random8B() {
-        return Long.toString(UUID.randomUUID().getLeastSignificantBits(), Character.MAX_RADIX);
+    public static String random13B() {
+        return Long.toString(UUID.randomUUID().getMostSignificantBits(), Character.MAX_RADIX);
     }
 }

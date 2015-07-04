@@ -1,7 +1,9 @@
 package ee.esutoniagodesu.security.social;
 
+import ee.esutoniagodesu.config.Constants;
 import ee.esutoniagodesu.domain.ac.table.ExternalProvider;
 import ee.esutoniagodesu.repository.domain.ac.UserRepository;
+import ee.esutoniagodesu.security.AuthoritiesConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.social.connect.Connection;
@@ -43,14 +45,14 @@ public class SocialConnectionSignUp implements ConnectionSignUp {
         String externalId = key.getProviderUserId();
 
         // try to find an internal user based on the social ConnectionKey.  for example, something like "google" "12345691011".
-        userRepository.findOneByExternalAccount(externalProvider, externalId)
+        return userRepository.findOneByExternalAccount(externalProvider, externalId)
             .map(user -> {
                 String uuid = user.getUuid();
                 log.debug("Returning existing internal User '{}' for external login '{}' from {}", uuid, externalId, externalProvider);
                 return uuid;
+            }).orElseGet(() -> {
+                log.debug("No internal User for external login '{}' from {}", externalId, externalProvider);
+                return null;
             });
-
-        log.debug("No internal User for external login '{}' from {}", externalId, externalProvider);
-        return null;
     }
 }

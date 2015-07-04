@@ -16,8 +16,6 @@ public class UserDTO {
     public static final int PASSWORD_MIN_LENGTH = 5;
     public static final int PASSWORD_MAX_LENGTH = 100;
 
-    @NotNull
-    @Size(min = 8, max = 8)
     private String uuid;
 
     @Pattern(regexp = "^[a-z0-9]*$")

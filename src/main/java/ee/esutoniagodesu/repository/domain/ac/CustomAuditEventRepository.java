@@ -49,7 +49,8 @@ public class CustomAuditEventRepository {
             @Override
             @Transactional(propagation = Propagation.REQUIRES_NEW)
             public void add(AuditEvent event) {
-                if (Objects.equals(event.getPrincipal(), "anonymousUser")) return;
+                if (event.getPrincipal().length() < 1 ||
+                    Objects.equals(event.getPrincipal(), Constants.ANONYMOUS_ACCOUNT)) return;
                 //sisse- väljalogimist logitakse autentikaatoris, siin logime ainult veaolukorrad
                 if (event.getType().equals(Constants.AUTHENTICATION_SUCCESS)) return;
 

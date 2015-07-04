@@ -109,7 +109,7 @@ public class UserService implements EnvironmentAware {
                          String langKey) {
 
         User newUser = new User();
-        newUser.setUuid(JCRandom.random8B());
+        newUser.setUuid(JCRandom.random13B());
 
         Authority authority = authorityRepository.findOne("ROLE_USER");
         Set<Authority> authorities = new HashSet<>();

@@ -16,4 +16,8 @@ egdApp
             $scope.identity();
             $state.go('home');
         };
+
+        $scope.isWarning = function() {
+            return $scope.account && !$scope.account.firstName && !$scope.account.lastName;
+        };
     });

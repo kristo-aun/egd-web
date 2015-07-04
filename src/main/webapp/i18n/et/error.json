@@ -1,6 +1,7 @@
 {
-    "errors": {
+    "error": {
         "title": "Viga!",
+        "401": "Autoriseerimata päring - 401",
         "403": "Teil puuduvad õigused - 403",
         "404": "Sellise aadressiga lehte ei ole - 404",
         "nomessage": "Viga!"

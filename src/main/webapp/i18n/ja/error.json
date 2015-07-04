@@ -1,6 +1,7 @@
 {
-    "errors": {
+    "error": {
         "title": "エラー頁!",
+        "401": "Autoriseerimata päring - 401",
         "403": "You are not authorized to access the page - 403",
         "404": "見つけませんでした - 404",
         "nomessage": "エラー!"

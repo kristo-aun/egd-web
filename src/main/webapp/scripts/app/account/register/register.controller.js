@@ -41,7 +41,7 @@ egdApp
                 });
             }
         };
-    }).controller('RegisterExternalController', function ($scope, $translate, $timeout, Auth, RegisterExternal) {
+    }).controller('RegisterExternalController', function ($state, $scope, $translate, $timeout, Auth, RegisterExternal) {
         $scope.success = null;
         $scope.error = null;
         $scope.errorUserExists = null;
@@ -52,11 +52,8 @@ egdApp
             function(data) {
                 $scope.registerAccount = data;
             },
-            function(httpResponse) {
-                // a 404 means that there isn't an ongoing social registration.  this isn't really an error
-                if (httpResponse.status != 404) {
-                    $scope.error = 'ERROR';
-                }
+            function() {
+                $state.go("error", {code: 401});
             }
         );
 

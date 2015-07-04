@@ -1,6 +1,7 @@
 {
-    "errors": {
+    "error": {
         "title": "Error page!",
+        "401": "Autoriseerimata päring - 401",
         "403": "You are not authorized to access the page - 403",
         "404": "Not found - 404",
         "nomessage": "Error!"

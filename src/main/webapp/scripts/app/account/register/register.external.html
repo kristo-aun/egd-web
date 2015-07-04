@@ -12,7 +12,7 @@
                 </div>
                 <br/>
                 <button type="submit"
-                        ng-disabled="form.$invalid"
+                        ng-disabled="form.$invalid || !registerAccount.externalAccounts"
                         class="btn btn-primary"
                         translate="register.form.button">
                 </button>

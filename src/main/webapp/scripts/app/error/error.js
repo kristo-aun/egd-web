@@ -8,7 +8,7 @@ egdApp
 
         $translate(tcode).then(function(value) {
             $scope.errorMessage = value;
-        }, function(e) {
+        }, function() {
             $translate(nomessage).then(function(value) {
                 $scope.errorMessage = value;
             });

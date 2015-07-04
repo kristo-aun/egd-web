@@ -221,10 +221,15 @@ public class User extends AbstractAuditingEntity implements Serializable {
             ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +
             ", email='" + email + '\'' +
-            ", activated='" + activated + '\'' +
-            ", langKey='" + langKey + '\'' +
+            ", activated=" + activated +
+            ", langKey=" + langKey +
             ", activationKey='" + activationKey + '\'' +
-            "}";
+            ", resetKey='" + resetKey + '\'' +
+            ", resetDate=" + resetDate +
+            ", authorities=" + authorities +
+            ", externalAccounts=" + externalAccounts +
+            ", persistentTokens=" + persistentTokens +
+            "} " + super.toString();
     }
 
     @Transient

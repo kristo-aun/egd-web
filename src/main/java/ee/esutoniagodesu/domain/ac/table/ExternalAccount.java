@@ -101,5 +101,11 @@ public class ExternalAccount implements Serializable {
         return true;
     }
 
-
+    public String toString() {
+        return "ExternalAccount{" +
+            "id=" + id +
+            ", externalProvider=" + externalProvider +
+            ", externalIdentifier='" + externalIdentifier + '\'' +
+            '}';
+    }
 }

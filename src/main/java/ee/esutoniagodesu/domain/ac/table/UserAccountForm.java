@@ -17,11 +17,16 @@ import java.io.Serializable;
 @Table(schema = "ac", name = "user_account_form")
 public class UserAccountForm implements Serializable {
 
+    public static final int PASSWORD_MIN_LENGTH = 5;
+    public static final int PASSWORD_MAX_LENGTH = 100;
+
+    @JsonIgnore
     @MapsId
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
 
+    @JsonIgnore
     @Id
     @Column(name = "user_id")
     private Integer userId;
@@ -34,17 +39,27 @@ public class UserAccountForm implements Serializable {
 
     @JsonIgnore
     @NotNull
-    @Size(min = 60, max = 60)
-    @Column(length = 60)
+    @Size(min = PASSWORD_MIN_LENGTH, max = PASSWORD_MAX_LENGTH)
+    @Column(length = 100)
     private String password;
 
+    @JsonIgnore
     @Size(max = 20)
     @Column(name = "reset_key", length = 20)
     private String resetKey;
 
+    @JsonIgnore
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @Column(name = "reset_date", nullable = true)
     private DateTime resetDate = null;
+
+    public UserAccountForm() {
+    }
+
+    public UserAccountForm(String login, String password) {
+        this.login = login;
+        this.password = password;
+    }
 
     public User getUser() {
         return user;
@@ -118,7 +133,7 @@ public class UserAccountForm implements Serializable {
         return "UserAccountForm{" +
             "userId=" + userId +
             ", login='" + login + '\'' +
-            ", password='" + password + '\'' +
+            ", password='" + (password != null ? "[SECRET]" : null) + '\'' +
             ", resetKey='" + resetKey + '\'' +
             ", resetDate=" + resetDate +
             '}';

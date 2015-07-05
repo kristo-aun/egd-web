@@ -13,6 +13,7 @@ import java.io.Serializable;
 @Table(schema = "ac", name = "user_account_external")
 public class UserAccountExternal implements Serializable {
 
+    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -22,6 +23,7 @@ public class UserAccountExternal implements Serializable {
     @Column(name = "provider", length = 20, nullable = false, insertable = true, updatable = false)
     private ExternalProvider provider;
 
+    @JsonIgnore
     @Column(name = "identifier", length = 50, nullable = false, insertable = true, updatable = false)
     private String identifier;
 
@@ -37,6 +39,11 @@ public class UserAccountExternal implements Serializable {
         this.provider = provider;
         this.identifier = identifier;
         this.user = user;
+    }
+
+    public UserAccountExternal(ExternalProvider externalProvider, String externalUserId) {
+        this.provider = externalProvider;
+        this.identifier = externalUserId;
     }
 
     public Integer getId() {

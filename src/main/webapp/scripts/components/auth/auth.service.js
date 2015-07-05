@@ -58,7 +58,9 @@ egdApp
                     .then(function() {
                         var isAuthenticated = Principal.isAuthenticated();
 
-                        if ($rootScope.toState.data.roles && $rootScope.toState.data.roles.length > 0 && !Principal.isInAnyRole($rootScope.toState.data.roles)) {
+                        if ($rootScope.toState.data.roles &&
+                            $rootScope.toState.data.roles.length > 0 &&
+                            !Principal.isInAnyRole($rootScope.toState.data.roles)) {
                             if (isAuthenticated) {
                                 // user is signed in but not authorized for desired state
                                 $state.go('accessdenied');

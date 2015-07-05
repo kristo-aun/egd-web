@@ -1,7 +1,8 @@
 package ee.esutoniagodesu.service;
 
-import ee.esutoniagodesu.domain.ac.table.*;
-import ee.esutoniagodesu.repository.domain.ac.AuthorityRepository;
+import ee.esutoniagodesu.domain.ac.table.Authority;
+import ee.esutoniagodesu.domain.ac.table.User;
+import ee.esutoniagodesu.domain.ac.table.UserAccountExternal;
 import ee.esutoniagodesu.repository.domain.ac.PersistentTokenRepository;
 import ee.esutoniagodesu.repository.domain.ac.UserRepository;
 import ee.esutoniagodesu.security.AuthoritiesConstants;
@@ -9,7 +10,6 @@ import ee.esutoniagodesu.security.SecurityUtils;
 import ee.esutoniagodesu.util.JCRandom;
 import ee.esutoniagodesu.util.RandomUtil;
 import ee.esutoniagodesu.util.lang.ISO6391;
-import ee.esutoniagodesu.web.rest.dto.UserDTO;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.slf4j.Logger;
@@ -45,10 +45,6 @@ public class UserService implements EnvironmentAware {
 
     @Inject
     private PersistentTokenRepository persistentTokenRepository;
-
-    @Inject
-    private AuthorityRepository authorityRepository;
-
 
     private RelaxedPropertyResolver appSecurityPropertyResolver;
 
@@ -103,21 +99,11 @@ public class UserService implements EnvironmentAware {
             });
     }
 
-    private User newUser(String firstName,
-                         String lastName,
-                         String email,
-                         String langKey) {
+    private User newUser(User newUser) {
 
-        User newUser = new User();
         newUser.setUuid(JCRandom.random13B());
 
-        Authority authority = authorityRepository.findOne("ROLE_USER");
-        Set<Authority> authorities = new HashSet<>();
-
-        newUser.setFirstName(firstName);
-        newUser.setLastName(lastName);
-        newUser.setEmail(email);
-        newUser.setLangKey(ISO6391.valueOf(langKey));
+        Set<Authority> roles = new HashSet<>();
 
         if (isActivationRequired()) {
             // new user is not active
@@ -128,16 +114,12 @@ public class UserService implements EnvironmentAware {
             newUser.setActivated(true);
         }
 
-        authorities.add(authority);
-        newUser.setAuthorities(authorities);
+        roles.add(Authority.ROLE_USER);
+        newUser.setRoles(roles);
         return newUser;
     }
 
-    public User addExternalToUser(User user, ExternalProvider externalProvider, String externalIdentifier) {
-
-        UserAccountExternal external = new UserAccountExternal();
-        external.setProvider(externalProvider);
-        external.setIdentifier(externalIdentifier);
+    public User addExternalToUser(User user, UserAccountExternal external) {
         external.setUser(user);
         user.getAccountExternals().add(external);
         userRepository.save(user);
@@ -146,57 +128,43 @@ public class UserService implements EnvironmentAware {
         return user;
     }
 
-    public User createUserWithExternal(UserDTO userDTO, ExternalProvider externalProvider, String externalIdentifier) {
-        User newUser = newUser(userDTO.getFirstName(),
-            userDTO.getLastName(),
-            userDTO.getEmail(),
-            userDTO.getLangKey());
+    public User createUserWithExternal(User newUser) {
+        newUser = newUser(newUser);
 
-        UserAccountExternal external = new UserAccountExternal();
-        external.setProvider(externalProvider);
-        external.setIdentifier(externalIdentifier);
+        UserAccountExternal external = newUser.getAccountExternals().iterator().next();
+
         external.setUser(newUser);
-        newUser.getAccountExternals().add(external);
         userRepository.save(newUser);
 
         log.debug("Created External Information {} for Social User: {}", external, newUser);
         return newUser;
     }
 
-    public User createUserWithAccountForm(UserDTO userDTO) {
-        User newUser = newUser(userDTO.getFirstName(),
-            userDTO.getLastName(),
-            userDTO.getEmail(),
-            userDTO.getLangKey());
+    public User createUserWithAccountForm(User newUser) {
 
-        UserAccountForm account = new UserAccountForm();
-        account.setLogin(userDTO.getLogin());
-
+        newUser = newUser(newUser);
         // new user gets initially a generated password
-        String encryptedPassword = passwordEncoder.encode(userDTO.getPassword());
-        account.setPassword(encryptedPassword);
-
-        account.setUser(newUser);
-        newUser.setAccountForm(account);
+        String encryptedPassword = passwordEncoder.encode(newUser.getAccountForm().getPassword());
+        newUser.getAccountForm().setPassword(encryptedPassword);
 
         userRepository.save(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
     }
 
-    public void updateUserInformation(String firstName, String lastName, String email, String langKey) {
-        userRepository.findOneByLogin(SecurityUtils.getUserUuid()).ifPresent(u -> {
+    public void updateUserInformation(String firstName, String lastName, String email, ISO6391 langKey) {
+        securityUser().ifPresent(u -> {
             u.setFirstName(firstName);
             u.setLastName(lastName);
             u.setEmail(email);
-            u.setLangKey(ISO6391.valueOf(langKey));
+            u.setLangKey(langKey);
             userRepository.save(u);
             log.debug("Changed Information for User: {}", u);
         });
     }
 
     public void changePassword(String password) {
-        userRepository.findOneByLogin(SecurityUtils.getUserUuid()).ifPresent(u -> {
+        securityUser().ifPresent(u -> {
             String encryptedPassword = passwordEncoder.encode(password);
             u.getAccountForm().setPassword(encryptedPassword);
             userRepository.save(u);
@@ -206,9 +174,13 @@ public class UserService implements EnvironmentAware {
 
     @Transactional(readOnly = true)
     public User getUserWithAuthorities() {
-        User currentUser = userRepository.findOneByUuid(SecurityUtils.getUserUuid()).get();
-        currentUser.getAuthorities().size(); // eagerly load the association
+        User currentUser = securityUser().get();
+        currentUser.getRoles().size(); // eagerly load the association
         return currentUser;
+    }
+
+    private Optional<User> securityUser() {
+        return userRepository.findOneByUuid(SecurityUtils.getUserUuid());
     }
 
     public void deleteAccount() {
@@ -216,10 +188,10 @@ public class UserService implements EnvironmentAware {
             throw new IllegalStateException("not authenticated");
         }
         if (SecurityUtils.isUserInRole(AuthoritiesConstants.ADMIN)) {
-            throw new IllegalStateException("can't delete admin account");
+            throw new IllegalStateException("delete admin account not allowed");
         }
 
-        userRepository.findOneByUuid(SecurityUtils.getUserUuid()).ifPresent(user -> {
+        securityUser().ifPresent(user -> {
             userRepository.delete(user);
             log.debug("Deleted account for User: {}", user);
         });

@@ -45,8 +45,8 @@ public class UserDetailsService implements org.springframework.security.core.use
             if (!user.isActivated()) {
                 throw new UserNotActivatedException("User " + lowercaseLogin + " was not activated");
             }
-            List<GrantedAuthority> grantedAuthorities = user.getAuthorities().stream()
-                .map(authority -> new SimpleGrantedAuthority(authority.getName()))
+            List<GrantedAuthority> grantedAuthorities = user.getRoles().stream()
+                .map(authority -> new SimpleGrantedAuthority(authority.name()))
                 .collect(Collectors.toList());
             log.debug("Login successful");
             return new org.springframework.security.core.userdetails.User(user.getUuid(),
@@ -66,8 +66,8 @@ public class UserDetailsService implements org.springframework.security.core.use
             if (!user.isActivated()) {
                 throw new UserNotActivatedException("User " + uuid + " was not activated");
             }
-            List<GrantedAuthority> grantedAuthorities = user.getAuthorities().stream()
-                .map(authority -> new SimpleGrantedAuthority(authority.getName()))
+            List<GrantedAuthority> grantedAuthorities = user.getRoles().stream()
+                .map(authority -> new SimpleGrantedAuthority(authority.name()))
                 .collect(Collectors.toList());
             log.debug("Login successful");
             return new SocialUser(uuid,

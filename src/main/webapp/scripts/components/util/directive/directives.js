@@ -242,7 +242,7 @@ egdApp
 	        });
 	    };
 	})
-    .directive('ngMessageDanger', function ($translate, $log) {
+    .directive('ngMessageDanger', function () {
         return {
             scope: {
                 show: "=",
@@ -250,19 +250,10 @@ egdApp
                 translated: '=?'
             },
             replace: true,
-            templateUrl: 'scripts/components/util/directive/ngMessageDanger.html',
-            link: function (scope) {
-                scope.$watch('i18n', function() {
-                    if (scope.i18n) {
-                        $translate(scope.i18n).then(function (data) {
-                            scope.translated = data;
-                        });
-                    }
-                }, true);
-            }
+            templateUrl: 'scripts/components/util/directive/ngMessageDanger.html'
         }
     })
-    .directive('ngMessageSuccess', function ($translate) {
+    .directive('ngMessageSuccess', function () {
         return {
             scope: {
                 show: "=",
@@ -270,16 +261,7 @@ egdApp
                 translated: '=?'
             },
             replace: true,
-            templateUrl: 'scripts/components/util/directive/ngMessageSuccess.html',
-            link: function (scope) {
-                scope.$watch('i18n', function() {
-                    if (scope.i18n) {
-                        $translate(scope.i18n).then(function (data) {
-                            scope.translated = data;
-                        });
-                    }
-                }, true);
-            }
+            templateUrl: 'scripts/components/util/directive/ngMessageSuccess.html'
         }
     })
     .directive('ngMaskTime', function () {

@@ -6,7 +6,7 @@ import ee.esutoniagodesu.repository.domain.ac.UserRepository;
 import ee.esutoniagodesu.security.SecurityUtils;
 import ee.esutoniagodesu.service.MailService;
 import ee.esutoniagodesu.service.UserService;
-import ee.esutoniagodesu.web.rest.dto.UserDTO;
+import ee.esutoniagodesu.util.lang.ISO6391;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,9 +30,7 @@ import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * REST controller for managing the current user's account.
@@ -72,13 +70,13 @@ public class AccountResource implements EnvironmentAware {
     @RequestMapping(value = "/register",
         method = RequestMethod.POST,
         produces = MediaType.TEXT_PLAIN_VALUE)
-    public ResponseEntity<?> register(@Valid @RequestBody UserDTO userDTO, HttpServletRequest request) {
-        return userRepository.findOneByLogin(userDTO.getLogin())
+    public ResponseEntity<?> register(@Valid @RequestBody User newUser, HttpServletRequest request) {
+        return userRepository.findOneByLogin(newUser.getAccountForm().getLogin())
             .map(user -> new ResponseEntity<>("login already in use", HttpStatus.BAD_REQUEST))
-            .orElseGet(() -> userRepository.findOneByEmail(userDTO.getEmail())
+            .orElseGet(() -> userRepository.findOneByEmail(newUser.getEmail())
                     .map(user -> new ResponseEntity<>("e-mail address already in use", HttpStatus.BAD_REQUEST))
                     .orElseGet(() -> {
-                        User user = userService.createUserWithAccountForm(userDTO);
+                        User user = userService.createUserWithAccountForm(newUser);
                         if (isActivationRequired()) {
                             mailService.sendActivationEmail(user, getBaseUrl(request));
                         } else {
@@ -119,22 +117,9 @@ public class AccountResource implements EnvironmentAware {
     @RequestMapping(value = "/account",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserDTO> getAccount() {
+    public ResponseEntity<User> getAccount() {
         return Optional.ofNullable(userService.getUserWithAuthorities())
-            .map(user -> {
-                return new ResponseEntity<>(
-                    new UserDTO(
-                        user.getUuid(),
-                        null,
-                        null,
-                        user.getFirstName(),
-                        user.getLastName(),
-                        user.getEmail(),
-                        user.getLangKey().name(),
-                        user.getAuthorities().stream().map(Authority::getName)
-                            .collect(Collectors.toList())),
-                    HttpStatus.OK);
-            })
+            .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
     }
 
@@ -144,16 +129,12 @@ public class AccountResource implements EnvironmentAware {
     @RequestMapping(value = "/account",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> saveAccount(@RequestBody UserDTO userDTO) {
-        return userRepository
-            .findOneByUuid(userDTO.getLogin())
-            .filter(u -> u.getUuid().equals(SecurityUtils.getUserUuid()))
-            .map(u -> {
-                userService.updateUserInformation(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail(),
-                    userDTO.getLangKey());
-                return new ResponseEntity<String>(HttpStatus.OK);
-            })
-            .orElseGet(() -> new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
+    public ResponseEntity<String> saveAccount(@RequestBody User saveUser) {
+        userService.updateUserInformation(saveUser.getFirstName(),
+            saveUser.getLastName(),
+            saveUser.getEmail(),
+            saveUser.getLangKey());
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     /**
@@ -232,11 +213,13 @@ public class AccountResource implements EnvironmentAware {
     }
 
     private boolean checkPasswordLength(String password) {
-        return (!StringUtils.isEmpty(password) && password.length() >= UserDTO.PASSWORD_MIN_LENGTH && password.length() <= UserDTO.PASSWORD_MAX_LENGTH);
+        return (!StringUtils.isEmpty(password) &&
+            password.length() >= UserAccountForm.PASSWORD_MIN_LENGTH &&
+            password.length() <= UserAccountForm.PASSWORD_MAX_LENGTH);
     }
 
 
-    private final static String EXTERNAL_AUTH_AS_USERDTO_KEY = "AccountResource.signInAsUserDTO";
+    private final static String EXTERNAL_AUTH_AS_USERDTO_KEY = "AccountResource.signInAsUser";
 
     /**
      * Build a new Connection to a social provider using the information from a previous
@@ -259,22 +242,22 @@ public class AccountResource implements EnvironmentAware {
     }
 
     /**
-     * Retrieve a previous external social authentication attempt as a UserDTO.
+     * Retrieve a previous external social authentication attempt as a User.
      *
      * @param request a non-null request
-     * @return a UserDTO with the firstName, lastName, email, and externalAccount details set or null if
+     * @return a User with the firstName, lastName, email, and externalAccount details set or null if
      * there was no previous social authentication attempt or the details of the social authentication
      * could not be retrieved.
      * @throws org.springframework.social.ApiException when the social API does not return the required attributes (name, email)
      * @see org.springframework.social.connect.web.ProviderSignInAttempt
      * @see org.springframework.social.security.SocialAuthenticationFilter#addSignInAttempt(javax.servlet.http.HttpSession, org.springframework.social.connect.Connection) SocialAuthenticationFilter#addSignInAttempt
      */
-    private Optional<UserDTO> retreiveSocialAsUserDTO(HttpServletRequest request) {
-        UserDTO userDTO = (UserDTO) WebUtils.getSessionAttribute(request, EXTERNAL_AUTH_AS_USERDTO_KEY);
+    private Optional<User> retreiveSocialAsUser(HttpServletRequest request) {
+        User socialUser = (User) WebUtils.getSessionAttribute(request, EXTERNAL_AUTH_AS_USERDTO_KEY);
 
-        log.debug("retrieve social user from request {}", userDTO);
+        log.debug("retrieve social user from request {}", socialUser);
 
-        if (userDTO == null) {
+        if (socialUser == null) {
             // check if the user was successfully authenticated against an external service
             // but failed to authenticate against this application.
             ProviderSignInAttempt attempt = (ProviderSignInAttempt) WebUtils.getSessionAttribute(request,
@@ -284,7 +267,7 @@ public class AccountResource implements EnvironmentAware {
             if (con == null)
                 throw new ApiException(attempt.toString(), "no connection to social api");
 
-            // build a new UserDTO from the external provider's version of the User
+            // build a new User from the external provider's version of the User
             UserProfile profile = con.fetchUserProfile();
             String firstName = profile.getFirstName();
             String lastName = profile.getLastName();
@@ -299,15 +282,15 @@ public class AccountResource implements EnvironmentAware {
             if (StringUtils.isBlank(firstName) || StringUtils.isBlank(lastName) || StringUtils.isBlank(email))
                 throw new ApiException(externalAccountProviderName, "provider failed to return required attributes");
 
-            userDTO = new UserDTO(firstName, lastName, email, externalProvider, externalUserId);
+            socialUser = new User(firstName, lastName, email, externalProvider, externalUserId);
 
-            // save the new UserDTO for later and clean up the HttpSession
+            // save the new User for later and clean up the HttpSession
             request.getSession().removeAttribute(ProviderSignInAttempt.SESSION_ATTRIBUTE);
-            request.getSession().setAttribute(EXTERNAL_AUTH_AS_USERDTO_KEY, userDTO);
+            request.getSession().setAttribute(EXTERNAL_AUTH_AS_USERDTO_KEY, socialUser);
 
             log.debug("Retrieved details from {} for user '{}'", externalAccountProviderName, externalUserId);
         }
-        return Optional.of(userDTO);
+        return Optional.of(socialUser);
     }
 
     private void finishExternal(User user, HttpServletRequest request) {
@@ -332,32 +315,34 @@ public class AccountResource implements EnvironmentAware {
         produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<String> registerExternal(HttpServletRequest request) {
         //leia requesti järgi social info
-        return retreiveSocialAsUserDTO(request)
-            .map(userDTO -> {
-                Map.Entry<ExternalProvider, String> entry = userDTO.getExternalAccounts().entrySet().iterator().next();
-                return userRepository.findOneByExternalAccount(entry.getKey(), entry.getValue())
+        return retreiveSocialAsUser(request)
+            .map(socialUser -> {
+                UserAccountExternal socialAccount = socialUser.getAccountExternals().iterator().next();
+
+                return userRepository.findOneByExternalAccount(socialAccount.getProvider(), socialAccount.getIdentifier())
                     //kui Social id on juba registreeritud, siis ei lase uuesti registreerida
-                    .map(user -> new ResponseEntity<String>("The external login is already linked to another User",
+                    .map(userWithSameExternal -> new ResponseEntity<String>("The external login is already linked to another User",
                         HttpStatus.BAD_REQUEST))
-                    .orElseGet(() -> userRepository.findOneByEmail(userDTO.getEmail())
+                    .orElseGet(() -> userRepository.findOneByEmail(socialUser.getEmail())
                             .map(user -> {
                                 //kasutajal ei tohi olla sama external provideri juures teise id'ga kontot.
                                 for (UserAccountExternal p : user.getAccountExternals()) {
-                                    if (p.getProvider().equals(entry.getKey())) {
+                                    if (p.getProvider().equals(socialAccount.getProvider())) {
                                         return new ResponseEntity<String>(
                                             "There is another external login associated with this e-mail",
                                             HttpStatus.BAD_REQUEST);
                                     }
                                 }
 
-                                userService.addExternalToUser(user, entry.getKey(), entry.getValue());
+                                userService.addExternalToUser(user, socialAccount);
                                 finishExternal(user, request);
 
                                 return new ResponseEntity<String>(HttpStatus.CREATED);
                             })
                             .orElseGet(() -> {
-                                userDTO.setLangKey("et");
-                                User user = userService.createUserWithExternal(userDTO, entry.getKey(), entry.getValue());
+                                //täiesti uus kasutaja
+                                socialUser.setLangKey(ISO6391.et);
+                                User user = userService.createUserWithExternal(socialUser);
                                 finishExternal(user, request);
                                 return new ResponseEntity<String>(HttpStatus.CREATED);
                             })
@@ -368,14 +353,15 @@ public class AccountResource implements EnvironmentAware {
 
     /**
      * GET details of an ongoing registration
+     *
      * @return 200 OK or 404 if there is no ongoing registration
      */
     @RequestMapping(value = "/register/external",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getRegisterAccount(HttpServletRequest request) {
-        return retreiveSocialAsUserDTO(request)
-            .map(userDTO -> new ResponseEntity<>(userDTO, HttpStatus.OK))
+        return retreiveSocialAsUser(request)
+            .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 

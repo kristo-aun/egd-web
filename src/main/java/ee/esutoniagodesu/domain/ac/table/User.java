@@ -20,11 +20,13 @@ import java.util.Set;
 @Table(schema = "ac", name = "user")
 public class User implements Serializable {
 
+    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
+    @JsonIgnore
     @Size(min = 13, max = 13)
     @Column(name = "uuid", length = 13, unique = true)
     private String uuid;
@@ -38,7 +40,7 @@ public class User implements Serializable {
     private String lastName;
 
     @Email
-    @Size(max = 100)
+    @Size(min = 5, max = 100)
     @Column(length = 100, unique = true)
     private String email;
 
@@ -54,14 +56,14 @@ public class User implements Serializable {
     @JsonIgnore
     private String activationKey;
 
-    @JsonIgnore
-    @ManyToMany
-    @JoinTable(
+    @CollectionTable(
         schema = "ac",
         name = "user_authority",
-        joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-        inverseJoinColumns = {@JoinColumn(name = "name", referencedColumnName = "name")})
-    private Set<Authority> authorities = new HashSet<>();
+        joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")})
+    @ElementCollection(targetClass = Authority.class)
+    @Column(name = "name", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Set<Authority> roles = new HashSet<>();
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user")
@@ -71,7 +73,6 @@ public class User implements Serializable {
     @PrimaryKeyJoinColumn
     private UserAccountForm accountForm;
 
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user")
     private Set<UserAccountExternal> accountExternals = new HashSet<>();
 
@@ -85,6 +86,21 @@ public class User implements Serializable {
 
     public User(String uuid) {
         this.uuid = uuid;
+    }
+
+    public User(String firstName, String lastName, String email, ExternalProvider externalProvider, String externalUserId) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.accountExternals.add(new UserAccountExternal(externalProvider, externalUserId));
+    }
+
+    public User(String login, String password, String firstName, String lastName, String email, String langKey) {
+        this.accountForm = new UserAccountForm(login, password);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.langKey = ISO6391.valueOf(langKey);
     }
 
     public Integer getId() {
@@ -151,20 +167,8 @@ public class User implements Serializable {
         this.activationKey = activationKey;
     }
 
-    public Set<Authority> getAuthorities() {
-        return authorities;
-    }
-
-    public void setAuthorities(Set<Authority> authorities) {
-        this.authorities = authorities;
-    }
-
     public Set<PersistentToken> getPersistentTokens() {
         return persistentTokens;
-    }
-
-    public void setPersistentTokens(Set<PersistentToken> persistentTokens) {
-        this.persistentTokens = persistentTokens;
     }
 
     public UserAccountForm getAccountForm() {
@@ -179,16 +183,28 @@ public class User implements Serializable {
         return accountExternals;
     }
 
-    public void setAccountExternals(Set<UserAccountExternal> accountExternals) {
-        this.accountExternals = accountExternals;
-    }
-
     public DateTime getCreatedDate() {
         return createdDate;
     }
 
     public void setCreatedDate(DateTime createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public Set<Authority> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Authority> roles) {
+        this.roles = roles;
+    }
+
+    public void setPersistentTokens(Set<PersistentToken> persistentTokens) {
+        this.persistentTokens = persistentTokens;
+    }
+
+    public void setAccountExternals(Set<UserAccountExternal> accountExternals) {
+        this.accountExternals = accountExternals;
     }
 
     @Override
@@ -217,8 +233,8 @@ public class User implements Serializable {
             ", activated=" + activated +
             ", langKey=" + langKey +
             ", activationKey='" + activationKey + '\'' +
-            ", authorities=" + authorities +
-            ", persistentTokens=" + persistentTokens +
+            ", roles=" + roles +
+            ", persistentTokens.size=" + persistentTokens.size() +
             ", accountForm=" + accountForm +
             ", accountExternals=" + accountExternals +
             ", createdDate=" + createdDate +

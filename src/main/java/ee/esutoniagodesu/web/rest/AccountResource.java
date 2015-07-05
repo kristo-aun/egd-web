@@ -132,11 +132,17 @@ public class AccountResource implements EnvironmentAware {
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> saveAccount(@RequestBody User saveUser) {
-        userService.updateUserInformation(saveUser.getFirstName(),
-            saveUser.getLastName(),
-            saveUser.getEmail(),
-            saveUser.getLangKey());
-        return new ResponseEntity<>(HttpStatus.OK);
+        log.debug("REST request to saveAccount {}", saveUser);
+
+        return userRepository.findOneByEmailNotThisUuid(saveUser.getEmail(), SecurityUtils.getUserUuid())
+            .map(user -> new ResponseEntity<>("e-mail address already in use", HttpStatus.BAD_REQUEST))
+            .orElseGet(() -> {
+                userService.updateUserInformation(saveUser.getFirstName(),
+                    saveUser.getLastName(),
+                    saveUser.getEmail(),
+                    saveUser.getLangKey());
+                return new ResponseEntity<>(HttpStatus.OK);
+            });
     }
 
     /**

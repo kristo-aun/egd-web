@@ -12,4 +12,7 @@ egdApp
                 }
             }
         });
+    }).factory('UpdateAccount', function ($resource) {
+        return $resource('api/account', {}, {
+        });
     });

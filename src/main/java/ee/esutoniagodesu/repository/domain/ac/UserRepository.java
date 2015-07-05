@@ -24,6 +24,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     Optional<User> findOneByEmail(String email);
 
+    @Query("select u from User u where u.email= ?1 and u.uuid <> ?2")
+    Optional<User> findOneByEmailNotThisUuid(String email, String uuid);
+
     @Query("select u from User u where u.uuid = ?1")
     Optional<User> findOneByUuid(String uuid);
 

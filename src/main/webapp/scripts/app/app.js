@@ -17,7 +17,8 @@ var egdApp = angular.module('egdApp', [
     'ui.select',
     'ui.grid.pagination',
     'angular-loading-bar',
-    'angular-confirm'
+    'angular-confirm',
+    'blockUI'
 ]);
 
 egdApp
@@ -102,6 +103,29 @@ egdApp
                 return $q.reject(response);
             }
         };
+    })
+    .config(function(blockUIConfig) {
+
+        var tpl =
+        '<div class="block-ui-container">' +
+            '<div class="block-ui-overlay"></div>' +
+            '<div class="block-ui-message-container" aria-live="assertive" aria-atomic="true">' +
+                '<div class="block-ui-message ng-binding">Loading ...</div>' +
+            '</div>' +
+        '</div>';
+
+        blockUIConfig.cssClass = 'block-ui block-ui-custom-spinner';
+
+        // Provide a custom template to use
+        //blockUIConfig.template = tpl;
+       // blockUIConfig.template = '<img src="assets/images/loading.gif" alt="Loading..."/>';
+
+        // Change the default overlay message
+        //blockUIConfig.message = 'Loading';
+
+        // Change the default delay to 100ms before the blocking is visible
+        blockUIConfig.delay = 100;
+
     })
     .config(function(cfpLoadingBarProvider) {
         cfpLoadingBarProvider.includeSpinner = false;

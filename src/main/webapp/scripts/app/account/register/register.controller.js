@@ -41,17 +41,22 @@ egdApp
                 });
             }
         };
-    }).controller('RegisterExternalController', function ($state, $scope, $translate, $timeout, Auth, RegisterExternal) {
+    }).controller('RegisterExternalController', function ($state, $scope, $translate, $timeout, Auth, RegisterExternal, blockUI) {
         $scope.success = null;
         $scope.error = null;
         $scope.errorUserExists = null;
         $scope.registerAccount = {};
+
+        var elementToBlock = blockUI.instances.get('register.external');
+        elementToBlock.start();
+
         $timeout(function (){angular.element('[ng-model="registerAccount.login"]').focus();});
 
         RegisterExternal.get().$promise.then(
             function(data) {
                 $scope.registerAccount = data;
                 $scope.externalProvider = data.accountExternals[0].provider.toLowerCase();
+                elementToBlock.stop();
             },
             function() {
                 $state.go("error", {code: 401});

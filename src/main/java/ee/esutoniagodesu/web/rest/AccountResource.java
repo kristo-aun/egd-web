@@ -321,7 +321,7 @@ public class AccountResource implements EnvironmentAware {
     @RequestMapping(value = "/register/external",
         method = RequestMethod.POST,
         produces = MediaType.TEXT_PLAIN_VALUE)
-    public ResponseEntity<String> registerExternal(@RequestParam(value = "langKey") String langKey, HttpServletRequest request) {
+    public ResponseEntity<String> registerExternal(HttpServletRequest request) {
         //leia requesti järgi social info
         return retreiveSocialAsUser(request)
             .map(socialUser -> {
@@ -348,6 +348,7 @@ public class AccountResource implements EnvironmentAware {
                                 return new ResponseEntity<String>(HttpStatus.CREATED);
                             })
                             .orElseGet(() -> {
+                                String langKey = request.getParameter("langKey");
                                 //täiesti uus kasutaja
                                 socialUser.setLangKey(ISO6391.valueOf(langKey));
                                 User user = userService.createUserWithExternal(socialUser);

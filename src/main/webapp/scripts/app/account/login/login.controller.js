@@ -17,7 +17,7 @@ egdApp
             }).then(function () {
                 $rootScope.$broadcast("accountChange");
                 $scope.authenticationError = false;
-                if ($rootScope.previousStateName === 'register') {
+                if ($rootScope.previousStateName === 'register' || $rootScope.previousStateName === 'register.external') {
                     $state.go('home');
                 } else {
                     $rootScope.back();

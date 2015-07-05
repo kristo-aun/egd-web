@@ -34,6 +34,16 @@ Browser Upgrade Prompt
     cursor: pointer;
 }
 
+.block-ui-custom-spinner div.block-ui-overlay {
+    opacity: .5;
+    filter: alpha(opacity=50);
+    background: #fff url("../images/loading.gif") no-repeat center center;
+}
+
+.block-ui-custom-spinner div.block-ui-message {
+    display: none;
+}
+
 #threadDump .popover, #healthCheck .popover {
     top: inherit;
     display: block;

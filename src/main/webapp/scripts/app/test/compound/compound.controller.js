@@ -1,7 +1,7 @@
 'use strict';
 
 egdApp
-    .controller('CompoundController', function ($state, $scope, $translate, $log, TestCompoundResource, RTKResource, Principal) {
+    .controller('CompoundController', function ($state, $scope, $translate, $log, TestCompoundResource, RTKResource, Principal, blockUI) {
 
         //------------------------------ first ------------------------------
 
@@ -84,8 +84,11 @@ egdApp
 
         $scope.doSubmit = function() {
             $scope.clearError();
+            var elementToBlock = blockUI.instances.get('register.external');
+            elementToBlock.start();
             TestCompoundResource.submit($scope.first).then(function (data) {
                 $scope.compounds = data;
+                elementToBlock.stop();
                 $state.go("compound.second");
             }, function() {
                 $scope.error = true;

@@ -146,6 +146,7 @@ public class UserService implements EnvironmentAware {
         // new user gets initially a generated password
         String encryptedPassword = passwordEncoder.encode(newUser.getAccountForm().getPassword());
         newUser.getAccountForm().setPassword(encryptedPassword);
+        newUser.getAccountForm().setUser(newUser);
 
         userRepository.save(newUser);
         log.debug("Created Information for User: {}", newUser);

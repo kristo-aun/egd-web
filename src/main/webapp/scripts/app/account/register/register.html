@@ -13,8 +13,8 @@
                 <label translate="global.label.username"></label>
                 <input type="text" class="form-control"
                        name="login"
-                       ng-model="registerAccount.login"
-                       ng-minlength=1
+                       ng-model="registerAccount.accountForm.login"
+                       ng-minlength=5
                        ng-maxlength=50
                        ng-pattern="/^[a-z0-9]*$/"
                        required>
@@ -49,7 +49,7 @@
                 <input type="password"
                        class="form-control"
                        name="password"
-                       ng-model="registerAccount.password"
+                       ng-model="registerAccount.accountForm.password"
                        ng-minlength=5
                        ng-maxlength=50
                        required>
@@ -68,7 +68,7 @@
                        translate="global.messages.validate.newpassword.maxlength">
                     </p>
                 </div>
-                <password-strength-bar password-to-check="registerAccount.password"></password-strength-bar>
+                <password-strength-bar password-to-check="registerAccount.accountForm.password"></password-strength-bar>
             </div>
             <div class="form-group">
                 <label translate="global.label.confirmpassword"></label>

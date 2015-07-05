@@ -5,11 +5,11 @@ egdApp
         $scope.error = null;
         $scope.doNotMatch = null;
         $scope.errorUserExists = null;
-        $scope.registerAccount = {};
+        $scope.registerAccount = {accountForm: {}};
         $timeout(function (){angular.element('[ng-model="registerAccount.login"]').focus();});
 
         $scope.register = function () {
-            if ($scope.registerAccount.password !== $scope.confirmPassword) {
+            if ($scope.registerAccount.accountForm.password !== $scope.confirmPassword) {
                 $scope.doNotMatch = true;
             } else {
                 $scope.registerAccount.langKey = $translate.use();
@@ -20,8 +20,8 @@ egdApp
 
                 Auth.createAccount($scope.registerAccount).then(function () {
                     Auth.login({
-                        username: $scope.registerAccount.login,
-                        password: $scope.registerAccount.password,
+                        username: $scope.registerAccount.accountForm.login,
+                        password: $scope.registerAccount.accountForm.password,
                         rememberMe: false
                     }).then(function () {
                         $rootScope.$broadcast("accountChange");

@@ -27,8 +27,8 @@ public class User implements Serializable {
     private Integer id;
 
     @JsonIgnore
-    @Size(min = 13, max = 13)
-    @Column(name = "uuid", length = 13, unique = true)
+    @Size(max = 20)
+    @Column(name = "uuid", length = 20, unique = true)
     private String uuid;
 
     @Size(max = 50)

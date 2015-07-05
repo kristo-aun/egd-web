@@ -71,6 +71,8 @@ public class AccountResource implements EnvironmentAware {
         method = RequestMethod.POST,
         produces = MediaType.TEXT_PLAIN_VALUE)
     public ResponseEntity<?> register(@Valid @RequestBody User newUser, HttpServletRequest request) {
+        log.debug("REST request to register {}", newUser);
+
         return userRepository.findOneByLogin(newUser.getAccountForm().getLogin())
             .map(user -> new ResponseEntity<>("login already in use", HttpStatus.BAD_REQUEST))
             .orElseGet(() -> userRepository.findOneByEmail(newUser.getEmail())

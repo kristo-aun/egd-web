@@ -24,7 +24,9 @@
     </appender>
 
     <logger name="ee.esutoniagodesu" level="${logback.loglevel}"/>
-
+    <!--
+    <logger name=" ee.esutoniagodesu.web.rest.AccountResource.getAccount()" level="OFF"/>
+    -->
     <logger name="javax.activation" level="WARN"/>
     <logger name="javax.mail" level="WARN"/>
     <logger name="javax.xml.bind" level="WARN"/>

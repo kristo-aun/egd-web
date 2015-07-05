@@ -2,10 +2,17 @@
     <div class="col-md-4 col-md-offset-2" style="border-right:1px solid rgba(0,0,0,0.2);padding-right:20px;">
         <ng-message-danger show="authenticationError" i18n="'login.messages.error.authentication'"></ng-message-danger>
 
-        <form class="form" role="form" ng-submit="login($event)">
+        <form ng-submit="login($event)" class="form" name="form" role="form" novalidate show-validation>
             <div class="form-group">
                 <label for="username" translate="global.label.username"></label>
-                <input type="text" class="form-control" id="username" ng-model="username">
+                <input type="text"
+                       class="form-control"
+                       id="username"
+                       ng-model="username"
+                       ng-minlength=5
+                       ng-maxlength=50
+                       ng-pattern="/^[a-z0-9]*$/"
+                       required>
             </div>
             <div class="form-group">
                 <label for="password" translate="global.label.password"></label>

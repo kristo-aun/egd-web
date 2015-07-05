@@ -11,7 +11,7 @@
             "validate": {
                 "login": {
                     "required": "Kasutajanime sisestamine on kohustuslik.",
-                    "minlength": "Kasutajanime pikkus peab olema vähemalt 4 tähemärki",
+                    "minlength": "Kasutajanime pikkus peab olema vähemalt 5 tähemärki",
                     "maxlength": "Kasutajanime suurim lubatud pikkus on 50 tähemärki",
                     "pattern": "Kasutajanimes on lubatud ainult väiketähed ja numbrid"
                 }

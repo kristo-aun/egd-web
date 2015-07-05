@@ -6,7 +6,7 @@ import ee.esutoniagodesu.repository.domain.ac.UserRepository;
 import ee.esutoniagodesu.security.SecurityUtils;
 import ee.esutoniagodesu.service.MailService;
 import ee.esutoniagodesu.service.UserService;
-import ee.esutoniagodesu.util.lang.ISO6391;
+import ee.esutoniagodesu.util.iso.ISO6391;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -321,7 +321,7 @@ public class AccountResource implements EnvironmentAware {
     @RequestMapping(value = "/register/external",
         method = RequestMethod.POST,
         produces = MediaType.TEXT_PLAIN_VALUE)
-    public ResponseEntity<String> registerExternal(HttpServletRequest request) {
+    public ResponseEntity<String> registerExternal(@RequestParam(value = "langKey") String langKey, HttpServletRequest request) {
         //leia requesti järgi social info
         return retreiveSocialAsUser(request)
             .map(socialUser -> {
@@ -349,7 +349,7 @@ public class AccountResource implements EnvironmentAware {
                             })
                             .orElseGet(() -> {
                                 //täiesti uus kasutaja
-                                socialUser.setLangKey(ISO6391.et);
+                                socialUser.setLangKey(ISO6391.valueOf(langKey));
                                 User user = userService.createUserWithExternal(socialUser);
                                 finishExternal(user, request);
                                 return new ResponseEntity<String>(HttpStatus.CREATED);

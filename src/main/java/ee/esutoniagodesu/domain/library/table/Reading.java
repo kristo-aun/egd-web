@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonView;
 import ee.esutoniagodesu.domain.AbstractAuditingEntity;
-import ee.esutoniagodesu.util.lang.ISO6391;
+import ee.esutoniagodesu.util.iso.ISO6391;
 import ee.esutoniagodesu.web.rest.dto.View;
 
 import javax.persistence.*;

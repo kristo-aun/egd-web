@@ -1,7 +1,7 @@
 package ee.esutoniagodesu.domain.ac.table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import ee.esutoniagodesu.util.lang.ISO6391;
+import ee.esutoniagodesu.util.iso.ISO6391;
 import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Email;
 import org.joda.time.DateTime;

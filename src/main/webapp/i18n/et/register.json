@@ -2,6 +2,9 @@
     "register": {
         "title": "Uue konto registreerimine",
         "form": {
+            "signup-using-facebook": "Registreeri kasutajaks Facebooki andmetega",
+            "signup-using-google": "Registreeri kasutajaks Google'i andmetega",
+            "signup-using-twitter": "Registreeri kasutajaks Twitteri andmetega",
             "button": "Registreeri",
             "external": {
                 "confirm": "Liikudes edasi, loob süsteem teile konto."

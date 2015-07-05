@@ -51,6 +51,7 @@ egdApp
         RegisterExternal.get().$promise.then(
             function(data) {
                 $scope.registerAccount = data;
+                $scope.externalProvider = data.accountExternals[0].provider.toLowerCase();
             },
             function() {
                 $state.go("error", {code: 401});

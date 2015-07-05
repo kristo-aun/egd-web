@@ -1,5 +1,10 @@
-package ee.esutoniagodesu.util.lang;
+package ee.esutoniagodesu.util.iso;
 
+/**
+ * ISO 639 is a standardized nomenclature used to classify all known languages.
+ * Each language is assigned a 2-letter (639-1) and 3-letter (639-2 and 639-3),
+ * lowercase abbreviation, amended in later versions of the nomenclature.
+ */
 public enum ISO6391 {
 
     aa("Afar"),
@@ -188,9 +193,16 @@ public enum ISO6391 {
     za("Zhuang; Chuang"),
     zu("Zulu");
 
-    public String language;
+    public final String title;
 
-    ISO6391(String language) {
-        this.language = language;
+    ISO6391(String title) {
+        this.title = title;
+    }
+
+    public static ISO6391 byTitle(String title) {
+        for (ISO6391 p : values()) {
+            if (p.title.equals(title)) return p;
+        }
+        return null;
     }
 }

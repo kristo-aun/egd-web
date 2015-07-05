@@ -1,7 +1,7 @@
 package ee.esutoniagodesu.domain.core.table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import ee.esutoniagodesu.util.lang.ISO6391;
+import ee.esutoniagodesu.util.iso.ISO6391;
 import org.springframework.data.annotation.CreatedBy;
 
 import javax.persistence.*;

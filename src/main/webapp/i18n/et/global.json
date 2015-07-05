@@ -14,7 +14,10 @@
             "confirmpassword": "Parooli kinnitus",
             "email": "E-mail",
             "even": "paaris",
-            "odd": "paaritu"
+            "odd": "paaritu",
+            "fname": "Eesnimi",
+            "sname": "Perekonnanimi",
+            "name": "Nimi"
         },
         "language": {
             "et": "Eesti",

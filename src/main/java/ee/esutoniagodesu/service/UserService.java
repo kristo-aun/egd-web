@@ -9,7 +9,7 @@ import ee.esutoniagodesu.security.AuthoritiesConstants;
 import ee.esutoniagodesu.security.SecurityUtils;
 import ee.esutoniagodesu.util.JCRandom;
 import ee.esutoniagodesu.util.RandomUtil;
-import ee.esutoniagodesu.util.lang.ISO6391;
+import ee.esutoniagodesu.util.iso.ISO6391;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.slf4j.Logger;

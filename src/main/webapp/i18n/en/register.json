@@ -2,6 +2,9 @@
     "register": {
         "title": "Registration",
         "form": {
+            "signup-using-facebook": "Sign up using Facebook",
+            "signup-using-google": "Sign up using Google",
+            "signup-using-twitter": "Sign up using Twitter",
             "button": "Register",
             "external": {
                 "confirm": "You're about to create a new account on <strong>{{appTitle}}</strong> using a login from",

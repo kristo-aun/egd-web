@@ -5,9 +5,6 @@ spring:
     profiles:
         active: prod
 
-    datasource:
-        jndi: java:comp/env/jdbc/egd
-
     mail:
         baseUrl: https://localhost:8443
 
@@ -18,10 +15,5 @@ spring:
 http:
     cache:
         timeToLiveInDays: 31
-
-microsoft:
-    translate-service:
-        id: esutoniagodesu
-        secret: qkAx7U5QVpvDh7kVijUhCkofH7Dd9My4RzlkXPwlM2g
 
 app.security.activation-required: false

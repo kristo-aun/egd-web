@@ -5,9 +5,6 @@ security.basic.enabled: false
 # Disable default favicon
 spring.mvc.favicon.enabled: false
 
-# security configuration (this key should be unique for your application, and kept secret)
-app.security.rememberme.key: 388e8e186183c839451e1df7b0aceb3892fff430
-
 async:
     corePoolSize: 2
     maxPoolSize: 50

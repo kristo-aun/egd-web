@@ -5,6 +5,7 @@
 /src/main/webapp/bower_components
 /src/main/resources/git.properties
 /catalina.base_IS_UNDEFINED
+/src/main/resources/config/secret-*.yml
 
 ######################
 # Node

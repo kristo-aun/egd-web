@@ -69,6 +69,7 @@ public class DatabaseConfiguration implements EnvironmentAware {
             } else {
                 log.info("Initializing PGPoolingDataSource");
                 PGPoolingDataSource source = new PGPoolingDataSource();
+
                 source.setUrl(datasourcePropertyResolver.getProperty("url"));
                 source.setDataSourceName("jdbc/egd");
                 source.setUser(datasourcePropertyResolver.getProperty("username"));

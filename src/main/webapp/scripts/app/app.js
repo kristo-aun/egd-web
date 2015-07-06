@@ -108,6 +108,9 @@ egdApp
         blockUIConfig.cssClass = 'block-ui block-ui-custom-spinner';
         // Change the default delay to 100ms before the blocking is visible
         blockUIConfig.delay = 100;
+
+        // Disable auto body block
+        blockUIConfig.autoInjectBodyBlock = false;
     })
     .config(function(cfpLoadingBarProvider) {//blue ribbon shooting through header during http request
         cfpLoadingBarProvider.includeSpinner = false;

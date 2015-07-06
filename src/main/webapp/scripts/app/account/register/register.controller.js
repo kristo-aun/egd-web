@@ -64,21 +64,24 @@ egdApp
         );
 
         $scope.register = function () {
+            elementToBlock.start();
+
             $scope.registerAccount.langKey = $translate.use();
             $scope.error = null;
             $scope.errorUserExists = null;
             $scope.errorEmailExists = null;
 
             Auth.createAccountFromSocial($scope.registerAccount).then(function () {
-                $scope.success = 'OK';
+                elementToBlock.stop();
+                $state.go("home");
             }).catch(function (response) {
                 $scope.success = null;
                 if (response.status === 400 && response.data === 'login already in use') {
-                    $scope.errorUserExists = 'ERROR';
+                    $scope.errorUserExists = true;
                 } else if (response.status === 400 && response.data === 'e-mail address already in use') {
-                    $scope.errorEmailExists = 'ERROR';
+                    $scope.errorEmailExists = true;
                 } else {
-                    $scope.error = 'ERROR';
+                    $scope.error = true;
                 }
             });
         };

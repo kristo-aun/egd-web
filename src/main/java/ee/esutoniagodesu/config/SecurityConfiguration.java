@@ -153,6 +153,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         "/api/images/*",
         "/api/audio/*",
         "/api/rtk/**",
+        "/auth/**",
         "/api/morphology/**",
         "/api/translator",
         "/api/register",

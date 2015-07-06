@@ -104,30 +104,12 @@ egdApp
             }
         };
     })
-    .config(function(blockUIConfig) {
-
-        var tpl =
-        '<div class="block-ui-container">' +
-            '<div class="block-ui-overlay"></div>' +
-            '<div class="block-ui-message-container" aria-live="assertive" aria-atomic="true">' +
-                '<div class="block-ui-message ng-binding">Loading ...</div>' +
-            '</div>' +
-        '</div>';
-
+    .config(function(blockUIConfig) {//loading spinner configuration
         blockUIConfig.cssClass = 'block-ui block-ui-custom-spinner';
-
-        // Provide a custom template to use
-        //blockUIConfig.template = tpl;
-       // blockUIConfig.template = '<img src="assets/images/loading.gif" alt="Loading..."/>';
-
-        // Change the default overlay message
-        //blockUIConfig.message = 'Loading';
-
         // Change the default delay to 100ms before the blocking is visible
         blockUIConfig.delay = 100;
-
     })
-    .config(function(cfpLoadingBarProvider) {
+    .config(function(cfpLoadingBarProvider) {//blue ribbon shooting through header during http request
         cfpLoadingBarProvider.includeSpinner = false;
     })
     .config(function ($stateProvider, $urlRouterProvider, $httpProvider,

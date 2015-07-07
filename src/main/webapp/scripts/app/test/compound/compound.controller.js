@@ -84,7 +84,7 @@ egdApp
 
         $scope.doSubmit = function() {
             $scope.clearError();
-            var elementToBlock = blockUI.instances.get('register.external');
+            var elementToBlock = blockUI.instances.get('compound.first');
             elementToBlock.start();
             TestCompoundResource.submit($scope.first).then(function (data) {
                 $scope.compounds = data;

@@ -24,6 +24,16 @@
                     "minlength": "Your last name is required to be at least 1 character",
                     "maxlength": "Your last name cannot be longer than 50 characters"
                 }
+            },
+            "info": {
+                "delete": {
+                    "confirm": {
+                        "label": "Account info is going to be removed"
+                    }
+                }
+            },
+            "action": {
+                "deleteAccount": "Delete account"
             }
         }
     }

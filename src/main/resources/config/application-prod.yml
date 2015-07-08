@@ -15,5 +15,3 @@ spring:
 http:
     cache:
         timeToLiveInDays: 31
-
-app.security.activation-required: false

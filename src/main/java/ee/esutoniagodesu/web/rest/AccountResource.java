@@ -1,6 +1,9 @@
 package ee.esutoniagodesu.web.rest;
 
-import ee.esutoniagodesu.domain.ac.table.*;
+import ee.esutoniagodesu.domain.ac.table.PersistentToken;
+import ee.esutoniagodesu.domain.ac.table.User;
+import ee.esutoniagodesu.domain.ac.table.UserAccountExternal;
+import ee.esutoniagodesu.domain.ac.table.UserAccountForm;
 import ee.esutoniagodesu.repository.domain.ac.PersistentTokenRepository;
 import ee.esutoniagodesu.repository.domain.ac.UserRepository;
 import ee.esutoniagodesu.security.SecurityUtils;
@@ -10,15 +13,11 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.bind.RelaxedPropertyResolver;
-import org.springframework.context.EnvironmentAware;
-import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.social.ApiException;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionFactoryLocator;
-import org.springframework.social.connect.UserProfile;
 import org.springframework.social.connect.web.ProviderSignInAttempt;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.WebUtils;
@@ -36,7 +35,7 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/api")
-public class AccountResource implements EnvironmentAware {
+public class AccountResource {
 
     private static final Logger log = LoggerFactory.getLogger(AccountResource.class);
 
@@ -55,17 +54,6 @@ public class AccountResource implements EnvironmentAware {
     @Inject
     private ConnectionFactoryLocator connectionFactoryLocator;
 
-    private RelaxedPropertyResolver appSecurityPropertyResolver;
-
-    @Override
-    public void setEnvironment(Environment env) {
-        this.appSecurityPropertyResolver = new RelaxedPropertyResolver(env, "app.security.");
-    }
-
-    private boolean isActivationRequired() {
-        return Boolean.valueOf(appSecurityPropertyResolver.getProperty("activationRequired"));
-    }
-
     @RequestMapping(value = "/register",
         method = RequestMethod.POST,
         produces = MediaType.TEXT_PLAIN_VALUE)
@@ -78,12 +66,7 @@ public class AccountResource implements EnvironmentAware {
                     .map(user -> new ResponseEntity<>("e-mail address already in use", HttpStatus.BAD_REQUEST))
                     .orElseGet(() -> {
                         User user = userService.createUserWithAccountForm(newUser);
-                        if (isActivationRequired()) {
-                            mailService.sendActivationEmail(user, getBaseUrl(request));
-                        } else {
-                            mailService.sendWelcomeEmail(user, getBaseUrl(request));
-                        }
-
+                        mailService.sendActivationEmail(user, getBaseUrl(request));
                         return new ResponseEntity<>(HttpStatus.CREATED);
                     })
             );
@@ -264,59 +247,16 @@ public class AccountResource implements EnvironmentAware {
 
         log.debug("retrieve social user from request {}", socialUser);
 
-        if (socialUser == null) {
-            // check if the user was successfully authenticated against an external service
-            // but failed to authenticate against this application.
-            ProviderSignInAttempt attempt = (ProviderSignInAttempt) WebUtils.getSessionAttribute(request,
-                ProviderSignInAttempt.SESSION_ATTRIBUTE);
-            Connection<?> con = buildConnection(attempt);
 
-            if (con == null)
-                throw new ApiException(attempt.toString(), "no connection to social api");
-
-            // build a new User from the external provider's version of the User
-            UserProfile profile = con.fetchUserProfile();
-            String firstName = profile.getFirstName();
-            String lastName = profile.getLastName();
-            String email = profile.getEmail();
-
-            // build the UserAccountExternal from the ConnectionKey
-            String externalAccountProviderName = con.getKey().getProviderId();
-            ExternalProvider externalProvider = ExternalProvider.caseInsensitiveValueOf(externalAccountProviderName);
-            String externalUserId = con.getKey().getProviderUserId();
-
-            // check that we got the information we needed
-            if (StringUtils.isBlank(firstName) || StringUtils.isBlank(lastName) || StringUtils.isBlank(email))
-                throw new ApiException(externalAccountProviderName, "provider failed to return required attributes");
-
-            socialUser = new User(firstName, lastName, email, externalProvider, externalUserId);
-
-            // save the new User for later and clean up the HttpSession
-            request.getSession().removeAttribute(ProviderSignInAttempt.SESSION_ATTRIBUTE);
-            request.getSession().setAttribute(EXTERNAL_AUTH_AS_USERDTO_KEY, socialUser);
-
-            log.debug("Retrieved details from {} for user '{}'", externalAccountProviderName, externalUserId);
-        }
         return Optional.of(socialUser);
     }
 
     private void finishExternal(User user, HttpServletRequest request) {
-        if (isActivationRequired()) {
-            mailService.sendActivationEmail(user, getBaseUrl(request));
-        } else {
-            mailService.sendWelcomeEmail(user, getBaseUrl(request));
-        }
-
+        mailService.sendWelcomeEmail(user);
         // cleanup the social stuff that we've been keeping in the session
         request.getSession().removeAttribute(EXTERNAL_AUTH_AS_USERDTO_KEY);
     }
 
-    /**
-     * Kolm varianti
-     * 1) Täiesti uus kasutaja, emailiga kasutajat ei ole, social id on registreerimata. Teha User ja External.
-     * 2) Social providerist saadud emailiga kasutaja on olemas. Lisa External ja seo User-iga.
-     * 3) Social id on juba registreeritud. Ei lase uuesti registreeruda, isegi kui social email ja konto email erinevad.
-     */
     @RequestMapping(value = "/register/external",
         method = RequestMethod.POST,
         produces = MediaType.TEXT_PLAIN_VALUE)

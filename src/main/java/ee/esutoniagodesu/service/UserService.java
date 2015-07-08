@@ -14,9 +14,6 @@ import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.bind.RelaxedPropertyResolver;
-import org.springframework.context.EnvironmentAware;
-import org.springframework.core.env.Environment;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -33,7 +30,7 @@ import java.util.Set;
  */
 @Service
 @Transactional
-public class UserService implements EnvironmentAware {
+public class UserService {
 
     private static final Logger log = LoggerFactory.getLogger(UserService.class);
 
@@ -45,17 +42,6 @@ public class UserService implements EnvironmentAware {
 
     @Inject
     private PersistentTokenRepository persistentTokenRepository;
-
-    private RelaxedPropertyResolver appSecurityPropertyResolver;
-
-    @Override
-    public void setEnvironment(Environment env) {
-        this.appSecurityPropertyResolver = new RelaxedPropertyResolver(env, "app.security.");
-    }
-
-    private boolean isActivationRequired() {
-        return Boolean.valueOf(appSecurityPropertyResolver.getProperty("activationRequired"));
-    }
 
     public Optional<User> activateRegistration(String key) {
         log.debug("Activating user for activation key {}", key);
@@ -105,15 +91,6 @@ public class UserService implements EnvironmentAware {
 
         Set<Authority> roles = new HashSet<>();
 
-        if (isActivationRequired()) {
-            // new user is not active
-            newUser.setActivated(false);
-            // new user gets registration key
-            newUser.setActivationKey(RandomUtil.generateActivationKey());
-        } else {
-            newUser.setActivated(true);
-        }
-
         roles.add(Authority.ROLE_USER);
         newUser.setRoles(roles);
         return newUser;
@@ -130,6 +107,7 @@ public class UserService implements EnvironmentAware {
 
     public User createUserWithExternal(User newUser) {
         newUser = newUser(newUser);
+        newUser.setActivated(true);
 
         UserAccountExternal external = newUser.getAccountExternals().iterator().next();
 
@@ -143,6 +121,12 @@ public class UserService implements EnvironmentAware {
     public User createUserWithAccountForm(User newUser) {
 
         newUser = newUser(newUser);
+
+        // new user is not active
+        newUser.setActivated(false);
+        // new user gets registration key
+        newUser.setActivationKey(RandomUtil.generateActivationKey());
+
         // new user gets initially a generated password
         String encryptedPassword = passwordEncoder.encode(newUser.getAccountForm().getPassword());
         newUser.getAccountForm().setPassword(encryptedPassword);

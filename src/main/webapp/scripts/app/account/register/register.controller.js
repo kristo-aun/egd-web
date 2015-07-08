@@ -19,16 +19,7 @@ egdApp
                 $scope.errorEmailExists = null;
 
                 Auth.createAccount($scope.registerAccount).then(function () {
-                    Auth.login({
-                        username: $scope.registerAccount.accountForm.login,
-                        password: $scope.registerAccount.accountForm.password,
-                        rememberMe: false
-                    }).then(function () {
-                        $rootScope.$broadcast("accountChange");
-                        $state.go('home');
-                    }).catch(function () {
-                        $scope.error = true;
-                    });
+                    $scope.success = true;
                 }).catch(function (response) {
                     $scope.success = null;
                     if (response.status === 400 && response.data === 'login already in use') {

@@ -78,6 +78,7 @@ public class MailService {
         Locale locale = Locale.forLanguageTag(user.getLangKey().name());
         Context context = new Context(locale);
         context.setVariable("user", user);
+        context.setVariable("name", getUserName(user));
         context.setVariable("baseUrl", baseUrl);
         String content = templateEngine.process("activationEmail", context);
         String subject = messageSource.getMessage("email.activation.title", null, locale);
@@ -96,12 +97,11 @@ public class MailService {
     }
 
     @Async
-    public void sendWelcomeEmail(User user, String baseUrl) {
+    public void sendWelcomeEmail(User user) {
         log.debug("Sending welcome e-mail to '{}'", user.getEmail());
         Locale locale = Locale.forLanguageTag(user.getLangKey().name());
         Context context = new Context(locale);
         context.setVariable("name", getUserName(user));
-        context.setVariable("baseUrl", baseUrl);
         String content = templateEngine.process("welcomeEmail", context);
         String subject = messageSource.getMessage("email.welcome.title", null, locale);
         sendEmail(user.getEmail(), subject, content, false, true);

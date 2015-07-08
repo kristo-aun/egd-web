@@ -22,15 +22,16 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("select u from User u left join u.accountForm f where f.resetKey = ?1")
     Optional<User> findOneByResetKey(String resetKey);
 
+    @Query("select u from User u where lower(u.email) = lower(?1)")
     Optional<User> findOneByEmail(String email);
 
-    @Query("select u from User u where u.email= ?1 and u.uuid <> ?2")
+    @Query("select u from User u where lower(u.email) = lower(?1) and u.uuid <> ?2")
     Optional<User> findOneByEmailNotThisUuid(String email, String uuid);
 
     @Query("select u from User u where u.uuid = ?1")
     Optional<User> findOneByUuid(String uuid);
 
-    @Query("select u from User u left join u.accountForm f where f.login = ?1")
+    @Query("select u from User u left join u.accountForm f where lower(f.login) = lower(?1)")
     Optional<User> findOneByLogin(String login);
 
     @Override

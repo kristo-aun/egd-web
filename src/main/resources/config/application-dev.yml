@@ -21,5 +21,3 @@ spring:
     thymeleaf:
         mode: XHTML
         cache: false
-
-app.security.activationRequired: false

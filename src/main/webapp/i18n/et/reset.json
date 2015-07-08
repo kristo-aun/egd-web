@@ -7,9 +7,9 @@
             },
             "messages": {
                 "info": "Sisestage registreermisel kasutatud e-maili aadress",
-                "success": "E-mailile on saadetud kiri lingiga parooli lähtestamisele.",
-                "notfound": "<strong>E-mail ei ole kasutusel!</strong> Kontrollige ja proovige uuesti."
-
+                "success": "E-mailile on saadetud kiri lingiga parooli vahetamisele.",
+                "notfound": "<strong>E-mail ei ole kasutusel!</strong> Kontrollige ja proovige uuesti.",
+                "fail": "<strong>Viga!</strong> Ei saanud taotlust koostada."
             }
         },
         "finish" : {
@@ -21,7 +21,7 @@
                 "info": "Määrake uus parool",
                 "success": "<strong>Parool on vahetatud.</strong> <a href=\"#/login\">Logige sisse</a>.",
                 "keymissing": "Unikaalne võti on puudu.",
-                "error": "Ei saanud parooli vahetada. Parooli saab vahetada 24 tundi peale taotlust."
+                "error": "Ei saanud parooli vahetada. Aegunud võti. Parooli saab vahetada kuni 24 tundi peale taotluse esitamist."
             }
         }
     }

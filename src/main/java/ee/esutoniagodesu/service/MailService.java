@@ -113,6 +113,7 @@ public class MailService {
         Locale locale = Locale.forLanguageTag(user.getLangKey().name());
         Context context = new Context(locale);
         context.setVariable("user", user);
+        context.setVariable("name", getUserName(user));
         context.setVariable("baseUrl", baseUrl);
         String content = templateEngine.process("passwordResetEmail", context);
         String subject = messageSource.getMessage("email.reset.title", null, locale);

@@ -11,6 +11,7 @@
             "index": "Indeks",
             "username": "Kasutajanimi",
             "password": "Parool",
+            "newpassword": "Uus parool",
             "confirmpassword": "Parooli kinnitus",
             "email": "E-mail",
             "even": "paaris",

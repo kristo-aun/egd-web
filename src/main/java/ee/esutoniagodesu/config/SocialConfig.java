@@ -15,6 +15,7 @@ import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.mem.InMemoryUsersConnectionRepository;
 import org.springframework.social.facebook.connect.FacebookConnectionFactory;
 import org.springframework.social.google.connect.GoogleConnectionFactory;
+import org.springframework.social.twitter.connect.TwitterConnectionFactory;
 
 import javax.inject.Inject;
 
@@ -59,7 +60,6 @@ public class SocialConfig implements SocialConfigurer {
             );
         }
 
-        /*
         // twitter configuration
         String twitterClientId = environment.getProperty("spring.social.twitter.consumerKey");
         String twitterClientSecret = environment.getProperty("spring.social.twitter.consumerSecret");

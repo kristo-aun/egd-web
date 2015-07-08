@@ -15,7 +15,8 @@
         },
         "social": {
             "google": "Logi sisse Google'i kontoga",
-            "facebook": "Logi sisse Facebook'i kontoga"
+            "facebook": "Logi sisse Facebooki kontoga",
+            "twitter": "Logi sisse Twitteri kontoga"
         }
     }
 }

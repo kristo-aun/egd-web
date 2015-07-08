@@ -9,13 +9,3 @@ async:
     corePoolSize: 2
     maxPoolSize: 50
     queueCapacity: 10000
-
-mail:
-    host: localhost
-    port: 25
-    username:
-    password:
-    protocol: smtp
-    tls: false
-    auth: false
-    from: egd@localhost

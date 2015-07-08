@@ -17,7 +17,8 @@
         },
         "social": {
             "google": "Sign in with Google",
-            "facebook": "Sign in with Facebook"
+            "facebook": "Sign in with Facebook",
+            "twitter": "Sign in with Twitter"
         }
     }
 }

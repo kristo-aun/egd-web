@@ -84,12 +84,23 @@ public class MailService {
         sendEmail(user.getEmail(), subject, content, false, true);
     }
 
+    private static String getUserName(User user) {
+        StringBuilder result = new StringBuilder();
+
+        if (user.getFirstName() != null) result.append(user.getFirstName());
+        if (user.getLastName() != null) result.append(" ").append(user.getLastName());
+
+        if (result.length() < 1) result.append(user.getAccountForm().getLogin());
+
+        return result.toString();
+    }
+
     @Async
     public void sendWelcomeEmail(User user, String baseUrl) {
         log.debug("Sending welcome e-mail to '{}'", user.getEmail());
         Locale locale = Locale.forLanguageTag(user.getLangKey().name());
         Context context = new Context(locale);
-        context.setVariable("user", user);
+        context.setVariable("name", getUserName(user));
         context.setVariable("baseUrl", baseUrl);
         String content = templateEngine.process("welcomeEmail", context);
         String subject = messageSource.getMessage("email.welcome.title", null, locale);

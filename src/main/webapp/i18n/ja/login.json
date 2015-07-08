@@ -16,7 +16,8 @@
         },
         "social": {
             "google": "Googleでログイン",
-            "facebook": "Facebookでログイン"
+            "facebook": "Facebookでログイン",
+            "twitter": "Twitterでログイン"
         }
     }
 }

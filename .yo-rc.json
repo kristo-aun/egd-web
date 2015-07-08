@@ -3,18 +3,19 @@
     "baseName": "egd",
     "packageName": "ee.esutoniagodesu",
     "packageFolder": "ee/esutoniagodesu",
-    "authenticationType": "oauth2",
+    "authenticationType": "session",
     "hibernateCache": "no",
     "clusteredHttpSession": "no",
     "websocket": "no",
     "databaseType": "sql",
-    "devDatabaseType": "postgresql",
+    "devDatabaseType": "h2Memory",
     "prodDatabaseType": "postgresql",
     "searchEngine": "no",
     "useCompass": false,
     "buildTool": "maven",
     "frontendBuilder": "grunt",
     "javaVersion": "8",
-    "rememberMeKey": "7eeb6f5b26972c2440ea9b7131d4997cc86bfe37"
+    "enableTranslation": true,
+    "rememberMeKey": "2e6069c348af69733f80061552abb3e588a11a5c"
   }
 }

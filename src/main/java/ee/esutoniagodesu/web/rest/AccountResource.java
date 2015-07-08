@@ -2,7 +2,6 @@ package ee.esutoniagodesu.web.rest;
 
 import ee.esutoniagodesu.domain.ac.table.PersistentToken;
 import ee.esutoniagodesu.domain.ac.table.User;
-import ee.esutoniagodesu.domain.ac.table.UserAccountExternal;
 import ee.esutoniagodesu.domain.ac.table.UserAccountForm;
 import ee.esutoniagodesu.repository.domain.ac.PersistentTokenRepository;
 import ee.esutoniagodesu.repository.domain.ac.UserRepository;
@@ -12,15 +11,10 @@ import ee.esutoniagodesu.service.UserService;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.bind.RelaxedPropertyResolver;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.social.connect.Connection;
-import org.springframework.social.connect.ConnectionFactoryLocator;
-import org.springframework.social.connect.web.ProviderSignInAttempt;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.WebUtils;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -50,9 +44,6 @@ public class AccountResource {
 
     @Inject
     private MailService mailService;
-
-    @Inject
-    private ConnectionFactoryLocator connectionFactoryLocator;
 
     @RequestMapping(value = "/register",
         method = RequestMethod.POST,
@@ -199,117 +190,14 @@ public class AccountResource {
             return new ResponseEntity<>("Incorrect password", HttpStatus.BAD_REQUEST);
         }
         return userService.completePasswordReset(newPassword, key)
-            .map(user -> new ResponseEntity<String>(HttpStatus.OK)).orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
+            .map(user -> new ResponseEntity<String>(HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
     }
 
     private boolean checkPasswordLength(String password) {
         return (!StringUtils.isEmpty(password) &&
             password.length() >= UserAccountForm.PASSWORD_MIN_LENGTH &&
             password.length() <= UserAccountForm.PASSWORD_MAX_LENGTH);
-    }
-
-
-    private final static String EXTERNAL_AUTH_AS_USERDTO_KEY = "AccountResource.signInAsUser";
-
-    /**
-     * Build a new Connection to a social provider using the information from a previous
-     * sign in.
-     *
-     * @param attempt a possibly null ProviderSignInAttempt
-     * @return null a valid Connection or null if attempt was null or a Connection could not be established
-     */
-    private Connection<?> buildConnection(ProviderSignInAttempt attempt) {
-        if (attempt == null) return null;
-
-        Connection<?> connection = attempt.getConnection(connectionFactoryLocator);
-
-        if (!connection.test()) {
-            log.warn("Social connection to {} for user '{}' failed", connection.getKey().getProviderId(),
-                connection.getKey().getProviderUserId());
-            return null;
-        }
-        return connection;
-    }
-
-    /**
-     * Retrieve a previous external social authentication attempt as a User.
-     *
-     * @param request a non-null request
-     * @return a User with the firstName, lastName, email, and externalAccount details set or null if
-     * there was no previous social authentication attempt or the details of the social authentication
-     * could not be retrieved.
-     * @throws org.springframework.social.ApiException when the social API does not return the required attributes (name, email)
-     * @see org.springframework.social.connect.web.ProviderSignInAttempt
-     * @see org.springframework.social.security.SocialAuthenticationFilter#addSignInAttempt(javax.servlet.http.HttpSession, org.springframework.social.connect.Connection) SocialAuthenticationFilter#addSignInAttempt
-     */
-    private Optional<User> retreiveSocialAsUser(HttpServletRequest request) {
-        User socialUser = (User) WebUtils.getSessionAttribute(request, EXTERNAL_AUTH_AS_USERDTO_KEY);
-
-        log.debug("retrieve social user from request {}", socialUser);
-
-
-        return Optional.of(socialUser);
-    }
-
-    private void finishExternal(User user, HttpServletRequest request) {
-        mailService.sendWelcomeEmail(user);
-        // cleanup the social stuff that we've been keeping in the session
-        request.getSession().removeAttribute(EXTERNAL_AUTH_AS_USERDTO_KEY);
-    }
-
-    @RequestMapping(value = "/register/external",
-        method = RequestMethod.POST,
-        produces = MediaType.TEXT_PLAIN_VALUE)
-    public ResponseEntity<String> registerExternal(@RequestBody User postedUser, HttpServletRequest request) {
-        //leia requesti järgi social info
-        return retreiveSocialAsUser(request)
-            .map(socialUser -> {
-                UserAccountExternal socialAccount = socialUser.getAccountExternals().iterator().next();
-
-                return userRepository.findOneByExternalAccount(socialAccount.getProvider(), socialAccount.getIdentifier())
-                    //kui Social id on juba registreeritud, siis ei lase uuesti registreerida
-                    .map(userWithSameExternal -> new ResponseEntity<String>("The external login is already linked to another User",
-                        HttpStatus.BAD_REQUEST))
-                    .orElseGet(() -> userRepository.findOneByEmail(socialUser.getEmail())
-                            .map(user -> {
-                                //kasutajal ei tohi olla sama external provideri juures teise id'ga kontot.
-                                for (UserAccountExternal p : user.getAccountExternals()) {
-                                    if (p.getProvider().equals(socialAccount.getProvider())) {
-                                        return new ResponseEntity<String>(
-                                            "There is another external login associated with this e-mail",
-                                            HttpStatus.BAD_REQUEST);
-                                    }
-                                }
-
-                                userService.addExternalToUser(user, socialAccount);
-                                finishExternal(user, request);
-
-                                return new ResponseEntity<String>(HttpStatus.CREATED);
-                            })
-                            .orElseGet(() -> {
-                                //täiesti uus kasutaja
-                                socialUser.setLangKey(postedUser.getLangKey());
-                                User user = userService.createUserWithExternal(socialUser);
-                                finishExternal(user, request);
-                                return new ResponseEntity<String>(HttpStatus.CREATED);
-                            })
-                    );
-            })
-            .orElse(new ResponseEntity<String>("could not retreive social account data", HttpStatus.INTERNAL_SERVER_ERROR));
-    }
-
-    /**
-     * GET details of an ongoing registration
-     *
-     * @return 200 OK or 404 if there is no ongoing registration
-     */
-    @RequestMapping(value = "/register/external",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> getRegisterAccount(HttpServletRequest request) {
-        return retreiveSocialAsUser(request)
-            .map(user -> new ResponseEntity<>(user, HttpStatus.OK))
-            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     private String getBaseUrl(HttpServletRequest request) {
@@ -319,7 +207,6 @@ public class AccountResource {
             ":" +                                  // ":"
             request.getServerPort();
     }
-
 
     @RequestMapping(value = "/account",
         method = RequestMethod.DELETE,

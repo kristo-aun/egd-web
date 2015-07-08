@@ -58,13 +58,13 @@
     <properties>
         <tomcat.maven.deploy.url>http://192.168.72.100:8080/manager/text</tomcat.maven.deploy.url>
 
-        <assertj-core.version>1.0.0m1</assertj-core.version>
+        <assertj-core.version>3.1.0</assertj-core.version>
         <awaitility.version>1.4.0</awaitility.version>
         <com.google.guava>18.0</com.google.guava>
         <com.kawao.kakasi>0.4.0</com.kawao.kakasi>
         <commons-io.version>2.4</commons-io.version>
         <commons-lang.version>2.6</commons-lang.version>
-        <gatling-maven-plugin.version>2.1.5</gatling-maven-plugin.version>
+        <gatling-maven-plugin.version>2.1.6</gatling-maven-plugin.version>
         <gatling.version>2.1.5</gatling.version>
 
         <genericdao.version>1.2.0</genericdao.version>
@@ -90,7 +90,7 @@
         <run.addResources>false</run.addResources>
         <sonar-maven-plugin.version>2.3</sonar-maven-plugin.version>
         <spring-security.version>4.0.1.RELEASE</spring-security.version>
-        <usertype-core.version>3.2.0.GA</usertype-core.version>
+        <usertype-core.version>4.0.0.GA</usertype-core.version>
     </properties>
 
     <dependencies>

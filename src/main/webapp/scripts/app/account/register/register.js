@@ -22,7 +22,7 @@ egdApp
                         return $translate.refresh();
                     }]
                 }
-            }).state('register.external', {
+            }).state('registerExternal', {
                 parent: 'account',
                 url: '/register/external',
                 data: {

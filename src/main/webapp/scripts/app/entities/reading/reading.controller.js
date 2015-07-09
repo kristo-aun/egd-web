@@ -3,7 +3,6 @@
 egdApp
     .controller('ReadingController', function ($scope, $state, $log, ReadingResource, ParseLinks, Principal) {
         $scope.isAuthenticated = Principal.isAuthenticated;
-        $scope.isInRole = Principal.isInRole;
 
         $scope.readings = [];
 
@@ -25,6 +24,6 @@ egdApp
         $scope.loadAll();
 
         $scope.isReadingEditAllowed = function (reading) {
-            return $scope.isAuthenticated() && ($scope.isInRole('ROLE_ADMIN') || Principal.equals(reading.createdBy));
+            return $scope.isAuthenticated() && (Principal.isInRole('ROLE_ADMIN') || Principal.equals(reading.createdBy));
         };
     });

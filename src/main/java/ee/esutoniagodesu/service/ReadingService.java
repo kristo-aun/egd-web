@@ -56,15 +56,15 @@ public class ReadingService {
      * Administraatoril on lubatud kõiki muuta.
      */
     @PreAuthorize("hasPermission(#reading.id, 'ee.esutoniagodesu.domain.library.table.Reading', 'reading_update')")
-    public void update(Reading reading) {
+    public Reading update(Reading reading) {
         log.debug("update: reading=" + reading);
-        dao.save(reading);
+        return dao.save(reading);
     }
 
     @PreAuthorize("hasPermission(#reading, 'reading_create')")
-    public void create(Reading reading) {
+    public Reading create(Reading reading) {
         log.debug("create: reading=" + reading);
-        dao.save(reading);
+        return dao.save(reading);
     }
 
     private String uuid() {

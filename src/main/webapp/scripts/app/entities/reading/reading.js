@@ -45,29 +45,6 @@ egdApp
                     }]
                 }
             })
-            .state('reading.new', {
-                parent: 'reading',
-                url: '/new',
-                data: {
-                    roles: ['ROLE_USER'],
-                    pageTitle: 'reading.new.title'
-                },
-                views: {
-                    'content@': {
-                        templateUrl: 'scripts/app/entities/reading/reading.edit.html',
-                        controller: 'ReadingEditController'
-                    }
-                },
-                resolve: {
-                    translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                        $translatePartialLoader.addPart('reading');
-                        return $translate.refresh();
-                    }],
-                    entity: ['$translate', function ($translate) {
-                        return {"bodyLang": "ja", "transcriptLang": $translate.use()};
-                    }]
-                }
-            })
             .state('reading.edit', {
                 parent: 'reading',
                 url: '/{id}/edit',
@@ -84,9 +61,6 @@ egdApp
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                         $translatePartialLoader.addPart('reading');
                         return $translate.refresh();
-                    }],
-                    entity: ['$stateParams', 'ReadingResource', function ($stateParams, ReadingResource) {
-                        return ReadingResource.get({id: $stateParams.id});
                     }]
                 }
             });

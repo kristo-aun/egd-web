@@ -31,23 +31,22 @@ public class ReadingResource {
     @RequestMapping(value = "",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> create(@Valid @RequestBody Reading entity) throws URISyntaxException {
+    public ResponseEntity<Reading> create(@Valid @RequestBody Reading entity) throws URISyntaxException {
         if (entity.getId() != null) {
-            return ResponseEntity.badRequest().header("Failure", "A new article cannot already have an ID").build();
+            return ResponseEntity.badRequest().header("Failure", "A new article cannot already have an ID").body(null);
         }
-        service.create(entity);
-        return ResponseEntity.created(new URI(BASE_URL + "/" + entity.getId())).build();
+        Reading result = service.create(entity);
+        return ResponseEntity.created(new URI("/api/mouses/" + result.getId())).body(result);
     }
 
     @RequestMapping(value = "",
         method = RequestMethod.PUT,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Void> update(@Valid @RequestBody Reading entity) throws URISyntaxException {
+    public ResponseEntity<Reading> update(@Valid @RequestBody Reading entity) throws URISyntaxException {
         if (entity.getId() == null) {
             return create(entity);
         }
-        service.update(entity);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(service.update(entity));
     }
 
     @JsonView(View.Basic.class)

@@ -6,6 +6,12 @@ egdApp
             _authenticated = false;
 
         return {
+            equals: function(uuid) {
+                if (!_authenticated || !_identity || !_identity.uuid) {
+                    return false;
+                }
+                return _identity.uuid === uuid;
+            },
             isIdentityResolved: function () {
                 return angular.isDefined(_identity);
             },

@@ -84,6 +84,14 @@ egdApp
                 $state.go($rootScope.previousStateName, $rootScope.previousStateParams);
             }
         };
+
+        $rootScope.emit = function (eventname, data) {
+            $rootScope.$emit('egdApp:' + eventname, data);
+        };
+
+        $rootScope.setStateParams = function(params) {
+            $state.transitionTo($state.current.name, params, {notify: false});
+        };
     })
     .factory('authExpiredInterceptor', function ($rootScope, $q, $injector, localStorageService) {
         return {

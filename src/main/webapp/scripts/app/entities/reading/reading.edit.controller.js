@@ -1,29 +1,38 @@
 'use strict';
 
 egdApp
-    .controller('ReadingEditController', function ($scope, $rootScope, $stateParams, $log, entity, ReadingResource) {
-        $scope.reading = entity;
+    .controller('ReadingEditController', function ($scope, $rootScope, $state, $stateParams, $translate, $log, ReadingResource) {
         $scope.languages = ["ja", "et", "en"];
 
         $scope.load = function (id) {
-            ReadingResource.get({id: id}, function(data) {
-                $scope.reading = data;
-            });
+            if (id > 0) {
+                ReadingResource.get({id: id}, function(data) {
+                    $scope.reading = data;
+                });
+            } else {
+                $scope.reading = {"bodyLang": "ja", "transcriptLang": $translate.use()};
+            }
+        };
+        $scope.load($stateParams.id);
+
+        var setSuccess = function() {
+            delete $scope.error;
+            $scope.success = true;
         };
 
-        var onSaveFinished = function (result) {
-            $scope.$emit('egdApp:readingSaved', result);
+        var setError = function() {
+            delete $scope.success;
+            $scope.error = true;
         };
 
         var save = function(resourceFunction) {
-            delete $scope.success;
-            delete $scope.error;
-
-            resourceFunction($scope.reading, function(result) {
-                $scope.success = true;
-                onSaveFinished(result);
+            resourceFunction($scope.reading, function(data) {
+                $scope.reading = data;
+                setSuccess();
+                $rootScope.setStateParams({id: data.id});
+                $scope.emit("readingSaved", data);
             }, function() {
-                $scope.error = true;
+                setError();
             });
         };
 
@@ -34,6 +43,4 @@ egdApp
                 save(ReadingResource.save);
             }
         };
-
-
     });

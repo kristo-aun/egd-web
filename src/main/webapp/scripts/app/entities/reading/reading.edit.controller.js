@@ -1,7 +1,7 @@
 'use strict';
 
 egdApp
-    .controller('ReadingDetailController', function ($window, $rootScope, $scope, $stateParams, $interval, $timeout, $log, Principal, ReadingResource) {
+    .controller('ReadingEditController', function ($window, $rootScope, $scope, $stateParams, $interval, $timeout, $log, Principal, ReadingResource) {
         $scope.reading = {};
         $scope.load = function (id) {
 

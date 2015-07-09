@@ -20,7 +20,6 @@ import java.util.Set;
 @Table(schema = "ac", name = "user")
 public class User implements Serializable {
 
-    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

@@ -1,7 +1,7 @@
 'use strict';
 
 egdApp
-    .factory('Auth', function Auth($rootScope, $state, $q, $translate, Principal, AuthServerProvider, Account, Register, RegisterExternal, Activate, Password, PasswordResetInit, PasswordResetFinish) {
+    .factory('Auth', function Auth($rootScope, $state, $q, $translate, Principal, AuthServerProvider, Account, Register, Activate, Password, PasswordResetInit, PasswordResetFinish) {
         return {
             deleteAccount: function () {
                 var deferred = $q.defer();
@@ -12,17 +12,6 @@ egdApp
                         deferred.resolve();
                     });
                 return deferred.promise;
-            },
-            createAccountFromSocial: function (account, callback) {
-                var cb = callback || angular.noop;
-                return RegisterExternal.save(account,
-                    function () {
-                        return cb(account);
-                    },
-                    function (err) {
-                        this.logout();
-                        return cb(err);
-                    }.bind(this)).$promise;
             },
             login: function (credentials, callback) {
                 var cb = callback || angular.noop;
@@ -58,9 +47,7 @@ egdApp
                     .then(function() {
                         var isAuthenticated = Principal.isAuthenticated();
 
-                        if ($rootScope.toState.data.roles &&
-                            $rootScope.toState.data.roles.length > 0 &&
-                            !Principal.isInAnyRole($rootScope.toState.data.roles)) {
+                        if ($rootScope.toState.data.roles && $rootScope.toState.data.roles.length > 0 && !Principal.isInAnyRole($rootScope.toState.data.roles)) {
                             if (isAuthenticated) {
                                 // user is signed in but not authorized for desired state
                                 $state.go('accessdenied');

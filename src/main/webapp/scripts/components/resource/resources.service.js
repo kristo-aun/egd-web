@@ -92,17 +92,30 @@ egdApp
             }
         }
     })
-    .factory('ReadingResource', function ($resource) {
+    .factory('ReadingResource', function ($resource, Moment) {
         return $resource('api/readings/:id', {}, {
             'query': { method: 'GET', isArray: true},
             'get': {
                 method: 'GET',
                 transformResponse: function (data) {
                     data = angular.fromJson(data);
+                    //data.birthday = DateUtils.convertLocaleDateFromServer(data.birthday);
+                    //data.lastLogin = DateUtils.convertDateTimeFromServer(data.lastLogin);
                     return data;
                 }
             },
-            'update': { method:'PUT' }
+            'update': {
+                method: 'PUT',
+                transformRequest: function (data) {
+                    return angular.toJson(data);
+                }
+            },
+            'save': {
+                method: 'POST',
+                transformRequest: function (data) {
+                    return angular.toJson(data);
+                }
+            }
         });
     })
     .factory('TofuResource', function ($resource) {

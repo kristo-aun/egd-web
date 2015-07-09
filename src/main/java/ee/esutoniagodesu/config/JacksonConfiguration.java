@@ -4,9 +4,11 @@ import com.fasterxml.jackson.datatype.joda.JodaModule;
 import ee.esutoniagodesu.util.json.CustomDateTimeConverter;
 import ee.esutoniagodesu.util.json.CustomLocalDateConverter;
 import ee.esutoniagodesu.util.json.CustomLocalDateTimeConverter;
+import ee.esutoniagodesu.util.json.CustomLocalTimeConverter;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
+import org.joda.time.LocalTime;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -28,6 +30,10 @@ public class JacksonConfiguration {
         //kuupäev ilma ajavööndita
         module.addSerializer(LocalDate.class, new CustomLocalDateConverter.Serializer());
         module.addDeserializer(LocalDate.class, new CustomLocalDateConverter.Deserializer());
+
+        //kellaaeg ilma ajavööndita
+        module.addSerializer(LocalTime.class, new CustomLocalTimeConverter.Serializer());
+        module.addDeserializer(LocalTime.class, new CustomLocalTimeConverter.Deserializer());
 
         return module;
     }

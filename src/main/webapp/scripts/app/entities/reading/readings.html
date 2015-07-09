@@ -1,6 +1,6 @@
 <div>
-    <button ng-if="!isAnonymous()" class="btn btn-primary" ng-click="create()">
-        <span class="glyphicon glyphicon-flash"></span>
+    <button ng-if="isAuthenticated()" class="btn btn-primary btn-sm" ui-sref="reading.new">
+        <span class="fa fa-plus"></span>
         {{'global.messages.action.create' | translate}}
     </button>
 
@@ -19,28 +19,20 @@
             </thead>
             <tbody>
             <tr ng-repeat="reading in readings">
-                <td><a ui-sref="readingDetail({id:reading.id})">{{reading.title}}</a></td>
+                <td><a ui-sref="reading.view({id:reading.id})">{{reading.title}}</a></td>
                 <td>{{reading.author}}</td>
                 <td>{{'global.language.' + reading.bodyLang | translate}}</td>
                 <td>{{'global.language.' + reading.transcriptLang | translate}}</td>
                 <td>{{reading.tags | arrayToString}}</td>
 
                 <td style="text-align: right;">
-                    <button ng-if="isReadingUpdateAllowed(reading)"
-                            ng-click="open(reading.id)"
+                    <button ng-if="isReadingEditAllowed(reading)"
+                            ui-sref="reading.edit({id:reading.id})"
                             class="btn btn-default">
                         <span class="glyphicon glyphicon-pencil"></span>
                         {{'global.messages.action.edit' | translate}}
                     </button>
-                    <button ng-if="isReadingDeleteAllowed(reading)"
-                            ng-really-message="{{'grid.confirm' | translate}}"
-                            ng-really-click="delete(reading.id)"
-                            class="btn btn-danger">
-                        <span class="glyphicon glyphicon-remove-circle"></span>
-                        {{'global.messages.action.delete' | translate}}
-                    </button>
-                    <button ng-if="isAnonymous()"
-                            ng-click="open(reading.id)"
+                    <button ui-sref="reading.view({id:reading.id})"
                             class="btn btn-default">
                         <span class="glyphicon glyphicon-pencil"></span>
                         {{'global.messages.action.open' | translate}}

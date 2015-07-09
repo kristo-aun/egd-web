@@ -23,23 +23,70 @@ egdApp
                     }]
                 }
             })
-            .state('reading.detail', {
+            .state('reading.view', {
                 parent: 'reading',
-                url: '/reading/:id',
+                url: '/{id}',
                 data: {
-                    roles: [],
-                    pageTitle: 'reading.detail.title'
+                    roles: []
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/entities/reading/reading.detail.html',
-                        controller: 'ReadingDetailController'
+                        templateUrl: 'scripts/app/entities/reading/reading.view.html',
+                        controller: 'ReadingViewController'
                     }
                 },
                 resolve: {
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                         $translatePartialLoader.addPart('reading');
                         return $translate.refresh();
+                    }],
+                    entity: ['$stateParams', 'ReadingResource', function($stateParams, ReadingResource) {
+                        return ReadingResource.get({id : $stateParams.id});
+                    }]
+                }
+            })
+            .state('reading.new', {
+                parent: 'reading',
+                url: '/new',
+                data: {
+                    roles: ['ROLE_USER'],
+                    pageTitle: 'reading.new.title'
+                },
+                views: {
+                    'content@': {
+                        templateUrl: 'scripts/app/entities/reading/reading.edit.html',
+                        controller: 'ReadingEditController'
+                    }
+                },
+                resolve: {
+                    translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                        $translatePartialLoader.addPart('reading');
+                        return $translate.refresh();
+                    }],
+                    entity: [function() {
+                        return {name: null, bio: null, birthday: null, lastLogin: null, age: null, speed: null, id: null};
+                    }]
+                }
+            })
+            .state('reading.edit', {
+                parent: 'reading',
+                url: '/{id}/edit',
+                data: {
+                    roles: ['ROLE_USER']
+                },
+                views: {
+                    'content@': {
+                        templateUrl: 'scripts/app/entities/reading/reading.edit.html',
+                        controller: 'ReadingEditController'
+                    }
+                },
+                resolve: {
+                    translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                        $translatePartialLoader.addPart('reading');
+                        return $translate.refresh();
+                    }],
+                    entity: ['$stateParams', 'ReadingResource', function($stateParams, ReadingResource) {
+                        return ReadingResource.get({id : $stateParams.id});
                     }]
                 }
             });

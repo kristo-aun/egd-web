@@ -1,53 +1,53 @@
 <nav ng-show="!hide" class="row">
     <ul class="pagination" style="float: left;margin-bottom: 0;margin-right:10px;margin-top: 4px;">
         <!-- first -->
-        <li ng-if="links['first'] == page" class="disabled">
+        <li ng-show="links['first'] == page" class="disabled">
             <a href="javascript:void(0)">&lt;&lt;</a>
         </li>
-        <li ng-if="links['first'] != page">
+        <li ng-show="links['first'] != page">
             <a ng-click="loadPage(links['first'], limit)">&lt;&lt;</a>
         </li>
         <!-- prev -->
-        <li ng-if="links['first'] == page" class="disabled">
+        <li ng-show="links['first'] == page" class="disabled">
             <a href="javascript:void(0)">&lt;</a>
         </li>
-        <li ng-if="links['first'] != page">
+        <li ng-show="links['first'] != page">
             <a ng-click="loadPage(links['prev'], limit)">&lt;</a>
         </li>
 
         <!-- first + n -->
         <li ng-repeat="a in range(firstcount) track by $index"><a ng-click="loadPage($index + 1, limit)">
             {{$index + 1}}</a></li>
-        <li class="disabled" ng-if="showfirstpause"><a href="javascript:void(0)">...</a></li>
+        <li class="disabled" ng-show="showfirstpause"><a href="javascript:void(0)">...</a></li>
 
         <!-- current - n -->
-        <li ng-if="prevcount > 0" ng-repeat="a in range(prevcount) track by $index"><a
+        <li ng-show="prevcount > 0" ng-repeat="a in range(prevcount) track by $index"><a
             ng-click="loadPage(page - prevcount + $index, limit)" ng-cloak>{{page - prevcount + $index}}</a></li>
 
         <li class="active"><a>{{page}}</a></li>
 
         <!-- current + n -->
-        <li ng-if="nextcount > 0" ng-repeat="a in range(nextcount) track by $index"
+        <li ng-show="nextcount > 0" ng-repeat="a in range(nextcount) track by $index"
             ng-click="loadPage(page + $index + 1, limit)"><a>{{page + $index + 1}}</a></li>
 
         <!-- last - n -->
-        <li class="disabled" ng-if="showlastpause"><a href="javascript:void(0)">...</a></li>
+        <li class="disabled" ng-show="showlastpause"><a href="javascript:void(0)">...</a></li>
         <li ng-repeat="a in range(lastcount) track by $index"><a
             ng-click="loadPage(links['last'] - lastcount + $index + 1, limit)">
             {{links['last'] - lastcount + $index + 1}}</a></li>
 
         <!-- next -->
-        <li ng-show="links['last']" ng-if="links['last'] == page" class="disabled">
+        <li ng-show="links['last']" ng-show="links['last'] == page" class="disabled">
             <a href="javascript:void(0)">&gt;</a>
         </li>
-        <li ng-show="links['last']" ng-if="links['last'] != page">
+        <li ng-show="links['last']" ng-show="links['last'] != page">
             <a ng-click="loadPage(links['next'], limit)">&gt;</a>
         </li>
         <!-- last -->
-        <li ng-show="links['last']" ng-if="links['last'] == page" class="disabled">
+        <li ng-show="links['last']" ng-show="links['last'] == page" class="disabled">
             <a href="javascript:void(0)">&gt;&gt;</a>
         </li>
-        <li ng-show="links['last']" ng-if="links['last'] != page">
+        <li ng-show="links['last']" ng-show="links['last'] != page">
             <a ng-click="loadPage(links['last'], limit)">&gt;&gt;</a>
         </li>
 

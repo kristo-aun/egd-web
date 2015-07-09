@@ -1,8 +1,18 @@
 {
     "reading": {
-        "title": "Lugemisharjutused",
         "home": {
+            "title": "Lugemisharjutused",
             "createLabel": "Lisa uus"
+        },
+
+        "view": {
+
+        },
+        "edit": {
+
+        },
+        "new": {
+
         },
 
         "grid": {

@@ -58,7 +58,7 @@
     <properties>
         <tomcat.maven.deploy.url>http://192.168.72.100:8080/manager/text</tomcat.maven.deploy.url>
 
-        <assertj-core.version>3.1.0</assertj-core.version>
+        <assertj-core.version>1.0.0m1</assertj-core.version>
         <awaitility.version>1.4.0</awaitility.version>
         <com.google.guava>18.0</com.google.guava>
         <com.kawao.kakasi>0.4.0</com.kawao.kakasi>
@@ -94,7 +94,6 @@
     </properties>
 
     <dependencies>
-
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-hibernate4</artifactId>

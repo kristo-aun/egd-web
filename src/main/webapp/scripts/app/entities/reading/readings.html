@@ -21,8 +21,8 @@
             <tr ng-repeat="reading in readings">
                 <td><a ui-sref="reading.view({id:reading.id})">{{reading.title}}</a></td>
                 <td>{{reading.author}}</td>
-                <td>{{'global.language.' + reading.bodyLang | translate}}</td>
-                <td>{{'global.language.' + reading.transcriptLang | translate}}</td>
+                <td>{{'language.' + reading.bodyLang | translate}}</td>
+                <td>{{'language.' + reading.transcriptLang | translate}}</td>
                 <td>{{reading.tags | arrayToString}}</td>
 
                 <td style="text-align: right;">

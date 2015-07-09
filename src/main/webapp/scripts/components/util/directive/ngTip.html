@@ -1,18 +1,18 @@
-<a href="javascript:void(0)" class="tip" >
+<a href="javascript:void(0)" class="tip">
     <span ng-if="template"
           tooltip-template="template"
           tooltip-trigger="click"
           tooltip-placement="{{placement}}">
         <span class="glyphicon glyphicon-question-sign"></span>
     </span>
-    <span ng-if="!template && tip"
-          tooltip="{{tip}}"
+    <span ng-if="!template && i18n"
+          tooltip="{{i18n | translate}}"
           tooltip-trigger="click"
           tooltip-animation="false"
           tooltip-placement="{{placement}}">
         <span class="glyphicon glyphicon-question-sign"></span>
     </span>
-    <span ng-if="!template && !tip && translated"
+    <span ng-if="!template && !i18n && translated"
           tooltip="{{translated}}"
           tooltip-trigger="click"
           tooltip-animation="false"

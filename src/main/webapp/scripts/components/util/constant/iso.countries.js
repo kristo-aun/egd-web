@@ -48,7 +48,7 @@ egdApp
         "cr",
         "dj",
         "dm",
-        "do",
+        "DO",
         "nq",
         "dd",
         "ec",

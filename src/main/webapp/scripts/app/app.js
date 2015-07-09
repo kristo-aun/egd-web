@@ -158,12 +158,12 @@ egdApp
                 ],
                 translatePartialLoader: ['$translate', '$translatePartialLoader',
                     function ($translate, $translatePartialLoader) {
-
-                    $translatePartialLoader.addPart('global');
-                    $translatePartialLoader.addPart('navbar');
-                    $translatePartialLoader.addPart('ontology');
-                    $translatePartialLoader.addPart('tip');
-                }]
+                        $translatePartialLoader.addPart('global');
+                        $translatePartialLoader.addPart('navbar');
+                        $translatePartialLoader.addPart('ontology');
+                        $translatePartialLoader.addPart('language');
+                        $translatePartialLoader.addPart('tip');
+                    }]
             }
         });
 

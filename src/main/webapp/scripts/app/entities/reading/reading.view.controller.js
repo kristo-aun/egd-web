@@ -8,7 +8,7 @@ egdApp
                 $scope.reading = data;
             });
         };
-        $rootScope.$on('egdApp:readingEdited', function(event, data) {
+        $rootScope.$on('egdApp:readingSaved', function(event, data) {
             $scope.reading = data;
         });
     });

@@ -213,8 +213,8 @@ egdApp
     .directive('ngTip', function ($translate) {
         return {
             scope: {
-                tip: '@?',
-                tiptranslate: '@?',
+                translated: '=?',
+                i18n: '=?',
                 template: '=?',
                 placement: '@?'
             },
@@ -223,8 +223,8 @@ egdApp
                 if (!scope.placement) {
                     scope.placement="right";
                 }
-                if (scope.tiptranslate) {
-                    $translate(scope.tiptranslate).then(function (data) {
+                if (scope.i18n) {
+                    $translate(scope.i18n).then(function (data) {
                         scope.translated = data;
                     });
                 }

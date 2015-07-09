@@ -55,9 +55,15 @@ public class ReadingService {
      * Lubatud on muuta ainult enda loodud artikleid.
      * Administraatoril on lubatud kõiki muuta.
      */
-    @PreAuthorize("hasPermission(#reading, 'reading_update')")
-    public void save(Reading reading) {
-        log.debug("save: reading=" + reading);
+    @PreAuthorize("hasPermission(#reading.id, 'ee.esutoniagodesu.domain.library.table.Reading', 'reading_update')")
+    public void update(Reading reading) {
+        log.debug("update: reading=" + reading);
+        dao.save(reading);
+    }
+
+    @PreAuthorize("hasPermission(#reading, 'reading_create')")
+    public void create(Reading reading) {
+        log.debug("create: reading=" + reading);
         dao.save(reading);
     }
 

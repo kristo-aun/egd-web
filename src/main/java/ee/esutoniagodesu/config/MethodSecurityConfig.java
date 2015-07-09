@@ -1,8 +1,10 @@
 package ee.esutoniagodesu.config;
 
 import ee.esutoniagodesu.security.AuthoritiesConstants;
+import ee.esutoniagodesu.security.permission.CustomPermissionEvaluator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
 import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
@@ -30,15 +32,15 @@ public class MethodSecurityConfig extends GlobalMethodSecurityConfiguration {
         return rhi;
     }
 
-    // @Bean
-    // public PermissionEvaluator permissionEvaluator() {
-    // return new CustomPermissionEvaluator();
-    // }
+    @Bean
+    public PermissionEvaluator permissionEvaluator() {
+        return new CustomPermissionEvaluator();
+    }
 
     @Override
     protected MethodSecurityExpressionHandler createExpressionHandler() {
         DefaultMethodSecurityExpressionHandler expressionHandler = new DefaultMethodSecurityExpressionHandler();
-        // expressionHandler.setPermissionEvaluator(permissionEvaluator());
+        expressionHandler.setPermissionEvaluator(permissionEvaluator());
         expressionHandler.setRoleHierarchy(roleHierarchy());
         return expressionHandler;
     }

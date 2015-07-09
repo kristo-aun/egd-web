@@ -16,6 +16,18 @@
 }
 
 
+.inline-group > label {
+    float: left;
+    width: 25% !important;
+    text-align: right;
+    padding-right: 10px;
+    margin: 5px 0 5px 0;
+}
+.inline-group > .form-control, .inline-group > .inline-group-control {
+    width: 75% !important;
+    margin: 0;
+}
+
 div.footer {
     text-align: center;
     margin-bottom: 10px;

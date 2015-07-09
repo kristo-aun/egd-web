@@ -1,6 +1,7 @@
 package ee.esutoniagodesu.util.iso;
 
 /**
+ * Languages
  * ISO 639 is a standardized nomenclature used to classify all known languages.
  * Each language is assigned a 2-letter (639-1) and 3-letter (639-2 and 639-3),
  * lowercase abbreviation, amended in later versions of the nomenclature.

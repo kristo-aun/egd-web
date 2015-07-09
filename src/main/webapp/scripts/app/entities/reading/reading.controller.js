@@ -24,7 +24,6 @@ egdApp
         };
         $scope.loadAll();
 
-
         $scope.isReadingEditAllowed = function (reading) {
             return $scope.isAuthenticated() && ($scope.isInRole('ROLE_ADMIN') || Principal.equals(reading.createdBy));
         };

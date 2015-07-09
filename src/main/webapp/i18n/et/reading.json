@@ -18,12 +18,21 @@
         "grid": {
             "author": "Autor",
             "copyright": "Autoriõigused",
+            "copyright.tip": "Pikkus kuni 160 tähte.",
             "title": "Pealkiri",
             "transcriptLang": "Tõlke keel",
             "created": "Loodud",
             "lastModified": "Viimati muudetud",
             "bodyLang": "Keel",
-            "tags": "Tagid"
+            "tags": "Tagid",
+            "body": "Tekst",
+            "body.tip": "Tekst",
+            "transcript": "Tõlge",
+            "transcript.tip": "Tõlge",
+            "shared": "Avalik",
+            "shared.tip": "Kui linnuke on peal, siis on nähtav kõigile, ka sisse logimata kasutajatele. Ainult teie ja administraator saavad muuta.",
+            "summary": "Lühikokkuvõte",
+            "summary.tip": "Pikkus kuni 160 tähte. Soovitavalt tõlkega samas keeles. Näidatakse lugude nimekirjas. Kui kokkuvõte on tühi, siis näidatakse nimekirjas teksti esimesed 160 tähte."
         }
     }
 }

@@ -17,7 +17,6 @@ public enum Permission {
 
     //ainult enda oma on lubatud uuendada
     reading_update((object) -> {
-        SecurityUtils.isUserInRole(AuthoritiesConstants.SENSEI);
         Reading reading = (Reading) object;
         return reading.isCreatedBy(SecurityUtils.getUserUuid());
     }),

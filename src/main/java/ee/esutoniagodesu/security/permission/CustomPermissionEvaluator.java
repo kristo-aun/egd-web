@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import javax.inject.Inject;
 import java.io.Serializable;
 
-@Component
 public class CustomPermissionEvaluator implements PermissionEvaluator {
 
     private static final Logger log = LoggerFactory.getLogger(CustomPermissionEvaluator.class);
@@ -35,7 +34,7 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
 
     @Override
     public boolean hasPermission(Authentication authentication, Serializable targetId, String targetType, Object permission) {
-        log.debug("hasPermission: {}, {}, {}", targetId, targetType, permission);
+        log.debug("hasPermission (resolve): {}, {}, {}", targetId, targetType, permission);
         Object entity;
         try {
             entity = dao.find(Class.forName(targetType), targetId);

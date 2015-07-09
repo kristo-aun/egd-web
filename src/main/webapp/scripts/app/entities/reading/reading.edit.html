@@ -1,24 +1,203 @@
-<form ng-if="reading" name="form" role="form" novalidate
-      class="ng-scope ng-invalid ng-invalid-required ng-dirty ng-valid-minlength"
-      ng-submit="save()">
+<form ng-submit="submit()" name="form" role="form" novalidate show-validation>
+
+    <div class="col-lg-12">
+        <ng-message-success show="success" i18n="'global.messages.success.saved'"></ng-message-success>
+        <ng-message-danger show="error" i18n="'global.messages.error.saveError'"></ng-message-danger>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="form-group inline-group">
+                <label translate="reading.grid.title"></label>
+                <input type="text"
+                       name="title"
+                       class="form-control"
+                       ng-model="reading.title"
+                       ng-minlength=1
+                       ng-maxlength=100
+                       maxlength="100"
+                       required/>
+                <div ng-show="form.title.$dirty && form.title.$invalid">
+                    <p class="help-block"
+                       ng-show="form.title.$error.required"
+                       translate="global.messages.validate.required"></p>
+                    <p class="help-block"
+                       ng-show="form.title.$error.maxlength"
+                       translate-values="{max: 100}"
+                       translate="global.messages.validate.maxlength"></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="form-group inline-group">
+                <label translate="reading.grid.author"></label>
+                <input type="text"
+                       name="author"
+                       class="form-control"
+                       ng-model="reading.author"
+                       ng-minlength=1
+                       ng-maxlength=100
+                       maxlength="100"
+                       required/>
+                <div ng-show="form.author.$dirty && form.author.$invalid">
+                    <p class="help-block"
+                       ng-show="form.author.$error.required"
+                       translate="global.messages.validate.required"></p>
+                    <p class="help-block"
+                       ng-show="form.author.$error.maxlength"
+                       translate-values="{max: 100}"
+                       translate="global.messages.validate.maxlength"></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="form-group inline-group">
+                <label>
+                    <span translate="reading.grid.copyright"></span>
+                    <ng-tip i18n="'reading.grid.copyright.tip'" placement="bottom"></ng-tip>
+                </label>
+                <textarea class="form-control"
+                          name="copyright"
+                          ng-model="reading.copyright"
+                          ng-maxlength=160
+                          maxlength="160"></textarea>
+                <div ng-show="form.copyright.$dirty && form.copyright.$invalid">
+                   <p class="help-block"
+                       ng-show="form.copyright.$error.maxlength"
+                       translate-values="{max: 160}"
+                       translate="global.messages.validate.maxlength"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="form-group inline-group">
+                <label>
+                    <span translate="reading.grid.shared"></span>
+                    <ng-tip i18n="'reading.grid.shared.tip'" placement="right"></ng-tip>
+                </label>
+                <div class="inline-group-control">
+                    <input type="checkbox" ng-model="reading.shared" style="vertical-align: middle;"/>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-lg-offset-4">
+            <div class="form-group inline-group">
+                <label>
+                    <label translate="reading.grid.summary"></label>
+                    <ng-tip i18n="'reading.grid.summary.tip'" placement="bottom"></ng-tip>
+                </label>
+                <textarea class="form-control"
+                          name="summary"
+                          ng-model="reading.summary"
+                          ng-maxlength=160
+                          maxlength="160"></textarea>
+                <div ng-show="form.summary.$dirty && form.summary.$invalid">
+                    <p class="help-block"
+                       ng-show="form.summary.$error.maxlength"
+                       translate-values="{max: 160}"
+                       translate="global.messages.validate.maxlength"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-5 text-center">
+            <h4>
+                <span translate="reading.grid.body"></span>
+                <ng-tip i18n="'reading.grid.body.tip'" placement="top"></ng-tip>
+            </h4>
+        </div>
+        <div class="col-lg-1">
+            <div class="form-group">
+                <select ng-model="reading.bodyLang"
+                        name="bodyLang"
+                        class="form-control"
+                        ng-options="item as ('language.' + item | translate) for item in languages"
+                        required>
+                    <option value=""></option>
+                </select>
+                <div ng-show="form.bodyLang.$dirty && form.bodyLang.$invalid">
+                    <p class="help-block"
+                       ng-show="form.bodyLang.$error.required"
+                       translate="global.messages.validate.required"></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5 text-center">
+            <h4>
+                <span translate="reading.grid.transcript"></span>
+                <ng-tip i18n="'reading.grid.transcript.tip'" placement="top"></ng-tip>
+            </h4>
+        </div>
+        <div class="col-lg-1">
+            <div class="form-group">
+                <select ng-model="reading.transcriptLang"
+                        name="transcriptLang"
+                        class="form-control"
+                        ng-options="item as ('language.' + item | translate) for item in languages"
+                        required>
+                    <option value=""></option>
+                </select>
+                <div ng-show="form.transcriptLang.$dirty && form.transcriptLang.$invalid">
+                    <p class="help-block"
+                       ng-show="form.transcriptLang.$error.required"
+                       translate="global.messages.validate.required"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="form-group">
+                <textarea class="form-control"
+                          name="body"
+                          auto-grow
+                          required
+                          ng-model="reading.body"></textarea>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                <textarea class="form-control"
+                          name="transcript"
+                          auto-grow
+                          required
+                          ng-model="reading.transcript"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <button type="button"
+                ui-sref="reading"
+                class="btn btn-default">
+            <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;
+            {{'global.messages.action.back' | translate}}
+        </button>
+        <button type="submit" ng-disabled="form.$invalid" class="btn btn-success">
+            <span class="fa fa-save"></span>
+            {{'global.messages.action.save' | translate}}
+        </button>
+    </div>
+</form>
+
+
+<!--
+<form name="form" role="form" novalidate ng-submit="save()" show-validation>
+
+
 
     <div class="modal-body">
         <div id="readingModalReading" class="form-inline">
             <div class="row">
                 <div class="form-group">
-                    <label translate="reading.grid.title"></label>
-                    <input ng-if="!isAnonymous()"
-                           type="text"
-                           class="form-control"
-                           ng-model="reading.title">
-                    <span ng-if="isAnonymous()">{{reading.title}}</span>
+
                 </div>
                 <div class="form-group">
-                    <label translate="reading.grid.author"></label>
-                    <input ng-if="!isAnonymous()" type="text" class="form-control" ng-model="reading.author">
-                    <span ng-if="isAnonymous()">{{reading.author}}</span>
+
                 </div>
-                <div ng-if="!isAnonymous()" class="form-group">
+                <div class="form-group">
                     <label translate="reading.grid.transcriptLang"></label>
                     <select class="form-control" ng-model="reading.transcriptLang">
                         <option value="et">{{'language.et' | translate}}</option>
@@ -26,19 +205,12 @@
                     </select>
                 </div>
             </div>
-            <div ng-if="!isAnonymous() || reading.copyright" class="row" style="margin-top:10px;">
-                <div class="form-group" style="width:100%">
-                    <label translate="reading.grid.copyright"></label>
-                    <textarea ng-if="!isAnonymous()" class="form-control" style="width: 50%;"
-                              ng-model="reading.copyright"></textarea>
-                    <span ng-if="isAnonymous()">{{reading.copyright}}</span>
+            <div class="row">
+                <div class="form-group">
+
                 </div>
             </div>
         </div>
-
-        <!--
-        <div ng-if="gridOptions" id="grid1" ui-grid="gridOptions" class="grid" ui-grid-edit ui-grid-cellNav class="grid"></div>
-        -->
 
         <div class="table-responsive" id="readingModalParagraphs">
             <table class="table table-striped">
@@ -68,34 +240,7 @@
 
     </div>
     <div class="modal-footer">
-        <button type="submit"
-                ui-sref="reading"
-                class="btn btn-info">
-            <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;
-            {{'global.messages.action.back' | translate}}
-        </button>
 
-        <button ng-if="!isAnonymous()" type="submit" ng-disabled="form.$invalid" class="btn btn-primary">
-            <span class="glyphicon glyphicon-save"></span>
-            {{'global.messages.action.save' | translate}}
-        </button>
     </div>
 </form>
-
-
-<style>
-    div#readingModalParagraphs {
-        font-size: 1.5em;
-    }
-    div#readingModalReading div.form-group label {
-        width:100px;
-        text-align: right;
-        margin-right: 5px;
-    }
-    div#readingModalReading div.form-group input {
-        width:300px;
-    }
-    div#readingModalParagraphs {
-        margin-top:10px;
-    }
-</style>
+-->

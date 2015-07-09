@@ -17,11 +17,6 @@
             "even": "Even",
             "odd": "Odd"
         },
-        "language": {
-            "et": "Estonian",
-            "en": "English",
-            "ja": "Japanese"
-        },
         "messages": {
             "action": {
                 "refresh": "Refresh",

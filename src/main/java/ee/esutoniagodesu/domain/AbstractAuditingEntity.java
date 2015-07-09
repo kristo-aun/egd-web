@@ -1,5 +1,8 @@
 package ee.esutoniagodesu.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import ee.esutoniagodesu.web.rest.dto.View;
 import org.hibernate.annotations.Type;
 import org.hibernate.envers.Audited;
 import org.joda.time.DateTime;
@@ -13,7 +16,6 @@ import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
-import javax.validation.constraints.NotNull;
 
 /**
  * Base abstract class for entities which will hold definitions for created, last modified by and created,
@@ -24,25 +26,27 @@ import javax.validation.constraints.NotNull;
 @EntityListeners(AuditingEntityListener.class)
 public abstract class AbstractAuditingEntity {
 
+    @JsonIgnore
     @CreatedBy
-    @NotNull
-    @Column(name = "created_by")
+    @Column(name = "created_by", updatable = false, nullable = false)
     protected String createdBy;
 
+    @JsonView(View.Basic.class)
     @CreatedDate
-    @NotNull
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @Column(name = "created_date", nullable = false)
     protected DateTime createdDate = DateTime.now();
 
+    @JsonIgnore
     @LastModifiedBy
     @Column(name = "last_modified_by")
     protected String lastModifiedBy;
 
+    @JsonView(View.Detailed.class)
     @LastModifiedDate
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @Column(name = "last_modified_date")
-    protected DateTime lastModifiedDate = DateTime.now();
+    protected DateTime lastModifiedDate;
 
     @Transient
     public boolean isCreatedBy(String userId) {

@@ -20,11 +20,6 @@
             "sname": "Perekonnanimi",
             "name": "Nimi"
         },
-        "language": {
-            "et": "Eesti",
-            "en": "Inglise",
-            "ja": "Jaapani"
-        },
         "messages": {
             "action": {
                 "generate": "Genereeri",
@@ -49,11 +44,16 @@
             },
             "error": {
                 "fail": "Toiming ebaõnnestus!",
+                "saveError": "<strong>Viga!</strong> Ei saanud salvestada.",
                 "deleteError": "Kustutamine ebaõnnestus!",
                 "dontmatch": "Parool ja kinnitus ei kattu."
             },
             "warn": {
                 "notfound": "Ei leitud"
+            },
+            "success": {
+                "saved": "Salvestatud!",
+                "deleted": "Kustutatud!"
             },
             "info": {
                 "register": "<a href=\"#/register\">Registreeri konto</a>"

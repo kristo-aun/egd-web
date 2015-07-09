@@ -35,7 +35,7 @@ public class ReadingResource {
         if (entity.getId() != null) {
             return ResponseEntity.badRequest().header("Failure", "A new article cannot already have an ID").build();
         }
-        service.save(entity);
+        service.create(entity);
         return ResponseEntity.created(new URI(BASE_URL + "/" + entity.getId())).build();
     }
 
@@ -46,7 +46,7 @@ public class ReadingResource {
         if (entity.getId() == null) {
             return create(entity);
         }
-        service.save(entity);
+        service.update(entity);
         return ResponseEntity.ok().build();
     }
 

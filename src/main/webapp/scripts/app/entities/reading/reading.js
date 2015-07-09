@@ -40,8 +40,8 @@ egdApp
                         $translatePartialLoader.addPart('reading');
                         return $translate.refresh();
                     }],
-                    entity: ['$stateParams', 'ReadingResource', function($stateParams, ReadingResource) {
-                        return ReadingResource.get({id : $stateParams.id});
+                    entity: ['$stateParams', 'ReadingResource', function ($stateParams, ReadingResource) {
+                        return ReadingResource.get({id: $stateParams.id});
                     }]
                 }
             })
@@ -63,8 +63,8 @@ egdApp
                         $translatePartialLoader.addPart('reading');
                         return $translate.refresh();
                     }],
-                    entity: [function() {
-                        return {name: null, bio: null, birthday: null, lastLogin: null, age: null, speed: null, id: null};
+                    entity: ['$translate', function ($translate) {
+                        return {"bodyLang": "ja", "transcriptLang": $translate.use()};
                     }]
                 }
             })
@@ -85,8 +85,8 @@ egdApp
                         $translatePartialLoader.addPart('reading');
                         return $translate.refresh();
                     }],
-                    entity: ['$stateParams', 'ReadingResource', function($stateParams, ReadingResource) {
-                        return ReadingResource.get({id : $stateParams.id});
+                    entity: ['$stateParams', 'ReadingResource', function ($stateParams, ReadingResource) {
+                        return ReadingResource.get({id: $stateParams.id});
                     }]
                 }
             });

@@ -1,10 +1,21 @@
 <form ng-submit="submit()" name="form" role="form" novalidate show-validation>
 
-    <div class="col-lg-12">
-        <ng-message-success show="success" i18n="'global.messages.success.saved'"></ng-message-success>
-        <ng-message-danger show="error" i18n="'global.messages.error.saveError'"></ng-message-danger>
+    <div class="row">
+        <div class="col-lg-4" ng-switch="reading.id > 0">
+            <h4 ng-switch-when="true" translate="reading.edit.title"></h4>
+            <h4 ng-switch-when="false" translate="reading.new.title"></h4>
+        </div>
+        <div class="col-lg-4">
+            <ng-message-success show="success" i18n="'global.messages.success.saved'"></ng-message-success>
+            <ng-message-danger show="error" i18n="'global.messages.error.saveError'"></ng-message-danger>
+        </div>
+        <div class="col-lg-4 text-right">
+            <button type="button" class="btn btn-danger"
+                    ng-click="deleteReadingConfirm()"
+                    translate="global.messages.action.delete">
+            </button>
+        </div>
     </div>
-
     <div class="row">
         <div class="col-lg-4">
             <div class="form-group inline-group">

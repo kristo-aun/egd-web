@@ -9,10 +9,16 @@
 
         },
         "edit": {
-
+            "title": "Loo muutmine"
         },
         "new": {
             "title": "Uus lugu"
+        },
+
+        "confirm": {
+            "delete": {
+                "label": "Olete kindel?"
+            }
         },
 
         "grid": {

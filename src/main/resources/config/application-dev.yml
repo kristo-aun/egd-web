@@ -21,3 +21,5 @@ spring:
     thymeleaf:
         mode: XHTML
         cache: false
+
+app.files.path: /home/scylla/egd-files/

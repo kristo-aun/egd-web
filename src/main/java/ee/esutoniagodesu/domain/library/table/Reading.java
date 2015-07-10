@@ -60,6 +60,10 @@ public class Reading extends AbstractAuditingEntity implements Serializable {
     @Column(name = "shared")
     private boolean shared;
 
+    @JsonView(View.Detailed.class)
+    @Column(name = "audio_sha")
+    private String audioSha;
+
     @JsonView(View.Basic.class)
     @ElementCollection
     @CollectionTable(schema = "library",
@@ -154,6 +158,14 @@ public class Reading extends AbstractAuditingEntity implements Serializable {
 
     public void setTags(List<String> tags) {
         this.tags = tags;
+    }
+
+    public String getAudioSha() {
+        return audioSha;
+    }
+
+    public void setAudioSha(String audioSha) {
+        this.audioSha = audioSha;
     }
 
     public boolean equals(Object o) {

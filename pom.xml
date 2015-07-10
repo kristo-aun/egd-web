@@ -383,10 +383,12 @@
             <id>codelds</id>
             <url>https://code.lds.org/nexus/content/groups/main-repo</url>
         </repository>
+        <!--
         <repository>
             <id>Atilika Open Source repository</id>
             <url>http://www.atilika.org/nexus/content/repositories/atilika</url>
         </repository>
+        -->
     </repositories>
     <build>
         <resources>
@@ -482,7 +484,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <argLine>-Xmx256m</argLine>
+                    <argLine>-Xms1024m -Xmx2048m</argLine>
                     <!-- Force alphabetical order to have a reproducible build -->
                     <runOrder>alphabetical</runOrder>
                 </configuration>

@@ -22,8 +22,8 @@ public class IntegrationServerConfiguration implements EnvironmentAware {
     }
 
     public void microsoftTranslate() {
-        String clientId = microsoftTranslatePropertyResolver.getProperty("id");
-        String clientSecret = microsoftTranslatePropertyResolver.getProperty("secret");
+        String clientId = microsoftTranslatePropertyResolver.getProperty("app-id");
+        String clientSecret = microsoftTranslatePropertyResolver.getProperty("app-secret");
 
         log.info("MicrosoftTranslateService.init: {} {}", clientId, clientSecret);
 

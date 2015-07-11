@@ -32,23 +32,20 @@ egdApp
             $scope.error = true;
         };
 
-        var save = function (resourceFunction) {
-            resourceFunction($scope.reading, function (data) {
-                $scope.reading = data;
-                setSuccess();
-                $rootScope.setStateParams({id: data.id});
-                $scope.emit("readingSaved", data);
-            }, function () {
-                setError();
-            });
+        $scope.removeFile = function() {
+            $('input#readingAudioFile').val("");
+            delete $scope.audioFile;
         };
 
         $scope.submit = function () {
-            if ($scope.reading.id != null) {
-                save(ReadingResource.update);
-            } else {
-                save(ReadingResource.save);
-            }
+            ReadingResource.save($scope.reading, $scope.audioFile).then(function (result) {
+                $scope.reading = result.data;
+                setSuccess();
+                $rootScope.setStateParams({id: $scope.reading.id});
+                $scope.emit("readingSaved", $scope.reading);
+            }, function () {
+                setError();
+            });
         };
 
         $scope.deleteReading = function () {

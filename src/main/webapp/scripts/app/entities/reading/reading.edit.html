@@ -93,7 +93,22 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 col-lg-offset-4">
+        <div class="col-lg-4">
+            <div class="form-group inline-group">
+                <label>
+                    <span translate="reading.grid.audio"></span>
+                    <ng-tip i18n="'reading.grid.audio.tip'" placement="top"></ng-tip>
+                </label>
+                <div class="inline-group-control" style="padding-top:4px;">
+                    <input id="readingAudioFile" type="file" file-model="audioFile" />
+                    <button ng-show="audioFile" type="button" class="btn btn-danger btn-xs" ng-click="removeFile()">
+                        <span class="glyphicon glyphicon-trash"></span>
+                        <span translate="global.messages.action.remove"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
             <div class="form-group inline-group">
                 <label>
                     <label translate="reading.grid.summary"></label>

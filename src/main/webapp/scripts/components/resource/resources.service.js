@@ -64,7 +64,7 @@ egdApp
             }
         };
     })
-    .factory('TranslatorResource', function ($http, $log) {
+    .factory('TranslatorResource', function ($http) {
         return {
             translate: function (from, to, string) {
                 var context = "api/translator/" + from + "/" + to + "/" + string;
@@ -92,31 +92,33 @@ egdApp
             }
         }
     })
-    .factory('ReadingResource', function ($resource, Moment) {
-        return $resource('api/readings/:id', {}, {
+    .factory('ReadingResource', function ($resource, $http, Moment) {
+        var BASE_URL = 'api/readings';
+        var result = $resource(BASE_URL + '/:id', {}, {
             'query': { method: 'GET', isArray: true},
             'get': {
                 method: 'GET',
                 transformResponse: function (data) {
                     data = angular.fromJson(data);
-                    //data.birthday = DateUtils.convertLocaleDateFromServer(data.birthday);
-                    //data.lastLogin = DateUtils.convertDateTimeFromServer(data.lastLogin);
+                    if (data.createdDate)
+                        data.createdDate = Moment.deserializeDateTime(data.createdDate);
+                    if (data.lastModifiedDate)
+                        data.lastModifiedDate = Moment.deserializeDateTime(data.lastModifiedDate);
                     return data;
-                }
-            },
-            'update': {
-                method: 'PUT',
-                transformRequest: function (data) {
-                    return angular.toJson(data);
-                }
-            },
-            'save': {
-                method: 'POST',
-                transformRequest: function (data) {
-                    return angular.toJson(data);
                 }
             }
         });
+        delete result.save;
+        result.save = function (reading, file) {
+            var fd = new FormData();
+            fd.append('files', file);
+            fd.append('json', angular.toJson(reading));
+            return $http.post('api/readings', fd, {
+                transformRequest: angular.identity,
+                headers: {"Content-Type": undefined}
+            });
+        };
+        return result;
     })
     .factory('TofuResource', function ($resource) {
         return $resource('api/tofus/:id', {}, {

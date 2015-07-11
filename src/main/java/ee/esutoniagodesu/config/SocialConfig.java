@@ -13,9 +13,6 @@ import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.ConnectionSignUp;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.mem.InMemoryUsersConnectionRepository;
-import org.springframework.social.facebook.connect.FacebookConnectionFactory;
-import org.springframework.social.google.connect.GoogleConnectionFactory;
-import org.springframework.social.twitter.connect.TwitterConnectionFactory;
 
 import javax.inject.Inject;
 
@@ -34,45 +31,7 @@ public class SocialConfig implements SocialConfigurer {
 
     @Override
     public void addConnectionFactories(ConnectionFactoryConfigurer connectionFactoryConfigurer, Environment environment) {
-        // google configuration
-        String googleClientId = environment.getProperty("spring.social.google.clientId");
-        String googleClientSecret = environment.getProperty("spring.social.google.clientSecret");
-        if (googleClientId != null && googleClientSecret != null) {
-            log.debug("Configuring GoogleConnectionFactory");
-            connectionFactoryConfigurer.addConnectionFactory(
-                new GoogleConnectionFactory(
-                    googleClientId,
-                    googleClientSecret
-                )
-            );
-        }
-
-        // facebook configuration
-        String facebookClientId = environment.getProperty("spring.social.facebook.clientId");
-        String facebookClientSecret = environment.getProperty("spring.social.facebook.clientSecret");
-        if (facebookClientId != null && facebookClientSecret != null) {
-            log.debug("Configuring FacebookConnectionFactory");
-            connectionFactoryConfigurer.addConnectionFactory(
-                new FacebookConnectionFactory(
-                    facebookClientId,
-                    facebookClientSecret
-                )
-            );
-        }
-
-        // twitter configuration
-        String twitterClientId = environment.getProperty("spring.social.twitter.consumerKey");
-        String twitterClientSecret = environment.getProperty("spring.social.twitter.consumerSecret");
-        if (twitterClientId != null && twitterClientSecret != null) {
-            log.debug("Configuring FacebookConnectionFactory");
-            connectionFactoryConfigurer.addConnectionFactory(
-                new TwitterConnectionFactory(
-                    twitterClientId,
-                    twitterClientSecret
-                )
-            );
-        }
-        //*/
+        //spring boot has taken care of that already
     }
 
     @Override

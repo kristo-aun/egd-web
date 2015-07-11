@@ -4,7 +4,7 @@ egdApp
     .factory('Moment', function ($translate, $log, FORMAT_DATE_TIME, FORMAT_LOCAL_DATE_TIME, FORMAT_LOCAL_DATE) {
         return {
             deserialize: function(string, format) {
-                return moment(string, format);
+                return string ? moment(string, format) : undefined;
             },
             deserializeDateTime: function (input) {
                 return this.deserialize(input, FORMAT_DATE_TIME);

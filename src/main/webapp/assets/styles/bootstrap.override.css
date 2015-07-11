@@ -28,6 +28,15 @@
     margin: 0;
 }
 
+.inline-group > .inline-group-control {
+    width: 75% !important;
+    margin-left: 25%;
+}
+
+.inline-group > .inline-group-control > input {
+    float:left;
+}
+
 div.footer {
     text-align: center;
     margin-bottom: 10px;

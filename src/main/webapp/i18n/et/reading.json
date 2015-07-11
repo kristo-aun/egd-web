@@ -30,6 +30,8 @@
             "created": "Loodud",
             "lastModified": "Viimati muudetud",
             "bodyLang": "Keel",
+            "audio": "Audio",
+            "audio.tip": "Uus audio",
             "tags": "Tagid",
             "body": "Tekst",
             "body.tip": "Tekst",

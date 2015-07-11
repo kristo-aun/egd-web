@@ -10,10 +10,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.inject.Inject;
-import javax.validation.Valid;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -28,24 +30,32 @@ public class ReadingResource {
     @Inject
     private ReadingService service;
 
-    @RequestMapping(value = "",
-        method = RequestMethod.POST,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Reading> create(@Valid @RequestBody Reading entity) throws URISyntaxException {
+    @Inject
+    private MappingJackson2HttpMessageConverter mapper;
+
+    private Reading resolve(String reading, MultipartFile[] files) throws IOException {
+        MultipartFile file = files.length > 0 ? files[0] : null;
+        Reading entity = mapper.getObjectMapper().readValue(reading, Reading.class);
+        entity.setAudioFile(file);
+        return entity;
+    }
+
+    private ResponseEntity<Reading> create(Reading entity) throws URISyntaxException, IOException {
         if (entity.getId() != null) {
-            return ResponseEntity.badRequest().header("Failure", "A new article cannot already have an ID").body(null);
+            return ResponseEntity.badRequest().header("Failure", "A new entity cannot already have an ID").body(null);
         }
         Reading result = service.create(entity);
-        return ResponseEntity.created(new URI("/api/mouses/" + result.getId())).body(result);
+        return ResponseEntity.created(new URI(BASE_URL + "/" + result.getId())).body(result);
     }
 
     @RequestMapping(value = "",
-        method = RequestMethod.PUT,
+        method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Reading> update(@Valid @RequestBody Reading entity) throws URISyntaxException {
-        if (entity.getId() == null) {
-            return create(entity);
-        }
+    public ResponseEntity<Reading> update(@RequestParam("json") String json,
+                                          @RequestPart("files") MultipartFile[] files) throws URISyntaxException, IOException {
+
+        Reading entity = resolve(json, files);
+        if (entity.getId() == null) return create(entity);
         return ResponseEntity.ok().body(service.update(entity));
     }
 

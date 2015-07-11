@@ -1,11 +1,13 @@
 package ee.esutoniagodesu.domain.library.table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonView;
 import ee.esutoniagodesu.domain.AbstractAuditingEntity;
 import ee.esutoniagodesu.util.iso.ISO6391;
 import ee.esutoniagodesu.web.rest.dto.View;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -71,6 +73,18 @@ public class Reading extends AbstractAuditingEntity implements Serializable {
         joinColumns = @JoinColumn(name = "reading_id", referencedColumnName = "id"))
     @Column(name = "tag")
     private List<String> tags;
+
+    @JsonIgnore
+    @Transient
+    private MultipartFile audioFile;
+
+    public MultipartFile getAudioFile() {
+        return audioFile;
+    }
+
+    public void setAudioFile(MultipartFile audioFile) {
+        this.audioFile = audioFile;
+    }
 
     public Integer getId() {
         return id;

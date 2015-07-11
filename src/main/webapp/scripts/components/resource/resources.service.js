@@ -92,7 +92,7 @@ egdApp
             }
         }
     })
-    .factory('ReadingResource', function ($resource, $http, Moment) {
+    .factory('ReadingResource', function ($resource, $http, $q, $log, Moment) {
         var BASE_URL = 'api/readings';
         var result = $resource(BASE_URL + '/:id', {}, {
             'query': { method: 'GET', isArray: true},
@@ -109,15 +109,51 @@ egdApp
             }
         });
         delete result.save;
-        result.save = function (reading, file) {
-            var fd = new FormData();
-            fd.append('file', file);
-            fd.append('json', angular.toJson(reading));
-            return $http.post('api/readings', fd, {
+        var save = function (reading, file) {
+            var data = new FormData();
+            data.append('file', file);
+            data.append('json', angular.toJson(reading));
+
+            var req = {
+                method: 'POST',
+                url: 'api/readings',
+                headers: {
+                    'Content-Type': undefined
+                },
                 transformRequest: angular.identity,
-                headers: {"Content-Type": undefined}
-            });
+                data: data
+            };
+            return $http(req);
         };
+
+        var post = function(reading, file) {
+            $log.debug("customSave");
+            var deferred = $q.defer();
+
+            var data = new FormData();
+            data.append('file', file);
+            data.append('json', angular.toJson(reading));
+
+            $.ajax({
+                url: 'api/readings',
+                type: "POST",
+                data: data,
+                headers: {"Content-Type": undefined},
+                processData: false,
+                contentType: false,
+                cache: false,
+                success: function (result) {
+                    deferred.resolve(result);
+                },
+                error: function (e) {
+                    deferred.reject(e);
+                }
+            });
+            return deferred.promise;
+        };
+
+        result.save = save;
+
         return result;
     })
     .factory('TofuResource', function ($resource) {

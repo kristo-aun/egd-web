@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.io.IOException;
 
 /**
  * Lugemisharjutused. Artiklite moodulis saab hallata täispikki Jaapanikeelseid algtekste.
@@ -43,6 +44,9 @@ public class ReadingService {
     @Inject
     private KuromojiService kuromojiService;
 
+    @Inject
+    private SHAFileService shaFileService;
+
     //------------------------------ artiklite vaade ------------------------------
 
     /**
@@ -56,14 +60,23 @@ public class ReadingService {
      * Administraatoril on lubatud kõiki muuta.
      */
     @PreAuthorize("hasPermission(#reading.id, 'ee.esutoniagodesu.domain.library.table.Reading', 'reading_update')")
-    public Reading update(Reading reading) {
+    public Reading update(Reading reading) throws IOException {
         log.debug("update: reading=" + reading);
-        return dao.save(reading);
+        return save(reading);
     }
 
     @PreAuthorize("hasPermission(#reading, 'reading_create')")
-    public Reading create(Reading reading) {
+    public Reading create(Reading reading) throws IOException {
         log.debug("create: reading=" + reading);
+        return save(reading);
+    }
+
+    private Reading save(Reading reading) throws IOException {
+        if (reading.getAudioFile() != null) {
+            log.debug("save to shafs {}", reading.getAudioFile().getOriginalFilename());
+            String sha = shaFileService.put(reading.getAudioFile());
+            reading.setAudioSha(sha);
+        }
         return dao.save(reading);
     }
 

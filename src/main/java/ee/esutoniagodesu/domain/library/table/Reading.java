@@ -225,10 +225,13 @@ public class Reading extends AbstractAuditingEntity implements Serializable {
             ", author='" + author + '\'' +
             ", copyright='" + copyright + '\'' +
             ", title='" + title + '\'' +
+            ", body.length='" + (body != null ? body.length() : null) + '\'' +
             ", bodyLang=" + bodyLang +
+            ", transcript.length='" + (transcript != null ? transcript.length() : null) + '\'' +
             ", transcriptLang=" + transcriptLang +
             ", summary='" + summary + '\'' +
             ", shared=" + shared +
+            ", audioSha='" + audioSha + '\'' +
             ", tags=" + tags +
             "} " + super.toString();
     }

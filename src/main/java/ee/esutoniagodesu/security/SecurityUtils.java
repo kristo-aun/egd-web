@@ -13,12 +13,16 @@ import java.util.Collection;
  */
 public final class SecurityUtils {
 
+    public static Authentication getAuthentication() {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        return securityContext.getAuthentication();
+    }
+
     /**
      * Get the login of the current user.
      */
     public static String getUserUuid() {
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        Authentication authentication = securityContext.getAuthentication();
+        Authentication authentication = getAuthentication();
         UserDetails springSecurityUser = null;
         String userName = null;
         if (authentication != null) {
@@ -55,8 +59,7 @@ public final class SecurityUtils {
      * If the current user has a specific security role.
      */
     public static boolean isUserInRole(String role) {
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        Authentication authentication = securityContext.getAuthentication();
+        Authentication authentication = getAuthentication();
         if (authentication != null) {
             if (authentication.getPrincipal() instanceof UserDetails) {
                 UserDetails springSecurityUser = (UserDetails) authentication.getPrincipal();

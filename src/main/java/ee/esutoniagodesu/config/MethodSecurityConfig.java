@@ -33,7 +33,7 @@ public class MethodSecurityConfig extends GlobalMethodSecurityConfiguration {
     }
 
     @Bean
-    public PermissionEvaluator permissionEvaluator() {
+    public CustomPermissionEvaluator permissionEvaluator() {
         return new CustomPermissionEvaluator();
     }
 

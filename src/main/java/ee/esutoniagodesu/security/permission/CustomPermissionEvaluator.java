@@ -6,8 +6,8 @@ import ee.esutoniagodesu.security.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.PermissionEvaluator;
+import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
 import java.io.Serializable;
@@ -30,6 +30,16 @@ public class CustomPermissionEvaluator implements PermissionEvaluator {
         boolean result = hasRoleAdmin() || Permission.valueOf(permission).hasPermission(targetDomainObject);
         log.debug("hasPermission: result={}", result);
         return result;
+    }
+
+    public boolean hasPermission(Object targetDomainObject, Permission permission) {
+        return hasPermission(SecurityUtils.getAuthentication(), targetDomainObject, permission);
+    }
+
+    public void check(Object targetDomainObject, Permission permission) {
+        if (!hasPermission(targetDomainObject, permission))
+            throw new InsufficientAuthenticationException("Insufficient permission: " + permission +
+                ", object=" + targetDomainObject);
     }
 
     @Override

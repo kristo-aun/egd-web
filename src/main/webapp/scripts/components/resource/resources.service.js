@@ -111,7 +111,7 @@ egdApp
         delete result.save;
         result.save = function (reading, file) {
             var fd = new FormData();
-            fd.append('files', file);
+            fd.append('file', file);
             fd.append('json', angular.toJson(reading));
             return $http.post('api/readings', fd, {
                 transformRequest: angular.identity,

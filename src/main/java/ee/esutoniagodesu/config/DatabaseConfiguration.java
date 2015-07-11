@@ -12,6 +12,7 @@ import org.springframework.context.ApplicationContextException;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -48,10 +49,11 @@ public class DatabaseConfiguration implements EnvironmentAware {
     }
 
     @Bean(destroyMethod = "")
+    @Profile(Constants.SPRING_PROFILE_DEVELOPMENT)
     public DataSource dataSource() {
         log.info("Configuring Datasource");
 
-        if (datasourcePropertyResolver.getProperty("url") == null && datasourcePropertyResolver.getProperty("jndi") == null) {
+        if (datasourcePropertyResolver.getProperty("url") == null && datasourcePropertyResolver.getProperty("jndi-name") == null) {
             log.error("Your database connection pool configuration is incorrect! The application" +
                     "cannot start. Please check your Spring profile, current profiles are: {}",
                 Arrays.toString(env.getActiveProfiles()));
@@ -60,7 +62,7 @@ public class DatabaseConfiguration implements EnvironmentAware {
         }
 
         try {
-            String jndi = datasourcePropertyResolver.getProperty("jndi");
+            String jndi = datasourcePropertyResolver.getProperty("jndi-name");
 
             if (jndi != null) {
                 log.info("Getting datasource from JNDI global resource link");

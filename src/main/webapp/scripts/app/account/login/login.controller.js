@@ -6,14 +6,12 @@ egdApp
         $scope.user = {};
         $scope.errors = {};
 
-        $scope.rememberMe = true;
         $timeout(function (){angular.element('[ng-model="username"]').focus();});
         $scope.login = function (event) {
             event.preventDefault();
             Auth.login({
                 username: $scope.username,
-                password: $scope.password,
-                rememberMe: $scope.rememberMe
+                password: $scope.password
             }).then(function () {
                 $rootScope.$broadcast("accountChange");
                 $scope.authenticationError = false;

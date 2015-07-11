@@ -1,10 +1,11 @@
 package ee.esutoniagodesu;
 
-import ee.esutoniagodesu.config.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
+
+import java.util.Properties;
 
 /**
  * This is a helper Java class that provides an alternative to creating a web.xml.
@@ -14,24 +15,30 @@ public class ApplicationWebXml extends SpringBootServletInitializer {
     private static final Logger log = LoggerFactory.getLogger(ApplicationWebXml.class);
 
     @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.profiles(addDefaultProfile())
-            .showBanner(false)
-            .sources(Application.class);
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder app) {
+        try {
+            String profile = defaultProfile();
+            Properties secretProperties = ArgumentResolver.secretProperties(profile);
+            app.application().setDefaultProperties(secretProperties);
+
+            return app.profiles(profile)
+                .showBanner(false)
+                .sources(Application.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 
     /**
-     * Set a default profile if it has not been set.
      * Please use -Dspring.profiles.active=dev
      */
-    private String addDefaultProfile() {
+    private String defaultProfile() {
         String profile = System.getProperty("spring.profiles.active");
         if (profile != null) {
-            log.info("Running with Spring profile(s) : {}", profile);
+            log.info("Running with Spring profile : {}", profile);
             return profile;
         }
-
-        log.warn("No Spring profile configured, running with default configuration");
-        return Constants.SPRING_PROFILE_DEVELOPMENT;
+        throw new IllegalStateException("No Spring profile configured");
     }
 }

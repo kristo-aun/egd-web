@@ -37,6 +37,7 @@ public class User implements Serializable {
     @Column(name = "last_name", length = 50)
     private String lastName;
 
+    //@Email(message = "{validation.email.message}")
     @Email
     @Size(min = 5, max = 100)
     @Column(length = 100, unique = true)
@@ -62,10 +63,6 @@ public class User implements Serializable {
     @Column(name = "name", nullable = false)
     @Enumerated(EnumType.STRING)
     private Set<Authority> roles = new HashSet<>();
-
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user")
-    private Set<PersistentToken> persistentTokens = new HashSet<>();
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     @PrimaryKeyJoinColumn
@@ -165,10 +162,6 @@ public class User implements Serializable {
         this.activationKey = activationKey;
     }
 
-    public Set<PersistentToken> getPersistentTokens() {
-        return persistentTokens;
-    }
-
     public UserAccountForm getAccountForm() {
         return accountForm;
     }
@@ -195,10 +188,6 @@ public class User implements Serializable {
 
     public void setRoles(Set<Authority> roles) {
         this.roles = roles;
-    }
-
-    public void setPersistentTokens(Set<PersistentToken> persistentTokens) {
-        this.persistentTokens = persistentTokens;
     }
 
     public void setAccountExternals(Set<UserAccountExternal> accountExternals) {
@@ -232,7 +221,6 @@ public class User implements Serializable {
             ", langKey=" + langKey +
             ", activationKey='" + activationKey + '\'' +
             ", roles=" + roles +
-            ", persistentTokens.size=" + persistentTokens.size() +
             ", accountForm=" + accountForm +
             ", accountExternals=" + accountExternals +
             ", createdDate=" + createdDate +

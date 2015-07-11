@@ -5,7 +5,6 @@ import ee.esutoniagodesu.security.social.SocialLoginExceptionMapper;
 import ee.esutoniagodesu.web.filter.CsrfCookieGeneratorFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -17,7 +16,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
-import org.springframework.security.web.authentication.RememberMeServices;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.social.security.SocialAuthenticationException;
 import org.springframework.social.security.SocialAuthenticationFilter;
@@ -29,9 +27,6 @@ import javax.inject.Inject;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-
-    @Inject
-    private Environment env;
 
     @Inject
     private AjaxAuthenticationSuccessHandler ajaxAuthenticationSuccessHandler;
@@ -47,9 +42,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Inject
     private UserDetailsService userDetailsService;
-
-    @Inject
-    private RememberMeServices rememberMeServices;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -114,11 +106,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .exceptionHandling()
             .authenticationEntryPoint(authenticationEntryPoint)
             .and()
-            .rememberMe()
-            .rememberMeServices(rememberMeServices)
-            .rememberMeParameter("remember-me")
-            .key(env.getProperty("app.security.rememberme.key"))
-            .and()
             .formLogin()
             .loginProcessingUrl("/api/authentication")
             .successHandler(ajaxAuthenticationSuccessHandler)
@@ -150,8 +137,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         "/api/readings/*",
         "/api/git",
         "/api/dict/**",
-        "/api/images/*",
-        "/api/audio/*",
+        "/api/media/*",
         "/api/rtk/**",
         "/auth/**",
         "/api/morphology/**",

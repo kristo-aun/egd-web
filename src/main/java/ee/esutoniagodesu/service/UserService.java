@@ -3,7 +3,6 @@ package ee.esutoniagodesu.service;
 import ee.esutoniagodesu.domain.ac.table.Authority;
 import ee.esutoniagodesu.domain.ac.table.User;
 import ee.esutoniagodesu.domain.ac.table.UserAccountExternal;
-import ee.esutoniagodesu.repository.domain.ac.PersistentTokenRepository;
 import ee.esutoniagodesu.repository.domain.ac.UserRepository;
 import ee.esutoniagodesu.security.AuthoritiesConstants;
 import ee.esutoniagodesu.security.SecurityUtils;
@@ -11,7 +10,6 @@ import ee.esutoniagodesu.util.JCRandom;
 import ee.esutoniagodesu.util.RandomUtil;
 import ee.esutoniagodesu.util.iso.ISO6391;
 import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -39,9 +37,6 @@ public class UserService {
 
     @Inject
     private UserRepository userRepository;
-
-    @Inject
-    private PersistentTokenRepository persistentTokenRepository;
 
     public Optional<User> activateRegistration(String key) {
         log.debug("Activating user for activation key {}", key);
@@ -179,25 +174,6 @@ public class UserService {
         securityUser().ifPresent(user -> {
             userRepository.delete(user);
             log.debug("Deleted account for User: {}", user);
-        });
-    }
-
-    /**
-     * Persistent Token are used for providing automatic authentication, they should be automatically deleted after
-     * 30 days.
-     * <p/>
-     * <p>
-     * This is scheduled to get fired everyday, at midnight.
-     * </p>
-     */
-    @Scheduled(cron = "0 0 0 * * ?")
-    public void removeOldPersistentTokens() {
-        LocalDate now = new LocalDate();
-        persistentTokenRepository.findByTokenDateBefore(now.minusMonths(1)).stream().forEach(token -> {
-            log.debug("Deleting token {}", token.getSeries());
-            User user = token.getUser();
-            user.getPersistentTokens().remove(token);
-            persistentTokenRepository.delete(token);
         });
     }
 

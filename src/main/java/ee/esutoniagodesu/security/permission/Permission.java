@@ -1,9 +1,10 @@
 package ee.esutoniagodesu.security.permission;
 
 import ee.esutoniagodesu.domain.library.table.Reading;
-import ee.esutoniagodesu.security.AuthoritiesConstants;
 import ee.esutoniagodesu.security.SecurityUtils;
 import ee.esutoniagodesu.util.JCString;
+
+import java.util.Properties;
 
 public enum Permission {
 
@@ -24,6 +25,19 @@ public enum Permission {
     reading_delete((object) -> {
         Reading reading = (Reading) object;
         return reading.isCreatedBy(SecurityUtils.getUserUuid());
+    }),
+
+    shafile_read((object) -> {
+        Properties properties = (Properties) object;
+        String rolestring = properties.getProperty("roles-allowed");
+        if (rolestring != null && rolestring.length() > 0) {
+            String[] roles = rolestring.split(",");
+            for (String role : roles) {
+                if (SecurityUtils.isUserInRole(role)) return true;
+            }
+            return false;
+        }
+        return true;
     });
 
     private FunctionalPermission functional;

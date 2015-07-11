@@ -2,9 +2,12 @@ package ee.esutoniagodesu.web.rest;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import ee.esutoniagodesu.domain.library.table.Reading;
+import ee.esutoniagodesu.service.KuromojiService;
 import ee.esutoniagodesu.service.ReadingService;
 import ee.esutoniagodesu.util.PaginationUtil;
 import ee.esutoniagodesu.web.rest.dto.View;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -13,8 +16,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -25,6 +32,8 @@ import java.util.Optional;
 @RequestMapping(ReadingResource.BASE_URL)
 public class ReadingResource {
 
+    private static final Logger log = Logger.getLogger(ReadingResource.class);
+
     public static final String BASE_URL = "/api/readings";
 
     @Inject
@@ -33,8 +42,7 @@ public class ReadingResource {
     @Inject
     private MappingJackson2HttpMessageConverter mapper;
 
-    private Reading resolve(String reading, MultipartFile[] files) throws IOException {
-        MultipartFile file = files.length > 0 ? files[0] : null;
+    private Reading resolve(String reading, MultipartFile file) throws IOException {
         Reading entity = mapper.getObjectMapper().readValue(reading, Reading.class);
         entity.setAudioFile(file);
         return entity;
@@ -48,13 +56,28 @@ public class ReadingResource {
         return ResponseEntity.created(new URI(BASE_URL + "/" + result.getId())).body(result);
     }
 
+
+    @Autowired
+    private MultipartResolver multipartResolver;
+
     @RequestMapping(value = "",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Reading> update(@RequestParam("json") String json,
-                                          @RequestPart("files") MultipartFile[] files) throws URISyntaxException, IOException {
+    public ResponseEntity<Reading> save(@RequestParam("json") String json, MultipartHttpServletRequest req) throws URISyntaxException, IOException {
 
-        Reading entity = resolve(json, files);
+        MultipartHttpServletRequest request = multipartResolver.resolveMultipart(req);
+
+
+        System.out.println("request" + request);
+        System.out.println("getRequestHeaders" + request.getRequestHeaders());
+        System.out.println("getAttributeNames" + request.getAttributeNames());
+        System.out.println("getContentLength" + request.getContentLength());
+        System.out.println("getContentType" + request.getContentType());
+        System.out.println("getHeaderNames" + request.getHeaderNames());
+        MultipartFile file = request.getFile("file");
+        log.debug(file);
+
+        Reading entity = resolve(json, file);
         if (entity.getId() == null) return create(entity);
         return ResponseEntity.ok().body(service.update(entity));
     }

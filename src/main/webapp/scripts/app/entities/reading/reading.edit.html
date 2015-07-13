@@ -1,16 +1,23 @@
 <form ng-submit="submit()" name="form" role="form" novalidate show-validation>
-
     <div class="row">
-        <div class="col-lg-4" ng-switch="reading.id > 0">
-            <h4 ng-switch-when="true" translate="reading.edit.title"></h4>
-            <h4 ng-switch-when="false" translate="reading.new.title"></h4>
+        <div class="col-lg-4">
+            <button type="button"
+                    ui-sref="reading"
+                    class="btn btn-default btn-sm">
+                <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;
+                {{'global.messages.action.back' | translate}}
+            </button>
+            <button type="submit" ng-disabled="form.$invalid" class="btn btn-success btn-sm">
+                <span class="fa fa-save"></span>
+                {{'global.messages.action.save' | translate}}
+            </button>
         </div>
         <div class="col-lg-4">
             <ng-message-success show="success" i18n="'global.messages.success.saved'"></ng-message-success>
             <ng-message-danger show="error" i18n="'global.messages.error.saveError'"></ng-message-danger>
         </div>
         <div class="col-lg-4 text-right">
-            <button type="button" class="btn btn-danger"
+            <button type="button" class="btn btn-danger btn-sm"
                     ng-click="deleteReadingConfirm()"
                     translate="global.messages.action.delete">
             </button>
@@ -203,76 +210,13 @@
     <div class="row">
         <button type="button"
                 ui-sref="reading"
-                class="btn btn-default">
+                class="btn btn-default btn-sm">
             <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;
             {{'global.messages.action.back' | translate}}
         </button>
-        <button type="submit" ng-disabled="form.$invalid" class="btn btn-success">
+        <button type="submit" ng-disabled="form.$invalid" class="btn btn-success btn-sm">
             <span class="fa fa-save"></span>
             {{'global.messages.action.save' | translate}}
         </button>
     </div>
 </form>
-
-
-<!--
-<form name="form" role="form" novalidate ng-submit="save()" show-validation>
-
-
-
-    <div class="modal-body">
-        <div id="readingModalReading" class="form-inline">
-            <div class="row">
-                <div class="form-group">
-
-                </div>
-                <div class="form-group">
-
-                </div>
-                <div class="form-group">
-                    <label translate="reading.grid.transcriptLang"></label>
-                    <select class="form-control" ng-model="reading.transcriptLang">
-                        <option value="et">{{'language.et' | translate}}</option>
-                        <option value="en">{{'language.en' | translate}}</option>
-                    </select>
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group">
-
-                </div>
-            </div>
-        </div>
-
-        <div class="table-responsive" id="readingModalParagraphs">
-            <table class="table table-striped">
-                <tbody>
-                <tr ng-switch="isAnonymous()" ng-repeat="item in reading.readingParagraphs">
-                    <td>
-                        <div ng-if="item.audio">
-                            <egd-audio src="getAudioResource(item.audio.id)"/>
-                        </div>
-                        <div ng-switch-when="true">
-                            {{item.txt}}
-                        </div>
-                        <div ng-switch-when="false">
-                            <textarea auto-grow style="height:100%" class="form-control" ng-model="item.txt"></textarea>
-                        </div>
-                    </td>
-                    <td ng-switch-when="true">
-                        {{item.transcript}}
-                    </td>
-                    <td ng-switch-when="false">
-                        <textarea auto-grow style="height:100%" class="form-control" ng-model="item.transcript"></textarea>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-
-    </div>
-    <div class="modal-footer">
-
-    </div>
-</form>
--->

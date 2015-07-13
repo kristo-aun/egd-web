@@ -39,9 +39,6 @@ egdApp
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                         $translatePartialLoader.addPart('reading');
                         return $translate.refresh();
-                    }],
-                    entity: ['$stateParams', 'ReadingResource', function ($stateParams, ReadingResource) {
-                        return ReadingResource.get({id: $stateParams.id});
                     }]
                 }
             })

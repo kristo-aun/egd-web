@@ -11,6 +11,7 @@ egdApp
         };
 
         $scope.loadTags = function(tagstart) {
+            console.log($scope.reading.tags);
             return ReadingResource.autocompleteTag(tagstart);
         };
 

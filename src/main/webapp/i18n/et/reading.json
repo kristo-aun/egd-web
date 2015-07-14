@@ -33,6 +33,8 @@
             "audio": "Audio",
             "audio.tip": "Uus audio",
             "tags": "Märksõnad",
+            "tags.placeholder": "Lisa märksõna",
+            "tags.tip": "Saab kasutada sorteerimisel",
             "body": "Tekst",
             "body.tip": "Tekst",
             "transcript": "Tõlge",

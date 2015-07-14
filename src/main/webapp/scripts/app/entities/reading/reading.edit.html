@@ -144,11 +144,20 @@
     <div class="row">
         <div class="col-lg-4">
             <div class="form-group inline-group">
-                <label translate="reading.grid.tags"></label>
+                <label>
+                    <label translate="reading.grid.tags"></label>
+                    <ng-tip i18n="'reading.grid.tags.tip'" placement="bottom"></ng-tip>
+                </label>
 
-                <tags-input ng-model="reading.tags">
-                    <auto-complete source="loadTags($query)"></auto-complete>
-                </tags-input>
+                <div class="inline-group-control">
+                    <tags-input ng-model="reading.tags"
+                                placeholder="{{'reading.grid.tags.placeholder' | translate}}"
+                                replace-spaces-with-dashes="false">
+                        <auto-complete source="loadTags($query)"></auto-complete>
+                    </tags-input>
+                </div>
+
+
 
                 <div ng-show="form.author.$dirty && form.author.$invalid">
                     <p class="help-block"

@@ -100,6 +100,13 @@ egdApp
                 method: 'GET',
                 transformResponse: function (data) {
                     data = angular.fromJson(data);
+
+                    var tags = [];
+                    angular.forEach(data.tags, function(value) {
+                        this.push({text:value});
+                    }, tags);
+                    data.tags = tags;
+
                     if (data.createdDate)
                         data.createdDate = Moment.deserializeDateTime(data.createdDate);
                     if (data.lastModifiedDate)
@@ -110,9 +117,22 @@ egdApp
         });
         delete result.save;
         result.save = function (reading, file) {
+            var toJson = function (data) {
+                data.createdDate = Moment.serializeDateTime(data.createdDate);
+                data.lastModifiedDate = Moment.serializeDateTime(data.lastModifiedDate);
+
+                var tags = [];
+                angular.forEach(data.tags, function(value) {
+                    this.push(value.text);
+                }, tags);
+                data.tags = tags;
+
+                return angular.toJson(data);
+            };
+
             var data = new FormData();
             data.append('file', file);
-            data.append('json', angular.toJson(reading));
+            data.append('json', toJson(reading));
 
             var req = {
                 method: 'POST',

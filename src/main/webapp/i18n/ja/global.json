@@ -17,7 +17,8 @@
             "confirmpassword": "New password confirmation",
             "email": "メアド",
             "even": "Even",
-            "odd": "Odd"
+            "odd": "Odd",
+            "tos": "Terms of Service"
         },
         "messages": {
             "action": {

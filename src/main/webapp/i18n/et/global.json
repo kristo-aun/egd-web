@@ -18,7 +18,8 @@
             "odd": "paaritu",
             "fname": "Eesnimi",
             "sname": "Perekonnanimi",
-            "name": "Nimi"
+            "name": "Nimi",
+            "tos": "Kasutustingimused"
         },
         "messages": {
             "action": {

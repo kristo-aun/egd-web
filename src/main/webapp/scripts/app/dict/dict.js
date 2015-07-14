@@ -74,5 +74,22 @@ egdApp
                         return $translate.refresh();
                     }]
                 }
+            }).state('tos', {
+                parent: 'site',
+                url: '/tos',
+                data: {
+                    roles: []
+                },
+                views: {
+                    'content@': {
+                        templateUrl: 'scripts/app/tos/tos.html'
+                    }
+                },
+                resolve: {
+                    mainTranslatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate,$translatePartialLoader) {
+                        $translatePartialLoader.addPart('tos');
+                        return $translate.refresh();
+                    }]
+                }
             });
     });

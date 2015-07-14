@@ -46,8 +46,6 @@ egdApp
             ReadingResource.save($scope.reading, $scope.audioFile).then(function (result) {
                 $scope.reading = result.data;
                 setSuccess();
-                $rootScope.setStateParams({id: $scope.reading.id});
-                $scope.emit("readingSaved", $scope.reading);
             }, function () {
                 setError();
             });

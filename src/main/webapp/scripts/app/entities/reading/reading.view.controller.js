@@ -32,8 +32,4 @@ egdApp
             });
         };
         $scope.load($stateParams.id);
-
-        $rootScope.$on('egdApp:readingSaved', function(event, data) {
-            $scope.setReading(data);
-        });
     });

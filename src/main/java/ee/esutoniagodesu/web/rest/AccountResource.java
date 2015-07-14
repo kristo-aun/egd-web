@@ -61,7 +61,7 @@ public class AccountResource {
     @RequestMapping(value = "/activate",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> activateAccount(@RequestParam(value = "key") String key) {
+    public ResponseEntity<String> activateAccount(@RequestParam String key) {
         return Optional.ofNullable(userService.activateRegistration(key))
             .map(user -> new ResponseEntity<String>(HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
@@ -138,8 +138,8 @@ public class AccountResource {
     @RequestMapping(value = "/account/reset_password/finish",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> finishPasswordReset(@RequestParam(value = "key") String key,
-                                                      @RequestParam(value = "newPassword") String newPassword) {
+    public ResponseEntity<String> finishPasswordReset(@RequestParam String key,
+                                                      @RequestParam String newPassword) {
         if (!checkPasswordLength(newPassword)) {
             return new ResponseEntity<>("Incorrect password", HttpStatus.BAD_REQUEST);
         }

@@ -117,3 +117,9 @@ div.footer {
     background-color: #c23321;
     border-color: rgba(0, 0, 0, 0.2)
 }
+
+tags-input .tags .tag-item {
+    color: #000;!important;
+    background: #E7E7E7;!important;
+    border: 1px solid #E7E7E7;!important;
+}

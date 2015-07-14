@@ -26,14 +26,14 @@ public class DictResource {
     @RequestMapping(value = "/autocomplete/{phrasepart}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public Collection<String> autocomplete(@PathVariable("phrasepart") String phrasepart) {
+    public Collection<String> autocomplete(@PathVariable String phrasepart) {
         return service.autocomplete(phrasepart);
     }
 
     @RequestMapping(value = "/jmtrans/{phrase}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public List jmtrans(@PathVariable("phrase") String phrase, HttpServletRequest request) {
+    public List jmtrans(@PathVariable String phrase, HttpServletRequest request) {
         String locale = localeResolver.resolveLocale(request).toString();
         return service.jmtrans(locale, phrase);
     }

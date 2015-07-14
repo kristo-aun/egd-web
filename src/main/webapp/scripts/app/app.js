@@ -18,7 +18,8 @@ var egdApp = angular.module('egdApp', [
     'ui.grid.pagination',
     'angular-loading-bar',
     'angular-confirm',
-    'blockUI'
+    'blockUI',
+    'ngTagsInput'
 ]);
 
 egdApp
@@ -68,7 +69,6 @@ egdApp
         });
 
         $rootScope.$on('accountChange', function () {
-            $log.debug("accountChange");
             Principal.identity(true).then(function(account) {
                 $rootScope.account = angular.copy(account);
             }, function() {
@@ -88,12 +88,8 @@ egdApp
         $rootScope.emit = function (eventname, data) {
             $rootScope.$emit('egdApp:' + eventname, data);
         };
-
-        $rootScope.setStateParams = function(params) {
-            $state.transitionTo($state.current.name, params, {notify: false});
-        };
     })
-    .factory('authExpiredInterceptor', function ($rootScope, $q, $injector, localStorageService) {
+    .factory('authExpiredInterceptor', function ($rootScope, $q, $injector) {
         return {
             responseError: function(response) {
                 // If we have an unauthorized request we redirect to the login page
@@ -189,4 +185,20 @@ egdApp
         tmhDynamicLocaleProvider.localeLocationPattern('i18n/angular-locale/angular-locale_{{locale}}.js');
         tmhDynamicLocaleProvider.useCookieStorage();
         tmhDynamicLocaleProvider.storageKey('NG_TRANSLATE_LANG_KEY');
+    })
+    .config(function ($httpProvider) {
+        // Intercept POST requests, convert to standard form encoding
+        $httpProvider.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
+        $httpProvider.defaults.transformRequest.unshift(function (data) {
+            var key, result = [];
+
+            if (typeof data === "string")
+                return data;
+
+            for (key in data) {
+                if (data.hasOwnProperty(key))
+                    result.push(encodeURIComponent(key) + "=" + encodeURIComponent(data[key]));
+            }
+            return result.join("&");
+        });
     });

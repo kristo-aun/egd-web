@@ -26,16 +26,16 @@
                 <td>{{reading.tags | arrayToString}}</td>
 
                 <td style="text-align: right;">
-                    <button ng-if="isReadingEditAllowed(reading)"
-                            ui-sref="reading.edit({id:reading.id})"
-                            class="btn btn-default">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                        {{'global.messages.action.edit' | translate}}
-                    </button>
                     <button ui-sref="reading.view({id:reading.id})"
-                            class="btn btn-default">
+                            class="btn btn-default btn-sm">
                         <span class="glyphicon glyphicon-pencil"></span>
                         {{'global.messages.action.open' | translate}}
+                    </button>
+                    <button ng-if="isReadingEditAllowed(reading)"
+                            ui-sref="reading.edit({id:reading.id})"
+                            class="btn btn-default btn-sm">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                        {{'global.messages.action.edit' | translate}}
                     </button>
                 </td>
             </tr>

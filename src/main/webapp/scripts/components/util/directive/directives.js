@@ -42,7 +42,11 @@ egdApp
                 }
 
                 scope.range = function (n) {
-                    return new Array(n);
+                    var arr = [];
+                    if (n > 0) {
+                        arr.length = n;
+                    }
+                    return arr;
                 };
 
                 scope.getPageForLimit = function (currentpage, newlimit) {

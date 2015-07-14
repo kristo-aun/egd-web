@@ -26,7 +26,7 @@ public class HeisigResource {
     @RequestMapping(value = "/byBookAndQuery",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<VHeisig6Custom>> byBookAndQuery(@RequestParam("book") int book, @RequestParam("query") String query) {
+    public ResponseEntity<List<VHeisig6Custom>> byBookAndQuery(@RequestParam int book, @RequestParam String query) {
         return Optional.ofNullable(service.findByBookAndQuery(book, query))
             .map(entity -> new ResponseEntity<>(
                 entity,

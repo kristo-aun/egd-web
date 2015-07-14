@@ -60,7 +60,7 @@ public class ReadingResource {
     @RequestMapping(value = "",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Reading> save(@RequestParam("json") String json, HttpServletRequest req) throws URISyntaxException, IOException {
+    public ResponseEntity<Reading> save(@RequestParam String json, HttpServletRequest req) throws URISyntaxException, IOException {
 
         MultipartHttpServletRequest request = multipartResolver.resolveMultipart(req);
 
@@ -84,24 +84,31 @@ public class ReadingResource {
     @RequestMapping(value = "",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Reading>> getReadings(@RequestParam(value = "page", required = false) Integer page,
-                                                     @RequestParam(value = "limit", required = false) Integer limit) throws URISyntaxException {
+    public ResponseEntity<List<Reading>> getReadings(@RequestParam(required = false) Integer page,
+                                                     @RequestParam(required = false) Integer limit) throws URISyntaxException {
         Page<Reading> result = service.getReadings(page, limit);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(result, BASE_URL, page, limit);
-        return new ResponseEntity<>(result.getContent(), headers, HttpStatus.OK);
+        return ResponseEntity.ok().headers(headers).body(result.getContent());
     }
 
     @JsonView(View.Basic.class)
     @RequestMapping(value = "/byTag",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Reading>> byTag(@RequestParam(value = "tag") String tag,
-                                               @RequestParam(value = "page", required = false) Integer page,
-                                               @RequestParam(value = "limit", required = false) Integer limit) throws URISyntaxException {
+    public ResponseEntity<List<Reading>> byTag(@RequestParam String tag,
+                                               @RequestParam(required = false) Integer page,
+                                               @RequestParam(required = false) Integer limit) throws URISyntaxException {
 
         Page<Reading> result = service.findByTag(tag, page, limit);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(result, BASE_URL, page, limit);
-        return new ResponseEntity<>(result.getContent(), headers, HttpStatus.OK);
+        return ResponseEntity.ok().headers(headers).body(result.getContent());
+    }
+
+    @RequestMapping(value = "/autocompleteTag",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<String>> autocompleteTag(@RequestParam String tagstart) throws URISyntaxException {
+        return ResponseEntity.ok().body(service.autocompleteTag(tagstart));
     }
 
     @JsonView(View.Detailed.class)

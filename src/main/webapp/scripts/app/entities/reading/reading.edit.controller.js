@@ -10,6 +10,10 @@ egdApp
             delete $scope.error;
         };
 
+        $scope.loadTags = function(tagstart) {
+            return ReadingResource.autocompleteTag(tagstart);
+        };
+
         $scope.load = function (id) {
             $scope.clear();
             if (id > 0) {

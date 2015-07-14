@@ -142,6 +142,27 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-lg-4">
+            <div class="form-group inline-group">
+                <label translate="reading.grid.tags"></label>
+
+                <tags-input ng-model="reading.tags">
+                    <auto-complete source="loadTags($query)"></auto-complete>
+                </tags-input>
+
+                <div ng-show="form.author.$dirty && form.author.$invalid">
+                    <p class="help-block"
+                       ng-show="form.author.$error.required"
+                       translate="global.messages.validate.required"></p>
+                    <p class="help-block"
+                       ng-show="form.author.$error.maxlength"
+                       translate-values="{max: 100}"
+                       translate="global.messages.validate.maxlength"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-lg-5 text-center">
             <h4>
                 <span translate="reading.grid.body"></span>

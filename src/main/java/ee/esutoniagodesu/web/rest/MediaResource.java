@@ -69,7 +69,8 @@ public class MediaResource {
             header.setContentLength(Long.valueOf(properties.getProperty("length")));
 
             InputStreamResource isr = new InputStreamResource(new FileInputStream(file));
-            return new ResponseEntity<>(isr, header, HttpStatus.OK);
+            return ResponseEntity.ok().headers(header).body(isr);
+
         } catch (FileNotFoundException e) {
             log.error("FileNotFoundException: ", e.getMessage());
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

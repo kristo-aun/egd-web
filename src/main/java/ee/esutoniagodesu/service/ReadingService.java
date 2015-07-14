@@ -3,6 +3,7 @@ package ee.esutoniagodesu.service;
 import ee.esutoniagodesu.bean.ProjectDAO;
 import ee.esutoniagodesu.domain.library.table.Reading;
 import ee.esutoniagodesu.repository.domain.library.ReadingRepository;
+import ee.esutoniagodesu.repository.project.LibraryDB;
 import ee.esutoniagodesu.security.SecurityUtils;
 import ee.esutoniagodesu.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Lugemisharjutused. Artiklite moodulis saab hallata täispikki Jaapanikeelseid algtekste.
@@ -40,6 +42,9 @@ public class ReadingService {
 
     @Inject
     private ReadingRepository readingRepository;
+
+    @Inject
+    private LibraryDB libraryDB;
 
     @Inject
     private KuromojiService kuromojiService;
@@ -119,6 +124,10 @@ public class ReadingService {
     public boolean deleteReading(int id) {
         log.debug("delete: id=", id);
         return dao.removeById(Reading.class, id);
+    }
+
+    public List<String> autocompleteTag(String tagstart) {
+        return libraryDB.getAutocompleteTags(tagstart, 20);
     }
 
     //------------------------------ sõnavara vaade ------------------------------

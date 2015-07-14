@@ -109,14 +109,14 @@ egdApp
             }
         });
         delete result.save;
-        var save = function (reading, file) {
+        result.save = function (reading, file) {
             var data = new FormData();
             data.append('file', file);
             data.append('json', angular.toJson(reading));
 
             var req = {
                 method: 'POST',
-                url: 'api/readings',
+                url: BASE_URL,
                 headers: {
                     'Content-Type': undefined
                 },
@@ -126,33 +126,11 @@ egdApp
             return $http(req);
         };
 
-        var post = function(reading, file) {
-            $log.debug("customSave");
-            var deferred = $q.defer();
-
-            var data = new FormData();
-            data.append('file', file);
-            data.append('json', angular.toJson(reading));
-
-            $.ajax({
-                url: 'api/readings',
-                type: "POST",
-                data: data,
-                headers: {"Content-Type": undefined},
-                processData: false,
-                contentType: false,
-                cache: false,
-                success: function (result) {
-                    deferred.resolve(result);
-                },
-                error: function (e) {
-                    deferred.reject(e);
-                }
+        result.autocompleteTag = function (tagstart) {
+            return $http.get(BASE_URL + '/autocompleteTag', {params: {tagstart: tagstart}}).then(function (response) {
+                return response.data;
             });
-            return deferred.promise;
         };
-
-        result.save = save;
 
         return result;
     })

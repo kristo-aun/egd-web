@@ -8,12 +8,9 @@ import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-import org.springframework.core.io.FileSystemResource;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.multipart.support.MultipartFilter;
 
 import javax.servlet.MultipartConfigElement;
-import java.io.IOException;
 
 /**
  * Configuration of web application with Servlet 3.0 APIs.
@@ -27,26 +24,28 @@ public class MultipartConfigurer implements EnvironmentAware {
 
     @Override
     public void setEnvironment(Environment env) {
-        tempUploadFolder = env.getProperty("app.files.path") + "temp-uploads";
+        tempUploadFolder = env.getProperty("app.files.path") + "temp-uploads/";
     }
 
+    /*
     @Bean(name = "multipartResolver")
     public CommonsMultipartResolver multipartResolver() throws IOException {
         log.debug("New instance of " + CommonsMultipartResolver.class);
         CommonsMultipartResolver resolver = new CommonsMultipartResolver();
-        resolver.setDefaultEncoding("utf-8");
-        resolver.setUploadTempDir(new FileSystemResource(tempUploadFolder));
-        resolver.setMaxUploadSize(-1);
+        resolver.setDefaultEncoding("UTF-8");
+        //resolver.setUploadTempDir(new FileSystemResource(tempUploadFolder));
+        resolver.setMaxUploadSize(128 * 1024 * 1024);
         return resolver;
     }
+    //*/
 
     @Bean(name = "multipartConfigElement")
     public MultipartConfigElement multipartConfigElement() {
         log.debug("New instance of " + MultipartConfigFactory.class);
         MultipartConfigFactory factory = new MultipartConfigFactory();
-        factory.setMaxFileSize("100MB");
+        factory.setMaxFileSize("128MB");
         factory.setLocation(tempUploadFolder);
-        factory.setMaxRequestSize("100MB");
+        factory.setMaxRequestSize("128MB");
         return factory.createMultipartConfig();
     }
 

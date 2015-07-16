@@ -5,6 +5,7 @@ import ee.esutoniagodesu.domain.ac.table.Authority;
 import ee.esutoniagodesu.security.permission.CustomPermissionEvaluator;
 import ee.esutoniagodesu.security.permission.Permission;
 import ee.esutoniagodesu.util.JCString;
+import org.apache.log4j.Logger;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.AbstractMap;
 import java.util.Map;
 import java.util.Properties;
+import java.util.UUID;
 
 /**
  * Does not move files across different mount points.
@@ -26,13 +28,19 @@ import java.util.Properties;
 @Service
 public class SHAFileService implements EnvironmentAware {
 
+    private static final Logger log = Logger.getLogger(SHAFileService.class);
+
     private static String filesPath;
+    private static String deletedPath;
+    private static String tempUploadFolder;
     private static final int dirlength = 16;
-    private static final String _PROP_PREFIX = ".properties";
+    private static final String _PROP_SUFFIX = ".properties";
 
     @Override
     public void setEnvironment(Environment env) {
         filesPath = env.getProperty("app.files.path");
+        tempUploadFolder = filesPath + "temp-uploads/";
+        deletedPath = filesPath + "deleted/";
         Assert.notNull(filesPath);
     }
 
@@ -52,7 +60,7 @@ public class SHAFileService implements EnvironmentAware {
 
     public Properties getProperties(String sha256sum) throws IOException {
         String hexpath = hexpath(sha256sum, dirlength);
-        String path = filesPath + hexpath + sha256sum + _PROP_PREFIX;
+        String path = filesPath + hexpath + sha256sum + _PROP_SUFFIX;
         Properties prop = new Properties();
         File file = new File(path);
         if (!file.exists()) {
@@ -75,11 +83,12 @@ public class SHAFileService implements EnvironmentAware {
 
     public String put(MultipartFile multipartFile, Authority... authorities) throws IOException {
         String originalName = multipartFile.getOriginalFilename();
-        File file = new File(multipartFile.getName());
-        Properties properties = metadata(file);
+        File tmp = new File(tempUploadFolder + UUID.randomUUID().toString());
+        multipartFile.transferTo(tmp);
+        Properties properties = metadata(tmp);
         properties.put("orig-name", originalName);
         properties.put("orig-extension", JCString.getExtension(originalName));
-        return put(file, properties, authorities);
+        return put(tmp, properties, authorities);
     }
 
     public String put(File file, Authority... authorities) throws IOException {
@@ -94,7 +103,7 @@ public class SHAFileService implements EnvironmentAware {
         return put(file, properties);
     }
 
-    private String put(File file, Properties properties) throws IOException {
+    private String put(File tmp, Properties properties) throws IOException {
         File propertiesFile = writeProperties(properties);
 
         String sha256sum = properties.getProperty("sha256sum");
@@ -106,17 +115,31 @@ public class SHAFileService implements EnvironmentAware {
         Files.move(propertiesFile.toPath(), movedProperties.toPath(), StandardCopyOption.ATOMIC_MOVE);
 
         File movedFile = new File(filesPath + subdir + sha256sum);
-        Files.move(file.toPath(), movedFile.toPath(), StandardCopyOption.ATOMIC_MOVE);
+        Files.move(tmp.toPath(), movedFile.toPath(), StandardCopyOption.ATOMIC_MOVE);
 
         return sha256sum;
     }
 
-    public boolean delete(String sha256sum) {
-        return get(sha256sum).delete();
+    public void delete(String sha256sum) throws IOException {
+        String subdir = asSubdir(sha256sum);
+
+        new File(deletedPath + subdir).mkdirs();
+
+        File properties = new File(filesPath + subdir + sha256sum + _PROP_SUFFIX);
+        File movedProperties = new File(deletedPath + subdir + sha256sum + _PROP_SUFFIX);
+        Files.move(properties.toPath(), movedProperties.toPath(), StandardCopyOption.ATOMIC_MOVE);
+
+        File file = new File(filesPath + subdir + sha256sum);
+        File movedFile = new File(deletedPath + subdir + sha256sum);
+        Files.move(file.toPath(), movedFile.toPath(), StandardCopyOption.ATOMIC_MOVE);
+    }
+
+    private String asSubdir(String sha256sum) {
+        return hexpath(sha256sum, dirlength);
     }
 
     private static File writeProperties(Properties properties) throws IOException {
-        String filename = properties.getProperty("sha256sum") + _PROP_PREFIX;
+        String filename = properties.getProperty("sha256sum") + _PROP_SUFFIX;
         File file = new File(filename);
         FileOutputStream fileOut = new FileOutputStream(file);
         properties.store(fileOut, null);
@@ -154,8 +177,12 @@ public class SHAFileService implements EnvironmentAware {
     }
 
     public static String sha256sum(File file) throws IOException {
-        Process p = Runtime.getRuntime().exec("sha256sum " + file.getPath());
+        String path = file.getAbsolutePath();
+        log.debug("sha256sum: path=" + path);
+        Process p = Runtime.getRuntime().exec("sha256sum " + path);
         BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
-        return stdInput.readLine().substring(0, 64);
+        String output = stdInput.readLine();
+        log.debug("sha256sum: output=" + output);
+        return output.substring(0, 64);
     }
 }

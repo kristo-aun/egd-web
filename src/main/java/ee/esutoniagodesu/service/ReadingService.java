@@ -80,6 +80,9 @@ public class ReadingService {
         if (reading.getAudioFile() != null) {
             log.debug("save to shafs {}", reading.getAudioFile().getOriginalFilename());
             String sha = shaFileService.put(reading.getAudioFile());
+            if (reading.getAudioSha() != null && !reading.getAudioSha().equals(sha)) {
+                shaFileService.delete(reading.getAudioSha());
+            }
             reading.setAudioSha(sha);
         }
         return dao.save(reading);
@@ -87,6 +90,21 @@ public class ReadingService {
 
     private String uuid() {
         return SecurityUtils.getUserUuid();
+    }
+
+    @PreAuthorize("hasPermission(#id, 'ee.esutoniagodesu.domain.library.table.Reading', 'reading_delete')")
+    public String deleteAudio(int id) throws IOException {
+        log.debug("deleteAudio: id=", id);
+        Reading reading = getReading(id);
+        if (reading == null) return null;
+
+        String sha = reading.getAudioSha();
+        if (sha == null) return null;
+        reading.setAudioSha(null);
+        readingRepository.save(reading);
+
+        shaFileService.delete(sha);
+        return sha;
     }
 
     /**
@@ -121,9 +139,9 @@ public class ReadingService {
      * Administraatoril on lubatud kõiki kustutada.
      */
     @PreAuthorize("hasPermission(#id, 'ee.esutoniagodesu.domain.library.table.Reading', 'reading_delete')")
-    public boolean deleteReading(int id) {
+    public void deleteReading(int id) {
         log.debug("delete: id=", id);
-        return dao.removeById(Reading.class, id);
+        dao.removeById(Reading.class, id);
     }
 
     public List<String> autocompleteTag(String tagstart) {

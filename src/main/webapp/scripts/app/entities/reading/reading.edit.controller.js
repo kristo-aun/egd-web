@@ -74,6 +74,12 @@ egdApp
 
         };
 
+        $scope.deleteAudio = function () {
+            ReadingResource.deleteAudio($scope.reading.id).then(function () {
+                setSuccess();
+            });
+        };
+
         $scope.deleteReading = function () {
             ReadingResource.delete({id: $scope.reading.id},
                 function () {

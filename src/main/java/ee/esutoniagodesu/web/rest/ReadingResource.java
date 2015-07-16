@@ -106,10 +106,21 @@ public class ReadingResource {
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @RequestMapping(value = "/{id}",
+    @RequestMapping(value = "/{id}/deleteAudio",
         method = RequestMethod.DELETE,
         produces = MediaType.APPLICATION_JSON_VALUE)
     public void delete(@PathVariable Integer id) {
         service.deleteReading(id);
+    }
+
+    @RequestMapping(value = "/{id}",
+        method = RequestMethod.DELETE,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> deleteAudio(@PathVariable Integer id) throws IOException {
+        return Optional.ofNullable(service.deleteAudio(id))
+            .map(sha -> new ResponseEntity<>(
+                sha,
+                HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }

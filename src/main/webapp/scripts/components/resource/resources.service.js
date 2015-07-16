@@ -152,6 +152,12 @@ egdApp
             });
         };
 
+        result.deleteAudio = function (readingId) {
+            return $http.delete(BASE_URL + '/' + readingId + "/deleteAudio").then(function (response) {
+                return response.data;
+            });
+        };
+
         return result;
     })
     .factory('TofuResource', function ($resource) {

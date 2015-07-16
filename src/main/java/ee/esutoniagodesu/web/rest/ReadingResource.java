@@ -6,27 +6,25 @@ import ee.esutoniagodesu.service.ReadingService;
 import ee.esutoniagodesu.util.PaginationUtil;
 import ee.esutoniagodesu.web.rest.dto.View;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.MultipartResolver;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
+@Controller
+@ResponseBody
 @RequestMapping(ReadingResource.BASE_URL)
 public class ReadingResource {
 
@@ -54,30 +52,15 @@ public class ReadingResource {
         return ResponseEntity.created(new URI(BASE_URL + "/" + result.getId())).body(result);
     }
 
-    @Autowired
-    private MultipartResolver multipartResolver;
-
     @RequestMapping(value = "",
         method = RequestMethod.POST,
+        consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Reading> save(@RequestParam String json, HttpServletRequest req) throws URISyntaxException, IOException {
-
-        MultipartHttpServletRequest request = multipartResolver.resolveMultipart(req);
-
-
-
-        System.out.println("toSingleValueMap" + request.getMultiFileMap().size());
-        System.out.println("getRequestHeaders" + request.getRequestHeaders());
-        System.out.println("getAttributeNames" + request.getAttributeNames());
-        System.out.println("getContentLength" + request.getContentLength());
-        System.out.println("getContentType" + request.getContentType());
-        System.out.println("getHeaderNames" + request.getHeaderNames());
-        MultipartFile file = request.getFile("file");
-        log.debug(file);
-
+    public ResponseEntity<Reading> save(@RequestParam("data") String json, @RequestParam(value = "file", required = false) MultipartFile file) throws URISyntaxException, IOException {
         Reading entity = resolve(json, file);
         if (entity.getId() == null) return create(entity);
-        return ResponseEntity.ok().body(service.update(entity));
+        Reading result = service.update(entity);
+        return ResponseEntity.ok().body(result);
     }
 
     @JsonView(View.Basic.class)

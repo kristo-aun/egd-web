@@ -19,7 +19,8 @@ var egdApp = angular.module('egdApp', [
     'angular-loading-bar',
     'angular-confirm',
     'blockUI',
-    'ngTagsInput'
+    'ngTagsInput',
+    'ngFileUpload'
 ]);
 
 egdApp

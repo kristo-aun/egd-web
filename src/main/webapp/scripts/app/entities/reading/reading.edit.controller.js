@@ -1,7 +1,7 @@
 'use strict';
 
 egdApp
-    .controller('ReadingEditController', function ($scope, $rootScope, $state, $stateParams, $translate, $confirm, ReadingResource) {
+    .controller('ReadingEditController', function ($scope, $rootScope, $state, $stateParams, $translate, $confirm, ReadingResource, Upload, Moment) {
         $scope.languages = ["ja", "et", "en"];
 
         $scope.clear = function () {
@@ -43,12 +43,35 @@ egdApp
         };
 
         $scope.submit = function () {
-            ReadingResource.save($scope.reading, $scope.audioFile).then(function (result) {
-                $scope.reading = result.data;
+
+            var toJson = function (data) {
+                data.createdDate = Moment.serializeDateTime(data.createdDate);
+                data.lastModifiedDate = Moment.serializeDateTime(data.lastModifiedDate);
+
+                var tags = [];
+                angular.forEach(data.tags, function(value) {
+                    this.push(value.text);
+                }, tags);
+                data.tags = tags;
+
+                return angular.toJson(data);
+            };
+
+            Upload.upload({
+                url: '/api/readings',
+                data: toJson($scope.reading), // additional data to send
+                file: $scope.audioFile
+            }).progress(function (evt) {
+                var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+                console.log('progress: ' + progressPercentage + '% ');
+
+            }).success(function (data, status, headers, config) {
                 setSuccess();
-            }, function () {
+            }).error(function (data, status, headers, config) {
+                console.log('error status: ' + status);
                 setError();
             });
+
         };
 
         $scope.deleteReading = function () {

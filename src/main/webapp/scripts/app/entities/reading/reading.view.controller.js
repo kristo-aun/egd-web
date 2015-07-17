@@ -1,7 +1,8 @@
 'use strict';
 
 egdApp
-    .controller('ReadingViewController', function ($scope, $rootScope, $stateParams, $log, ReadingResource) {
+    .controller('ReadingViewController', function ($scope, $rootScope, $stateParams, $log, ReadingResource, Principal) {
+        $scope.isAuthenticated = Principal.isAuthenticated;
 
         var cleanup = function(text) {
             if (text)
@@ -32,4 +33,8 @@ egdApp
             });
         };
         $scope.load($stateParams.id);
+
+        $scope.isReadingEditAllowed = function (reading) {
+            return $scope.isAuthenticated() && (Principal.isInRole('ROLE_ADMIN') || (reading && Principal.equals(reading.createdBy)));
+        };
     });

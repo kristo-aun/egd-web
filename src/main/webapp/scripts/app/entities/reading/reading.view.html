@@ -11,6 +11,12 @@
             <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;
             {{'global.messages.action.back' | translate}}
         </button>
+        <button ng-if="isReadingEditAllowed(reading)"
+                ui-sref="reading.edit({id:reading.id})"
+                class="btn btn-default btn-sm">
+            <span class="glyphicon glyphicon-pencil"></span>
+            {{'global.messages.action.edit' | translate}}
+        </button>
     </div>
     <div class="col-lg-6 text-center">
         <h3>「{{reading.title}}」</h3>

@@ -66,6 +66,7 @@ egdApp
                 console.log('progress: ' + progressPercentage + '% ');
 
             }).success(function (data, status, headers, config) {
+                $scope.reading.audioSha = data.audioSha;
                 setSuccess();
             }).error(function (data, status, headers, config) {
                 console.log('error status: ' + status);

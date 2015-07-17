@@ -18,7 +18,8 @@ egdApp
             restrict: 'E',
             scope: {
                 src: '=?',
-                sha: '=?'
+                sha: '=?',
+                rate: '=?'
             },
             link: function (scope, element) {
                 var audioElement = element.find('.ngp-audio-control')[0];
@@ -35,7 +36,7 @@ egdApp
                     return scope.src ? trust(scope.src) : trust(shaAudioUrl());
                 };
 
-                scope.rate = 1.0;
+                if (!scope.rate) scope.rate = 1.0;
                 scope.onRateChange = function() {
                     audioElement.playbackRate = scope.rate;
                 };

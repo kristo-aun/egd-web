@@ -31,7 +31,7 @@
             "lastModified": "Viimati muudetud",
             "bodyLang": "Keel",
             "audio": "Audio",
-            "audio.tip": "Uus audio",
+            "audio.tip": "Most browsers can handle 192Kbps/44kHz, 128/44 and 48/22 OGG subformats. You can upload mp3-s.",
             "tags": "Märksõnad",
             "tags.placeholder": "Lisa märksõna",
             "tags.tip": "Saab kasutada sorteerimisel",

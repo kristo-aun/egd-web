@@ -13,6 +13,36 @@ egdApp
             templateUrl: 'scripts/components/directive/egdAudio.html'
         }
     })
+    .directive('ngPlayback', function ($sce) {
+        return {
+            restrict: 'E',
+            scope: {
+                src: '=?',
+                sha: '=?'
+            },
+            link: function (scope, element) {
+                var audioElement = element.find('.ngp-audio-control')[0];
+
+                var shaAudioUrl = function() {
+                    return "/api/media/" + scope.sha;
+                };
+
+                var trust = function(url) {
+                    return $sce.trustAsResourceUrl(url);
+                };
+
+                scope.getSrc = function() {
+                    return scope.src ? trust(scope.src) : trust(shaAudioUrl());
+                };
+
+                scope.rate = 1.0;
+                scope.onRateChange = function() {
+                    audioElement.playbackRate = scope.rate;
+                };
+            },
+            templateUrl: 'scripts/components/directive/ngPlayback.html'
+        }
+    })
     .directive('gridJa', function () {
         return {
             restrict: 'E',

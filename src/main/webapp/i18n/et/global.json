@@ -21,6 +21,9 @@
             "name": "Nimi",
             "tos": "Kasutustingimused"
         },
+        "audio": {
+            "playbackRate": "Kiirus"
+        },
         "messages": {
             "action": {
                 "generate": "Genereeri",

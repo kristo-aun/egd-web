@@ -1,0 +1,22 @@
+<div class="ngp-nav">
+    <div class="ngp-audio">
+        <audio ng-src="{{getSrc()}}" class="ngp-audio-control" audioplayer controls></audio>
+    </div>
+
+    <div class="form-inline ngp-playback-rate">
+        <label for="ngp-rate" translate="global.audio.playbackRate"></label>
+
+        <div class="form-group">
+            <input class="form-control"
+                   style="background-color: whitesmoke;"
+                   id="ngp-rate"
+                   type="range"
+                   min="0.5"
+                   max="2.0"
+                   ng-model="rate"
+                   step="0.1"
+                   ng-change="onRateChange(rate)"/>
+            <output class="ngp-rate-output">{{rate}}&times;</output>
+        </div>
+    </div>
+</div>

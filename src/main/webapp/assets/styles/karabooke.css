@@ -1,0 +1,37 @@
+div.ngp-nav {
+    border-radius: 4px;
+    padding: 0 0 2px;
+    line-height: 44px;
+    border: 0;
+    background-color: rgb(19, 19, 29);
+}
+
+div.ngp-audio {
+    margin: 0;
+    vertical-align: middle;
+    padding-right: 260px;
+    display: block;
+    max-width: 1060px;
+}
+
+audio.ngp-audio-control {
+    width: 100%;
+    vertical-align: middle;
+}
+
+output.ngp-rate-output {
+    color: white;
+    display: inline-block;
+}
+
+div.ngp-playback-rate {
+    min-width: 250px;
+    color: white;
+    position: absolute;
+    right: 0;
+    top: -1px;
+}
+
+div.ngp-playback-rate label {
+    font-weight: bold;
+}

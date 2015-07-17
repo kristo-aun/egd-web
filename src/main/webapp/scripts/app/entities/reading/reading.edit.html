@@ -1,4 +1,9 @@
 <form ng-submit="submit()" name="form" role="form" novalidate show-validation>
+    <div class="row" ng-if="reading.audioSha">
+        <div class="col-lg-12">
+            <ng-playback sha="reading.audioSha"></ng-playback>
+        </div>
+    </div>
     <div class="row">
         <div class="col-lg-4">
             <button type="button"
@@ -21,11 +26,6 @@
                     ng-click="deleteReadingConfirm()"
                     translate="global.messages.action.delete">
             </button>
-        </div>
-    </div>
-    <div class="row" ng-if="reading.audioSha">
-        <div class="col-lg-12">
-
         </div>
     </div>
 

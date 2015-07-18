@@ -2,10 +2,13 @@ package ee.esutoniagodesu.service;
 
 import ee.esutoniagodesu.bean.ProjectDAO;
 import ee.esutoniagodesu.domain.library.table.Reading;
+import ee.esutoniagodesu.domain.library.table.ReadingPage;
+import ee.esutoniagodesu.repository.domain.library.ReadingPageRepository;
 import ee.esutoniagodesu.repository.domain.library.ReadingRepository;
 import ee.esutoniagodesu.repository.project.LibraryDB;
 import ee.esutoniagodesu.security.SecurityUtils;
 import ee.esutoniagodesu.util.PaginationUtil;
+import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -43,6 +46,10 @@ public class ReadingService {
     @Inject
     private ReadingRepository readingRepository;
 
+
+    @Inject
+    private ReadingPageRepository readingPageRepository;
+
     @Inject
     private LibraryDB libraryDB;
 
@@ -65,43 +72,56 @@ public class ReadingService {
      * Administraatoril on lubatud kõiki muuta.
      */
     @PreAuthorize("hasPermission(#reading.id, 'ee.esutoniagodesu.domain.library.table.Reading', 'reading_update')")
-    public Reading update(Reading reading) throws IOException {
+    public Reading update(Reading reading) {
         log.debug("update: reading=" + reading);
         return save(reading);
     }
 
     @PreAuthorize("hasPermission(#reading, 'reading_create')")
-    public Reading create(Reading reading) throws IOException {
+    public Reading create(Reading reading) {
         log.debug("create: reading=" + reading);
         return save(reading);
     }
 
-    private Reading save(Reading reading) throws IOException {
-        if (reading.getAudioFile() != null) {
-            log.debug("save to shafs {}", reading.getAudioFile().getOriginalFilename());
-            String sha = shaFileService.put(reading.getAudioFile());
-            if (reading.getAudioSha() != null && !reading.getAudioSha().equals(sha)) {
-                shaFileService.delete(reading.getAudioSha());
+    private Reading save(Reading reading) {
+        return readingRepository.save(reading);
+    }
+
+    public ReadingPage update(ReadingPage page) throws IOException {
+        log.debug("update: page=" + page);
+        return save(page);
+    }
+
+    public ReadingPage create(ReadingPage page) throws IOException {
+        log.debug("create: page=" + page);
+        return save(page);
+    }
+
+    private ReadingPage save(ReadingPage p) throws IOException {
+        if (p.getAudioFile() != null) {
+            log.debug("save to shafs {}", p.getAudioFile().getOriginalFilename());
+            String sha = shaFileService.put(p.getAudioFile());
+            if (p.getAudioSha() != null && !p.getAudioSha().equals(sha)) {
+                shaFileService.delete(p.getAudioSha());
             }
-            reading.setAudioSha(sha);
+            p.setAudioSha(sha);
         }
-        return dao.save(reading);
+        return readingPageRepository.save(p);
     }
 
     private String uuid() {
         return SecurityUtils.getUserUuid();
     }
 
-    @PreAuthorize("hasPermission(#id, 'ee.esutoniagodesu.domain.library.table.Reading', 'reading_delete')")
-    public String deleteAudio(int id) throws IOException {
-        log.debug("deleteAudio: id=", id);
-        Reading reading = getReading(id);
-        if (reading == null) return null;
+    public String deleteAudio(int readingPageId) throws IOException {
+        log.debug("deleteAudio: readingPageId=", readingPageId);
+        ReadingPage page = readingPageRepository.findOne(readingPageId);
+        if (page == null) return null;
 
-        String sha = reading.getAudioSha();
+        String sha = page.getAudioSha();
         if (sha == null) return null;
-        reading.setAudioSha(null);
-        readingRepository.save(reading);
+        page.setAudioSha(null);
+        readingPageRepository.save(page);
 
         shaFileService.delete(sha);
         return sha;
@@ -131,7 +151,9 @@ public class ReadingService {
     //@PreAuthorize("hasPermission(#id, 'ee.esutoniagodesu.domain.library.table.Reading', 'reading_read')")
     public Reading getReading(int id) {
         log.debug("get: id=" + id);
-        return dao.find(Reading.class, id);
+        Reading result = dao.find(Reading.class, id);
+        Hibernate.initialize(result.getPages());
+        return result;
     }
 
     /**

@@ -23,7 +23,12 @@ egdApp
         };
 
         $scope.setReading = function(data) {
-            data.rows = buildRows(data.body, data.transcript);
+            angular.forEach(data.pages, function(item) {
+                item.rows = buildRows(item.body, item.transcript);
+                delete item.body;
+                delete item.transcript
+            });
+
             $scope.reading = data;
         };
 

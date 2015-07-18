@@ -113,26 +113,49 @@ egdApp
                         data.lastModifiedDate = Moment.deserializeDateTime(data.lastModifiedDate);
                     return data;
                 }
+            },
+            'save': {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                transformRequest: function (data) {
+                    var toJson = function (data) {
+                        data.createdDate = Moment.serializeDateTime(data.createdDate);
+                        data.lastModifiedDate = Moment.serializeDateTime(data.lastModifiedDate);
+
+                        var tags = [];
+                        angular.forEach(data.tags, function(value) {
+                            this.push(value.text);
+                        }, tags);
+                        data.tags = tags;
+
+                        return angular.toJson(data);
+                    };
+
+                    return toJson(data);
+                }
             }
         });
+
+        result.autocompleteTag = function (tagstart) {
+            return $http.get(BASE_URL + '/autocompleteTag', {params: {tagstart: tagstart}}).then(function (response) {
+                return response.data;
+            });
+        };
+
+        return result;
+    })
+    .factory('ReadingPageResource', function ($resource, $http) {
+        var BASE_URL = 'api/readingPages';
+        var result = $resource(BASE_URL + '/:id');
         delete result.save;
-        result.save = function (reading, file) {
+        result.save = function (readingPage, file) {
             var toJson = function (data) {
-                data.createdDate = Moment.serializeDateTime(data.createdDate);
-                data.lastModifiedDate = Moment.serializeDateTime(data.lastModifiedDate);
-
-                var tags = [];
-                angular.forEach(data.tags, function(value) {
-                    this.push(value.text);
-                }, tags);
-                data.tags = tags;
-
                 return angular.toJson(data);
             };
 
             var data = new FormData();
             data.append('file', file);
-            data.append('json', toJson(reading));
+            data.append('json', toJson(readingPage));
 
             var req = {
                 method: 'POST',
@@ -145,15 +168,8 @@ egdApp
             };
             return $http(req);
         };
-
-        result.autocompleteTag = function (tagstart) {
-            return $http.get(BASE_URL + '/autocompleteTag', {params: {tagstart: tagstart}}).then(function (response) {
-                return response.data;
-            });
-        };
-
-        result.deleteAudio = function (readingId) {
-            return $http.delete(BASE_URL + '/' + readingId + "/deleteAudio").then(function (response) {
+        result.deleteAudio = function (readingPageId) {
+            return $http.delete(BASE_URL + '/' + readingPageId + "/deleteAudio").then(function (response) {
                 return response.data;
             });
         };

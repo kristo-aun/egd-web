@@ -1,7 +1,7 @@
 'use strict';
 
 egdApp
-    .controller('ReadingEditController', function ($scope, $rootScope, $state, $stateParams, $translate, $confirm, ReadingResource, Upload, Moment) {
+    .controller('ReadingEditController', function ($scope, $rootScope, $state, $stateParams, $translate, $confirm, ReadingResource, ReadingPageResource, Upload, Moment) {
         $scope.languages = ["ja", "et", "en"];
 
         $scope.clear = function () {
@@ -58,7 +58,7 @@ egdApp
             };
 
             Upload.upload({
-                url: '/api/readings',
+                url: '/api/readingPages',
                 data: toJson($scope.reading), // additional data to send
                 file: $scope.audioFile
             }).progress(function (evt) {
@@ -72,7 +72,6 @@ egdApp
                 console.log('error status: ' + status);
                 setError();
             });
-
         };
 
         $scope.deleteAudio = function () {

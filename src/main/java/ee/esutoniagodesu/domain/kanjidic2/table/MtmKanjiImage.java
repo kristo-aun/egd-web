@@ -15,6 +15,18 @@ public final class MtmKanjiImage implements Serializable {
     private int seq;
     private Kanji kanji;
 
+    private String imageSha;
+
+    @Column(name = "image_sha")
+    public String getImageSha() {
+        return imageSha;
+    }
+
+    public void setImageSha(String imageSha) {
+        this.imageSha = imageSha;
+    }
+
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
     @Id
     public Integer getId() {

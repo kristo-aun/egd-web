@@ -5,7 +5,6 @@ import ee.esutoniagodesu.pojo.entity.JapEst;
 import ee.esutoniagodesu.repository.project.JMDictDB;
 import ee.esutoniagodesu.repository.project.PhraseEtDB;
 import ee.esutoniagodesu.repository.project.PhraseJpDB;
-import ee.esutoniagodesu.repository.project.SentenceDB;
 import ee.esutoniagodesu.util.lang.lingv.JCCharacter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,8 +31,6 @@ public class DictService {
     private PhraseJpDB phraseJpDB;
     @Inject
     private JMDictDB jmDictDB;
-    @Inject
-    private SentenceDB sentenceDB;
 
     private static final int _limitAutocompleteSize = 100;
 
@@ -94,7 +91,7 @@ public class DictService {
 
                 for (JapEst p : result) {
                     for (JapEst.Sens q : p.sens) {
-                        q.sentences = sentenceDB.getExampleSentences(p.kanj[0], p.rdng[0], p.sens.indexOf(q));
+                        //q.sentences = sentenceDB.getExampleSentences(p.kanj[0], p.rdng[0], p.sens.indexOf(q));
                     }
                 }
 
@@ -167,7 +164,7 @@ public class DictService {
                 item.sens.add(sens);
             }
 
-            item.sentences = sentenceDB.getEestiWordnetExampleSentences(query);
+            //item.sentences = sentenceDB.getEestiWordnetExampleSentences(query);
         }
 
         return item;

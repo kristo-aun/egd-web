@@ -1,6 +1,5 @@
 package ee.esutoniagodesu.pojo.entity;
 
-import ee.esutoniagodesu.domain.publik.table.MtmJmSensJpSentence;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ public final class JapEst implements Serializable {
         private static final long serialVersionUID = -488898344843474085L;
         public String gloss;
 
-        public List<MtmJmSensJpSentence> sentences;
+        public List<String> sentences;
 
         public Sens(String gloss) {
             this.gloss = gloss;

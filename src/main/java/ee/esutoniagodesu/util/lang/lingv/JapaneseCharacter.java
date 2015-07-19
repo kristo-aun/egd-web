@@ -208,6 +208,9 @@ public final class JapaneseCharacter {
         return romaji[c - 0x3041];
     }
 
+    /**
+     * @return hiraganast katakanasse või vastupidi
+     */
     public static String convertKana(String input) {
         if (input == null || input.length() == 0) return "";
 

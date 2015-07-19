@@ -33,7 +33,6 @@ public class SHAFileService implements EnvironmentAware {
     private static String filesPath;
     private static String deletedPath;
     private static String tempUploadFolder;
-    private static final int dirlength = 16;
     private static final String _PROP_SUFFIX = ".properties";
 
     @Override
@@ -59,7 +58,7 @@ public class SHAFileService implements EnvironmentAware {
     }
 
     public Properties getProperties(String sha256sum) throws IOException {
-        String hexpath = hexpath(sha256sum, dirlength);
+        String hexpath = hexpath(sha256sum);
         String path = filesPath + hexpath + sha256sum + _PROP_SUFFIX;
         Properties prop = new Properties();
         File file = new File(path);
@@ -77,7 +76,7 @@ public class SHAFileService implements EnvironmentAware {
     }
 
     public File get(String sha256sum) {
-        String hexpath = hexpath(sha256sum, dirlength);
+        String hexpath = hexpath(sha256sum);
         return new File(filesPath + hexpath + sha256sum);
     }
 
@@ -107,7 +106,7 @@ public class SHAFileService implements EnvironmentAware {
         File propertiesFile = writeProperties(properties);
 
         String sha256sum = properties.getProperty("sha256sum");
-        String subdir = hexpath(sha256sum, dirlength);
+        String subdir = hexpath(sha256sum);
 
         new File(filesPath + subdir).mkdirs();
 
@@ -121,7 +120,7 @@ public class SHAFileService implements EnvironmentAware {
     }
 
     public void delete(String sha256sum) throws IOException {
-        String subdir = asSubdir(sha256sum);
+        String subdir = hexpath(sha256sum);
 
         new File(deletedPath + subdir).mkdirs();
 
@@ -132,10 +131,6 @@ public class SHAFileService implements EnvironmentAware {
         File file = new File(filesPath + subdir + sha256sum);
         File movedFile = new File(deletedPath + subdir + sha256sum);
         Files.move(file.toPath(), movedFile.toPath(), StandardCopyOption.ATOMIC_MOVE);
-    }
-
-    private String asSubdir(String sha256sum) {
-        return hexpath(sha256sum, dirlength);
     }
 
     private static File writeProperties(Properties properties) throws IOException {
@@ -163,17 +158,21 @@ public class SHAFileService implements EnvironmentAware {
         return properties;
     }
 
-    public static String hexpath(String hexstring, int dirlength) {
+    public static String hexpath(String hexstring) {
         StringBuilder s = new StringBuilder();
 
         char[] chars = hexstring.toCharArray();
         int i = 1;
+        int mod = 2;
         for (char c : chars) {
             s.append(c);
-            if (i % dirlength == 0) s.append(File.separator);
+            if ((i+2) % mod == 0) {
+                s.append(File.separator);
+                mod *= mod;
+            }
             i++;
         }
-        return s.toString();
+        return s.append(File.separator).toString();
     }
 
     public static String sha256sum(File file) throws IOException {

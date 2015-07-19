@@ -19,17 +19,6 @@ public final class JmGlossInf implements Serializable {
     private String etInf;
     private String jpInf;
     private Time inserted;
-    private CfOrigin cfOrigin;
-
-    @ManyToOne
-    @JoinColumn(name = "cf_origin", referencedColumnName = "id", nullable = false)
-    public CfOrigin getCfOrigin() {
-        return cfOrigin;
-    }
-
-    public void setCfOrigin(CfOrigin cfOrigin) {
-        this.cfOrigin = cfOrigin;
-    }
 
     @Column(name = "entr", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
     @Id

@@ -84,7 +84,7 @@ public class Heisig4DB extends AbstractProjectRepository {
         try {
             String sql = "SELECT a.* FROM kanjidic2.kanji a LEFT JOIN heisig.heisig4 b" +
                 " ON a.literal = b.kanji " +
-                " WHERE b.id BETWEEN ?1 AND ?1 ORDER BY b.id";
+                " WHERE b.id BETWEEN ?1 AND ?2 ORDER BY b.id";
             Query q = em.createNativeQuery(sql, Kanji.class);
             q.setParameter(1, frameFrom);
             q.setParameter(2, frameTo);

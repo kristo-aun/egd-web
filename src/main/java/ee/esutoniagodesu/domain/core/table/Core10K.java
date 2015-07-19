@@ -33,6 +33,27 @@ public final class Core10K implements IHasCoreWord, IHasCoreSentence, Serializab
 
     private int wordKanjiCount;
 
+    private String wordSha;
+    private String sentenceSha;
+
+    @Column(name = "word_sha")
+    public String getWordSha() {
+        return wordSha;
+    }
+
+    public void setWordSha(String wordSha) {
+        this.wordSha = wordSha;
+    }
+
+    @Column(name = "sentence_sha")
+    public String getSentenceSha() {
+        return sentenceSha;
+    }
+
+    public void setSentenceSha(String sentenceSha) {
+        this.sentenceSha = sentenceSha;
+    }
+
     @Column(name = "id")
     @Id
     public Integer getId() {

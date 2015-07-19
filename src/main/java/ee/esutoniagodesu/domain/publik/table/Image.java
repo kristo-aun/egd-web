@@ -17,20 +17,6 @@ public final class Image implements Serializable {
     private String copyright;
     private String mimeType;
 
-    private Collection<Hiragana> hiraganas;
-    private CfOrigin cfOrigin;
-    private Collection<Katakana> katakanas;
-
-    @ManyToOne
-    @JoinColumn(name = "cf_origin_id", referencedColumnName = "id")
-    public CfOrigin getCfOrigin() {
-        return cfOrigin;
-    }
-
-    public void setCfOrigin(CfOrigin cfOrigin) {
-        this.cfOrigin = cfOrigin;
-    }
-
     @Column(name = "copyright", nullable = false, insertable = true, updatable = true, length = 2147483647, precision = 0)
     @Basic
     public String getCopyright() {
@@ -49,15 +35,6 @@ public final class Image implements Serializable {
 
     public void setFileName(String fileName) {
         this.fileName = fileName;
-    }
-
-    @OneToMany(mappedBy = "image")
-    public Collection<Hiragana> getHiraganas() {
-        return hiraganas;
-    }
-
-    public void setHiraganas(Collection<Hiragana> hiraganas) {
-        this.hiraganas = hiraganas;
     }
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -79,15 +56,6 @@ public final class Image implements Serializable {
 
     public void setImageFile(byte[] imageFile) {
         this.imageFile = imageFile;
-    }
-
-    @OneToMany(mappedBy = "image")
-    public Collection<Katakana> getKatakanas() {
-        return katakanas;
-    }
-
-    public void setKatakanas(Collection<Katakana> katakanas) {
-        this.katakanas = katakanas;
     }
 
     @Column(name = "mime_type", nullable = true, insertable = true, updatable = true, length = 2044, precision = 0)

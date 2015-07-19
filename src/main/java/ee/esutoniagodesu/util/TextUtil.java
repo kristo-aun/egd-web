@@ -3,9 +3,18 @@ package ee.esutoniagodesu.util;
 /**
  * http://www.mkyong.com/java/how-to-convert-hex-to-ascii-in-java/
  */
-public final class JCHex {
+public final class TextUtil {
 
-    public static String convertStringToHex(String str) {
+    public static String unicodeHexOf(char c) {
+
+        return hexValueOf(Integer.toHexString(c));
+    }
+
+    public static String hexValueOf(char c) {
+        return String.format("%04x", (int) c);
+    }
+
+    public static String hexValueOf(String str) {
 
         char[] chars = str.toCharArray();
 
@@ -17,7 +26,7 @@ public final class JCHex {
         return hex.toString();
     }
 
-    public static String convertHexToString(String hex) {
+    public static String stringValueOfHex(String hex) {
 
         StringBuilder sb = new StringBuilder();
         //StringBuilder temp = new StringBuilder();

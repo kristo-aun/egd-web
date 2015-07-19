@@ -1,9 +1,8 @@
+app.files.path: ~/esutoniagodesu/egd-files/
+
 server:
     port: 10344
     address: localhost
-
-# security configuration (this key should be unique for your application, and kept secret)
-app.security.rememberme.key: 388e8e186183c839451e1df7b0aceb3892fff430
 
 async:
     corePoolSize: 2
@@ -14,7 +13,7 @@ spring:
     datasource:
         url: jdbc:postgresql://localhost:5432/egd
         username: egdrole
-        password: redherring
+        password: changeit
 
 mail:
     host: localhost
@@ -24,5 +23,3 @@ mail:
     protocol: smtp
     tls: false
     auth: false
-
-app.files.path: /home/scylla/egd-files/

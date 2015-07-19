@@ -37,7 +37,7 @@ public class SHAFileService implements EnvironmentAware {
 
     @Override
     public void setEnvironment(Environment env) {
-        filesPath = env.getProperty("app.files.path");
+        filesPath = env.getProperty("app.files.path") + "main/";
         tempUploadFolder = filesPath + "temp-uploads/";
         deletedPath = filesPath + "deleted/";
         Assert.notNull(filesPath);

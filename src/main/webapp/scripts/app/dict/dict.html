@@ -52,6 +52,9 @@
         <grid-et ng-switch-when="false" rows="rows"></grid-et>
         <grid-ja ng-switch-when="true" rows="rows"></grid-ja>
     </div>
+    <div class="col-lg-2 text-right" ng-if="resultVisible">
+        <a ui-sref="abbr" translate="ontology.abbreviations"></a>
+    </div>
     <div class="col-lg-6 egd-main-intro" ng-if="!resultVisible">
         <p translate="dict.intro1"></p>
         <p translate="dict.intro2"></p>

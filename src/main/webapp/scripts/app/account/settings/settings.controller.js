@@ -1,7 +1,7 @@
 'use strict';
 
 egdApp
-    .controller('SettingsController', function ($state, $rootScope, $scope, $log, Principal, Auth, UpdateAccount, Language, $translate, $confirm) {
+    .controller('SettingsController', function ($state, $rootScope, $scope, $log, Principal, Auth, Language, $translate, $confirm) {
 
         $scope.isDeleteAccount = function() {
             return !Principal.isInRole('ROLE_ADMIN');

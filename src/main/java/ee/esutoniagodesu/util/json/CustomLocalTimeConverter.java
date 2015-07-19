@@ -25,7 +25,7 @@ public class CustomLocalTimeConverter {
 
     private static final Logger log = LoggerFactory.getLogger(CustomLocalTimeConverter.class);
 
-    public static final String FORMAT = "HH:mm:ss.SSS";
+    public static final String FORMAT = "HH:mm:ss";
     private static DateTimeFormatter formatter = DateTimeFormat.forPattern(FORMAT);
 
     public static class Formatter implements org.springframework.format.Formatter<LocalTime> {

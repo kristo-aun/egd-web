@@ -15,7 +15,12 @@ public class MicrosoftTranslateService {
 
     private static final Logger log = LoggerFactory.getLogger(MicrosoftTranslateService.class);
 
-    public String translate(String from, String to, String string) throws Exception {
-        return Translate.execute(string, Language.fromString(from), Language.fromString(to));
+    public String translate(String from, String to, String string) {
+        try {
+            return Translate.execute(string, Language.fromString(from), Language.fromString(to));
+        } catch (Exception e) {
+            log.error("translate: ", e.getMessage());
+            return null;
+        }
     }
 }

@@ -26,12 +26,12 @@ public class TranslatorResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> get(@PathVariable String from, @PathVariable String to,
-                                      @PathVariable String string) throws Exception {
+                                      @PathVariable String string) {
 
         return Optional.ofNullable(service.translate(from, to, string))
             .map(t -> new ResponseEntity<>(
                 t,
                 HttpStatus.OK))
-            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+            .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
     }
 }

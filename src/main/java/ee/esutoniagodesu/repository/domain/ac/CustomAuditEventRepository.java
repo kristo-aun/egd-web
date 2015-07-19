@@ -3,7 +3,7 @@ package ee.esutoniagodesu.repository.domain.ac;
 import ee.esutoniagodesu.config.Constants;
 import ee.esutoniagodesu.config.audit.AuditEventConverter;
 import ee.esutoniagodesu.domain.ac.table.PersistentAuditEvent;
-import org.joda.time.LocalDateTime;
+import org.joda.time.DateTime;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.boot.actuate.audit.AuditEventRepository;
 import org.springframework.context.annotation.Bean;
@@ -41,7 +41,7 @@ public class CustomAuditEventRepository {
                     persistentAuditEvents = persistenceAuditEventRepository.findByPrincipal(principal);
                 } else {
                     persistentAuditEvents =
-                        persistenceAuditEventRepository.findByPrincipalAndAuditEventDateAfter(principal, new LocalDateTime(after));
+                        persistenceAuditEventRepository.findByPrincipalAndAuditEventDateAfter(principal, new DateTime(after));
                 }
                 return auditEventConverter.convertToAuditEvent(persistentAuditEvents);
             }
@@ -54,7 +54,7 @@ public class CustomAuditEventRepository {
                 PersistentAuditEvent persistentAuditEvent = new PersistentAuditEvent();
                 persistentAuditEvent.setPrincipal(event.getPrincipal());
                 persistentAuditEvent.setAuditEventType(event.getType());
-                persistentAuditEvent.setAuditEventDate(new LocalDateTime(event.getTimestamp()));
+                persistentAuditEvent.setAuditEventDate(new DateTime(event.getTimestamp()));
                 persistentAuditEvent.setData(auditEventConverter.convertDataToStrings(event.getData()));
 
                 persistenceAuditEventRepository.save(persistentAuditEvent);

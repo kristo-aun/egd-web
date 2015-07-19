@@ -216,4 +216,28 @@ egdApp
                 });
             }
         };
+    })
+    .factory('AuditResource', function ($http, Moment) {
+        return {
+            findAll: function () {
+                return $http.get('api/audits').then(function (response) {
+                    return response.data;
+                });
+            },
+            findByPrincipal: function () {
+                return $http.get('api/audits/byPrincipal').then(function (response) {
+                    return response.data;
+                });
+            },
+            findByDates: function (from, to) {
+                return $http.get('api/audits/byDates', {
+                    params: {
+                        from: Moment.serializeDateTime(from),
+                        to: Moment.serializeDateTime(to)
+                    }
+                }).then(function (response) {
+                    return response.data;
+                });
+            }
+        };
     });

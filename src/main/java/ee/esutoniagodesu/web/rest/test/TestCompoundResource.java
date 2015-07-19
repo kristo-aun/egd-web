@@ -1,11 +1,9 @@
 package ee.esutoniagodesu.web.rest.test;
 
-import ee.esutoniagodesu.domain.ac.table.User;
 import ee.esutoniagodesu.pojo.test.compound.FilterCompoundParamsDTO;
 import ee.esutoniagodesu.pojo.test.compound.FilterCompoundSubmitDTO;
 import ee.esutoniagodesu.pojo.test.compound.KanjiCompound;
 import ee.esutoniagodesu.service.TestCompoundService;
-import ee.esutoniagodesu.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

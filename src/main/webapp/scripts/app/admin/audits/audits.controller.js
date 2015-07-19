@@ -1,13 +1,13 @@
 'use strict';
 
 egdApp
-    .controller('AuditsController', function ($scope, $filter, AuditsService) {
+    .controller('AuditsController', function ($scope, $filter, AuditResource) {
         $scope.onChangeDate = function () {
             var dateFormat = 'yyyy-MM-dd';
             var fromDate = $filter('date')($scope.fromDate, dateFormat);
             var toDate = $filter('date')($scope.toDate, dateFormat);
 
-            AuditsService.findByDates(fromDate, toDate).then(function (data) {
+            AuditResource.findByDates(fromDate, toDate).then(function (data) {
                 $scope.audits = data;
             });
         };

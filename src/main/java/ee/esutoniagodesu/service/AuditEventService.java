@@ -3,7 +3,7 @@ package ee.esutoniagodesu.service;
 import ee.esutoniagodesu.config.audit.AuditEventConverter;
 import ee.esutoniagodesu.domain.ac.table.PersistentAuditEvent;
 import ee.esutoniagodesu.repository.domain.ac.PersistenceAuditEventRepository;
-import org.joda.time.LocalDateTime;
+import org.joda.time.DateTime;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +32,7 @@ public class AuditEventService {
         return auditEventConverter.convertToAuditEvent(persistenceAuditEventRepository.findAll());
     }
 
-    public List<AuditEvent> findByDates(LocalDateTime fromDate, LocalDateTime toDate) {
+    public List<AuditEvent> findByDates(DateTime fromDate, DateTime toDate) {
         List<PersistentAuditEvent> persistentAuditEvents =
             persistenceAuditEventRepository.findAllByAuditEventDateBetween(fromDate, toDate);
 

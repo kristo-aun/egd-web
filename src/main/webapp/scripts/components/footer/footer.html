@@ -3,20 +3,34 @@
         <iframe
             src="https://ghbtns.com/github-btn.html?user=esutoniagodesu&amp;repo=egd-web&amp;type=watch&amp;count=true"
             style="float:left;"
-            allowtransparency="true" frameborder="0" scrolling="0" width="95" height="20"></iframe>
+            allowtransparency="true" frameborder="0" scrolling="0" width="85" height="20"></iframe>
         <div class="custom-follow-button" style="float:left;">
             <a href="https://twitter.com/intent/user?screen_name=esutoniagodesu" target="_blank"
-               alt="Follow esutoniagodesu">
+               alt="Twitter">
                 <i class="btn-icon"></i>
                 <span class="btn-text">Twitter</span>
             </a>
         </div>
-        <div style="float:left;margin-left:24px;">
+        <div style="margin-left:10px;float:left;">
+            <div id="fb-root"></div>
+            <script>(function(d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));</script>
+            <div class="fb-follow"
+                 data-href="https://www.facebook.com/esutoniagodesu"
+                 data-layout="button"
+                 data-show-faces="true"></div>
+        </div>
+        <div style="float:left;margin-left:34px;">
             <a href="http://web.zone.ee/jatik/" target="_blank" class="btn btn-primary btn-xs"
                style="height:20px;padding-left: 6px;padding-right: 6px;font-weight: bold;font-size: 1.1em;"
                role="button">Jatik</a>
         </div>
-        <div style="float:left;margin-left:24px;">
+        <div style="float:left;margin-left:10px;">
             <a href="http://www.csse.monash.edu.au/~jwb/cgi-bin/wwwjdic.cgi?1C" target="_blank"
                class="btn btn-primary btn-xs"
                style="height:20px;padding-left: 6px;padding-right: 6px;font-weight: bold;font-size: 1.1em;"
@@ -25,7 +39,7 @@
     </div>
     <div class="col-md-4">
         {{'global.label.email' | translate}}:
-        <a href="mailto:EsutoniaGoDesu@gmail.com?Subject=EsutoniaGoDesu website feedback" target="_top">EsutoniaGoDesu@gmail.com</a>
+        <a href="mailto:EsutoniaGoDesu@gmail.com?Subject=From EsutoniaGoDesu website" target="_top">EsutoniaGoDesu@gmail.com</a>
     </div>
     <div class="col-md-4 text-right">
         {{'footer.lastUpdated' | translate}}: {{buildTime}}

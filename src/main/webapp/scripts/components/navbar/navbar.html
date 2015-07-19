@@ -12,14 +12,14 @@
             <ul class="nav navbar-nav nav-pills navbar-left">
                 <li ui-sref-active="active">
                     <a ui-sref="home">
-                        <span class="glyphicon glyphicon-home"></span>
+                        <i class="fa fa-book"></i>
                         <span translate="navbar.home"></span>
                     </a>
                 </li>
                 <li ng-class="{active: $state.includes('entity')}" class="dropdown pointer">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">
                         <span>
-                            <span class="glyphicon glyphicon-th-list"></span>
+                            <i class="fa fa-cutlery"></i>
                             <span class="hidden-tablet" translate="navbar.entities.main"></span>
                             <b class="caret"></b>
                         </span>
@@ -29,16 +29,16 @@
                             <a ui-sref="reading">
                             &#xA0;<span translate="navbar.entities.readings"></span></a>
                         </li>
-                        <li ng-switch-when="true" ui-sref-active="active">
+                        <li ui-sref-active="active">
                             <a ui-sref="tofu">
                                 &#xA0;<span translate="navbar.entities.tofus"></span></a>
                         </li>
                     </ul>
                 </li>
-                <li ng-class="{active: $state.includes('test')}" ng-switch-when="true" ng-show="isInRole('ROLE_USER')" class="dropdown pointer">
+                <li ng-class="{active: $state.includes('test')}" class="dropdown pointer">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">
                         <span>
-                            <span class="glyphicon glyphicon-th-list"></span>
+                            <i class="fa fa-graduation-cap"></i>
                             <span class="hidden-tablet" translate="navbar.test.main"></span>
                             <b class="caret"></b>
                         </span>

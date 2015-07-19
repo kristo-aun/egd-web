@@ -11,7 +11,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @JsonInclude(Include.NON_NULL)
-@Embeddable
 @Entity
 @Table(name = "reading_page", schema = "library")
 public class ReadingPage implements Serializable {

@@ -5,11 +5,13 @@ egdApp
         $scope.isAuthenticated = Principal.isAuthenticated;
 
         var cleanup = function(text) {
-            if (text)
+            if (text) {
                 while(text.indexOf("\n\n\n") > -1) {
                     text = text.split("\n\n\n").join("\n\n");
                 }
-            return text;
+                return text;
+            }
+            return "";
         };
 
         var buildRows = function(body, transcript) {
@@ -29,12 +31,19 @@ egdApp
                 delete item.transcript
             });
 
+            console.log(data.pages);
             $scope.reading = data;
+        };
+
+        $scope.setPage = function(page) {
+            $scope.currentPage = page;
+            $scope.rows = $scope.reading.pages[$scope.currentPage-1].rows;
         };
 
         $scope.load = function (id) {
             ReadingResource.get({id: id}, function (data) {
                 $scope.setReading(data);
+                $scope.setPage(1);
             });
         };
         $scope.load($stateParams.id);

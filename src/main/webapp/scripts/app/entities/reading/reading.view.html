@@ -28,14 +28,18 @@
 <div class="row" style="margin-left:-10px;">
     <table class="table table-striped reading-rows">
         <tbody>
-        <tr ng-repeat="item in reading.rows">
+        <tr ng-repeat="item in rows">
             <td class="left">{{item[0]}}</td>
             <td class="right">{{item[1]}}</td>
         </tr>
         </tbody>
-
     </table>
 </div>
+
+<div class="row" ng-if="reading.pages">
+    <pagination direction-links="false" total-items="reading.pages.length" ng-model="currentPage" ng-change="setPage(currentPage)" items-per-page="1"></pagination>
+</div>
+
 <div class="row">
     <button type="button"
             ui-sref="reading"

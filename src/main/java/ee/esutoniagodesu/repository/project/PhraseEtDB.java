@@ -26,7 +26,7 @@ public class PhraseEtDB extends AbstractProjectRepository {
             long ms = System.currentTimeMillis();
             con = dao.getConnection();
             con.setAutoCommit(false);//kui tagastatakse kursor, siis peab autcommit olema false
-            String sql = "{? = call public.f_get_entr_et_like(?,?)}";
+            String sql = "{? = call f_get_entr_et_like(?,?)}";
             s = con.prepareCall(sql);
             s.registerOutParameter(1, Types.OTHER);//cursor
             s.setString(2, example + "%");
@@ -213,7 +213,6 @@ public class PhraseEtDB extends AbstractProjectRepository {
         StringBuilder msg = new StringBuilder("recordSearch: q=" + q + ", resultSize=" + resultSize);
         Connection con = null;
         CallableStatement s = null;
-        ResultSet rs = null;
         try {
             con = dao.getConnection();
             String sql = "insert into et_search_hist(s_string, result_size, lang) values (?,?,?)";
@@ -226,7 +225,7 @@ public class PhraseEtDB extends AbstractProjectRepository {
             log.error(msg.append(", msg=").append(e.getMessage()).toString(), e);
             throw new RuntimeException(e);
         } finally {
-            JDBCUtil.close(rs, s, con);
+            JDBCUtil.close(s, con);
         }
     }
 

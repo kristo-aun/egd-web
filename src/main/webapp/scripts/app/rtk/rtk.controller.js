@@ -32,7 +32,7 @@ egdApp
             }
         };
 
-        $scope.imageLocation = function(strokeDiagramImageId) {
-            return "api/images/" + strokeDiagramImageId;
+        $scope.imageLocation = function(sha) {
+            return "/api/media/" + sha;
         };
     });

@@ -159,6 +159,7 @@ public class SHAFileService implements EnvironmentAware {
     }
 
     public static String hexpath(String hexstring) {
+        if (hexstring.length() != 64) throw new IllegalArgumentException("invalid sha256 length");
         StringBuilder s = new StringBuilder();
 
         char[] chars = hexstring.toCharArray();

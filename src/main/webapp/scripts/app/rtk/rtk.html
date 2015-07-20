@@ -26,9 +26,9 @@
     <div class="heisig6Data" ng-repeat="item in frames">
         <span class="kanji japanese">【{{item.kanji}}】</span>
         <article>
-            <img ng-if="item.strokeImageId > 0" alt="{{item.kanji}}"
+            <img ng-if="item.imageSha" alt="{{item.kanji}}"
                  title="{{item.kanji}}" class="t-widget"
-                 ng-src="{{imageLocation(item.strokeImageId)}}"/>
+                 ng-src="{{imageLocation(item.imageSha)}}"/>
 
             <div class="heisig6Table">
                 <ul>

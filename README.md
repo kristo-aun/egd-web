@@ -2,39 +2,31 @@
 
 # About
 EsutoniaGoDesu is a free Japanese-Estonian dictionary based on JMDict. 
-Besides traditional two-way translation capabilities, it includes additional features such as 
+In addition to traditional two-way translation, it includes features such as 
 
-- a transcripting module, which provides various reading aids to articles such as vocabulary analyzer and audio;
+- a transcript module, which adds reading aids to articles such as vocabulary analyzer and audio;
 - a kanji database linked with Heisig's RTK and stroke diagrams;
 - a vocabulary test generator.
-
-Advanced users can apply for access to edit the dictionary.
 
 # Goals
 The main focus in developing this dictionary and its complementing functionality has been 
 to provide Estonian speakers with various study aids and accurate contextualized translations of Japanese words.
 
-Presumably this solution can be applied to any JP-X language pair, but the development is not being done
+This webapp can be used with any JP-X language pair, but the development is not being done
 keeping this in mind. If you wish to apply this software to another language pair you should be prepared
-to make significant changes to the source code.
+to make significant changes in the source code.
 
-
-This dictionary has some value to Japanese natives as it enables translating in Estonian -> Japanese direction.
-Switching to Japanese mode replaces Japanese study aids to those of Estonian. For instance, example sentences in Estonian appear instead of Japanese and 
-translations are complemented with links to ÕS.
+This dictionary hopefully adds some value to Japanese natives as it enables translating in Estonian -> Japanese direction.
 However, in order to qualify as a professional ET-JP dictionary, it should be based on an Estonian language specific data structure.
-It is our belief that such a structure should be developed in joint collaboration of EKI and heavy-weight Japanese linguists.
+Such a structure does not yet exist.
 Recommendations on how to provide more value to Japanese speakers are welcome.
 
 Hopefully this project will be an inspiration too for the emergence of Chinese-Estonian and Korean-Estonian dictionaries.
 
 # Resources
 - Live address: <a href="http://momo.koodur.com">momo.koodur.com</a>
-- Aternative address: (<a href="http://EsutoniaGoDesu.ddns.net/">EsutoniaGoDesu.ddns.net</a>, which redirects port 80 to
-<a href="213.168.13.40:54680">213.168.13.40:54680</a>.
-This address is managed at noip.com and has to be updated once a month as as we don't have a paid subscription there.
-
 - <a href="https://twitter.com/EsutoniaGoDesu">Twitter</a>
+- <a href="https://facebook.com/EsutoniaGoDesu">Facebook</a>
 
 # Quick Start
 Database schema is hosted in another project called [egd-db](https://github.com/esutoniagodesu/egd-db), but the data is not.
@@ -48,17 +40,13 @@ Install kakasi.jar manually<br/>
 mvn install:install-file -Dfile=lib/kakasi.jar -DgroupId=com.kawao.kakasi -DartifactId=kakasi -Dversion=0.4.0 -Dpackaging=jar
 ```
 
-Install egd-web/jc-api to Maven<br/>
-```
-mvn install -Dmaven.test.skip=true
-```
 
 Download dependencies and run in Spring Boot<br/>
 ```
-cd rest && mvn spring-boot:run
+mvn clean spring-boot:run
 ```
 
-- **next**: open localhost:8080 in your browser
+- **next**: open localhost:8443 in your browser
 
 
 To compile into war<br/>
@@ -67,8 +55,8 @@ mvn clean package -Pprod -Dmaven.test.skip=true
 ```
 
 # Technology Stack
-This webapp was initially generated using [JHipster](http://jhipster.github.io/creating_an_entity.html).
-Significant changes to the project structure and software modules were made, which means there will be complications if you try to
+This webapp was initially generated with [JHipster](http://jhipster.github.io/creating_an_entity.html).
+There have been significant changes to the project structure and software modules, which means there will be complications if you try to
 use the JHipster code generation tool.
 
 ### Version control
@@ -79,7 +67,7 @@ use the JHipster code generation tool.
 - **web/REST**: [Spring Boot](http://projects.spring.io/spring-boot/) 1.2.x
 - **marshalling**: [Jackson](https://github.com/FasterXML/jackson-databind) 2.x (for JSON)
 - **persistence**: [Spring Data JPA](http://www.springsource.org/spring-data/jpa) and [Hibernate](http://www.hibernate.org/) 4.1.x
-- **persistence providers**: PostgreSQL 9.3, h2 (for testing)
+- **persistence providers**: PostgreSQL 9.4, h2 (for testing)
 - **TTS**: Google TTS, [Kõnesüntees](http://heli.eki.ee/koduleht/)
 
 ### Business logic
@@ -88,8 +76,8 @@ use the JHipster code generation tool.
 - **Spreadsheets & PDF**: [JasperReports] (https://community.jaspersoft.com/project/jasperreports-library)
 
 ### Front-end
-- **Frameworks**: [AngularJS](https://angularjs.org/) 1.2.28 (upgrading to 1.3 is pending due to bootstrap), [JQuery](http://jquery.com),
-[JQuery-UI](http://jqueryui.com/), [Swagger](https://github.com/swagger-api/swagger-ui)<br/>
+- **Frameworks**: [AngularJS](https://angularjs.org/) 1.4.x, [JQuery](http://jquery.com),
+[JQuery-UI](http://jqueryui.com/), <br/>
 - **Design/CSS**: [Bootstrap](http://getbootstrap.com/)
 
 ### Testing
@@ -100,7 +88,6 @@ use the JHipster code generation tool.
 
 ## Hosting
 - **Web container**: [Tomcat 8.0](http://tomcat.apache.org/tomcat-8.0-doc/index.html), [Tomcat setup guide](docs/TOMCAT.md)
-- **Monitoring**: Cacti, PSI Probe
 
 # Data sources
 ## JMDict/EDICT

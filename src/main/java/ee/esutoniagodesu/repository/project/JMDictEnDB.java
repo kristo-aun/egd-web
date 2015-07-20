@@ -1,9 +1,9 @@
 package ee.esutoniagodesu.repository.project;
 
 import com.googlecode.genericdao.search.Search;
-import ee.esutoniagodesu.domain.jmdict_en.pk.EN_SensPK;
-import ee.esutoniagodesu.domain.jmdict_en.table.EN_Sens;
-import ee.esutoniagodesu.domain.jmdict_en.view.EN_Essum;
+import ee.esutoniagodesu.domain.jmen.pk.EN_SensPK;
+import ee.esutoniagodesu.domain.jmen.table.EN_Sens;
+import ee.esutoniagodesu.domain.jmen.view.EN_Essum;
 import ee.esutoniagodesu.util.persistence.JDBCUtil;
 import org.springframework.stereotype.Repository;
 

@@ -35,7 +35,14 @@ If you don't have Python3 installed, here is how to do this
     
 
 ## Updating JMDictDB
-there are scripts for that
+
+Under postgres user
+
+    make jmnew       # Create empty jmdictdb database.
+	make loadjm      # Load JMdict 
+    make loadkd      # Load Kanjidic2
+    make postload    # Re-create constraints and indices.
+
 
 ## Mapping CSV records to JMDict glosses
 

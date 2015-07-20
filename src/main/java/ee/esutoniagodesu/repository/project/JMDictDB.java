@@ -1,8 +1,8 @@
 package ee.esutoniagodesu.repository.project;
 
-import ee.esutoniagodesu.domain.jmdict.pk.SensPK;
-import ee.esutoniagodesu.domain.jmdict.table.Entr;
-import ee.esutoniagodesu.domain.jmdict.table.Sens;
+import ee.esutoniagodesu.domain.jmet.pk.SensPK;
+import ee.esutoniagodesu.domain.jmet.table.Entr;
+import ee.esutoniagodesu.domain.jmet.table.Sens;
 import ee.esutoniagodesu.pojo.entity.JapEst;
 import ee.esutoniagodesu.util.JCString;
 import ee.esutoniagodesu.util.persistence.JDBCUtil;
@@ -47,7 +47,7 @@ public class JMDictDB extends AbstractProjectRepository {
             rs = (ResultSet) s.getObject(1);
 
             if (rs.next()) {
-                SensPK pk = new SensPK(rs.getInt(1), rs.getInt(2));
+                SensPK pk = new SensPK(rs.getInt(1), rs.getShort(2));
                 result = em.find(Sens.class, pk);
             }
 

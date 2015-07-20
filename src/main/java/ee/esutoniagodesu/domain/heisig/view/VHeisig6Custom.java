@@ -5,7 +5,6 @@ import org.hibernate.annotations.Immutable;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.List;
 
 @Table(name = "v_heisig6_custom", schema = "heisig", catalog = "egd")
@@ -38,12 +37,8 @@ public final class VHeisig6Custom implements Serializable {
     @JsonIgnore
     private String myStory;
     private Integer strokeCount;
-    private Integer strokeImageId;
-    @JsonIgnore
-    private byte[] strokeImage;
+    private String imageSha;
 
-    @JsonIgnore
-    private String strokeFileName;
     private String constituents;
     private Integer lessonNo;
     private String onYomi;
@@ -272,34 +267,14 @@ public final class VHeisig6Custom implements Serializable {
         this.strokeCount = strokeCount;
     }
 
-    @Column(name = "stroke_file_name", nullable = true, insertable = true, updatable = true, length = 2147483647, precision = 0)
+    @Column(name = "image_sha")
     @Basic
-    public String getStrokeFileName() {
-        return strokeFileName;
+    public String getImageSha() {
+        return imageSha;
     }
 
-    public void setStrokeFileName(String strokeFileName) {
-        this.strokeFileName = strokeFileName;
-    }
-
-    @Column(name = "stroke_image", nullable = true, insertable = true, updatable = true, length = 2147483647, precision = 0)
-    @Basic
-    public byte[] getStrokeImage() {
-        return strokeImage;
-    }
-
-    public void setStrokeImage(byte[] strokeImage) {
-        this.strokeImage = strokeImage;
-    }
-
-    @Column(name = "stroke_image_id", nullable = true, insertable = true, updatable = true, length = 10, precision = 0)
-    @Basic
-    public Integer getStrokeImageId() {
-        return strokeImageId;
-    }
-
-    public void setStrokeImageId(Integer strokeImageId) {
-        this.strokeImageId = strokeImageId;
+    public void setImageSha(String imageSha) {
+        this.imageSha = imageSha;
     }
 
     @Column(name = "word", nullable = true, insertable = true, updatable = true, length = 2147483647, precision = 0)
@@ -359,63 +334,13 @@ public final class VHeisig6Custom implements Serializable {
 
         VHeisig6Custom that = (VHeisig6Custom) o;
 
-        if (constituents != null ? !constituents.equals(that.constituents) : that.constituents != null) return false;
-        if (frameNo4 != null ? !frameNo4.equals(that.frameNo4) : that.frameNo4 != null) return false;
-        if (heisigComment != null ? !heisigComment.equals(that.heisigComment) : that.heisigComment != null)
-            return false;
-        if (heisigStory != null ? !heisigStory.equals(that.heisigStory) : that.heisigStory != null) return false;
         if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (kanji != null ? !kanji.equals(that.kanji) : that.kanji != null) return false;
-        if (keywordEn != null ? !keywordEn.equals(that.keywordEn) : that.keywordEn != null) return false;
-        if (keywordEt != null ? !keywordEt.equals(that.keywordEt) : that.keywordEt != null) return false;
-        if (koohiiStory1 != null ? !koohiiStory1.equals(that.koohiiStory1) : that.koohiiStory1 != null) return false;
-        if (koohiiStory2 != null ? !koohiiStory2.equals(that.koohiiStory2) : that.koohiiStory2 != null) return false;
-        if (kunYomi != null ? !kunYomi.equals(that.kunYomi) : that.kunYomi != null) return false;
-        if (lessonNo != null ? !lessonNo.equals(that.lessonNo) : that.lessonNo != null) return false;
-        if (myStory != null ? !myStory.equals(that.myStory) : that.myStory != null) return false;
-        if (onYomi != null ? !onYomi.equals(that.onYomi) : that.onYomi != null) return false;
-        if (strokeCount != null ? !strokeCount.equals(that.strokeCount) : that.strokeCount != null) return false;
-        if (strokeFileName != null ? !strokeFileName.equals(that.strokeFileName) : that.strokeFileName != null)
-            return false;
-        if (!Arrays.equals(strokeImage, that.strokeImage)) return false;
-        if (strokeImageId != null ? !strokeImageId.equals(that.strokeImageId) : that.strokeImageId != null)
-            return false;
-        if (word != null ? !word.equals(that.word) : that.word != null) return false;
-        if (!Arrays.equals(wordAudio, that.wordAudio)) return false;
-        if (wordAudioFileName != null ? !wordAudioFileName.equals(that.wordAudioFileName) : that.wordAudioFileName != null)
-            return false;
-        if (wordReading != null ? !wordReading.equals(that.wordReading) : that.wordReading != null) return false;
-        if (wordTranslation != null ? !wordTranslation.equals(that.wordTranslation) : that.wordTranslation != null)
-            return false;
-
         return true;
     }
 
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (kanji != null ? kanji.hashCode() : 0);
-        result = 31 * result + (heisigStory != null ? heisigStory.hashCode() : 0);
-        result = 31 * result + (heisigComment != null ? heisigComment.hashCode() : 0);
-        result = 31 * result + (keywordEn != null ? keywordEn.hashCode() : 0);
-        result = 31 * result + (keywordEt != null ? keywordEt.hashCode() : 0);
-        result = 31 * result + (word != null ? word.hashCode() : 0);
-        result = 31 * result + (wordReading != null ? wordReading.hashCode() : 0);
-        result = 31 * result + (wordAudio != null ? Arrays.hashCode(wordAudio) : 0);
-        result = 31 * result + (wordAudioFileName != null ? wordAudioFileName.hashCode() : 0);
-        result = 31 * result + (wordTranslation != null ? wordTranslation.hashCode() : 0);
-        result = 31 * result + (myStory != null ? myStory.hashCode() : 0);
-        result = 31 * result + (strokeCount != null ? strokeCount.hashCode() : 0);
-        result = 31 * result + (strokeImageId != null ? strokeImageId.hashCode() : 0);
-        result = 31 * result + (strokeImage != null ? Arrays.hashCode(strokeImage) : 0);
-        result = 31 * result + (strokeFileName != null ? strokeFileName.hashCode() : 0);
-        result = 31 * result + (constituents != null ? constituents.hashCode() : 0);
-        result = 31 * result + (lessonNo != null ? lessonNo.hashCode() : 0);
-        result = 31 * result + (onYomi != null ? onYomi.hashCode() : 0);
-        result = 31 * result + (kunYomi != null ? kunYomi.hashCode() : 0);
-        result = 31 * result + (koohiiStory1 != null ? koohiiStory1.hashCode() : 0);
-        result = 31 * result + (koohiiStory2 != null ? koohiiStory2.hashCode() : 0);
-        result = 31 * result + (frameNo4 != null ? frameNo4.hashCode() : 0);
         return result;
     }
 }

@@ -133,7 +133,6 @@ public class HeisigService {
                     log.debug("findBySigns: no heisig6 found: p=" + p);
                     item = new VHeisig6Custom();
                     item.setKanji(String.valueOf(p));
-                    item.setStrokeImageId(kanjiDB.getStrokeDiagramImageId(p));
                 }
 
                 result.add(item);

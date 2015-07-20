@@ -84,7 +84,7 @@ public class JasperService {
                 p.setExampleWords(kanjiDB.getExampleWords(p.getKanji(), _exampleWordsCount));
             }
 
-            if (p.getStrokeFileName() != null) {
+            if (p.getImageSha() != null) {
                 String diagram = "<img src=\"" + p.getKanji() + ".svg" + "\" />";
                 p.setStrokeImageHtml(diagram);
             }
@@ -277,9 +277,9 @@ public class JasperService {
                 JCIOUtils.addToZipFile("word_audio/" + p.getWordAudioFileName(), p.getWordAudio(), zos);
             }
 
-            if (p.getStrokeImage() != null && p.getStrokeImage().length > 0) {
-                JCIOUtils.addToZipFile("stroke_image/" + p.getKanji() + ".svg", p.getStrokeImage(), zos);
-            }
+            //if (p.getStrokeImage() != null && p.getStrokeImage().length > 0) {
+            //    JCIOUtils.addToZipFile("stroke_image/" + p.getKanji() + ".svg", p.getStrokeImage(), zos);
+            //}
         }
 
         zos.close();

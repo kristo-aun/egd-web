@@ -2,7 +2,7 @@ package ee.esutoniagodesu.service;
 
 import com.google.common.base.Joiner;
 import ee.esutoniagodesu.bean.ProjectDAO;
-import ee.esutoniagodesu.domain.jmdict_en.view.EN_Essum;
+import ee.esutoniagodesu.domain.jmen.view.EN_Essum;
 import ee.esutoniagodesu.repository.project.JMDictEnDB;
 import ee.esutoniagodesu.util.lang.lingv.JapaneseCharacter;
 import ee.esutoniagodesu.web.rest.dto.VocabularyDTO;

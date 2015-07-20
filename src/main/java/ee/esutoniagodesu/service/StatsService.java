@@ -39,7 +39,7 @@ public class StatsService {
     private void refresh() {
         log.debug("refresh");
         vstats = reportDB.getStats();
-        vstats.jmdictVersion = "27.01.2014";
+        vstats.jmdictVersion = "20.07.2015";
     }
 
     /**

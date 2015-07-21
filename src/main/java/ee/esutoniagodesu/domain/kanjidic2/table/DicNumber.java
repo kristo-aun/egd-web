@@ -5,7 +5,7 @@ import org.hibernate.annotations.Immutable;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Table(name = "dic_number", schema = "kanjidic2", catalog = "egd")
+@Table(name = "dic_number", schema = "kanjidic2")
 @Entity
 @Immutable
 public final class DicNumber implements Serializable {

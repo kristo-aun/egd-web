@@ -1,32 +1,57 @@
 package ee.esutoniagodesu.domain.publik.table;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import ee.esutoniagodesu.domain.AbstractAuditingEntity;
 import ee.esutoniagodesu.domain.publik.pk.JmGlossInfPK;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Time;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @IdClass(JmGlossInfPK.class)
-@Table(name = "jm_gloss_inf", schema = "public", catalog = "egd")
 @Entity
-public final class JmGlossInf implements Serializable {
+@Table(name = "jm_gloss_inf", schema = "public")
+public class JmGlossInf extends AbstractAuditingEntity implements Serializable {
 
-    private static final long serialVersionUID = -5946557647810376579L;
+    private static final long serialVersionUID = -5946457647810376579L;
 
-    private int entr;
-    private int sens;
-    private int gloss;
+    private Integer entr;
+    private Integer sens;
+    private Integer gloss;
     private String etInf;
     private String jpInf;
-    private Time inserted;
+
+    private EOrigin origin;
+    private String externalId;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "origin", nullable = true)
+    @Basic
+    public EOrigin getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(EOrigin origin) {
+        this.origin = origin;
+    }
+
+    @Column(name = "external_id", nullable = true)
+    @Basic
+    public String getExternalId() {
+        return externalId;
+    }
+
+    public void setExternalId(String externalId) {
+        this.externalId = externalId;
+    }
 
     @Column(name = "entr", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
     @Id
-    public int getEntr() {
+    public Integer getEntr() {
         return entr;
     }
 
-    public void setEntr(int entr) {
+    public void setEntr(Integer entr) {
         this.entr = entr;
     }
 
@@ -42,22 +67,12 @@ public final class JmGlossInf implements Serializable {
 
     @Column(name = "gloss", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
     @Id
-    public int getGloss() {
+    public Integer getGloss() {
         return gloss;
     }
 
-    public void setGloss(int gloss) {
+    public void setGloss(Integer gloss) {
         this.gloss = gloss;
-    }
-
-    @Column(name = "inserted", nullable = false, insertable = true, updatable = true, length = 15, precision = 6)
-    @Basic
-    public Time getInserted() {
-        return inserted;
-    }
-
-    public void setInserted(Time inserted) {
-        this.inserted = inserted;
     }
 
     @Column(name = "jp_inf", nullable = true, insertable = true, updatable = true, length = 2147483647, precision = 0)
@@ -72,39 +87,34 @@ public final class JmGlossInf implements Serializable {
 
     @Column(name = "sens", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
     @Id
-    public int getSens() {
+    public Integer getSens() {
         return sens;
     }
 
-    public void setSens(int sens) {
+    public void setSens(Integer sens) {
         this.sens = sens;
     }
 
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         JmGlossInf that = (JmGlossInf) o;
 
-        if (entr != that.entr) return false;
-        if (gloss != that.gloss) return false;
-        if (sens != that.sens) return false;
+        if (entr != null ? !entr.equals(that.entr) : that.entr != null) return false;
+        if (sens != null ? !sens.equals(that.sens) : that.sens != null) return false;
+        if (gloss != null ? !gloss.equals(that.gloss) : that.gloss != null) return false;
         if (etInf != null ? !etInf.equals(that.etInf) : that.etInf != null) return false;
-        if (inserted != null ? !inserted.equals(that.inserted) : that.inserted != null) return false;
-        if (jpInf != null ? !jpInf.equals(that.jpInf) : that.jpInf != null) return false;
+        return !(jpInf != null ? !jpInf.equals(that.jpInf) : that.jpInf != null);
 
-        return true;
     }
 
-    @Override
     public int hashCode() {
-        int result = entr;
-        result = 31 * result + sens;
-        result = 31 * result + gloss;
+        int result = entr != null ? entr.hashCode() : 0;
+        result = 31 * result + (sens != null ? sens.hashCode() : 0);
+        result = 31 * result + (gloss != null ? gloss.hashCode() : 0);
         result = 31 * result + (etInf != null ? etInf.hashCode() : 0);
         result = 31 * result + (jpInf != null ? jpInf.hashCode() : 0);
-        result = 31 * result + (inserted != null ? inserted.hashCode() : 0);
         return result;
     }
 }

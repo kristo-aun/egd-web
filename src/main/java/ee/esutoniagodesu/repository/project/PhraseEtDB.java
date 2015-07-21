@@ -1,7 +1,7 @@
 package ee.esutoniagodesu.repository.project;
 
 import ee.esutoniagodesu.pojo.cf.ECfEtSonaliik;
-import ee.esutoniagodesu.pojo.cf.ECfOrigin;
+import ee.esutoniagodesu.domain.publik.table.EOrigin;
 import ee.esutoniagodesu.pojo.entity.Voca;
 import ee.esutoniagodesu.util.persistence.JDBCUtil;
 import org.springframework.stereotype.Repository;
@@ -283,7 +283,7 @@ public class PhraseEtDB extends AbstractProjectRepository {
 
                 result.setEt(rs.getString(1));
                 result.setEtAudioId(rs.getInt(2));
-                result.setCfOriginEt(ECfOrigin.findById(rs.getInt(3)));
+                result.setCfOriginEt(EOrigin.valueOf(rs.getString(3)));
 
                 Array z = rs.getArray(4);
                 Integer[] sonaliikIds = (Integer[]) z.getArray();

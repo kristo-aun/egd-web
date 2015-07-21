@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Arrays;
 
-@Table(name = "heisig_core_kw", schema = "heisig", catalog = "egd")
+@Table(name = "heisig_core_kw", schema = "heisig")
 @Entity
 public final class HeisigCoreKw implements Serializable {
 

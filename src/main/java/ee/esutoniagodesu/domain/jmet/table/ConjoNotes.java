@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 @Entity
 @Immutable
-@Table(name = "conjo_notes", schema = "jmet", catalog = "egd")
+@Table(name = "conjo_notes", schema = "jmet")
 @IdClass(ConjoNotesPK.class)
 public final class ConjoNotes implements Serializable {
 

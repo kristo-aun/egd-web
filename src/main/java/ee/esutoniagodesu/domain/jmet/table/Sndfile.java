@@ -8,7 +8,7 @@ import java.util.Collection;
 
 @Entity
 @Immutable
-@Table(name = "sndfile", schema = "jmet", catalog = "egd")
+@Table(name = "sndfile", schema = "jmet")
 public final class Sndfile implements Serializable {
 
     private static final long serialVersionUID = -481673765495198164L;

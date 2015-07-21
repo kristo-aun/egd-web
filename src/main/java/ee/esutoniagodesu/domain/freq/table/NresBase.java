@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 
-@Table(name = "jp_nres_base_aggr", schema = "freq", catalog = "egd")
+@Table(name = "jp_nres_base_aggr", schema = "freq")
 @Entity
 public final class NresBase implements IntID, ICountKanjis, Serializable {
 

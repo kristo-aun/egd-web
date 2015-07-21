@@ -3,7 +3,7 @@ package ee.esutoniagodesu.domain.freq.table;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Table(name = "mtm_nres_kanji", schema = "freq", catalog = "egd")
+@Table(name = "mtm_nres_kanji", schema = "freq")
 @Entity
 public final class MtmNresKanji implements Serializable {
 

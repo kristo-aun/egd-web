@@ -1,7 +1,7 @@
 package ee.esutoniagodesu.service;
 
 import com.google.common.base.Joiner;
-import ee.esutoniagodesu.domain.ac.table.Authority;
+import ee.esutoniagodesu.domain.ac.table.EAuthority;
 import ee.esutoniagodesu.security.permission.CustomPermissionEvaluator;
 import ee.esutoniagodesu.security.permission.Permission;
 import ee.esutoniagodesu.util.JCString;
@@ -80,7 +80,7 @@ public class SHAFileService implements EnvironmentAware {
         return new File(filesPath + hexpath + sha256sum);
     }
 
-    public String put(MultipartFile multipartFile, Authority... authorities) throws IOException {
+    public String put(MultipartFile multipartFile, EAuthority... authorities) throws IOException {
         String originalName = multipartFile.getOriginalFilename();
         File tmp = new File(tempUploadFolder + UUID.randomUUID().toString());
         multipartFile.transferTo(tmp);
@@ -90,12 +90,12 @@ public class SHAFileService implements EnvironmentAware {
         return put(tmp, properties, authorities);
     }
 
-    public String put(File file, Authority... authorities) throws IOException {
+    public String put(File file, EAuthority... authorities) throws IOException {
         Properties properties = metadata(file);
         return put(file, properties, authorities);
     }
 
-    private String put(File file, Properties properties, Authority... authorities) throws IOException {
+    private String put(File file, Properties properties, EAuthority... authorities) throws IOException {
         if (authorities != null && authorities.length > 0)
             properties.put("roles-allowed", Joiner.on(",").join(authorities));
 

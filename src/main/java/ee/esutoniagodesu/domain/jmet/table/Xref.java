@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 @Entity
 @Immutable
-@Table(name = "xref", schema = "jmet", catalog = "egd")
+@Table(name = "xref", schema = "jmet")
 @IdClass(XrefPK.class)
 public final class Xref implements Serializable {
 

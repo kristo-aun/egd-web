@@ -3,7 +3,7 @@ package ee.esutoniagodesu.domain.publik.table;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Table(name = "eki_lemma", schema = "public", catalog = "egd")
+@Table(name = "eki_lemma", schema = "public")
 @Entity
 public final class EkiLemma implements Serializable {
 

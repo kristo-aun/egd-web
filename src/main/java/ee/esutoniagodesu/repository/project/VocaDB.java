@@ -2,7 +2,7 @@ package ee.esutoniagodesu.repository.project;
 
 import ee.esutoniagodesu.pojo.cf.ECfEtSonaliik;
 import ee.esutoniagodesu.pojo.cf.ECfJpCategory;
-import ee.esutoniagodesu.pojo.cf.ECfOrigin;
+import ee.esutoniagodesu.domain.publik.table.EOrigin;
 import ee.esutoniagodesu.pojo.cf.ECfVocaTransQuality;
 import ee.esutoniagodesu.pojo.entity.Voca;
 import ee.esutoniagodesu.util.persistence.JDBCUtil;
@@ -47,7 +47,7 @@ public class VocaDB extends AbstractProjectRepository {
             s.setString(4, o.getDescrEt());
             if (o.getEtAudioId() > 0) s.setInt(5, o.getEtAudioId());
             else s.setNull(5, Types.INTEGER);
-            s.setInt(6, o.getCfOriginEt().ID);
+            s.setString(6, o.getCfOriginEt().name());
 
             s.execute();
             result = s.getInt(1);//voca_et_id
@@ -99,7 +99,7 @@ public class VocaDB extends AbstractProjectRepository {
             JDBCUtil.setCSParameter(s, 3, o.getKana(), Types.VARCHAR);
             JDBCUtil.setCSParameter(s, 4, o.getRomaji(), Types.VARCHAR);
             JDBCUtil.setCSParameter(s, 5, o.getJpAudioId() > 0 ? o.getJpAudioId() : null, Types.INTEGER);
-            s.setInt(6, o.getCfOriginJp().ID);
+            s.setString(6, o.getCfOriginJp().name());
 
             s.setInt(7, o.getCfJpCategory().ID);
             s.setString(8, o.getEt());
@@ -162,7 +162,7 @@ public class VocaDB extends AbstractProjectRepository {
             JDBCUtil.setCSParameter(s, 3, o.getKana(), Types.VARCHAR);
             JDBCUtil.setCSParameter(s, 4, o.getRomaji(), Types.VARCHAR);
             JDBCUtil.setCSParameter(s, 5, o.getJpAudioId() > 0 ? o.getJpAudioId() : null, Types.INTEGER);
-            s.setInt(6, o.getCfOriginJp().ID);
+            s.setString(6, o.getCfOriginJp().name());
 
             s.setInt(7, o.getCfJpCategory().ID);
             s.setString(8, o.getEt());
@@ -200,7 +200,7 @@ public class VocaDB extends AbstractProjectRepository {
         item.setVocaEtId(rs.getInt(i++));//voca_et_id
         item.setCfEtSonaliik(ECfEtSonaliik.findById(rs.getInt(i++)));//cf_et_sonaliik
         item.setDescrEt(rs.getString(i++));//descr_for_et
-        item.setCfOriginEt(ECfOrigin.findById(rs.getInt(i++)));//cf_origin_for_phrase_et
+        item.setCfOriginEt(EOrigin.valueOf(rs.getString(i++)));//cf_origin_for_phrase_et
 
         item.setEtAudioId(rs.getInt(i++));//et_audio_id
         item.setPhraseEtId(rs.getInt(i++));//phrase_et_id
@@ -211,7 +211,7 @@ public class VocaDB extends AbstractProjectRepository {
         item.setRomaji(rs.getString(i++));//romaji
         item.setRomajiHepburn(rs.getString(i++));//romaji_hepburn
         item.setPhraseJpId(rs.getInt(i++));//phrase_jp_id
-        item.setCfOriginJp(ECfOrigin.findById(rs.getInt(i++)));//cf_origin_for_phrase_jp
+        item.setCfOriginJp(EOrigin.valueOf(rs.getString(i++)));//cf_origin_for_phrase_jp
         item.setCfJpCategory(ECfJpCategory.findById(rs.getInt(i)));//cf_jp_category
 
         return item;
@@ -323,7 +323,7 @@ public class VocaDB extends AbstractProjectRepository {
         item.setRomajiHepburn(rs.getString(i++));//romaji_hepburn
 
         item.setDescrJp(rs.getString(i++));//descr_for_jp
-        item.setCfOriginJp(ECfOrigin.findById(rs.getInt(i++)));//cf_origin_for_phrase_jp
+        item.setCfOriginJp(EOrigin.valueOf(rs.getString(i++)));//cf_origin_for_phrase_jp
         item.setJpAudioId(rs.getInt(i++));//jp_audio_id
         item.setVocaJpId(rs.getInt(i++));//voca_jp_id
         item.setPhraseJpId(rs.getInt(i++));//phrase_jp_id
@@ -332,7 +332,7 @@ public class VocaDB extends AbstractProjectRepository {
         i++;//seq_et_jp
         item.setVocaEtId(rs.getInt(i++));//voca_et_id
         item.setEt(rs.getString(i++));//et
-        item.setCfOriginEt(ECfOrigin.findById(rs.getInt(i++)));//cf_origin_for_phrase_et
+        item.setCfOriginEt(EOrigin.valueOf(rs.getString(i++)));//cf_origin_for_phrase_et
 
         item.setEtAudioId(rs.getInt(i++));//et_audio_id
         item.setPhraseEtId(rs.getInt(i));//phrase_et_id

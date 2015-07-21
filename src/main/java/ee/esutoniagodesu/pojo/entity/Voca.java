@@ -2,7 +2,7 @@ package ee.esutoniagodesu.pojo.entity;
 
 import ee.esutoniagodesu.pojo.cf.ECfEtSonaliik;
 import ee.esutoniagodesu.pojo.cf.ECfJpCategory;
-import ee.esutoniagodesu.pojo.cf.ECfOrigin;
+import ee.esutoniagodesu.domain.publik.table.EOrigin;
 import ee.esutoniagodesu.pojo.cf.ECfVocaTransQuality;
 
 import java.io.Serializable;
@@ -18,7 +18,7 @@ public final class Voca implements IntID, Serializable {
     private String romaji;
     private String romajiHepburn;
     private int jpAudioId;
-    private ECfOrigin cfOriginJp;
+    private EOrigin cfOriginJp;
 
     //voca_jp
     private int vocaJpId;
@@ -32,7 +32,7 @@ public final class Voca implements IntID, Serializable {
     //phrase_et
     private int phraseEtId;
     private String et;
-    private ECfOrigin cfOriginEt;
+    private EOrigin cfOriginEt;
     private int etAudioId;
 
     //voca_et
@@ -95,11 +95,11 @@ public final class Voca implements IntID, Serializable {
         this.jpAudioId = jpAudioId;
     }
 
-    public ECfOrigin getCfOriginJp() {
+    public EOrigin getCfOriginJp() {
         return cfOriginJp;
     }
 
-    public void setCfOriginJp(ECfOrigin cfOriginJp) {
+    public void setCfOriginJp(EOrigin cfOriginJp) {
         this.cfOriginJp = cfOriginJp;
     }
 
@@ -159,11 +159,11 @@ public final class Voca implements IntID, Serializable {
         this.et = et;
     }
 
-    public ECfOrigin getCfOriginEt() {
+    public EOrigin getCfOriginEt() {
         return cfOriginEt;
     }
 
-    public void setCfOriginEt(ECfOrigin cfOriginEt) {
+    public void setCfOriginEt(EOrigin cfOriginEt) {
         this.cfOriginEt = cfOriginEt;
     }
 

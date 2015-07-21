@@ -5,7 +5,7 @@ import org.hibernate.annotations.Immutable;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Table(name = "mtm_kanji_reading", schema = "kanjidic2", catalog = "egd")
+@Table(name = "mtm_kanji_reading", schema = "kanjidic2")
 @Entity
 @Immutable
 public final class MtmKanjiReading implements Serializable {

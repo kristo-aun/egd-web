@@ -3,7 +3,7 @@ package ee.esutoniagodesu.domain.core.table;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Table(name = "mtm_tofu_sentence_kanji", schema = "core", catalog = "egd")
+@Table(name = "mtm_tofu_sentence_kanji", schema = "core")
 @Entity
 public final class MtmTofuSentenceKanji implements Serializable {
 

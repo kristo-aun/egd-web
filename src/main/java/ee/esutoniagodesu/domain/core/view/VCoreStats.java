@@ -4,7 +4,7 @@ import org.hibernate.annotations.Immutable;
 
 import javax.persistence.*;
 
-@Table(name = "v_core_stats", schema = "core", catalog = "egd")
+@Table(name = "v_core_stats", schema = "core")
 @Immutable
 @Entity
 public class VCoreStats {

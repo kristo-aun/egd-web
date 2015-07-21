@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 @Entity
-@Table(name = "word_meaning", schema = "estwn", catalog = "egd")
+@Table(name = "word_meaning", schema = "estwn")
 public final class WordMeaning implements Serializable {
 
     private static final long serialVersionUID = 9002333005232027907L;

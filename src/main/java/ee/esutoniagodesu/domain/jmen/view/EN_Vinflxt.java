@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Entity
 @Immutable
-@Table(name = "vinflxt", schema = "jmen", catalog = "egd")
+@Table(name = "vinflxt", schema = "jmen")
 public final class EN_Vinflxt implements Serializable {
 
     private static final long serialVersionUID = -3185778213246268205L;

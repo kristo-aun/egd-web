@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Immutable
-@Table(name = "mtm_ilo_kanji", schema = "core", catalog = "egd")
+@Table(name = "mtm_ilo_kanji", schema = "core")
 @Entity
 public final class MtmIloKanji implements Serializable {
 

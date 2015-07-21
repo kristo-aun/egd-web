@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 
-@Table(name = "nres_kanji", schema = "freq", catalog = "egd")
+@Table(name = "nres_kanji", schema = "freq")
 @Entity
 public final class NresKanji implements Serializable {
 

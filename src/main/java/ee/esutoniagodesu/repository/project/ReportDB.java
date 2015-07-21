@@ -4,7 +4,7 @@ import com.google.common.base.Joiner;
 import ee.esutoniagodesu.domain.publik.view.VStats;
 import ee.esutoniagodesu.pojo.cf.ECfEtSonaliik;
 import ee.esutoniagodesu.pojo.cf.ECfJpCategory;
-import ee.esutoniagodesu.pojo.cf.ECfOrigin;
+import ee.esutoniagodesu.domain.publik.table.EOrigin;
 import ee.esutoniagodesu.pojo.cf.ECfVocaTransQuality;
 import ee.esutoniagodesu.util.persistence.JDBCUtil;
 import org.springframework.stereotype.Repository;
@@ -201,8 +201,7 @@ public class ReportDB extends AbstractProjectRepository {
                 item.put("kana", rs.getString(i++));
                 item.put("romaji", rs.getString(i++));
 
-                int cfVocaJpOrigin = rs.getInt(i++);
-                item.put("cfVocaJpOrigin", cfVocaJpOrigin > 0 ? ECfOrigin.findById(cfVocaJpOrigin).TITLE : null);
+                item.put("cfVocaJpOrigin", EOrigin.valueOf(rs.getString(i++)));
 
                 Array a = rs.getArray(i++);
                 Map<Integer, String> simples = new LinkedHashMap<>();
@@ -231,8 +230,7 @@ public class ReportDB extends AbstractProjectRepository {
                 item.put("et", rs.getString(i++));
                 i++;//et_audio_id;
 
-                int cfVocaEtOrigin = rs.getInt(i++);
-                item.put("cfVocaEtOrigin", cfVocaEtOrigin > 0 ? ECfOrigin.findById(cfVocaEtOrigin).TITLE : null);
+                item.put("cfVocaEtOrigin", EOrigin.valueOf(rs.getString(i++)));
 
                 //et sõnaliigid
                 Map<Integer, String> etLiigid = new LinkedHashMap<>();

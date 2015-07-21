@@ -3,7 +3,7 @@ package ee.esutoniagodesu.domain.heisig.table;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Table(name = "heisig4", schema = "heisig", catalog = "egd")
+@Table(name = "heisig4", schema = "heisig")
 @Entity
 public final class Heisig4 implements Serializable {
 

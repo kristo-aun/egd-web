@@ -59,10 +59,10 @@ public class User implements Serializable {
         schema = "ac",
         name = "user_authority",
         joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")})
-    @ElementCollection(targetClass = Authority.class)
+    @ElementCollection(targetClass = EAuthority.class)
     @Column(name = "name", nullable = false)
     @Enumerated(EnumType.STRING)
-    private Set<Authority> roles = new HashSet<>();
+    private Set<EAuthority> roles = new HashSet<>();
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     @PrimaryKeyJoinColumn
@@ -182,11 +182,11 @@ public class User implements Serializable {
         this.createdDate = createdDate;
     }
 
-    public Set<Authority> getRoles() {
+    public Set<EAuthority> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Authority> roles) {
+    public void setRoles(Set<EAuthority> roles) {
         this.roles = roles;
     }
 

@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 @Entity
-@Table(name = "variant", schema = "estwn", catalog = "egd")
+@Table(name = "variant", schema = "estwn")
 public final class Variant implements Serializable {
 
     private static final long serialVersionUID = -6949963501599292207L;

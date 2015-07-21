@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 @Entity
 @Immutable
-@Table(name = "rad", schema = "jmen", catalog = "egd")
+@Table(name = "rad", schema = "jmen")
 @IdClass(EN_RadPK.class)
 public final class EN_Rad implements Serializable {
 

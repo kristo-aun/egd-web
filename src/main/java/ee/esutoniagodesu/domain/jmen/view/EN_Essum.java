@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Entity
 @Immutable
-@Table(name = "essum", schema = "jmen", catalog = "egd")
+@Table(name = "essum", schema = "jmen")
 public final class EN_Essum implements Serializable {
 
     private static final long serialVersionUID = -8230182976047065080L;

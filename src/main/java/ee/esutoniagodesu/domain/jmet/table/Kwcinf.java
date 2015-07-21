@@ -8,7 +8,7 @@ import java.util.Collection;
 
 @Entity
 @Immutable
-@Table(name = "kwcinf", schema = "jmet", catalog = "egd")
+@Table(name = "kwcinf", schema = "jmet")
 public final class Kwcinf implements Serializable {
 
     private static final long serialVersionUID = -3036403527490309187L;

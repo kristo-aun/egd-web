@@ -8,59 +8,56 @@ public final class JmGlossInfPK implements Serializable {
 
     private static final long serialVersionUID = -1127669388929874569L;
 
-    private int entr;
-    private int sens;
-    private int gloss;
+    private Integer entr;
+    private Integer sens;
+    private Integer gloss;
 
     @Id
     @Column(name = "entr", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
-    public int getEntr() {
+    public Integer getEntr() {
         return entr;
     }
 
-    public void setEntr(int entr) {
+    public void setEntr(Integer entr) {
         this.entr = entr;
     }
 
     @Id
     @Column(name = "gloss", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
-    public int getGloss() {
+    public Integer getGloss() {
         return gloss;
     }
 
-    public void setGloss(int gloss) {
+    public void setGloss(Integer gloss) {
         this.gloss = gloss;
     }
 
     @Id
     @Column(name = "sens", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
-    public int getSens() {
+    public Integer getSens() {
         return sens;
     }
 
-    public void setSens(int sens) {
+    public void setSens(Integer sens) {
         this.sens = sens;
     }
 
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
         JmGlossInfPK that = (JmGlossInfPK) o;
 
-        if (entr != that.entr) return false;
-        if (gloss != that.gloss) return false;
-        if (sens != that.sens) return false;
+        if (entr != null ? !entr.equals(that.entr) : that.entr != null) return false;
+        if (sens != null ? !sens.equals(that.sens) : that.sens != null) return false;
+        return !(gloss != null ? !gloss.equals(that.gloss) : that.gloss != null);
 
-        return true;
     }
 
-    @Override
     public int hashCode() {
-        int result = entr;
-        result = 31 * result + sens;
-        result = 31 * result + gloss;
+        int result = entr != null ? entr.hashCode() : 0;
+        result = 31 * result + (sens != null ? sens.hashCode() : 0);
+        result = 31 * result + (gloss != null ? gloss.hashCode() : 0);
         return result;
     }
 }

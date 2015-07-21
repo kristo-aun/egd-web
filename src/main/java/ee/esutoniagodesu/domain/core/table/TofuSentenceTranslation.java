@@ -8,7 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-@Table(name = "tofu_sentence_translation", schema = "core", catalog = "egd")
+@Table(name = "tofu_sentence_translation", schema = "core")
 @Entity
 public class TofuSentenceTranslation implements Serializable {
 

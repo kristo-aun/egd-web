@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 
-@Table(name = "kanji", schema = "kanjidic2", catalog = "egd")
+@Table(name = "kanji", schema = "kanjidic2")
 @Entity
 @Immutable
 public final class Kanji implements Serializable {

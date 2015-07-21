@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Immutable
-@Table(name = "dbpatch", schema = "jmet", catalog = "egd")
+@Table(name = "dbpatch", schema = "jmet")
 public final class Dbpatch implements Serializable {
 
     private static final long serialVersionUID = 4358484042908856282L;

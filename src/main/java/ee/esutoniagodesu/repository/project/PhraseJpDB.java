@@ -1,7 +1,7 @@
 package ee.esutoniagodesu.repository.project;
 
 import ee.esutoniagodesu.pojo.cf.ECfJpCategory;
-import ee.esutoniagodesu.pojo.cf.ECfOrigin;
+import ee.esutoniagodesu.domain.publik.table.EOrigin;
 import ee.esutoniagodesu.pojo.entity.Voca;
 import ee.esutoniagodesu.util.persistence.JDBCUtil;
 import org.springframework.stereotype.Repository;
@@ -236,7 +236,7 @@ public class PhraseJpDB extends AbstractProjectRepository {
                 result.setRomaji(rs.getString(3));
                 result.setRomajiHepburn(rs.getString(4));
                 result.setJpAudioId(rs.getInt(5));
-                result.setCfOriginJp(ECfOrigin.findById(rs.getInt(6)));
+                result.setCfOriginJp(EOrigin.valueOf(rs.getString(6)));
                 Array z = rs.getArray(7);
                 Integer[] sonaliikIds = (Integer[]) z.getArray();
 

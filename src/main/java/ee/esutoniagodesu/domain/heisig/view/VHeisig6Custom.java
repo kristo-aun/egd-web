@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-@Table(name = "v_heisig6_custom", schema = "heisig", catalog = "egd")
+@Table(name = "v_heisig6_custom", schema = "heisig")
 @Immutable
 @Entity
 public final class VHeisig6Custom implements Serializable {

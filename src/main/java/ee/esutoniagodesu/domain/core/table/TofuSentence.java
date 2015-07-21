@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 @Immutable
 @Entity
-@Table(name = "tofu_sentence", schema = "core", catalog = "egd")
+@Table(name = "tofu_sentence", schema = "core")
 public final class TofuSentence implements Serializable {
 
     private static final long serialVersionUID = -1044326675149260942L;

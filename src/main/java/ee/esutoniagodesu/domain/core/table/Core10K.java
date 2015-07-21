@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 @Immutable
-@Table(name = "core_10k", schema = "core", catalog = "egd")
+@Table(name = "core_10k", schema = "core")
 @Entity
 public final class Core10K implements IHasCoreWord, IHasCoreSentence, Serializable {
 

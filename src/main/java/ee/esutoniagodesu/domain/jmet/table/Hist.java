@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Immutable
-@Table(name = "hist", schema = "jmet", catalog = "egd")
+@Table(name = "hist", schema = "jmet")
 @IdClass(HistPK.class)
 public final class Hist implements Serializable {
 

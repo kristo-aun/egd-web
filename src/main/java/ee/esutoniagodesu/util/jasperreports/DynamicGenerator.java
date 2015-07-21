@@ -2,7 +2,7 @@ package ee.esutoniagodesu.util.jasperreports;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.design.*;
-import net.sf.jasperreports.engine.type.HorizontalAlignEnum;
+import net.sf.jasperreports.engine.type.HorizontalTextAlignEnum;
 import net.sf.jasperreports.engine.type.SplitTypeEnum;
 
 import java.io.Serializable;
@@ -60,7 +60,7 @@ public class DynamicGenerator implements Serializable {
             tf.setWidth(COLUMN_WIDTH);
             tf.setStretchWithOverflow(true);
 
-            tf.setHorizontalAlignment(HorizontalAlignEnum.LEFT);
+            tf.setHorizontalTextAlign(HorizontalTextAlignEnum.LEFT);
             tf.setExpression(new JRDesignExpression("\"" + entry.getKey() + "\""));
             pHeaderBand.addElement(tf);
 
@@ -72,7 +72,7 @@ public class DynamicGenerator implements Serializable {
                 tf.setWidth(COLUMN_WIDTH);
                 tf.setStretchWithOverflow(true);
 
-                tf.setHorizontalAlignment(HorizontalAlignEnum.LEFT);
+                tf.setHorizontalTextAlign(HorizontalTextAlignEnum.LEFT);
                 tf.setExpression(new JRDesignExpression("\"" + entry.getValue() + "\""));
                 pHeaderBand.addElement(tf);
             }
@@ -91,7 +91,7 @@ public class DynamicGenerator implements Serializable {
             tfHeader.setHeight(ROW_HEIGHT);
             tfHeader.setWidth(COLUMN_WIDTH);
 
-            tfHeader.setHorizontalAlignment(HorizontalAlignEnum.LEFT);
+            tfHeader.setHorizontalTextAlign(HorizontalTextAlignEnum.LEFT);
             tfHeader.setExpression(new JRDesignExpression("\"" + dp.getHeaderName() + "\""));
             cHeaderBand.addElement(tfHeader);
             int c = 0;
@@ -107,7 +107,7 @@ public class DynamicGenerator implements Serializable {
                 textField.setY(0);
                 textField.setWidth(cw);
                 textField.setHeight(ROW_HEIGHT);
-                textField.setHorizontalAlignment(HorizontalAlignEnum.LEFT);
+                textField.setHorizontalTextAlign(HorizontalTextAlignEnum.LEFT);
                 textField.setExpression(new JRDesignExpression("$F{" + s + "}"));
                 textField.setBlankWhenNull(true);
                 textField.setStretchWithOverflow(true);

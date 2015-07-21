@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 
-@Table(name = "cf_reading_type", schema = "kanjidic2", catalog = "egd")
+@Table(name = "cf_reading_type", schema = "kanjidic2")
 @Entity
 @Immutable
 public final class CfReadingType implements Serializable {

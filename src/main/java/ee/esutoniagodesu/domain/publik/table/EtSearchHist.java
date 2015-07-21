@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Time;
 
-@Table(name = "et_search_hist", schema = "public", catalog = "egd")
+@Table(name = "et_search_hist", schema = "public")
 @Entity
 public final class EtSearchHist implements Serializable {
 

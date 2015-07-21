@@ -1,6 +1,6 @@
 package ee.esutoniagodesu.service;
 
-import ee.esutoniagodesu.domain.ac.table.Authority;
+import ee.esutoniagodesu.domain.ac.table.EAuthority;
 import ee.esutoniagodesu.domain.ac.table.User;
 import ee.esutoniagodesu.domain.ac.table.UserAccountExternal;
 import ee.esutoniagodesu.repository.domain.ac.UserRepository;
@@ -84,9 +84,9 @@ public class UserService {
 
         newUser.setUuid(JCRandom.random13B());
 
-        Set<Authority> roles = new HashSet<>();
+        Set<EAuthority> roles = new HashSet<>();
 
-        roles.add(Authority.ROLE_USER);
+        roles.add(EAuthority.ROLE_USER);
         newUser.setRoles(roles);
         return newUser;
     }

@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Entity
 @Immutable
-@Table(name = "vt_rinf", schema = "jmet", catalog = "egd")
+@Table(name = "vt_rinf", schema = "jmet")
 public final class VtRinf implements Serializable {
 
     private static final long serialVersionUID = -5735710684014493995L;

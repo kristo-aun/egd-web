@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 @Immutable
-@Table(name = "core_6k_kanji", schema = "core", catalog = "egd")
+@Table(name = "core_6k_kanji", schema = "core")
 @Entity
 public final class Core6KKanji implements Serializable {
 

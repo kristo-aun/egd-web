@@ -1,9 +1,11 @@
 package ee.esutoniagodesu.domain.library.table;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonView;
 import ee.esutoniagodesu.domain.AbstractAuditingEntity;
+import ee.esutoniagodesu.util.JCString;
 import ee.esutoniagodesu.util.iso.ISO6391;
 import ee.esutoniagodesu.web.rest.dto.View;
 
@@ -45,7 +47,7 @@ public class Reading extends AbstractAuditingEntity implements Serializable {
     @Column(name = "transcript_lang")
     private ISO6391 transcriptLang;
 
-    @JsonView(View.Basic.class)
+    @JsonView(View.Detailed.class)
     @Column(name = "summary")
     private String summary;
 
@@ -65,6 +67,20 @@ public class Reading extends AbstractAuditingEntity implements Serializable {
     @OneToMany
     @JoinColumn(name = "reading_id", referencedColumnName = "id")
     private List<ReadingPage> pages = new ArrayList<>();
+
+    @JsonView(View.Basic.class)
+    @JsonGetter
+    public String getOverview() {
+        if (summary != null) return summary;
+
+        if (pages.size() > 0) {
+            String body = pages.get(0).getBody();
+            if (body != null) {
+                return JCString.removeTailSmart(body, 100, "...");
+            }
+        }
+        return null;
+    }
 
     public Integer getId() {
         return id;

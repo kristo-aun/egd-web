@@ -4,50 +4,64 @@
         {{'global.messages.action.create' | translate}}
     </button>
 
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th translate="reading.grid.author"></th>
-                <th translate="reading.grid.title"></th>
-                <th translate="reading.grid.bodyLang"></th>
-                <th translate="reading.grid.transcriptLang"></th>
-                <th translate="reading.grid.tags"></th>
 
-                <th style="width: 200px;"></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="reading in readings">
-                <td><a ui-sref="reading.view({id:reading.id})">{{reading.title}}</a></td>
-                <td>{{reading.author}}</td>
-                <td>{{'language.' + reading.bodyLang | translate}}</td>
-                <td>{{'language.' + reading.transcriptLang | translate}}</td>
-                <td>{{reading.tags | arrayToString}}</td>
+    <div class="row" ng-repeat="row in readingRows">
 
-                <td style="text-align: right;">
-                    <button ui-sref="reading.view({id:reading.id})"
-                            class="btn btn-default btn-sm">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                        {{'global.messages.action.open' | translate}}
-                    </button>
-                    <button ng-if="isReadingEditAllowed(reading)"
-                            ui-sref="reading.edit({id:reading.id})"
-                            class="btn btn-default btn-sm">
-                        <span class="glyphicon glyphicon-pencil"></span>
-                        {{'global.messages.action.edit' | translate}}
-                    </button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+        <div class="col-lg-4" ng-repeat="reading in row">
+            <div class="thumbnail" style="height: 267px;">
+                <div class="category vertical-align">
+                    <div class="col-lg-8">
+                        <div ng-if="reading.tags">
+                            <i class="fa fa-tags"></i>
+                            {{reading.tags | arrayToString}}
+                        </div>
+                    </div>
+                    <div class="col-lg-4 text-right">
+                        <span class="flag flag-{{reading.bodyLang}}"></span>
+                        <i class="fa fa-arrow-right"></i>&nbsp;
+                        <span class="flag flag-{{reading.transcriptLang}}"></span>
+                    </div>
+                </div>
+                <div class="caption">
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <span style="font-size: 1.5em">「{{reading.title}}」</span>
+                        </div>
+                        <div class="col-lg-3 text-right" style="padding-right:0">
+                            <span>{{reading.author}}</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <p class="post-date">{{reading.createdDate | momentDate}}</p>
+                        <p>
+                            {{reading.overview}}
+                        </p>
+                    </div>
+                    <div class="row text-right reading-thumbnail-buttons">
+                        <button ui-sref="reading.view({id:reading.id})"
+                                class="btn btn-default btn-sm">
+                            {{'global.messages.action.open' | translate}}
+                            <i class="fa fa-arrow-right"></i>
+                        </button>
+                        <button ng-if="isReadingEditAllowed(reading)"
+                                ui-sref="reading.edit({id:reading.id})"
+                                class="btn btn-default btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                            {{'global.messages.action.edit' | translate}}
+                        </button>
+                    </div>
 
-        <div class="row" style="margin-left:16px">
-            <ng-pagination page="page"
-                           limit="limit"
-                           links="links"
-                           load-page="loadPage"
-                           hide-if-limit-count="totalCount"></ng-pagination>
+                </div>
+            </div>
         </div>
+
+    </div>
+
+    <div class="row" style="margin-left:16px">
+        <ng-pagination page="page"
+                       limit="limit"
+                       links="links"
+                       load-page="loadPage"
+                       hide-if-limit-count="totalCount"></ng-pagination>
     </div>
 </div>

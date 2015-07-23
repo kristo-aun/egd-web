@@ -25,13 +25,13 @@ Hopefully this project will be an inspiration too for the emergence of Chinese-E
 
 # Resources
 - Live address: <a href="http://momo.koodur.com">momo.koodur.com</a>
-- <a href="https://twitter.com/EsutoniaGoDesu">Twitter</a>
-- <a href="https://facebook.com/EsutoniaGoDesu">Facebook</a>
+- <a href="https://twitter.com/EsutoniaGoDesu">Twitter</a> (en)
+- <a href="https://facebook.com/EsutoniaGoDesu">Facebook</a> (et, jp, en)
 
 # Quick Start
 Database schema is hosted in another project called [egd-db](https://github.com/esutoniagodesu/egd-db), but the data is not.
 If you wish to have the full databse dump, please write at esutoniagodesu[at]gmail.com.
-Full dump is too large to host on github and there are some licensing constraints. 
+Full dump is too large to host on github and there are a few licensing constraints. 
 
 Required: JDK8, [Maven3](docs/MAVEN3.md), [Node.js](docs/NODE.md), bower, grunt
 
@@ -41,7 +41,7 @@ mvn install:install-file -Dfile=lib/kakasi.jar -DgroupId=com.kawao.kakasi -Darti
 ```
 
 
-Download dependencies and run in Spring Boot<br/>
+After DB setup, download dependencies and run in Spring Boot<br/>
 ```
 mvn clean spring-boot:run
 ```
@@ -64,10 +64,11 @@ use the JHipster code generation tool.
 - **database**: [liquibase](http://www.liquibase.org/)
 
 ### Back-end 
-- **web/REST**: [Spring Boot](http://projects.spring.io/spring-boot/) 1.2.x
+- **web/REST**: [Spring Boot](http://projects.spring.io/spring-boot/) 1.2.x, Spring Security, Spring Social
 - **marshalling**: [Jackson](https://github.com/FasterXML/jackson-databind) 2.x (for JSON)
 - **persistence**: [Spring Data JPA](http://www.springsource.org/spring-data/jpa) and [Hibernate](http://www.hibernate.org/) 4.1.x
 - **persistence providers**: PostgreSQL 9.4, h2 (for testing)
+- **file storage**: file sha256 based low-level storage architecture
 - **TTS**: Google TTS, [Kõnesüntees](http://heli.eki.ee/koduleht/)
 
 ### Business logic
@@ -78,7 +79,7 @@ use the JHipster code generation tool.
 ### Front-end
 - **Frameworks**: [AngularJS](https://angularjs.org/) 1.4.x, [JQuery](http://jquery.com),
 [JQuery-UI](http://jqueryui.com/), <br/>
-- **Design/CSS**: [Bootstrap](http://getbootstrap.com/)
+- **Design/CSS**: [Bootstrap](http://getbootstrap.com/), Angular-UI
 
 ### Testing
 [JUnit](http://www.junit.org/),

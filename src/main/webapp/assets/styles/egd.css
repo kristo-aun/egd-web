@@ -82,3 +82,51 @@ table.reading-rows > tbody > tr > td.left {
 table.reading-rows > tbody > tr > td.right {
     padding-right:10px;
 }
+
+
+
+
+div.thumbnail > div.category {
+    background: #222;
+    color: #eee;
+    font-size: smaller;
+    font-style: italic;
+    padding: 10px;
+}
+
+#content div.thumbnail > div.category {
+    background: #222;
+    color: #eee;
+    font-size: smaller;
+    font-style: italic;
+    padding: 10px;
+}
+
+.icon-tag {
+    background-position: 0 -48px;
+}
+
+#content div.thumbnail > div.category > a, #content div.thumbnail > div.category > a:hover {
+    color: #eee;
+}
+
+#content div.thumbnail > div.caption {
+    line-height: 1.2;
+    padding: 13px;
+}
+
+p.post-date {
+    color: #777;
+    font-size: smaller;
+}
+
+#content div.thumbnail > div.caption hr {
+    border-style: dotted;
+}
+
+.reading-thumbnail-buttons {
+    margin-bottom: 0;
+    position: absolute;
+    bottom: 30px;
+    right: 20px;
+}

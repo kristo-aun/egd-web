@@ -18,27 +18,49 @@
             "email": "メアド",
             "even": "Even",
             "odd": "Odd",
+            "fname": "First name",
+            "sname": "Last name",
+            "name": "Name",
             "tos": "Terms of Service"
+        },
+        "audio": {
+            "playbackRate": "Playback rate"
         },
         "messages": {
             "action": {
+                "generate": "Generate",
                 "refresh": "Refresh",
                 "search": "探します",
                 "forward": "進みます",
                 "back": "帰ります",
+                "next": "Next",
+                "previous": "Previous",
                 "cancel": "キャンセル",
                 "delete": "Delete",
                 "remove": "Remove",
                 "edit": "Edit",
                 "save": "Save",
-                "view": "見ます",
                 "open": "開けます",
+                "view": "見ます",
                 "create": "新しい",
                 "confirm": "Are you sure?"
             },
             "detail": {
                 "field": "Field",
                 "value": "Value"
+            },
+            "error": {
+                "fail": "Failed to perform this action!",
+                "saveError": "<strong>Error!</strong> Failed to save.",
+                "deleteError": "Delete failed!",
+                "dontmatch": "Your password and confirmation don't match."
+            },
+            "warn": {
+                "notfound": "Not found"
+            },
+            "success": {
+                "saved": "Saved!",
+                "deleted": "Deleted!"
             },
             "info": {
                 "register": "You don't have an account yet? <a href=\"#/register\">Register a new account</a>"

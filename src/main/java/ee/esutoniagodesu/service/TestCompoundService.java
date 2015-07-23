@@ -1,15 +1,17 @@
 package ee.esutoniagodesu.service;
 
 import com.google.common.base.Joiner;
-import ee.esutoniagodesu.bean.ProjectDAO;
 import ee.esutoniagodesu.domain.core.table.IHasCoreWord;
 import ee.esutoniagodesu.domain.freq.table.NresBase;
-import ee.esutoniagodesu.domain.jmet.table.Sens;
 import ee.esutoniagodesu.domain.jmen.table.EN_Sens;
+import ee.esutoniagodesu.domain.jmet.table.Sens;
 import ee.esutoniagodesu.domain.kanjidic2.table.Kanji;
 import ee.esutoniagodesu.pojo.test.compound.*;
 import ee.esutoniagodesu.repository.domain.heisig.HeisigCoreKwRepository;
-import ee.esutoniagodesu.repository.project.*;
+import ee.esutoniagodesu.repository.project.CoreDB;
+import ee.esutoniagodesu.repository.project.JMDictDB;
+import ee.esutoniagodesu.repository.project.JMDictEnDB;
+import ee.esutoniagodesu.repository.project.KanjiDB;
 import ee.esutoniagodesu.security.AuthoritiesConstants;
 import ee.esutoniagodesu.security.SecurityUtils;
 import ee.esutoniagodesu.util.JCString;
@@ -34,10 +36,6 @@ public class TestCompoundService {
 
     private static final Logger log = LoggerFactory.getLogger(TestCompoundService.class);
 
-    @Inject
-    private ProjectDAO dao;
-    @Inject
-    private ReportDB reportDB;
     @Inject
     private JMDictDB jmDictDB;
     @Inject

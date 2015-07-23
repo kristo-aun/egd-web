@@ -12,7 +12,7 @@ import org.springframework.util.FileCopyUtils;
 
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.ServletResponse;
 import java.io.*;
 import java.util.AbstractMap;
 import java.util.Map;
@@ -28,7 +28,7 @@ public class TextToSpeechService {
 
     //------------------------------ tts ------------------------------
 
-    public void getSpeechFile(String lang, String q, HttpServletResponse resp) throws IOException {
+    public void getSpeechFile(String lang, String q, ServletResponse resp) throws IOException {
         Map.Entry<String, byte[]> file = toSpeech(lang, q);
         resp.setContentType(file.getKey());
         resp.setContentLength(file.getValue().length);
@@ -81,26 +81,5 @@ public class TextToSpeechService {
 
     private static InputStream asInputStream(File ifile) throws FileNotFoundException {
         return new FileInputStream(ifile);
-    }
-
-    public byte[] getExample(String lang) throws IOException {
-        switch (lang) {
-            case "et":
-                return asBytes(asInputStream(AssetManager.ET_EXAMPLE.PATH));
-            case "jp":
-                return asBytes(asInputStream(AssetManager.JP_EXAMPLE.PATH));
-            default:
-                throw new RuntimeException("not implemented");
-        }
-    }
-
-    private enum AssetManager {
-        ET_EXAMPLE("/WEB-INF/tts/example/et_ex.mp3"),
-        JP_EXAMPLE("/WEB-INF/tts/example/jp_ex.mp3");
-        public final String PATH;
-
-        AssetManager(String path) {
-            PATH = path;
-        }
     }
 }

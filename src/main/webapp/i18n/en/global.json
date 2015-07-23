@@ -16,14 +16,23 @@
             "email": "E-mail",
             "even": "Even",
             "odd": "Odd",
+            "fname": "First name",
+            "sname": "Last name",
+            "name": "Name",
             "tos": "Terms of Service"
+        },
+        "audio": {
+            "playbackRate": "Playback rate"
         },
         "messages": {
             "action": {
+                "generate": "Generate",
                 "refresh": "Refresh",
                 "search": "Search",
                 "forward": "Forward",
                 "back": "Back",
+                "next": "Next",
+                "previous": "Previous",
                 "cancel": "Cancel",
                 "delete": "Delete",
                 "remove": "Remove",
@@ -37,6 +46,19 @@
             "detail": {
                 "field": "Field",
                 "value": "Value"
+            },
+            "error": {
+                "fail": "Failed to perform this action!",
+                "saveError": "<strong>Error!</strong> Failed to save.",
+                "deleteError": "Delete failed!",
+                "dontmatch": "Your password and confirmation don't match."
+            },
+            "warn": {
+                "notfound": "Not found"
+            },
+            "success": {
+                "saved": "Saved!",
+                "deleted": "Deleted!"
             },
             "info": {
                 "register": "You don't have an account yet? <a href=\"#/register\">Register a new account</a>"

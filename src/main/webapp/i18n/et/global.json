@@ -38,8 +38,8 @@
                 "remove": "Eemalda",
                 "edit": "Muuda",
                 "save": "Salvesta",
-                "view": "Vaata",
                 "open": "Ava",
+                "view": "Vaata",
                 "create": "Lisa uus",
                 "confirm": "Olete kindel?"
             },
@@ -74,6 +74,7 @@
                 "number": "Lubatud on ainult numbrid.",
                 "datetimelocal": "This field should be a date and time.",
                 "length": "Pikkus peab olema {{length}} tähemärki.",
+
                 "newpassword": {
                     "required": "Parooli sisestamine on kohustuslik.",
                     "minlength": "Parooli pikkus peab olema vähemalt 5 tähemärki",

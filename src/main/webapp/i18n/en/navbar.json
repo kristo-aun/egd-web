@@ -16,6 +16,12 @@
         "stats": {
             "statistics": "Dictionary statistics"
         },
+        "language": "Language",
+        "language.iso": {
+            "et": "Estonian",
+            "en": "English",
+            "ja": "Japanese"
+        },
         "account": {
             "main": "Account",
             "settings": "Settings",
@@ -29,12 +35,6 @@
             "health": "Health",
             "configuration": "Configuration",
             "audits": "Audits"
-        },
-        "language": "Language",
-        "language.iso": {
-            "et": "Estonian",
-            "en": "English",
-            "ja": "Japanese"
         }
     }
 }

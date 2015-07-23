@@ -47,6 +47,27 @@ public class JmGlossInf extends AbstractAuditingEntity implements Serializable {
     @Basic
     private String externalId;
 
+
+    public JmGlossInf() {
+    }
+
+    public JmGlossInf(Integer entr, Integer sens, Integer gloss, EOrigin origin, String etInf) {
+        this.entr = entr;
+        this.sens = sens;
+        this.gloss = gloss;
+        this.origin = origin;
+        this.etInf = etInf;
+    }
+
+    public JmGlossInf(Integer entr, Integer sens, Integer gloss, String etInf, EOrigin origin, String externalId) {
+        this.entr = entr;
+        this.sens = sens;
+        this.gloss = gloss;
+        this.etInf = etInf;
+        this.origin = origin;
+        this.externalId = externalId;
+    }
+
     public Integer getId() {
         return id;
     }

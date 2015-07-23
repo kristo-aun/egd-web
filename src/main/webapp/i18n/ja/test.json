@@ -1,0 +1,59 @@
+{
+    "test": {
+        "compound": {
+            "title": "Generate compound test",
+
+            "defaultFormMap": "Prefilled form",
+            "defaultFormMap.values": {
+                "ilo_heisig6_1_100": "ILO pocket dictionary vocabulary, Heisig6 1-100 kanji",
+                "ilo_heisig6_100_300": "ILO pocket dictionary intermediate, Heisig6 100-300 kanji",
+                "core6k_heisig6_1_900": "Core6k vocabulary, Heisig6 1-900 kanji",
+                "core10k_jlpt_1_3": "Core10k vocabulary, JLPT levels 1-3 kanji"
+            },
+            "filterType": "Kanji selection",
+            "filterType.values": {
+                "grade": "Official kanji levels",
+                "jlpt": "JLPT kanji",
+                "jouyou": "Jojō kanji",
+                "heisig6": "Heisig's RTK, 6. print",
+                "heisig4": "Heisig's RTK, 4. print"
+            },
+            "intervalType": "interval selection:",
+            "intervalByLevel": "by level",
+            "intervalByIndex": "by index",
+            "dictSelect": "Vocabulary collection",
+            "dictSelect.values": {
+                "ilo_yellow_jp_et": "ILO pocket dictionary vocabulary",
+                "core10k": "Core10k vocabulary",
+                "core6k": "Core6k vocabulary"
+            },
+            "generateCount": "Compound count limit",
+            "wordCount": "Compound count",
+            "compLengthInterval": "Compound kanji limit between",
+            "hints": "Hints",
+            "strokeCountHint": "Show stroke count",
+            "radicalHintVisible": "Show radical hint",
+            "radicalHint": "Show radical hint",
+            "orderByType": "Order words using",
+            "orderByType.values": {
+                "random": "random",
+                "filter_id": "original list order"
+            },
+            "meaningComponents": "Compound notes",
+            "notesVisible": "With part of speech and notes",
+            "noEnIfHasEt": "Hide JMDict translation",
+            "export": "Export file",
+            "generatePdf": "Generate PDF",
+            "grade": "Grade",
+            "jlpt": "JLPT",
+            "jouyou": "Jōjō",
+            "heisig4": "Heisig 4",
+            "heisig6": "Heisig 6",
+
+            "showAnswer": "Show answers",
+            "showHints": "Show hints",
+            "showHeisigCores": "H6 show all",
+            "turnCompound": "Inverse question"
+        }
+    }
+}

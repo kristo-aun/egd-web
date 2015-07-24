@@ -53,7 +53,8 @@
             "showAnswer": "Näita vastuseid",
             "showHints": "Näita vihjeid",
             "showHeisigCores": "H6 näita kõiki",
-            "turnCompound": "Pööra küsimus"
+            "turnCompound": "Pööra küsimus",
+            "hideTranslation": "Peida tõlge"
         }
     }
 }

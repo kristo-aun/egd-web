@@ -102,7 +102,7 @@ public enum FilterCompoundSubmitDefaults {
 
         submit.strokeCountHintVisible = false;
         submit.radicalHintVisible = false;
-        submit.noEnIfHasEt = false;
+        submit.noEnIfHasEt = true;
 
         return submit;
     }
@@ -126,7 +126,7 @@ public enum FilterCompoundSubmitDefaults {
 
         submit.strokeCountHintVisible = false;
         submit.radicalHintVisible = false;
-        submit.noEnIfHasEt = false;
+        submit.noEnIfHasEt = true;
 
         return submit;
     }

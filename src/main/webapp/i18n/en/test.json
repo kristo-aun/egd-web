@@ -52,7 +52,8 @@
             "showAnswer": "Show answers",
             "showHints": "Show hints",
             "showHeisigCores": "H6 show all",
-            "turnCompound": "Inverse question"
+            "turnCompound": "Inverse question",
+            "hideTranslation": "Hide translation"
         }
     }
 }

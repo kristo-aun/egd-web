@@ -18,6 +18,13 @@
             {{'test.compound.turnCompound' | translate}}
         </button>
         <button type="button"
+                ng-show="turnCompound"
+                class="{{hideTranslation | ie: 'btn btn-success':'btn btn-default'}}"
+                ng-model="hideTranslation"
+                btn-checkbox>
+            {{'test.compound.hideTranslation' | translate}}
+        </button>
+        <button type="button"
                 ng-show="isInRole('ROLE_ADMIN')"
                 class="{{showHeisigCores | ie: 'btn btn-success':'btn btn-default'}}"
                 ng-model="showHeisigCores"
@@ -39,8 +46,8 @@
     <div class="cmpd-wr" ng-if="compounds.length > 0" ng-repeat="p in compounds">
         <div class="cmpd-header-wr">
             <span class="cmpd-reading">{{turnCompound ? p.answer : p.reading}}</span>
-            <span ng-if="p.et" class="cmpd-et">{{p.et}}</span>
-            <span ng-if="p.en" class="cmpd-en">{{p.en}}</span>
+            <span ng-if="p.et && (!hideTranslation || p.showSign || showAnswer)" class="cmpd-et">{{p.et}}</span>
+            <span ng-if="p.en && (!hideTranslation || p.showSign || showAnswer)" class="cmpd-en">{{p.en}}</span>
             <span ng-if="p.notes" class="cmpd-notes">({{p.notes}})</span>
             <span ng-if="isInRole('ROLE_ADMIN') && (p.showSign || showAnswer)" style="float:right;">
                 <button type="button"

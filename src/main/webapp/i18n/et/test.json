@@ -8,7 +8,8 @@
                 "ilo_heisig6_1_100": "Taskusõnastiku sõnavara, Heisig6 kanjid 1-100",
                 "ilo_heisig6_100_300": "Taskusõnastik kesktase, Heisig6 kanjid 100-300",
                 "core6k_heisig6_1_900": "Core6k sõnavara, Heisig6 kanjid 1-900",
-                "core10k_jlpt_1_3": "Core10k sõnavara, JLPT tase 1-3 kanjid"
+                "core10k_jlpt_1_3": "Core10k sõnavara, JLPT tase 1-3 kanjid",
+                "tofu_jlpt_1_3": "Tofu lausete sõnavara, JLPT tase 1-3 kanjid"
             },
             "filterType": "Testitavad kanjid",
             "filterType.values": {
@@ -25,7 +26,8 @@
             "dictSelect.values": {
                 "ilo_yellow_jp_et": "Taskusõnastiku sõnavara",
                 "core10k": "Core10k sõnavara",
-                "core6k": "Core6k sõnavara"
+                "core6k": "Core6k sõnavara",
+                "tofu": "Tofu lausete sõnavara"
             },
             "generateCount": "Testitavate sõnade arv",
             "wordCount": "Sõnade arv",

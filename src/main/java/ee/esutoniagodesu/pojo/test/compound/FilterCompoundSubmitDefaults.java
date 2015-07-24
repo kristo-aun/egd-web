@@ -8,7 +8,8 @@ public enum FilterCompoundSubmitDefaults {
     ilo_heisig6_1_100(1, getIloHeisig6()),
     ilo_heisig6_100_300(4, getIloHeisig6Intermediate()),
     core6k_heisig6_1_900(2, getCore6KHeisig6()),
-    core10k_jlpt_1_3(3, getCore10KJLPT());
+    core10k_jlpt_1_3(3, getCore10KJLPT()),
+    tofu_jlpt_1_3(5, getTofuJLPT());
 
     public final int ID;
     public final FilterCompoundSubmitDTO VALUE;
@@ -111,6 +112,30 @@ public enum FilterCompoundSubmitDefaults {
         FilterCompoundSubmitDTO submit = new FilterCompoundSubmitDTO();
 
         submit.dictionary = EDictionary.core10k.ID;
+        submit.generateCount = 50;
+
+        submit.notesVisible = true;
+        submit.compLengthInterval[0] = 1;
+        submit.compLengthInterval[1] = 4;
+        submit.filterType = EFilterType.jlpt.ID;//
+
+        submit.kanjiIntervalType = "level";
+        submit.kanjiInterval[0] = 1;//frame from
+        submit.kanjiInterval[1] = 3;
+
+        submit.orderByType = EOrderByType.random.ID;//
+
+        submit.strokeCountHintVisible = false;
+        submit.radicalHintVisible = false;
+        submit.noEnIfHasEt = true;
+
+        return submit;
+    }
+
+    public static FilterCompoundSubmitDTO getTofuJLPT() {
+        FilterCompoundSubmitDTO submit = new FilterCompoundSubmitDTO();
+
+        submit.dictionary = EDictionary.tofu.ID;
         submit.generateCount = 50;
 
         submit.notesVisible = true;

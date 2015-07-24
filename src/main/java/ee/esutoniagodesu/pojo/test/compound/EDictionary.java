@@ -3,10 +3,11 @@ package ee.esutoniagodesu.pojo.test.compound;
 import ee.esutoniagodesu.pojo.entity.IntIDStringTitle;
 
 public enum EDictionary implements IntIDStringTitle {
-    //jmdict_with_freq(1),
-    ilo_yellow_jp_et(2),
-    core10k(3),
-    core6k(4);
+
+    ilo_yellow_jp_et(1),
+    core10k(2),
+    core6k(3),
+    tofu(4);
 
     public final int ID;
 

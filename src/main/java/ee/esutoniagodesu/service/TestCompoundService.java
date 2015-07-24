@@ -235,6 +235,10 @@ public class TestCompoundService {
                 result = coreWordToCompoundList(coreDB.getCore10KWordsByKanjis(joinedKanjis, compdlfrom, compdlto));
                 break;
             }
+            case tofu: {
+                result = coreWordToCompoundList(coreDB.getTofuSentencesByKanjis(joinedKanjis, compdlfrom, compdlto));
+                break;
+            }
             default:
                 throw new RuntimeException("not implemented");
         }

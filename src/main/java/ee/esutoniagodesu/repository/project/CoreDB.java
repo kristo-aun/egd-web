@@ -318,4 +318,48 @@ public class CoreDB extends AbstractProjectRepository {
 
         return result;
     }
+
+    public List<TofuSentence> getTofuSentencesByKanjis(String kanjis, int compdlfrom, int compdlto) {
+
+        Connection con = null;
+        CallableStatement s = null;
+        ResultSet rs = null;
+        List<TofuSentence> result = null;
+
+        try {
+            con = dao.getConnection();
+            con.setAutoCommit(false);
+
+            String sql = "{? = call f_compd_tofu_by_kanji(?,?,?)}";
+            s = con.prepareCall(sql);
+
+            s.registerOutParameter(1, Types.OTHER);//cursor
+            s.setString(2, kanjis);
+            s.setInt(3, compdlfrom);
+            s.setInt(4, compdlto);
+
+            s.execute();
+            rs = (ResultSet) s.getObject(1);
+
+            result = new ArrayList<>();
+
+            while (rs.next()) {
+                TofuSentence item = new TofuSentence();
+                item.setId(rs.getInt("id"));
+                item.setWord(rs.getString("word"));
+                item.setSentence(rs.getString("sentence"));
+                item.setWithJmdict(rs.getBoolean("with_jmdict"));
+                item.setWordKanjiCount(rs.getInt("kanji_count"));
+
+                result.add(item);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            JDBCUtil.close(rs, s, con);
+        }
+
+        return result;
+    }
 }

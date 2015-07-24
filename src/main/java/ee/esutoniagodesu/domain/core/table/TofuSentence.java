@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Immutable
 @Entity
 @Table(name = "tofu_sentence", schema = "core")
-public final class TofuSentence implements Serializable {
+public final class TofuSentence implements IHasCoreWord, Serializable {
 
     private static final long serialVersionUID = -1044326675149260942L;
 
@@ -26,6 +26,13 @@ public final class TofuSentence implements Serializable {
 
     @Transient
     private TofuSentenceTranslation translation;
+
+    @Column(name = "with_jmdict", nullable = false, insertable = true, updatable = true, length = 1, precision = 0)
+    @Basic
+    private boolean withJmdict;
+
+    @Transient
+    private int wordKanjiCount;
 
     public Integer getId() {
         return id;
@@ -49,6 +56,16 @@ public final class TofuSentence implements Serializable {
         return word;
     }
 
+    @Transient
+    public String getWordReading() {
+        return null;
+    }
+
+    @Transient
+    public String getWordTranslation() {
+        return null;
+    }
+
     public void setWord(String word) {
         this.word = word;
     }
@@ -59,6 +76,22 @@ public final class TofuSentence implements Serializable {
 
     public void setSentence(String sentence) {
         this.sentence = sentence;
+    }
+
+    public boolean isWithJmdict() {
+        return withJmdict;
+    }
+
+    public void setWithJmdict(boolean withJmdict) {
+        this.withJmdict = withJmdict;
+    }
+
+    public int getWordKanjiCount() {
+        return wordKanjiCount;
+    }
+
+    public void setWordKanjiCount(int wordKanjiCount) {
+        this.wordKanjiCount = wordKanjiCount;
     }
 
     public boolean equals(Object o) {

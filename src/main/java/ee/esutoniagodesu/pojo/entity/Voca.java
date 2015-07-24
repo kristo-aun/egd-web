@@ -1,8 +1,8 @@
 package ee.esutoniagodesu.pojo.entity;
 
+import ee.esutoniagodesu.domain.publik.table.EOrigin;
 import ee.esutoniagodesu.pojo.cf.ECfEtSonaliik;
 import ee.esutoniagodesu.pojo.cf.ECfJpCategory;
-import ee.esutoniagodesu.domain.publik.table.EOrigin;
 import ee.esutoniagodesu.pojo.cf.ECfVocaTransQuality;
 
 import java.io.Serializable;

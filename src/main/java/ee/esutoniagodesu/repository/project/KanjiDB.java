@@ -7,13 +7,9 @@ import ee.esutoniagodesu.util.persistence.JDBCUtil;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.sql.*;
-import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public class KanjiDB extends AbstractProjectRepository {

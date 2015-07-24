@@ -1,10 +1,10 @@
 package ee.esutoniagodesu.repository.project;
 
 import com.google.common.base.Joiner;
+import ee.esutoniagodesu.domain.publik.table.EOrigin;
 import ee.esutoniagodesu.domain.publik.view.VStats;
 import ee.esutoniagodesu.pojo.cf.ECfEtSonaliik;
 import ee.esutoniagodesu.pojo.cf.ECfJpCategory;
-import ee.esutoniagodesu.domain.publik.table.EOrigin;
 import ee.esutoniagodesu.pojo.cf.ECfVocaTransQuality;
 import ee.esutoniagodesu.util.persistence.JDBCUtil;
 import org.springframework.stereotype.Repository;

@@ -1,7 +1,7 @@
 package ee.esutoniagodesu.repository.project;
 
-import ee.esutoniagodesu.pojo.cf.ECfJpCategory;
 import ee.esutoniagodesu.domain.publik.table.EOrigin;
+import ee.esutoniagodesu.pojo.cf.ECfJpCategory;
 import ee.esutoniagodesu.pojo.entity.Voca;
 import ee.esutoniagodesu.util.persistence.JDBCUtil;
 import org.springframework.stereotype.Repository;

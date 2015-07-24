@@ -72,7 +72,6 @@ public class TestCompoundService {
 
         //kanjide nimekiri
         Map<Character, Kanji> kanjis = getKanjis(s.getEFilterType(), ivfrom, ivto, s.getEKanjiIntervalType(), s.radicalHintVisible);
-
         Assert.isTrue(kanjis.size() > 0);
 
         //Mitu kanjit võib olla sõnas. Intervall
@@ -81,18 +80,21 @@ public class TestCompoundService {
 
         //leiame kandidaadid
         List<KanjiCompound> candidates = getCompounds(s.getEDictionary(), kanjis.values(), compdlfrom, compdlto);
+        Assert.isTrue(candidates.size() > 0);
 
         //jagab sõnad kanjide arvu kaupa gruppidesse
         Map<Integer, List<KanjiCompound>> groupedByKanjiCount = divideIntoGroups(candidates, compdlfrom, compdlto);
+        Assert.isTrue(groupedByKanjiCount.size() > 0);
 
         //1 kanjiga = 20 sõna, 2 kanjiga = 20 sõna,jne. Lineaarselt, ruutfunktsioon
         Map<Integer, Integer> drawCounts = getDrawCounts(s.generateCount, compdlfrom, compdlto, EDrawCountStrategy.LINEAR, groupedByKanjiCount);
+        Assert.isTrue(drawCounts.size() > 0);
 
         //leiab igast grupist suvalised n sõna. sum(n) = testi sõnade arv
         List<KanjiCompound> result = drawBallots(groupedByKanjiCount, drawCounts);
+        Assert.isTrue(result.size() > 0);
 
         //nüüd on testi minevad sõnad leitud, asume täiendava info lisamise kallale
-        Assert.isTrue(result.size() > 0);
 
         for (KanjiCompound p : result) {
             //eestikeelsed tähendused

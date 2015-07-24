@@ -24,20 +24,20 @@ egdApp
             link: function (scope, element) {
                 var audioElement = element.find('.ngp-audio-control')[0];
 
-                var shaAudioUrl = function() {
+                var shaAudioUrl = function () {
                     return "/api/media/" + scope.sha;
                 };
 
-                var trust = function(url) {
+                var trust = function (url) {
                     return $sce.trustAsResourceUrl(url);
                 };
 
-                scope.getSrc = function() {
+                scope.getSrc = function () {
                     return scope.src ? trust(scope.src) : trust(shaAudioUrl());
                 };
 
                 if (!scope.rate) scope.rate = 1.0;
-                scope.onRateChange = function() {
+                scope.onRateChange = function () {
                     audioElement.playbackRate = scope.rate;
                 };
             },
@@ -51,8 +51,8 @@ egdApp
                 rows: '='
             },
             link: function (scope, element, attrs) {
-                scope.getAudioResource = function(audioId) {
-                    return  '/api/audio/' + audioId;
+                scope.getAudioResource = function (audioId) {
+                    return '/api/audio/' + audioId;
                 };
             },
             templateUrl: 'scripts/components/directive/gridJa.html'
@@ -65,8 +65,8 @@ egdApp
                 rows: '='
             },
             link: function (scope, element, attrs) {
-                scope.getAudioResource = function(audioId) {
-                    return  '/api/audio/' + audioId;
+                scope.getAudioResource = function (audioId) {
+                    return '/api/audio/' + audioId;
                 };
             },
             templateUrl: 'scripts/components/directive/gridEt.html'
@@ -137,10 +137,39 @@ egdApp
             templateUrl: 'scripts/components/directive/estonianKeys.html'
         }
     })
-    .directive('audios', function($sce) {
+    .directive('dynTip2', function ($translate) {
         return {
             restrict: 'A',
-            scope: { code:'=' },
+            scope: {
+                template: '@',
+                placement: '@'
+            },
+            replace: true,
+            template: '<ng-tip template="\'{{path}}\'" placement="{{placement}}"></ng-tip>',
+
+
+            controller: ['$scope', function (scope) {
+                scope.$watch('template', function (value) {
+                    scope.buildTemplate(value);
+                });
+            }],
+            link: function (scope, elm, attrs) {
+
+                var getPath = function (template) {
+                    return "scripts/components/tip/" + template + "." + $translate.use() + ".html";
+                };
+
+                scope.buildTemplate = function (template) {
+                    var view = compile("<ng-tip template=\"'" + getPath(template) + "'\" placement=\"{{placement}}\"></ng-tip>")(scope);
+                    elm.append(view);
+                }
+            }
+        };
+    })
+    .directive('audios', function ($sce) {
+        return {
+            restrict: 'A',
+            scope: {code: '='},
             replace: true,
             template: '<audio ng-src="{{url}}" controls></audio>',
             link: function (scope) {

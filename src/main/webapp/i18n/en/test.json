@@ -1,9 +1,9 @@
 {
     "test": {
         "compound": {
-            "title": "Generate compound test",
+            "title": "Generate test",
 
-            "defaultFormMap": "Prefilled form",
+            "defaultFormMap": "Default form values",
             "defaultFormMap.values": {
                 "ilo_heisig6_1_100": "ILO pocket dictionary vocabulary, Heisig6 1-100 kanji",
                 "ilo_heisig6_100_300": "ILO pocket dictionary intermediate, Heisig6 100-300 kanji",
@@ -15,8 +15,8 @@
                 "grade": "Official kanji levels",
                 "jlpt": "JLPT kanji",
                 "jouyou": "Jojō kanji",
-                "heisig6": "Heisig's RTK, 6. print",
-                "heisig4": "Heisig's RTK, 4. print"
+                "heisig6": "Heisig's RTK, print no. 6",
+                "heisig4": "Heisig's RTK, print no. 4"
             },
             "intervalType": "interval selection:",
             "intervalByLevel": "by level",
@@ -31,16 +31,15 @@
             "wordCount": "Compound count",
             "compLengthInterval": "Compound kanji limit between",
             "hints": "Hints",
-            "strokeCountHint": "Show stroke count",
-            "radicalHintVisible": "Show radical hint",
-            "radicalHint": "Show radical hint",
+            "strokeCountHint": "Add stroke count",
+            "radicalHintVisible": "Add radical hint",
             "orderByType": "Order words using",
             "orderByType.values": {
-                "random": "random",
-                "filter_id": "original list order"
+                "random": "Random",
+                "filter_id": "Original list order"
             },
             "meaningComponents": "Compound notes",
-            "notesVisible": "With part of speech and notes",
+            "notesVisible": "Add part of speech and notes",
             "noEnIfHasEt": "Hide JMDict translation",
             "export": "Export file",
             "generatePdf": "Generate PDF",

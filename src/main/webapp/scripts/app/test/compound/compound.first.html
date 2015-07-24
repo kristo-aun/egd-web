@@ -6,10 +6,11 @@
         <div class="row form-group" style="margin-top:20px">
             <label class="vertical-align">
                 <div class="col-lg-4">
-                    <span translate="test.compound.defaultFormMap"></span>
+                    <i><span translate="test.compound.defaultFormMap"></span></i>
                 </div>
                 <div class="col-lg-7">
                     <select class="form-control"
+                            style="font-weight:normal"
                             ng-model="formDefaultId"
                             ng-change="onDefaultFormChange(formDefaultId)"
                             ng-options="key*1 as ('test.compound.defaultFormMap.values.' + value | translate) for (key, value) in params.formDefaultMap">
@@ -30,8 +31,8 @@
                 <div class="col-lg-7">
                     <select ng-model="first.filterType"
                             class="form-control"
-                            ng-required
-                            style="width: 240px"
+                            required
+                            style="width: 240px;font-weight:normal"
                             ng-change="onFilterTypeChange()"
                             ng-options="key*1 as ('test.compound.filterType.values.' + value | translate) for (key, value) in params.filterTypeMap">
                         <option value=""></option>
@@ -66,13 +67,17 @@
                 <div class="vertical-align">
                     <div class="col-lg-8 col-lg-offset-4 form-group">
                         <select ng-model="first.kanjiInterval[0]"
+                                name="kanjiInterval0"
                                 class="form-control col-md-5"
                                 style="width: 100px;padding-left: 12px;"
+                                required
                                 ng-options="key*1 as value for (key, value) in kanjiLevelMap">
                         </select>
                         <span class="interval-space col-md-1">-</span>
                         <select ng-model="first.kanjiInterval[1]"
                                 style="width: 100px;padding-left: 12px;"
+                                required
+                                min="{{first.kanjiInterval[0]}}"
                                 class="form-control col-md-5"
                                 ng-options="key*1 as value for (key, value) in kanjiLevelMap">
                         </select>
@@ -84,18 +89,22 @@
                 <div class="vertical-align">
                     <div class="col-lg-8 col-lg-offset-4 form-group">
                         <input type="number"
-                               style="width: 100px;padding-left: 12px;"
+                               style="width: 100px;padding-left:12px;"
+                               name="kanjiInterval0"
                                min="1"
-                               max="3000"
+                               max="{{first.kanjiInterval[1]}}"
+                               required
                                class="form-control col-md-5"
-                               ng-model="first.kanjiInterval[0]">
+                               ng-model="first.kanjiInterval[0]"/>
                         <span class="interval-space col-md-1">-</span>
                         <input type="number"
-                               style="width: 100px;padding-left: 12px;"
-                               min="1"
+                               name="kanjiInterval1"
+                               style="width: 100px;padding-left:12px;"
+                               min="{{first.kanjiInterval[0]}}"
                                max="3000"
+                               required
                                class="form-control col-md-5"
-                               ng-model="first.kanjiInterval[1]">
+                               ng-model="first.kanjiInterval[1]"/>
                     </div>
                 </div>
             </div>
@@ -108,8 +117,9 @@
                 </div>
                 <div class="col-lg-7">
                     <select class="form-control"
-                            style="width: 240px"
+                            style="width: 240px;font-weight:normal"
                             ng-model="first.dictionary"
+                            required
                             ng-options="key*1 as ('test.compound.dictSelect.values.' + value | translate) for (key, value) in params.dictionaryMap">
                         <option value=""></option>
                     </select>
@@ -122,10 +132,7 @@
 
         <div class="row">
             <div class="vertical-align">
-                <div class="col-lg-4">
-                    <span translate="test.compound.meaningComponents"></span>
-                </div>
-                <div class="col-lg-7 form-group" style="margin-bottom: 0;">
+                <div class="col-lg-7 col-lg-offset-4 form-group" style="margin-bottom: 0;">
                     <div class="checkbox">
                         <label>
                             <input type="checkbox"
@@ -154,9 +161,12 @@
                 </div>
                 <div class="col-lg-8">
                     <input type="number"
+                           required
+                           min="1"
+                           max="500"
                            class="form-control"
-                           style="width: 100px"
-                           ng-model="first.generateCount">
+                           style="width: 100px;font-weight:normal"
+                           ng-model="first.generateCount"/>
                 </div>
             </label>
         </div>
@@ -164,7 +174,7 @@
         <div class="row">
             <div class="vertical-align form-group">
                 <div class="col-lg-4">
-                    <span translate="test.compound.compLengthInterval"></span>
+                    <label translate="test.compound.compLengthInterval"></label>
                 </div>
                 <div class="col-lg-7">
                     <input type="number"
@@ -172,14 +182,14 @@
                            min="1"
                            max="{{first.compLengthInterval[1]}}"
                            style="width: 100px;padding-left: 12px;"
-                           ng-model="first.compLengthInterval[0]">
+                           ng-model="first.compLengthInterval[0]"/>
                     <span class="interval-space col-md-1">-</span>
                     <input type="number"
                            class="form-control col-md-5"
                            min="{{first.compLengthInterval[0]}}"
                            max="7"
                            style="width: 100px;padding-left: 12px;"
-                           ng-model="first.compLengthInterval[1]">
+                           ng-model="first.compLengthInterval[1]"/>
                 </div>
                 <div class="col-lg-1">
                     <ng-tip template="'scripts/components/tip/tipTestCompoundComplength.html'" placement="right"></ng-tip>
@@ -190,7 +200,7 @@
         <div class="row">
             <div class="vertical-align form-group">
                 <div class="col-lg-4">
-                    <span translate="test.compound.orderByType"></span>
+                    <label translate="test.compound.orderByType"></label>
                 </div>
                 <div class="col-lg-7">
                     <select class="form-control"
@@ -208,10 +218,7 @@
 
         <div class="row">
             <div class="vertical-align">
-                <div class="col-lg-4">
-                    <span translate="test.compound.hints"></span>
-                </div>
-                <div class="col-lg-7 form-group" style="margin-bottom:0">
+                <div class="col-lg-7 col-lg-offset-4 form-group" style="margin-bottom:0">
                     <div class="checkbox">
                         <label>
                             <input type="checkbox"
@@ -253,17 +260,14 @@
         -->
         <div class="row form-group" style="margin-top:20px">
             <div class="col-xs-8 col-xs-offset-2">
-                <a ng-click="doSubmit()" ng-disabled="form.$invalid" class="btn btn-block btn-default">
+                <button type="submit" ng-disabled="form.$invalid" class="btn btn-block btn-default">
                     {{'global.messages.action.generate' | translate}}
                     <span class="glyphicon glyphicon-circle-arrow-right"></span>
-                </a>
+                </button>
             </div>
         </div>
     </div>
 </form>
-<div ng-show="error" class="col-xs-4 col-xs-offset-4" style="padding-right:20px">
-    <ng-message-danger show="error" i18n="'errorI18n'"></ng-message-danger>
-</div>
 <style>
     .interval-space {
         margin-top: 6px;

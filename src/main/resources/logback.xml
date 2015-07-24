@@ -4,29 +4,27 @@
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <charset>utf-8</charset>
-            <Pattern>[%p] %c - %m%n</Pattern>
+            <Pattern>%d{dd.MM'@'HH:mm:ss.SSS} %5p %c{2}:%L - %m%n</Pattern>
         </encoder>
     </appender>
-
     <!-- The FILE and ASYNC appenders are here as examples for a production configuration -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${catalina.base}/logs/apps/egd/egd.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${catalina.base}/logs/apps/egd/egd.log.%d{yyyy-MM-dd}</fileNamePattern>
+            <maxHistory>90</maxHistory>
         </rollingPolicy>
         <encoder>
             <charset>utf-8</charset>
-            <Pattern>%d %-5level [%thread] %logger{0}: %msg%n</Pattern>
+            <Pattern>%d{dd.MM'@'HH:mm:ss.SSS} %5p [%thread] %c{2}:%L - %m%n</Pattern>
         </encoder>
     </appender>
     <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
-        <queueSize>16</queueSize>
+        <queueSize>512</queueSize>
         <appender-ref ref="FILE"/>
     </appender>
 
     <logger name="ee.esutoniagodesu" level="${logback.loglevel}"/>
-    <!--
-    <logger name=" ee.esutoniagodesu.web.rest.AccountResource.getAccount()" level="OFF"/>
-    -->
+
     <logger name="javax.activation" level="WARN"/>
     <logger name="javax.mail" level="WARN"/>
     <logger name="javax.xml.bind" level="WARN"/>
@@ -48,9 +46,6 @@
     <logger name="org.springframework.cache" level="WARN"/>
     <logger name="org.thymeleaf" level="WARN"/>
     <logger name="org.xnio" level="WARN"/>
-    <logger name="com.mangofactory.swagger" level="WARN"/>
-    <logger name="com.wordnik.swagger" level="WARN"/>
-    <logger name="liquibase" level="WARN"/>
     <logger name="sun.rmi.transport" level="WARN"/>
 
     <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
@@ -59,6 +54,6 @@
 
     <root level="${logback.loglevel}">
         <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
     </root>
-
 </configuration>

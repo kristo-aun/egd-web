@@ -123,3 +123,15 @@ tags-input .tags .tag-item {
     background: #E7E7E7;!important;
     border: 1px solid #E7E7E7;!important;
 }
+
+.form-group.required .control-label:before{
+    color: red;
+    content: "*";
+    position: absolute;
+    margin-left: -10px;
+    margin-top:4px;
+}
+
+.alert {
+    margin-bottom:0;
+}

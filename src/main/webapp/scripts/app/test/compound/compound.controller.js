@@ -3,15 +3,41 @@
 egdApp
     .controller('CompoundController', function ($state, $scope, $translate, $log, TestCompoundResource, RTKResource, Principal, blockUI) {
 
+        //------------------------------ success & error ------------------------------
+
+        var clearSuccess = function() {
+            delete $scope.success;
+            delete $scope.successI18n;
+        };
+
+        var setSuccess = function(i18n) {
+            $log.debug("setSuccess", i18n);
+            clearError();
+            $scope.successI18n = i18n;
+            $scope.success = true;
+        };
+
+        var clearError = function() {
+            delete $scope.error;
+            delete $scope.errorI18n;
+        };
+
+        var setError = function(i18n) {
+            $log.debug("setError", i18n);
+            clearSuccess();
+            $scope.errorI18n = i18n;
+            $scope.error = true;
+        };
+
+        var clearNotice = function() {
+            clearError();
+            clearSuccess();
+        };
+
         //------------------------------ first ------------------------------
 
         $scope.clear = function() {
             delete $scope.params;
-        };
-
-        $scope.clearError = function() {
-            delete $scope.errorI18n;
-            delete $scope.error;
         };
 
         $scope.setFactsToDefault = function() {
@@ -83,7 +109,7 @@ egdApp
         };
 
         $scope.doSubmit = function() {
-            $scope.clearError();
+            clearNotice();
             var elementToBlock = blockUI.instances.get('compound.first');
             elementToBlock.start();
             TestCompoundResource.submit($scope.first).then(function (data) {
@@ -91,8 +117,8 @@ egdApp
                 elementToBlock.stop();
                 $state.go("compound.second");
             }, function() {
-                $scope.error = true;
-                $scope.errorI18n = "global.messages.error.fail";
+                elementToBlock.stop();
+                setError("global.messages.error.fail");
             });
         };
         $state.go(".first");

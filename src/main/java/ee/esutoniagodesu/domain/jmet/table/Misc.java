@@ -102,4 +102,8 @@ public final class Misc implements Serializable {
         result = 31 * result + (int) kw;
         return result;
     }
+
+    public String toString() {
+        return kwmiscByKw.getKw();
+    }
 }

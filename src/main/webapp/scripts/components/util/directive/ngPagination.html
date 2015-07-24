@@ -5,34 +5,35 @@
             <a href="javascript:void(0)">&lt;&lt;</a>
         </li>
         <li ng-show="links['first'] != page">
-            <a ng-click="loadPage(links['first'], limit)">&lt;&lt;</a>
+            <a href="javascript:void(0)" ng-click="loadPage(links['first'], limit)">&lt;&lt;</a>
         </li>
         <!-- prev -->
         <li ng-show="links['first'] == page" class="disabled">
             <a href="javascript:void(0)">&lt;</a>
         </li>
         <li ng-show="links['first'] != page">
-            <a ng-click="loadPage(links['prev'], limit)">&lt;</a>
+            <a href="javascript:void(0)" ng-click="loadPage(links['prev'], limit)">&lt;</a>
         </li>
 
         <!-- first + n -->
-        <li ng-repeat="a in range(firstcount) track by $index"><a ng-click="loadPage($index + 1, limit)">
+        <li ng-repeat="a in range(firstcount) track by $index"><a href="javascript:void(0)" ng-click="loadPage($index + 1, limit)">
             {{$index + 1}}</a></li>
         <li class="disabled" ng-show="showfirstpause"><a href="javascript:void(0)">...</a></li>
 
         <!-- current - n -->
-        <li ng-show="prevcount > 0" ng-repeat="a in range(prevcount) track by $index"><a
+        <li ng-show="prevcount > 0" ng-repeat="a in range(prevcount) track by $index"><a href="javascript:void(0)"
             ng-click="loadPage(page - prevcount + $index, limit)" ng-cloak>{{page - prevcount + $index}}</a></li>
 
         <li class="active"><a>{{page}}</a></li>
 
         <!-- current + n -->
         <li ng-show="nextcount > 0" ng-repeat="a in range(nextcount) track by $index"
-            ng-click="loadPage(page + $index + 1, limit)"><a>{{page + $index + 1}}</a></li>
+            ng-click="loadPage(page + $index + 1, limit)"><a href="javascript:void(0)">{{page + $index + 1}}</a></li>
 
         <!-- last - n -->
         <li class="disabled" ng-show="showlastpause"><a href="javascript:void(0)">...</a></li>
         <li ng-repeat="a in range(lastcount) track by $index"><a
+            href="javascript:void(0)"
             ng-click="loadPage(links['last'] - lastcount + $index + 1, limit)">
             {{links['last'] - lastcount + $index + 1}}</a></li>
 
@@ -41,14 +42,14 @@
             <a href="javascript:void(0)">&gt;</a>
         </li>
         <li ng-show="links['last']" ng-show="links['last'] != page">
-            <a ng-click="loadPage(links['next'], limit)">&gt;</a>
+            <a href="javascript:void(0)" ng-click="loadPage(links['next'], limit)">&gt;</a>
         </li>
         <!-- last -->
         <li ng-show="links['last']" ng-show="links['last'] == page" class="disabled">
             <a href="javascript:void(0)">&gt;&gt;</a>
         </li>
         <li ng-show="links['last']" ng-show="links['last'] != page">
-            <a ng-click="loadPage(links['last'], limit)">&gt;&gt;</a>
+            <a href="javascript:void(0)" ng-click="loadPage(links['last'], limit)">&gt;&gt;</a>
         </li>
 
     </ul>
@@ -62,7 +63,7 @@
         </button>
         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
             <li ng-repeat="item in limits" ng-class="{'active': item == limit}">
-                <a role="menuitem" tabindex="-1" ng-click="loadPage(getPageForLimit(page, item), item)">{{item}}</a>
+                <a href="javascript:void(0)" role="menuitem" tabindex="-1" ng-click="loadPage(getPageForLimit(page, item), item)">{{item}}</a>
             </li>
         </ul>
     </div>

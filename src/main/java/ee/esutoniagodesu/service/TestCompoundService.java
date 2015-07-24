@@ -15,11 +15,11 @@ import ee.esutoniagodesu.repository.project.KanjiDB;
 import ee.esutoniagodesu.security.AuthoritiesConstants;
 import ee.esutoniagodesu.security.SecurityUtils;
 import ee.esutoniagodesu.util.JCString;
-import junit.framework.TestCase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import javax.inject.Inject;
 import java.io.Serializable;
@@ -73,6 +73,8 @@ public class TestCompoundService {
         //kanjide nimekiri
         Map<Character, Kanji> kanjis = getKanjis(s.getEFilterType(), ivfrom, ivto, s.getEKanjiIntervalType(), s.radicalHintVisible);
 
+        Assert.isTrue(kanjis.size() > 0);
+
         //Mitu kanjit võib olla sõnas. Intervall
         int compdlfrom = s.compLengthInterval[0];
         int compdlto = s.compLengthInterval[1];
@@ -90,7 +92,7 @@ public class TestCompoundService {
         List<KanjiCompound> result = drawBallots(groupedByKanjiCount, drawCounts);
 
         //nüüd on testi minevad sõnad leitud, asume täiendava info lisamise kallale
-        TestCase.assertNotSame(0, result.size());
+        Assert.isTrue(result.size() > 0);
 
         for (KanjiCompound p : result) {
             //eestikeelsed tähendused
@@ -109,7 +111,7 @@ public class TestCompoundService {
             //inglisekeelsed tähendused lisatakse alati kui et puudub või en pole keelatud
             if (p.en == null && (p.et == null || !s.noEnIfHasEt)) {//CORE sõnastik määrab en ise
                 EN_Sens sensEn = jmDictEnDB.getFirstSensByKanjAndRdng(p.answer, p.reading);
-                TestCase.assertNotNull(sensEn);
+                Assert.notNull(sensEn);
                 p.en = join(sensEn.getGlosses());
             }
 
@@ -298,7 +300,7 @@ public class TestCompoundService {
      */
     private <U> List<U> drawBallots(Map<Integer, List<U>> candidates, Map<Integer, Integer> drawCounts) {
         long ms = System.currentTimeMillis();
-        TestCase.assertEquals(candidates.keySet().size(), drawCounts.keySet().size());
+        Assert.isTrue(candidates.keySet().size() == drawCounts.keySet().size());
         log.debug("drawBallots: candidates.size=" + candidates.size() + ", drawCounts=" + drawCounts);
 
         List<U> result = new ArrayList<>();

@@ -11,7 +11,6 @@ import ee.esutoniagodesu.util.commons.JCIOUtils;
 import ee.esutoniagodesu.util.jasperreports.CSVGenerator;
 import ee.esutoniagodesu.util.jasperreports.JSGeneratorType;
 import ee.esutoniagodesu.util.lang.lingv.JCKana;
-import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -22,6 +21,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
@@ -61,9 +61,9 @@ public class JasperService {
      * 3) Koostab html'i
      */
     public List<VHeisig6Custom> findVHeisig6Custom(int from, int to) {
-        TestCase.assertTrue(from > 0 && to > from && to <= 2200);
+        Assert.isTrue(from > 0 && to > from && to <= 2200);
         List<VHeisig6Custom> result = dao.findAll(VHeisig6Custom.class);
-        TestCase.assertEquals(2200, result.size());
+        Assert.isTrue(2200 == result.size());
         result = result.subList(from - 1, to - 1);
 
         StringBuilder words = new StringBuilder();
@@ -263,7 +263,7 @@ public class JasperService {
 
     public byte[] getHeisig6CustomAsArchive(int from, int to) throws IOException, JRException, SQLException {
         List<VHeisig6Custom> data = findVHeisig6Custom(from, to);
-        TestCase.assertNotNull(data.get(0).getExampleWordsHtml());
+        Assert.notNull(data.get(0).getExampleWordsHtml());
 
         Map.Entry<String, byte[]> report = getReport(ECfReportType.HEISIG6_CUSTOM, JSGeneratorType.CSV, data);
 

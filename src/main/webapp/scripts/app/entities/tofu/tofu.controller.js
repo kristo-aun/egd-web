@@ -26,7 +26,7 @@ egdApp
 
         $scope.saveTofu = function () {
             var deferred = $q.defer();
-            TofuResource.update($scope.tofu,
+            TofuResource.save($scope.tofu,
                 function () {
                     deferred.resolve();
                 });

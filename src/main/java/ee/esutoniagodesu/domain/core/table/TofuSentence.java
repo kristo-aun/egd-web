@@ -17,17 +17,17 @@ public final class TofuSentence implements IHasCoreWord, Serializable {
     @Column(name = "id")
     @Id
     private Integer id;
-    @Column(name = "word", nullable = false, insertable = true, updatable = true, length = 2147483647, precision = 0)
+    @Column(name = "word", nullable = false, insertable = false, updatable = false, length = 2147483647, precision = 0)
     @Basic
     private String word;
-    @Column(name = "sentence", nullable = false, insertable = true, updatable = true, length = 2147483647, precision = 0)
+    @Column(name = "sentence", nullable = false, insertable = false, updatable = false, length = 2147483647, precision = 0)
     @Basic
     private String sentence;
 
     @Transient
     private TofuSentenceTranslation translation;
 
-    @Column(name = "with_jmdict", nullable = false, insertable = true, updatable = true, length = 1, precision = 0)
+    @Column(name = "with_jmdict", nullable = false, insertable = false, updatable = false, length = 1, precision = 0)
     @Basic
     private boolean withJmdict;
 

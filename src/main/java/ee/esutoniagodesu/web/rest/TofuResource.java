@@ -41,15 +41,12 @@ public class TofuResource {
     }
 
     @RequestMapping(value = "",
-        method = RequestMethod.PUT,
+        method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    @RolesAllowed(AuthoritiesConstants.ADMIN)
-    public ResponseEntity<Void> update(@Valid @RequestBody TofuSentence tofu) throws URISyntaxException {
-        if (tofu.getId() == null) {
-            return ResponseEntity.badRequest().header("Failure", "A tofu cannot already have null ID").build();
-        }
-        service.save(tofu, getSessionUser());
-        return ResponseEntity.ok().build();
+    @RolesAllowed(AuthoritiesConstants.USER)
+    public ResponseEntity<TofuSentence> update(@Valid @RequestBody TofuSentence tofu) throws URISyntaxException {
+        TofuSentence result = service.save(tofu, getSessionUser());
+        return ResponseEntity.ok().body(result);
     }
 
     @RequestMapping(value = "",

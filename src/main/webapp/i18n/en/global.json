@@ -32,6 +32,7 @@
                 "forward": "Forward",
                 "back": "Back",
                 "next": "Next",
+                "skip": "Skip",
                 "previous": "Previous",
                 "cancel": "Cancel",
                 "delete": "Delete",

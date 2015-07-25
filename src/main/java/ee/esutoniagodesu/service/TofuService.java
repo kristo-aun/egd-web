@@ -19,7 +19,7 @@ import javax.inject.Inject;
 import java.util.List;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 public class TofuService {
 
     private static final Logger log = LoggerFactory.getLogger(TofuService.class);
@@ -40,7 +40,8 @@ public class TofuService {
         return SecurityUtils.getUserUuid();
     }
 
-    public void save(TofuSentence tofu, User user) {
+    @Transactional(readOnly = false)
+    public TofuSentence save(TofuSentence tofu, User user) {
         log.debug("save: tofu=" + tofu);
 
         TofuSentenceTranslation tr = tofu.getTranslation();
@@ -52,7 +53,7 @@ public class TofuService {
         log.debug("save: tr=" + tr);
 
         dao.save(tr);
-        dao.save(tofu);
+        return tofu;
     }
 
     public TofuSentence findById(int id) {

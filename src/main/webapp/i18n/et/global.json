@@ -32,6 +32,7 @@
                 "forward": "Edasi",
                 "back": "Tagasi",
                 "next": "Järgmine",
+                "skip": "Jäta vahele",
                 "previous": "Eelmine",
                 "cancel": "Katkesta",
                 "delete": "Kustuta",

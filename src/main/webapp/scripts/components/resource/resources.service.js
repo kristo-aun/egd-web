@@ -19,7 +19,12 @@ egdApp
             },
             submit: function (submit) {
                 var context = "api/test/compound/submit";
-                return $http.post(context, submit).then(function (response) {
+                return $http.post(context, submit, {
+                    headers: { 'Content-Type': 'application/json'},
+                    transformRequest: function (data) {
+                        return angular.toJson(data);
+                    }
+                }).then(function (response) {
                     return response.data;
                 });
             }
@@ -193,7 +198,13 @@ egdApp
                     return data;
                 }
             },
-            'update': {method: 'PUT'}
+            'save': {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                transformRequest: function (data) {
+                    return angular.toJson(data);
+                }
+            }
         });
     })
     .factory('StatResource', function ($http) {

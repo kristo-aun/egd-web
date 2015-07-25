@@ -100,6 +100,24 @@ egdApp
             }
         }
     }])
+    .directive('egdReally', function ($translate) {
+        /**
+         * A generic confirmation for risky actions.
+         * Usage: Add attributes: ng-really-message="Are you sure"? ng-really-click="takeAction()" function
+         */
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                element.bind('click', function (e) {
+                    $translate('global.messages.action.confirm').then(function(value) {
+                        if (value && confirm(value)) {
+                            scope.$apply(attrs.egdReally);
+                        }
+                    });
+                });
+            }
+        }
+    })
     .directive('autoGrow', function () {
         return function (scope, element, attr) {
             var minHeight, paddingLeft, paddingRight, $shadow = null;

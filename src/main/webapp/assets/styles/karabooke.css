@@ -9,9 +9,12 @@ div.ngp-nav {
 div.ngp-audio {
     margin: 0;
     vertical-align: middle;
-    padding-right: 260px;
     display: block;
     max-width: 1060px;
+}
+
+div.ngp-audio-padding-right {
+    padding-right: 210px;
 }
 
 audio.ngp-audio-control {
@@ -25,7 +28,7 @@ output.ngp-rate-output {
 }
 
 div.ngp-playback-rate {
-    min-width: 250px;
+    min-width: 210px;
     color: white;
     position: absolute;
     right: 0;

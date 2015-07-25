@@ -43,7 +43,8 @@
                 "open": "開けます",
                 "view": "見ます",
                 "create": "新しい",
-                "confirm": "Are you sure?"
+                "confirm": "Are you sure?",
+                "upload": "Upload"
             },
             "detail": {
                 "field": "Field",

@@ -19,7 +19,8 @@ egdApp
             scope: {
                 src: '=?',
                 sha: '=?',
-                rate: '=?'
+                rate: '=?',
+                rateDisabled: '=?'
             },
             link: function (scope, element) {
                 var audioElement = element.find('.ngp-audio-control')[0];
@@ -137,7 +138,7 @@ egdApp
             templateUrl: 'scripts/components/directive/estonianKeys.html'
         }
     })
-    .directive('dynTip2', function ($translate) {
+    .directive('dynTip', function ($translate) {
         return {
             restrict: 'A',
             scope: {

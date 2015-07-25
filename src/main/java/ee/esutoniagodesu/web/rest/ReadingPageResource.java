@@ -64,60 +64,25 @@ public class ReadingPageResource {
         return ResponseEntity.ok().body(result);
     }
 
-    @JsonView(View.Basic.class)
-    @RequestMapping(value = "",
+    @RequestMapping(value = "/byReading",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Reading>> getReadings(@RequestParam(required = false) Integer page,
-                                                     @RequestParam(required = false) Integer limit) throws URISyntaxException {
-        Page<Reading> result = service.getReadings(page, limit);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(result, BASE_URL, page, limit);
-        return ResponseEntity.ok().headers(headers).body(result.getContent());
+    public ResponseEntity<List<ReadingPage>> getReadingPages(@RequestParam int readingId) throws URISyntaxException {
+        List<ReadingPage> result = service.getReadingPages(readingId);
+        return ResponseEntity.ok().body(result);
     }
 
-    @JsonView(View.Basic.class)
-    @RequestMapping(value = "/byTag",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Reading>> byTag(@RequestParam String tag,
-                                               @RequestParam(required = false) Integer page,
-                                               @RequestParam(required = false) Integer limit) throws URISyntaxException {
-
-        Page<Reading> result = service.findByTag(tag, page, limit);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(result, BASE_URL, page, limit);
-        return ResponseEntity.ok().headers(headers).body(result.getContent());
-    }
-
-    @RequestMapping(value = "/autocompleteTag",
-        method = RequestMethod.GET,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<String>> autocompleteTag(@RequestParam String tagstart) throws URISyntaxException {
-        return ResponseEntity.ok().body(service.autocompleteTag(tagstart));
-    }
-
-    @JsonView(View.Detailed.class)
     @RequestMapping(value = "/{id}",
-        method = RequestMethod.GET,
+        method = RequestMethod.DELETE,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Reading> get(@PathVariable Integer id) {
-        return Optional.ofNullable(service.getReading(id))
-            .map(author -> new ResponseEntity<>(
-                author,
-                HttpStatus.OK))
-            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    public void delete(@PathVariable int id) {
+        service.deleteReadingPage(id);
     }
 
     @RequestMapping(value = "/{id}/deleteAudio",
         method = RequestMethod.DELETE,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public void delete(@PathVariable Integer id) {
-        service.deleteReading(id);
-    }
-
-    @RequestMapping(value = "/{id}",
-        method = RequestMethod.DELETE,
-        produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> deleteAudio(@PathVariable Integer id) throws IOException {
+    public ResponseEntity<String> deleteAudio(@PathVariable int id) throws IOException {
         return Optional.ofNullable(service.deleteAudio(id))
             .map(sha -> new ResponseEntity<>(
                 sha,

@@ -41,7 +41,8 @@
                 "open": "Open",
                 "view": "View",
                 "create": "Create new",
-                "confirm": "Are you sure?"
+                "confirm": "Are you sure?",
+                "upload": "Upload"
             },
             "detail": {
                 "field": "Field",

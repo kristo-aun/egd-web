@@ -1,14 +1,14 @@
 <div class="ngp-nav">
-    <div class="ngp-audio">
+    <div ng-class="['ngp-audio', {'ngp-audio-padding-right': !rateDisabled}]">
         <audio ng-src="{{getSrc()}}" class="ngp-audio-control" audioplayer controls></audio>
     </div>
 
-    <div class="form-inline ngp-playback-rate">
+    <div ng-if="!rateDisabled" class="form-inline ngp-playback-rate">
         <label for="ngp-rate" translate="global.audio.playbackRate"></label>
 
         <div class="form-group">
             <input class="form-control"
-                   style="background-color: whitesmoke;"
+                   style="background-color: whitesmoke;width: 110px;"
                    id="ngp-rate"
                    type="range"
                    min="0.5"

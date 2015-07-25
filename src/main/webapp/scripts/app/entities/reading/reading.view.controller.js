@@ -1,7 +1,7 @@
 'use strict';
 
 egdApp
-    .controller('ReadingViewController', function ($scope, $rootScope, $stateParams, $log, ReadingResource, Principal) {
+    .controller('ReadingViewController', function ($scope, $rootScope, $stateParams, $log, ReadingResource, Principal, ReadingPageResource) {
         $scope.isAuthenticated = Principal.isAuthenticated;
 
         var cleanup = function(text) {
@@ -42,8 +42,11 @@ egdApp
 
         $scope.load = function (id) {
             ReadingResource.get({id: id}, function (data) {
-                $scope.setReading(data);
-                $scope.setPage(1);
+                ReadingPageResource.findByReading(data.id).then(function (pages) {
+                    data.pages = pages;
+                    $scope.setReading(data);
+                    $scope.setPage(1);
+                });
             });
         };
         $scope.load($stateParams.id);

@@ -41,7 +41,8 @@
                 "open": "Ava",
                 "view": "Vaata",
                 "create": "Lisa uus",
-                "confirm": "Olete kindel?"
+                "confirm": "Olete kindel?",
+                "upload": "Lae üles"
             },
             "detail": {
                 "field": "Väli",

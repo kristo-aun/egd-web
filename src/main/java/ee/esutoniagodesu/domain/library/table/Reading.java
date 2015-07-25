@@ -8,6 +8,7 @@ import ee.esutoniagodesu.domain.AbstractAuditingEntity;
 import ee.esutoniagodesu.util.JCString;
 import ee.esutoniagodesu.util.iso.ISO6391;
 import ee.esutoniagodesu.web.rest.dto.View;
+import org.hibernate.annotations.Immutable;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -63,23 +64,17 @@ public class Reading extends AbstractAuditingEntity implements Serializable {
     @Column(name = "tag")
     private List<String> tags;
 
-    @JsonView(View.Detailed.class)
-    @OneToMany
-    @JoinColumn(name = "reading_id", referencedColumnName = "id")
-    private List<ReadingPage> pages = new ArrayList<>();
-
     @JsonView(View.Basic.class)
-    @JsonGetter
+    @Transient
+    private String overview;
+
     public String getOverview() {
         if (summary != null) return summary;
+        return overview;
+    }
 
-        if (pages.size() > 0) {
-            String body = pages.get(0).getBody();
-            if (body != null) {
-                return JCString.removeTailSmart(body, 100, "...");
-            }
-        }
-        return null;
+    public void setOverview(String overview) {
+        this.overview = overview;
     }
 
     public Integer getId() {
@@ -152,14 +147,6 @@ public class Reading extends AbstractAuditingEntity implements Serializable {
 
     public void setTags(List<String> tags) {
         this.tags = tags;
-    }
-
-    public List<ReadingPage> getPages() {
-        return pages;
-    }
-
-    public void setPages(List<ReadingPage> pages) {
-        this.pages = pages;
     }
 
     @Override

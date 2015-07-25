@@ -87,7 +87,7 @@ table.reading-rows > tbody > tr > td.right {
 
 
 div.thumbnail > div.category {
-    background: #222;
+    background: #777;
     color: #eee;
     font-size: smaller;
     font-style: italic;
@@ -95,7 +95,7 @@ div.thumbnail > div.category {
 }
 
 #content div.thumbnail > div.category {
-    background: #222;
+    background: #777;
     color: #eee;
     font-size: smaller;
     font-style: italic;
@@ -129,4 +129,19 @@ p.post-date {
     position: absolute;
     bottom: 30px;
     right: 20px;
+}
+
+div#readingEditTabs > div > ul.nav-tabs {
+    margin-right: 10px;
+}
+
+a.reading-page-add {
+    height: 40px;
+    width: 40px;
+    margin-left:10px;
+}
+
+a.reading-page-add > i {
+    margin-top: 14px;
+    margin-left: 13px;
 }

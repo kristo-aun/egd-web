@@ -62,12 +62,6 @@ public class ReadingService {
     //------------------------------ artiklite vaade ------------------------------
 
     /**
-     * Päises 3 tekstivälja: tiitel, autor, copyright, tõlke keel. Teksti sisu alas lisatakse lõike,
-     * mille pikkus ei tohiks ületada 4-5 lauset. Lõigul on tõlge. Tõlge peaks olema kõrge keelelise kvaliteediga.
-     * Lõigul võib olla heli. Helilõiku saab lisada ja eemaldada. Lõikude järjekorda saab muuta üles-alla.
-     */
-
-    /**
      * Lubatud on muuta ainult enda loodud artikleid.
      * Administraatoril on lubatud kõiki muuta.
      */
@@ -139,21 +133,10 @@ public class ReadingService {
         return readingRepository.findByTag(tag, uuid(), PaginationUtil.generatePageRequest(page, limit));
     }
 
-    /**
-     * Leiab tekstist kõik sõnad ja kuvab sõnaraamatuvormi.
-     * Server pakub vahendeid teksti tükeldamiseks ja analüüsimiseks, ent ei salvesta sõnavara.
-     * Seetõttu võib esineda erandjuhte, kus sõna hääldus ei ole sama, mis helilõigus.
-     * PÄIS: vali tõlke keel.
-     * SISU: Esitab sõnad tekstis esinemise järjekorras. Tabeli väljad: sõna, hääldus, tõlge, lause.
-     * Kui võimalik, siis ka sõna hääldus.
-     * JALUS: Sõnavara tabelit saab alla laadida XMS/ODS faili.
-     */
     //@PreAuthorize("hasPermission(#id, 'ee.esutoniagodesu.domain.library.table.Reading', 'reading_read')")
     public Reading getReading(int id) {
         log.debug("get: id=" + id);
-        Reading result = dao.find(Reading.class, id);
-        Hibernate.initialize(result.getPages());
-        return result;
+        return dao.find(Reading.class, id);
     }
 
     /**
@@ -168,6 +151,15 @@ public class ReadingService {
 
     public List<String> autocompleteTag(String tagstart) {
         return libraryDB.getAutocompleteTags(tagstart, 20);
+    }
+
+    public List<ReadingPage> getReadingPages(int readingId) {
+        return readingPageRepository.findByReadingId(readingId);
+    }
+
+    public void deleteReadingPage(int id) {
+        log.debug("deleteReadingPage: id=", id);
+        dao.removeById(ReadingPage.class, id);
     }
 
     //------------------------------ sõnavara vaade ------------------------------

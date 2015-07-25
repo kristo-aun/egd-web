@@ -87,7 +87,7 @@ public class ReadingResource {
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @RequestMapping(value = "/{id}/deleteAudio",
+    @RequestMapping(value = "/{id}",
         method = RequestMethod.DELETE,
         produces = MediaType.APPLICATION_JSON_VALUE)
     public void delete(@PathVariable Integer id) {

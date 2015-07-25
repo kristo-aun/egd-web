@@ -20,7 +20,7 @@ egdApp
             submit: function (submit) {
                 var context = "api/test/compound/submit";
                 return $http.post(context, submit).then(function (response) {
-                   return response.data;
+                    return response.data;
                 });
             }
         }
@@ -95,15 +95,15 @@ egdApp
     .factory('ReadingResource', function ($resource, $http, $q, $log, Moment) {
         var BASE_URL = 'api/readings';
         var result = $resource(BASE_URL + '/:id', {}, {
-            'query': { method: 'GET', isArray: true},
+            'query': {method: 'GET', isArray: true},
             'get': {
                 method: 'GET',
                 transformResponse: function (data) {
                     data = angular.fromJson(data);
 
                     var tags = [];
-                    angular.forEach(data.tags, function(value) {
-                        this.push({text:value});
+                    angular.forEach(data.tags, function (value) {
+                        this.push({text: value});
                     }, tags);
                     data.tags = tags;
 
@@ -123,7 +123,7 @@ egdApp
                         data.lastModifiedDate = Moment.serializeDateTime(data.lastModifiedDate);
 
                         var tags = [];
-                        angular.forEach(data.tags, function(value) {
+                        angular.forEach(data.tags, function (value) {
                             this.push(value.text);
                         }, tags);
                         data.tags = tags;
@@ -131,7 +131,10 @@ egdApp
                         return angular.toJson(data);
                     };
 
-                    return toJson(data);
+                    var copy = angular.copy(data);
+                    delete copy.pages;
+
+                    return toJson(copy);
                 }
             }
         });
@@ -147,30 +150,33 @@ egdApp
     .factory('ReadingPageResource', function ($resource, $http) {
         var BASE_URL = 'api/readingPages';
         var result = $resource(BASE_URL + '/:id');
-        delete result.save;
-        result.save = function (readingPage, file) {
-            var toJson = function (data) {
-                return angular.toJson(data);
-            };
 
-            var data = new FormData();
-            data.append('file', file);
-            data.append('json', toJson(readingPage));
-
-            var req = {
-                method: 'POST',
-                url: BASE_URL,
-                headers: {
-                    'Content-Type': undefined
-                },
-                transformRequest: angular.identity,
-                data: data
-            };
-            return $http(req);
-        };
-        result.deleteAudio = function (readingPageId) {
-            return $http.delete(BASE_URL + '/' + readingPageId + "/deleteAudio").then(function (response) {
+        result.findByReading = function (readingId) {
+            var context = BASE_URL + "/byReading";
+            return $http.get(context, {params: {readingId: readingId}}).then(function (response) {
                 return response.data;
+            });
+        };
+
+        result.deletePage = function (readingPageId) {
+            var context = BASE_URL + "/" + readingPageId;
+            return $http({
+                method: 'DELETE',
+                url: context,
+                transformResponse: function (response) {
+                    return response;
+                }
+            });
+        };
+
+        result.deleteAudio = function (readingPageId) {
+            var context = BASE_URL + "/" + readingPageId + '/deleteAudio';
+            return $http({
+                method: 'DELETE',
+                url: context,
+                transformResponse: function (data) {
+                    return data;
+                }
             });
         };
 
@@ -178,7 +184,7 @@ egdApp
     })
     .factory('TofuResource', function ($resource) {
         return $resource('api/tofus/:id', {}, {
-            'query': { method: 'GET', isArray: true},
+            'query': {method: 'GET', isArray: true},
             'get': {
                 method: 'GET',
                 transformResponse: function (data) {
@@ -186,7 +192,7 @@ egdApp
                     return data;
                 }
             },
-            'update': { method:'PUT' }
+            'update': {method: 'PUT'}
         });
     })
     .factory('StatResource', function ($http) {

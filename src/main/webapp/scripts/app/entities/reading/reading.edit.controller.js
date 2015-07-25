@@ -1,7 +1,7 @@
 'use strict';
 
 egdApp
-    .controller('ReadingEditController', function ($scope, $rootScope, $state, $stateParams, $log, $translate, $confirm, ReadingResource, ReadingPageResource, Upload, Moment) {
+    .controller('ReadingEditController', function ($scope, $q, $rootScope, $state, $stateParams, $log, $translate, $confirm, ReadingResource, ReadingPageResource, Upload, Moment) {
         $scope.languages = ["ja", "et", "en"];
 
         //------------------------------ success & error ------------------------------
@@ -51,6 +51,10 @@ egdApp
             if (id > 0) {
                 ReadingResource.get({id: id}, function (data) {
                     $scope.reading = data;
+                    ReadingPageResource.findByReading(data.id).then(function (data) {
+                        $scope.readingPages = data;
+                        $scope.readingPages[0].active = true;
+                    });
                 });
             } else {
                 $scope.reading = {"bodyLang": "ja", "transcriptLang": $translate.use()};
@@ -58,47 +62,78 @@ egdApp
         };
         $scope.load($stateParams.id);
 
-        $scope.removeFile = function() {
-            $('input#readingAudioFile').val("");
-            delete $scope.audioFile;
+        var commitRemovedPages = function() {
+            var deferred = $q.defer();
+
+            var i = $scope.removedPages.length;
+            if (i < 1) {
+                deferred.resolve();
+            } else {
+                $scope.removedPages.forEach(function(item) {
+                    ReadingPageResource.deletePage(item.id).then(function() {
+                        i--;
+                        if (i == 0) {
+                            //kõik on kustutatud
+                            deferred.resolve();
+                        }
+                    }, function() {
+                        deferred.reject();
+                    });
+                });
+            }
+
+            return deferred.promise;
         };
 
         $scope.submit = function () {
-            var toJson = function (data) {
-                data.createdDate = Moment.serializeDateTime(data.createdDate);
-                data.lastModifiedDate = Moment.serializeDateTime(data.lastModifiedDate);
 
-                var tags = [];
-                angular.forEach(data.tags, function(value) {
-                    this.push(value.text);
-                }, tags);
-                data.tags = tags;
+            commitRemovedPages().then(function() {
+                ReadingResource.save($scope.reading, function () {
+                    $scope.readingPages.forEach(function(item, index) {
+                        var copy = angular.copy(item);
+                        delete copy.audioFile;
 
-                return angular.toJson(data);
-            };
-
-            Upload.upload({
-                url: '/api/readingPages',
-                data: toJson($scope.reading), // additional data to send
-                file: $scope.audioFile
-            }).progress(function (evt) {
-                var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                $log.debug('upload.progress: ' + progressPercentage + '% ');
-            }).success(function (data, status, headers, config) {
-                $scope.reading.audioSha = data.audioSha;
-                setSuccess("global.messages.success.saved");
-            }).error(function () {
-                setError("global.messages.error.failed");
+                        Upload.upload({
+                            url: '/api/readingPages',
+                            data: angular.toJson(copy),
+                            file: item.audioFile
+                        }).progress(function (evt) {
+                            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+                            $log.debug('upload.progress: ' + progressPercentage + '% ');
+                        }).success(function (data, status, headers, config) {
+                            item.id = data.id;
+                            item.audioSha = data.audioSha;
+                            $scope.removeFile(index);
+                            setSuccess("global.messages.success.saved");
+                        }).error(function () {
+                            setError("global.messages.error.fail");
+                        });
+                    });
+                });
+            }, function() {
+                setError("global.messages.error.fail");
             });
         };
 
-        $scope.deleteAudio = function () {
-            ReadingResource.deleteAudio($scope.reading.id).then(function () {
+        var deletePageAudio = function (index) {
+            var readingPageId = $scope.readingPages[index].id;
+            ReadingPageResource.deleteAudio(readingPageId).then(function (response) {
+                $log.debug("removed", response.data);
+                delete $scope.readingPages[index].audioSha;
                 setSuccess("global.messages.success.removed");
+            }, function() {
+                setError("global.messages.error.fail");
             });
         };
 
-        $scope.deleteReading = function () {
+        $scope.deletePageAudioConfirm = function (readingPageId) {
+            $confirm({}, {templateUrl: 'scripts/app/entities/reading/reading.confirm.delete.html'})
+                .then(function () {
+                    deletePageAudio(readingPageId);
+                });
+        };
+
+        var deleteReading = function () {
             ReadingResource.delete({id: $scope.reading.id},
                 function () {
                     $scope.clear();
@@ -109,7 +144,55 @@ egdApp
         $scope.deleteReadingConfirm = function () {
             $confirm({}, {templateUrl: 'scripts/app/entities/reading/reading.confirm.delete.html'})
                 .then(function () {
-                    $scope.deleteReading();
+                    deleteReading();
                 });
+        };
+
+        $scope.fileSelected = function(files, page) {
+            if (files.length > 0) {
+                page.audioFileName = files[0].name;
+            }
+        };
+
+        //------------------------------ lehtede haldus ------------------------------
+
+        var countPages = function() {
+            return $scope.readingPages.length;
+        };
+
+        $scope.removedPages = [];
+
+        $scope.removePage = function (index) {
+            $scope.removedPages.push($scope.readingPages[index]);
+            $scope.readingPages.splice(index, 1);
+        };
+
+        var clickLastPage = function() {
+            try {
+                var key = countPages() - 1;
+                $('div#readingEditTabs').find('.nav-tabs li:nth-child(' + key + ')').find("a").click();
+            } catch (ignored) {}
+        };
+
+        $scope.addPage = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            var len = countPages();
+
+            var page = {
+                body:undefined,
+                transcript: undefined,
+                readingId: $scope.reading.id,
+                page: len + 1,
+                audioFile: undefined,
+                active: true
+            };
+            $scope.readingPages.push(page);
+        };
+
+        $scope.removeFile = function(index) {
+            $('input#readingAudioFile_' + index).val("");
+            delete $scope.readingPages[index].audioFile;
         };
     });

@@ -57,8 +57,9 @@
                 "notfound": "Ei leitud"
             },
             "success": {
-                "saved": "Salvestatud!",
-                "deleted": "Kustutatud!"
+                "saved": "Salvestatud",
+                "deleted": "Kustutatud",
+                "removed": "Eemaldatud"
             },
             "info": {
                 "register": "<a href=\"#/register\">Registreeri konto</a>"

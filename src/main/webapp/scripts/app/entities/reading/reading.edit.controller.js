@@ -1,17 +1,48 @@
 'use strict';
 
 egdApp
-    .controller('ReadingEditController', function ($scope, $rootScope, $state, $stateParams, $translate, $confirm, ReadingResource, ReadingPageResource, Upload, Moment) {
+    .controller('ReadingEditController', function ($scope, $rootScope, $state, $stateParams, $log, $translate, $confirm, ReadingResource, ReadingPageResource, Upload, Moment) {
         $scope.languages = ["ja", "et", "en"];
+
+        //------------------------------ success & error ------------------------------
+
+        var clearSuccess = function () {
+            delete $scope.success;
+            delete $scope.successI18n;
+        };
+
+        var setSuccess = function (i18n) {
+            $log.debug("setSuccess", i18n);
+            clearError();
+            $scope.successI18n = i18n;
+            $scope.success = true;
+        };
+
+        var clearError = function () {
+            delete $scope.error;
+            delete $scope.errorI18n;
+        };
+
+        var setError = function (i18n) {
+            $log.debug("setError", i18n);
+            clearSuccess();
+            $scope.errorI18n = i18n;
+            $scope.error = true;
+        };
+
+        var clearNotice = function () {
+            clearError();
+            clearSuccess();
+        };
+
+        //------------------------------ init ------------------------------
 
         $scope.clear = function () {
             delete $scope.reading;
-            delete $scope.success;
-            delete $scope.error;
+            clearNotice();
         };
 
         $scope.loadTags = function(tagstart) {
-            console.log($scope.reading.tags);
             return ReadingResource.autocompleteTag(tagstart);
         };
 
@@ -27,23 +58,12 @@ egdApp
         };
         $scope.load($stateParams.id);
 
-        var setSuccess = function () {
-            delete $scope.error;
-            $scope.success = true;
-        };
-
-        var setError = function () {
-            delete $scope.success;
-            $scope.error = true;
-        };
-
         $scope.removeFile = function() {
             $('input#readingAudioFile').val("");
             delete $scope.audioFile;
         };
 
         $scope.submit = function () {
-
             var toJson = function (data) {
                 data.createdDate = Moment.serializeDateTime(data.createdDate);
                 data.lastModifiedDate = Moment.serializeDateTime(data.lastModifiedDate);
@@ -63,20 +83,18 @@ egdApp
                 file: $scope.audioFile
             }).progress(function (evt) {
                 var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                console.log('progress: ' + progressPercentage + '% ');
-
+                $log.debug('upload.progress: ' + progressPercentage + '% ');
             }).success(function (data, status, headers, config) {
                 $scope.reading.audioSha = data.audioSha;
-                setSuccess();
-            }).error(function (data, status, headers, config) {
-                console.log('error status: ' + status);
-                setError();
+                setSuccess("global.messages.success.saved");
+            }).error(function () {
+                setError("global.messages.error.failed");
             });
         };
 
         $scope.deleteAudio = function () {
             ReadingResource.deleteAudio($scope.reading.id).then(function () {
-                setSuccess();
+                setSuccess("global.messages.success.removed");
             });
         };
 

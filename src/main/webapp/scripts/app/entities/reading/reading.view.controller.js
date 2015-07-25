@@ -24,20 +24,18 @@ egdApp
             return rows;
         };
 
-        $scope.setReading = function(data) {
-            angular.forEach(data.pages, function(item) {
+        $scope.setReading = function(reading) {
+            angular.forEach(reading.pages, function(item) {
                 item.rows = buildRows(item.body, item.transcript);
                 delete item.body;
                 delete item.transcript
             });
-
-            console.log(data.pages);
-            $scope.reading = data;
+            $scope.reading = reading;
         };
 
         $scope.setPage = function(page) {
             $scope.currentPage = page;
-            $scope.rows = $scope.reading.pages[$scope.currentPage-1].rows;
+            $scope.readingPage = $scope.reading.pages[$scope.currentPage-1];
         };
 
         $scope.load = function (id) {

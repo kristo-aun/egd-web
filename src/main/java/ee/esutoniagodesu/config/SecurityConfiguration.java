@@ -153,8 +153,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public static final String[] permitAdmin = {
         "/api/audits/**",
         "/api/users/**",
-        "/health/**",
-        "/configprops/**"
+        "/health/**"
     };
 
     @Bean

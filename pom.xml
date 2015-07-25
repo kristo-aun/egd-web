@@ -90,7 +90,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <run.addResources>false</run.addResources>
         <sonar-maven-plugin.version>2.3</sonar-maven-plugin.version>
-        <spring-security.version>4.0.1.RELEASE</spring-security.version>
+        <spring-security.version>4.0.2.RELEASE</spring-security.version>
         <usertype-core.version>4.0.0.GA</usertype-core.version>
     </properties>
 

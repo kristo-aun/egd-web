@@ -5,7 +5,7 @@
   "testPath": "src/test/javascript/spec",
   "dependencies": {
     "bootstrap": "3.3.5",
-    "modernizr": "2.8.3",
+    "modernizr": "3.0.0",
     "jquery": "2.1.4",
     "json3": "3.3.2",
     "angular-ui-router": "0.2.15",
@@ -29,7 +29,7 @@
     "ngSticky": "~1.7.9",
     "jquery.maskedinput": "~1.4.1",
     "angular-ui-chart": "0.0.1",
-    "angular-ui-grid": "3.0.0-rc.22",
+    "angular-ui-grid": "3.0.1",
     "selectize": "0.12.1",
     "angular-loading-bar": "~0.8.0",
     "bootstrap-social": "4.9.1",

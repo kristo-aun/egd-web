@@ -63,3 +63,8 @@ If you get "ROOT: Error during : npm install" during compilation, run
     sudo chown -R $(whoami) ~/.npm
 
     
+
+# Updating bower.json automatically
+
+    npm install -g bower-check-updates
+    bower-check-updates -u

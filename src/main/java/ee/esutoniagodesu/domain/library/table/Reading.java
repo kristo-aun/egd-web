@@ -1,18 +1,14 @@
 package ee.esutoniagodesu.domain.library.table;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonView;
 import ee.esutoniagodesu.domain.AbstractAuditingEntity;
-import ee.esutoniagodesu.util.JCString;
 import ee.esutoniagodesu.util.iso.ISO6391;
 import ee.esutoniagodesu.web.rest.dto.View;
-import org.hibernate.annotations.Immutable;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 @JsonInclude(Include.NON_NULL)
@@ -48,7 +44,7 @@ public class Reading extends AbstractAuditingEntity implements Serializable {
     @Column(name = "transcript_lang")
     private ISO6391 transcriptLang;
 
-    @JsonView(View.Detailed.class)
+    @JsonView(View.Basic.class)
     @Column(name = "summary")
     private String summary;
 
@@ -57,25 +53,12 @@ public class Reading extends AbstractAuditingEntity implements Serializable {
     private boolean shared;
 
     @JsonView(View.Basic.class)
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(schema = "library",
         name = "reading_tags",
         joinColumns = @JoinColumn(name = "reading_id", referencedColumnName = "id"))
     @Column(name = "tag")
     private List<String> tags;
-
-    @JsonView(View.Basic.class)
-    @Transient
-    private String overview;
-
-    public String getOverview() {
-        if (summary != null) return summary;
-        return overview;
-    }
-
-    public void setOverview(String overview) {
-        this.overview = overview;
-    }
 
     public Integer getId() {
         return id;

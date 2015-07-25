@@ -106,6 +106,7 @@ egdApp
                         this.push({text: value});
                     }, tags);
                     data.tags = tags;
+                    console.log(data);
 
                     if (data.createdDate)
                         data.createdDate = Moment.deserializeDateTime(data.createdDate);

@@ -8,7 +8,6 @@ import ee.esutoniagodesu.repository.domain.library.ReadingRepository;
 import ee.esutoniagodesu.repository.project.LibraryDB;
 import ee.esutoniagodesu.security.SecurityUtils;
 import ee.esutoniagodesu.util.PaginationUtil;
-import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;

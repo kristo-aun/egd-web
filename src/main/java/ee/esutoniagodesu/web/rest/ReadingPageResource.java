@@ -1,14 +1,8 @@
 package ee.esutoniagodesu.web.rest;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import ee.esutoniagodesu.domain.library.table.Reading;
 import ee.esutoniagodesu.domain.library.table.ReadingPage;
 import ee.esutoniagodesu.service.ReadingService;
-import ee.esutoniagodesu.util.PaginationUtil;
-import ee.esutoniagodesu.web.rest.dto.View;
 import org.apache.log4j.Logger;
-import org.springframework.data.domain.Page;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

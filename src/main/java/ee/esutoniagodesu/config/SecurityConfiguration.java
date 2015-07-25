@@ -135,6 +135,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public static final String[] permitAll = {
         "/api/readings",
         "/api/readings/*",
+        "/api/readingPages/byReading",
         "/api/git",
         "/api/dict/**",
         "/api/media/*",

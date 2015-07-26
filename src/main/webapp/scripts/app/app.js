@@ -71,14 +71,14 @@ egdApp
         });
 
         $rootScope.$on('accountChange', function () {
-            Principal.identity(true).then(function(account) {
+            Principal.identity(true).then(function (account) {
                 $rootScope.account = angular.copy(account);
-            }, function() {
+            }, function () {
                 delete $rootScope.account;
             });
         });
 
-        $rootScope.back = function() {
+        $rootScope.back = function () {
             // If previous state is 'activate' or do not exist go to 'home'
             if ($rootScope.previousStateName === 'activate' || $state.get($rootScope.previousStateName) === null) {
                 $state.go('home');
@@ -93,10 +93,10 @@ egdApp
     })
     .factory('authExpiredInterceptor', function ($rootScope, $q, $injector) {
         return {
-            responseError: function(response) {
+            responseError: function (response) {
                 // If we have an unauthorized request we redirect to the login page
                 // Don't do this check on the account API to avoid infinite loop
-                if (response.status == 401 && response.data.path !== undefined && response.data.path.indexOf("/api/account") == -1){
+                if (response.status == 401 && response.data.path !== undefined && response.data.path.indexOf("/api/account") == -1) {
                     var Auth = $injector.get('Auth');
                     var $state = $injector.get('$state');
                     var to = $rootScope.toState;
@@ -110,7 +110,7 @@ egdApp
             }
         };
     })
-    .config(function(blockUIConfig) {//loading spinner configuration
+    .config(function (blockUIConfig) {//loading spinner configuration
         blockUIConfig.cssClass = 'block-ui block-ui-custom-spinner';
         // Change the default delay to 100ms before the blocking is visible
         blockUIConfig.delay = 100;
@@ -118,7 +118,7 @@ egdApp
         // Disable auto body block
         blockUIConfig.autoInjectBodyBlock = false;
     })
-    .config(function(cfpLoadingBarProvider) {//blue ribbon shooting through header during http request
+    .config(function (cfpLoadingBarProvider) {//blue ribbon shooting through header during http request
         cfpLoadingBarProvider.includeSpinner = false;
     })
     .config(function ($stateProvider, $urlRouterProvider, $httpProvider,
@@ -126,6 +126,7 @@ egdApp
                       httpRequestInterceptorCacheBusterProvider, ENV) {
 
         $logProvider.debugEnabled(ENV != 'prod');
+        $httpProvider.interceptors.push('HttpErrorInterceptor');
 
         //enable CSRF
         $httpProvider.defaults.xsrfCookieName = 'CSRF-TOKEN';
@@ -134,8 +135,8 @@ egdApp
         //Cache everything except rest api requests
         httpRequestInterceptorCacheBusterProvider.setMatchlist([/.*api.*/, /.*protected.*/], true);
 
-        $urlRouterProvider.otherwise(function($injector, $location){
-            $injector.invoke(function($state) {
+        $urlRouterProvider.otherwise(function ($injector, $location) {
+            $injector.invoke(function ($state) {
                 if ($location.path()) {
                     $state.go('error', {code: '404'});
                 } else {
@@ -187,6 +188,20 @@ egdApp
         tmhDynamicLocaleProvider.localeLocationPattern('i18n/angular-locale/angular-locale_{{locale}}.js');
         tmhDynamicLocaleProvider.useCookieStorage();
         tmhDynamicLocaleProvider.storageKey('NG_TRANSLATE_LANG_KEY');
+    })
+    .factory('HttpErrorInterceptor', function ($q, $window) {
+        return {
+            'responseError': function (rejection) {
+                if (rejection.status === 403 || rejection.status === 405) {
+
+                    $window.location.href = "/#/error/" + rejection.status;
+
+                    //$state.go('error', {code: rejection.status});
+                    return $q.reject(rejection);
+                }
+                return rejection;
+            }
+        }
     })
     .config(function ($httpProvider) {
         // Intercept POST requests, convert to standard form encoding

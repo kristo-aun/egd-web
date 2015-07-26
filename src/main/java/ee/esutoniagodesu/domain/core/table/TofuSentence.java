@@ -1,12 +1,14 @@
 package ee.esutoniagodesu.domain.core.table;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import org.hibernate.annotations.Immutable;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Immutable
 @Entity
 @Table(name = "tofu_sentence", schema = "core")

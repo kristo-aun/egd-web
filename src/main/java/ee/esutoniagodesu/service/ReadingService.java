@@ -13,7 +13,6 @@ import ee.esutoniagodesu.util.PaginationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,14 +38,10 @@ public class ReadingService {
     private static final Logger log = LoggerFactory.getLogger(ReadingService.class);
 
     @Inject
-    private JasperService jasperService;
-
-    @Inject
     private ProjectDAO dao;
 
     @Inject
     private ReadingRepository readingRepository;
-
 
     @Inject
     private ReadingPageRepository readingPageRepository;
@@ -65,13 +60,9 @@ public class ReadingService {
 
     //------------------------------ artiklite vaade ------------------------------
 
-    /**
-     * Lubatud on muuta ainult enda loodud artikleid.
-     * Administraatoril on lubatud kõiki muuta.
-     */
-    @PreAuthorize("hasPermission(#reading.id, 'ee.esutoniagodesu.domain.library.table.Reading', 'reading_update')")
     public Reading update(Reading reading) {
         log.debug("update: reading=" + reading);
+        CPE.check(reading, Permission.reading_update);
         return save(reading);
     }
 
@@ -85,15 +76,15 @@ public class ReadingService {
         return readingRepository.save(reading);
     }
 
-    public ReadingPage update(ReadingPage page) throws IOException {
-        log.debug("update: page=" + page);
+    public ReadingPage create(ReadingPage page) throws IOException {
+        log.debug("create: page=" + page);
         CPE.check(readingRepository.findOne(page.getId()), Permission.reading_update);
         return save(page);
     }
 
-    public ReadingPage create(ReadingPage page) throws IOException {
-        log.debug("create: page=" + page);
-        CPE.check(readingRepository.findOne(page.getId()), Permission.reading_update);
+    public ReadingPage update(ReadingPage page) throws IOException {
+        log.debug("update: page=" + page);
+        CPE.check(readingRepository.findOne(page.getReadingId()), Permission.reading_update);
         return save(page);
     }
 

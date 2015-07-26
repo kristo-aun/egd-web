@@ -45,7 +45,7 @@
     <div class="modal fade" id="saveTofuModal" tabindex="-1" role="dialog" aria-labelledby="myTofuLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-lg">
             <div class="modal-content">
-                <form name="editForm" role="form" novalidate ng-submit="submitTofu()" show-validation>
+                <form name="form" role="form" novalidate ng-submit="submitTofu()" show-validation>
 
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
@@ -76,9 +76,9 @@
                                    maxlength="512"
                                    ng-pattern="/^[a-zA-Z0-9õäöüžŽÕÄÖÜ.,?!-: ]*$/">
 
-                            <div ng-show="editForm.sentence.$invalid">
+                            <div ng-show="form.sentence.$invalid">
                                 <p class="help-block"
-                                   ng-show="editForm.sentence.$error.pattern"
+                                   ng-show="form.sentence.$error.pattern"
                                    translate="global.messages.validate.pattern"
                                    translate-value-pattern="a-zA-Z0-9õäöüžŽÕÄÖÜ.,?!-:">
                                 </p>
@@ -100,7 +100,7 @@
                             {{'global.messages.action.previous' | translate}}
                         </button>
 
-                        <button type="submit" ng-disabled="editForm.$invalid" class="btn btn-primary">
+                        <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">
                             {{'global.messages.action.save' | translate}}
                             <span class="glyphicon glyphicon-circle-arrow-right"></span>
                         </button>

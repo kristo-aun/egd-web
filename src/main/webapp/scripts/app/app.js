@@ -193,13 +193,10 @@ egdApp
         return {
             'responseError': function (rejection) {
                 if (rejection.status === 403 || rejection.status === 405) {
-
                     $window.location.href = "/#/error/" + rejection.status;
-
-                    //$state.go('error', {code: rejection.status});
                     return $q.reject(rejection);
                 }
-                return rejection;
+                return $q.reject(rejection);
             }
         }
     })

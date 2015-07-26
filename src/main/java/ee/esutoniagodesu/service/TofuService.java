@@ -1,13 +1,14 @@
 package ee.esutoniagodesu.service;
 
 import ee.esutoniagodesu.bean.ProjectDAO;
-import ee.esutoniagodesu.domain.ac.table.User;
 import ee.esutoniagodesu.domain.core.table.TofuSentence;
 import ee.esutoniagodesu.domain.core.table.TofuSentenceTranslation;
 import ee.esutoniagodesu.pojo.test.compound.FilterCompoundSubmitDTO;
 import ee.esutoniagodesu.repository.domain.freq.TofuSentenceRepository;
 import ee.esutoniagodesu.repository.project.CoreDB;
 import ee.esutoniagodesu.security.SecurityUtils;
+import ee.esutoniagodesu.security.permission.CustomPermissionEvaluator;
+import ee.esutoniagodesu.security.permission.Permission;
 import ee.esutoniagodesu.util.PaginationUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,20 +41,18 @@ public class TofuService {
         return SecurityUtils.getUserUuid();
     }
 
+    @Inject
+    private CustomPermissionEvaluator CPE;
+
     @Transactional(readOnly = false)
-    public TofuSentence save(TofuSentence tofu, User user) {
-        log.debug("save: tofu=" + tofu);
-
-        TofuSentenceTranslation tr = tofu.getTranslation();
-        if (tr.getLang() == null) {
-            tr.setLang(user.getLangKey());
+    public TofuSentenceTranslation saveTranslation(TofuSentenceTranslation translation) {
+        log.debug("saveTranslation: {}", translation);
+        if (translation.getId() != null) {
+            TofuSentenceTranslation tr = dao.find(TofuSentenceTranslation.class, translation.getId());
+            CPE.check(tr, Permission.tofu_translation_save);
         }
-        tr.setCreatedBy(uuid());
-        tr.setTofuSentence(tofu);
-        log.debug("save: tr=" + tr);
-
-        dao.save(tr);
-        return tofu;
+        translation.setCreatedBy(uuid());
+        return dao.save(translation);
     }
 
     public TofuSentence findById(int id) {

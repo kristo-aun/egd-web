@@ -1,5 +1,6 @@
 package ee.esutoniagodesu.security.permission;
 
+import ee.esutoniagodesu.domain.core.table.TofuSentenceTranslation;
 import ee.esutoniagodesu.domain.library.table.Reading;
 import ee.esutoniagodesu.security.SecurityUtils;
 import ee.esutoniagodesu.util.JCString;
@@ -36,6 +37,14 @@ public enum Permission {
                 if (SecurityUtils.isUserInRole(role)) return true;
             }
             return false;
+        }
+        return true;
+    }),
+
+    tofu_translation_save((object) -> {
+        TofuSentenceTranslation entity = (TofuSentenceTranslation) object;
+        if (entity.getId() != null && entity.getId() > 0) {
+            return entity.getCreatedBy().equals(SecurityUtils.getUserUuid());
         }
         return true;
     });

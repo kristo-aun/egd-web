@@ -2,6 +2,7 @@ package ee.esutoniagodesu.domain.core.table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import ee.esutoniagodesu.util.iso.ISO6391;
+import org.hibernate.envers.Audited;
 import org.springframework.data.annotation.CreatedBy;
 
 import javax.persistence.*;
@@ -12,16 +13,27 @@ import java.io.Serializable;
 @Entity
 public class TofuSentenceTranslation implements Serializable {
 
-    private Integer id;
-    private ISO6391 lang;
-    private String translation;
-    private String createdBy;
-    @JsonIgnore
-    private TofuSentence tofuSentence;
-
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     @Id
+    private Integer id;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "lang")
+    private ISO6391 lang;
+
+    @Column(name = "translation")
+    private String translation;
+
+    @JsonIgnore
+    @Column(name = "created_by", length = 50, nullable = false)
+    private String createdBy;
+
+    @NotNull
+    @Column(name = "tofu_sentence_id")
+    private Integer tofuSentenceId;
+
     public Integer getId() {
         return id;
     }
@@ -30,9 +42,6 @@ public class TofuSentenceTranslation implements Serializable {
         this.id = id;
     }
 
-    @CreatedBy
-    @NotNull
-    @Column(name = "created_by", length = 50)
     public String getCreatedBy() {
         return createdBy;
     }
@@ -41,18 +50,14 @@ public class TofuSentenceTranslation implements Serializable {
         this.createdBy = createdBy;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "tofu_sentence_id", referencedColumnName = "id", nullable = false)
-    public TofuSentence getTofuSentence() {
-        return tofuSentence;
+    public Integer getTofuSentenceId() {
+        return tofuSentenceId;
     }
 
-    public void setTofuSentence(TofuSentence tofuSentence) {
-        this.tofuSentence = tofuSentence;
+    public void setTofuSentenceId(Integer tofuSentenceId) {
+        this.tofuSentenceId = tofuSentenceId;
     }
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "lang")
     public ISO6391 getLang() {
         return lang;
     }
@@ -61,7 +66,7 @@ public class TofuSentenceTranslation implements Serializable {
         this.lang = lang;
     }
 
-    @Column(name = "translation")
+
     public String getTranslation() {
         return translation;
     }
@@ -70,6 +75,7 @@ public class TofuSentenceTranslation implements Serializable {
         this.translation = translation;
     }
 
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -83,10 +89,22 @@ public class TofuSentenceTranslation implements Serializable {
         return true;
     }
 
+    @Override
     public int hashCode() {
         int result = lang != null ? lang.hashCode() : 0;
         result = 31 * result + (translation != null ? translation.hashCode() : 0);
         result = 31 * result + (createdBy != null ? createdBy.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "TofuSentenceTranslation{" +
+            "id=" + id +
+            ", lang=" + lang +
+            ", translation='" + translation + '\'' +
+            ", createdBy='" + createdBy + '\'' +
+            ", tofuSentenceId=" + tofuSentenceId +
+            '}';
     }
 }

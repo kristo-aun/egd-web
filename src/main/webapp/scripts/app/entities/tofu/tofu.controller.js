@@ -1,7 +1,7 @@
 'use strict';
 
 egdApp
-    .controller('TofuController', function ($q, $scope, $log, TofuResource, ParseLinks, TranslatorResource) {
+    .controller('TofuController', function ($q, $scope, $log, $translate, TofuResource, ParseLinks, TranslatorResource) {
         $scope.tofus = [];
 
         $scope.page = 1;
@@ -10,7 +10,6 @@ egdApp
         $scope.loadAll = function() {
             TofuResource.query({page: $scope.page, limit: $scope.limit}, function(result, headers) {
                 $scope.links = ParseLinks.parse(headers('link'));
-                $log.debug("TofuController: totalCount=", headers('X-Total-Count'));
                 $scope.totalCount = headers('X-Total-Count');
                 $scope.tofus = result;
             });
@@ -24,9 +23,13 @@ egdApp
 
         //------------------------------ tofu dialoog ------------------------------
 
-        $scope.saveTofu = function () {
+        $scope.saveTranslation = function () {
             var deferred = $q.defer();
-            TofuResource.save($scope.tofu,
+
+            $scope.tofu.translation.lang = $translate.use();
+            $scope.tofu.translation.tofuSentenceId = $scope.tofu.id;
+
+            TofuResource.save($scope.tofu.translation,
                 function () {
                     deferred.resolve();
                 });
@@ -38,7 +41,7 @@ egdApp
             TofuResource.get({id: id}, function(result) {
                 $scope.tofu = result;
                 deferred.resolve();
-                if ($scope.tofu.translation == null) {
+                if ($scope.tofu.translation == undefined) {
                     TranslatorResource.translate("ja", "en", $scope.tofu.sentence).then(function(result) {
                         $scope.tofu.sentenceHint = result;
                     });
@@ -64,14 +67,14 @@ egdApp
         };
 
         $scope.submitTofu = function() {
-            $scope.saveTofu().then(function() {
+            $scope.saveTranslation().then(function() {
                 $scope.nextTofu();
             });
         };
 
         $scope.clearForm = function () {
-            $scope.editForm.$setPristine();
-            $scope.editForm.$setUntouched();
+            $scope.form.$setPristine();
+            $scope.form.$setUntouched();
         };
 
         $scope.cancel = function () {

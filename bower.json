@@ -49,6 +49,9 @@
     "jquery": "2.1.4"
   },
   "overrides": {
+    "bootstrap-social": {
+      "dependencies": []
+    },
     "components-font-awesome": {
       "main": [
         "src/main/webapp/assets/styles/font-awesome.css"

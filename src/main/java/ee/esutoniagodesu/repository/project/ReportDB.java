@@ -15,6 +15,48 @@ import java.util.*;
 @Repository
 public class ReportDB extends AbstractProjectRepository {
 
+    public List<Map<String, ?>> getTofuTranslatedByUser(String uuid) {
+
+        Connection con = null;
+        CallableStatement s = null;
+        ResultSet rs = null;
+        List<Map<String, ?>> result = null;
+
+        try {
+            con = dao.getConnection();
+            con.setAutoCommit(false);
+
+            String sql = "{? = call core.f_tofu_translated_by_user(?)}";
+            s = con.prepareCall(sql);
+
+            s.registerOutParameter(1, Types.OTHER);//cursor
+            s.setString(2, uuid);
+
+            s.execute();
+            rs = (ResultSet) s.getObject(1);
+
+            result = new ArrayList<>();
+
+            while (rs.next()) {
+                Map<String, Object> item = new HashMap<>();
+                item.put("id", rs.getInt("id"));
+                item.put("word", rs.getString("word"));
+                item.put("sentence", rs.getString("sentence"));
+                item.put("lang", rs.getString("lang"));
+                item.put("translation", rs.getString("translation"));
+
+                result.add(item);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            JDBCUtil.close(rs, s, con);
+        }
+
+        return result;
+    }
+
     public List<Map<String, ?>> findAllVHeisig4() {
 
         StringBuilder msg = new StringBuilder("findAllVHeisig4: ");

@@ -2,8 +2,6 @@ package ee.esutoniagodesu.domain.core.table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import ee.esutoniagodesu.util.iso.ISO6391;
-import org.hibernate.envers.Audited;
-import org.springframework.data.annotation.CreatedBy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

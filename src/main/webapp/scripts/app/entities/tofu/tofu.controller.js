@@ -84,6 +84,6 @@ egdApp
         };
 
         $scope.getExcelURL = function() {
-
+            return "api/report/tofu_translations.csv";
         }
     });

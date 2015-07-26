@@ -1,11 +1,12 @@
 package ee.esutoniagodesu.service;
 
+import ee.esutoniagodesu.bean.EGDAssets;
 import ee.esutoniagodesu.bean.ProjectDAO;
 import ee.esutoniagodesu.domain.heisig.view.VHeisig6Custom;
-import ee.esutoniagodesu.pojo.assets.EGDAssets;
 import ee.esutoniagodesu.pojo.cf.ECfReportType;
 import ee.esutoniagodesu.repository.project.KanjiDB;
 import ee.esutoniagodesu.repository.project.ReportDB;
+import ee.esutoniagodesu.security.SecurityUtils;
 import ee.esutoniagodesu.util.JCDateTime;
 import ee.esutoniagodesu.util.commons.JCIOUtils;
 import ee.esutoniagodesu.util.jasperreports.CSVGenerator;
@@ -14,22 +15,18 @@ import ee.esutoniagodesu.util.lang.lingv.JCKana;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.data.JRMapCollectionDataSource;
-import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import javax.inject.Inject;
-import javax.servlet.ServletContext;
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 import java.util.zip.ZipOutputStream;
 
 @Service
@@ -51,7 +48,7 @@ public class JasperService {
 
     private int _exampleWordsCount = 20;
 
-    public List<VHeisig6Custom> findAllVHeisig6Custom() {
+    private List<VHeisig6Custom> findAllVHeisig6Custom() {
         return findVHeisig6Custom(1, 2200);
     }
 
@@ -60,7 +57,7 @@ public class JasperService {
      * 2) Lisab näidissõnad
      * 3) Koostab html'i
      */
-    public List<VHeisig6Custom> findVHeisig6Custom(int from, int to) {
+    private List<VHeisig6Custom> findVHeisig6Custom(int from, int to) {
         Assert.isTrue(from > 0 && to > from && to <= 2200);
         List<VHeisig6Custom> result = dao.findAll(VHeisig6Custom.class);
         Assert.isTrue(2200 == result.size());
@@ -106,19 +103,19 @@ public class JasperService {
         return result;
     }
 
-    public List<Map<String, ?>> findAllVHeisig4() {
+    private List<Map<String, ?>> findAllVHeisig4() {
         return reportDB.findAllVHeisig4();
     }
 
-    public List<Map<String, ?>> findAllVKanji() {
+    private List<Map<String, ?>> findAllVKanji() {
         return reportDB.findAllVKanji();
     }
 
-    private List<?> getData(ECfReportType reportType) {
-        if (_dataCache.containsKey(reportType)) {
-            return _dataCache.get(reportType);
-        }
+    private List<Map<String, ?>> findTofuTranslated() {
+        return reportDB.getTofuTranslatedByUser(SecurityUtils.getUserUuid());
+    }
 
+    private List<?> getData(ECfReportType reportType) {
         List data = null;
 
         switch (reportType) {
@@ -134,10 +131,13 @@ public class JasperService {
                 data = findAllVKanji();
                 break;
             }
+            case TOFU_TRANSLATIONS: {
+                data = findTofuTranslated();
+                break;
+            }
         }
 
         if (data == null) throw new IllegalStateException("getData: data == null");
-        _dataCache.put(reportType, data);
 
         return data;
     }
@@ -155,35 +155,26 @@ public class JasperService {
         switch (reportType) {
             case HEISIG6_CUSTOM: {
                 dataSource = new JRBeanCollectionDataSource(data);
-                istream = asInputStream(assets.getVHeisig6Custom());
-                break;
-            }
-            case JAPEST: {
-                dataSource = new JRMapCollectionDataSource(data);
-                staticParams.put("dtnow", JCDateTime.now());
-                staticParams.put("elementCount", data.size());
-                istream = asInputStream(assets.getJapEst());
+                istream = assets.getVHeisig6Custom().getInputStream();
                 break;
             }
             case HEISIG4: {
                 dataSource = new JRBeanCollectionDataSource(data);
                 staticParams.put("dtnow", JCDateTime.now());
                 staticParams.put("elementCount", data.size());
-                istream = asInputStream(assets.getVHeisig4());
+                istream = assets.getVHeisig4().getInputStream();
                 break;
             }
             case KANJI: {
                 dataSource = new JRBeanCollectionDataSource(data);
                 staticParams.put("dtnow", JCDateTime.now());
                 staticParams.put("elementCount", data.size());
-                istream = asInputStream(assets.getVKanji());
+                istream = assets.getVKanji().getInputStream();
                 break;
             }
-            case ARTICLE: {
+            case TOFU_TRANSLATIONS: {
                 dataSource = new JRBeanCollectionDataSource(data);
-                staticParams.put("dtnow", JCDateTime.now());
-                staticParams.put("elementCount", data.size());
-                istream = asInputStream(assets.getArticle());
+                istream = assets.getTofuSentenceTranslations().getInputStream();
                 break;
             }
         }
@@ -203,19 +194,23 @@ public class JasperService {
         return result;
     }
 
+    public Map.Entry<String, byte[]> getReport(String entityName, String formatName) throws IOException, JRException, SQLException {
+        ECfReportType reportType = ECfReportType.valueOf(entityName.toUpperCase());
+        JSGeneratorType format = JSGeneratorType.findByExtension(formatName);
+        return getReport(reportType, format);
+    }
+
+    public Map.Entry<String, byte[]> getReport(ECfReportType reportType, JSGeneratorType format) throws IOException, JRException, SQLException {
+        List data = getData(reportType);
+        return getReport(reportType, format, data);
+    }
+
     private static String toFileName(ECfReportType reportType, JSGeneratorType format) {
         String stamp = JCDateTime.nowIncludingSec();
         return reportType.name().toLowerCase() + " " + stamp + "." + format.extension();
     }
 
-    public Map.Entry<String, byte[]> getReport(String entityName, String formatName) throws IOException, JRException, SQLException {
-        ECfReportType reportType = ECfReportType.findByName(entityName);
-        JSGeneratorType format = JSGeneratorType.findByExtension(formatName);
-        List data = getData(reportType);
-        return getReport(reportType, format, data);
-    }
-
-    public Map.Entry<String, byte[]> getReport(ECfReportType reportType, JSGeneratorType format, Collection data) throws IOException, JRException, SQLException {
+    private Map.Entry<String, byte[]> getReport(ECfReportType reportType, JSGeneratorType format, Collection data) throws IOException, JRException, SQLException {
         StringBuilder msg = new StringBuilder("getReport: reportType=" + reportType + ", format=" + format);
 
         byte[] fileAsBytes = compileToBytes(reportType, format, data);
@@ -227,39 +222,10 @@ public class JasperService {
         return new AbstractMap.SimpleEntry<>(fileName, fileAsBytes);
     }
 
-    //@Autowired
+    @Inject
     protected EGDAssets assets;
 
-    @Autowired
-    protected ServletContext _servletContext;
-
-    protected static byte[] asBytes(InputStream istream) throws IOException {
-        return IOUtils.toByteArray(istream);
-    }
-
-    protected InputStream asInputStream(String path) throws FileNotFoundException {
-        if (_servletContext != null) {
-            return _servletContext.getResourceAsStream(path);
-        } else {
-            return asInputStream(new File(path));
-        }
-    }
-
-    private static InputStream asInputStream(File ifile) throws FileNotFoundException {
-        return new FileInputStream(ifile);
-    }
-
     //------------------------------ cache management ------------------------------
-
-    private static final ConcurrentMap<ECfReportType, List<?>> _dataCache = new ConcurrentHashMap<>();
-
-    public int getExampleWordsCount() {
-        return _exampleWordsCount;
-    }
-
-    public void setExampleWordsCount(int a) {
-        _exampleWordsCount = a;
-    }
 
     public byte[] getHeisig6CustomAsArchive(int from, int to) throws IOException, JRException, SQLException {
         List<VHeisig6Custom> data = findVHeisig6Custom(from, to);

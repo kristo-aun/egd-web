@@ -82,4 +82,8 @@ egdApp
             delete $scope.tofu;
             $scope.loadAll();
         };
+
+        $scope.getExcelURL = function() {
+
+        }
     });

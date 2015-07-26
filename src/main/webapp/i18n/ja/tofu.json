@@ -1,7 +1,8 @@
 {
     "tofu" : {
         "home": {
-            "title": "トフ文"
+            "title": "トフ文",
+            "downloadTranslations": "ダウンロード"
         },
         "detail": {
             "title": "トフ"

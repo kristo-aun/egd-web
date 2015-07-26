@@ -1,7 +1,8 @@
 {
     "tofu" : {
         "home": {
-            "title": "Tofu laused"
+            "title": "Tofu laused",
+            "downloadTranslations": "Lae alla minu tõlked"
         },
         "detail": {
             "title": "Tofu"

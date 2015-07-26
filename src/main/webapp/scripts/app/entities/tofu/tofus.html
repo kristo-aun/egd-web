@@ -1,13 +1,24 @@
-<div>
-    <div class="col-lg-12">
-        <h2 translate="tofu.home.title"></h2>
-    </div>
-    <div class="col-md-12">
+<div class="row">
+    <div class="col-lg-10">
+        <div style="float:left;margin-top:12px;margin-right:16px;margin-left:7px;">
+            <ng-tip template="'scripts/app/entities/tofu/tipTofuExplain.html'" placement="right"></ng-tip>
+        </div>
         <ng-pagination page="page"
                        limit="limit"
                        links="links"
                        load-page="loadPage"
                        hide-if-limit-count="totalCount"></ng-pagination>
+
+    </div>
+    <div class="col-lg-2 text-right">
+        <a href="{{getExcelURL()}}" class="btn btn-default">
+            <i class="fa fa-file-excel-o"></i>
+            <span translate="tofu.home.downloadTranslations"></span>
+        </a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
         <table class="table table-striped">
             <thead>
             <tr>
@@ -41,80 +52,79 @@
                        load-page="loadPage"
                        hide-if-limit-count="totalCount"></ng-pagination>
     </div>
+</div>
+<div class="modal fade" id="saveTofuModal" tabindex="-1" role="dialog" aria-labelledby="myTofuLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-lg">
+        <div class="modal-content">
+            <form name="form" role="form" novalidate ng-submit="submitTofu()" show-validation>
 
-    <div class="modal fade" id="saveTofuModal" tabindex="-1" role="dialog" aria-labelledby="myTofuLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-lg">
-            <div class="modal-content">
-                <form name="form" role="form" novalidate ng-submit="submitTofu()" show-validation>
-
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                                ng-click="clear()">&times;</button>
-                        <h2 class="modal-title" id="myTofuLabel" translate="tofu.detail.title">
-                            {{'tofu.detail.title' | translate}}
-                            {{tofu.id}}: {{tofu.word}}
-                        </h2>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group" style="min-height: 170px;">
-                            <div class="japanese" style="font-size: 4em">{{tofu.sentence}}</div>
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                            ng-click="clear()">&times;</button>
+                    <h2 class="modal-title" id="myTofuLabel" translate="tofu.detail.title">
+                        {{'tofu.detail.title' | translate}}
+                        {{tofu.id}}: {{tofu.word}}
+                    </h2>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group" style="min-height: 170px;">
+                        <div class="japanese" style="font-size: 4em">{{tofu.sentence}}</div>
                             <span ng-show="tofu.sentenceHint">
                                 <i>{{tofu.sentenceHint}}</i>
                             </span>
-                        </div>
-
-                        <div class="form-group">
-                            <input type="text"
-                                   class="form-control"
-                                   placeholder="{{'tofu.grid.translation' | translate}}"
-                                   name="sentence"
-                                   ng-model="tofu.translation.translation"
-                                   required
-                                   ng-minlength=10
-                                   ng-maxlength=512
-                                   required
-                                   maxlength="512"
-                                   ng-pattern="/^[a-zA-Z0-9õäöüžŽÕÄÖÜ.,?!-: ]*$/">
-
-                            <div ng-show="form.sentence.$invalid">
-                                <p class="help-block"
-                                   ng-show="form.sentence.$error.pattern"
-                                   translate="global.messages.validate.pattern"
-                                   translate-value-pattern="a-zA-Z0-9õäöüžŽÕÄÖÜ.,?!-:">
-                                </p>
-                            </div>
-                        </div>
-
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel()">
-                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
-                            translate="global.messages.action.cancel"></span>
-                        </button>
 
-                        <button type="button"
-                                ng-disabled="tofu.id == 1"
-                                class="btn btn-default"
-                                ng-click="prevTofu()">
-                            <span class="glyphicon glyphicon-circle-arrow-left"></span>
-                            {{'global.messages.action.previous' | translate}}
-                        </button>
+                    <div class="form-group">
+                        <input type="text"
+                               class="form-control"
+                               placeholder="{{'tofu.grid.translation' | translate}}"
+                               name="sentence"
+                               ng-model="tofu.translation.translation"
+                               required
+                               ng-minlength=10
+                               ng-maxlength=512
+                               required
+                               maxlength="512"
+                               ng-pattern="/^[a-zA-Z0-9õäöüžŽÕÄÖÜ.,?!-: ]*$/">
 
-                        <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">
-                            {{'global.messages.action.save' | translate}}
-                            <span class="glyphicon glyphicon-circle-arrow-right"></span>
-                        </button>
-
-                        <button type="button"
-                                ng-disabled="tofu.id == 4671"
-                                class="btn btn-default"
-                                ng-click="nextTofu()">
-                            {{'global.messages.action.skip' | translate}}
-                            <span class="glyphicon glyphicon-circle-arrow-right"></span>
-                        </button>
+                        <div ng-show="form.sentence.$invalid">
+                            <p class="help-block"
+                               ng-show="form.sentence.$error.pattern"
+                               translate="global.messages.validate.pattern"
+                               translate-value-pattern="a-zA-Z0-9õäöüžŽÕÄÖÜ.,?!-:">
+                            </p>
+                        </div>
                     </div>
-                </form>
-            </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel()">
+                        <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+                        translate="global.messages.action.cancel"></span>
+                    </button>
+
+                    <button type="button"
+                            ng-disabled="tofu.id == 1"
+                            class="btn btn-default"
+                            ng-click="prevTofu()">
+                        <span class="glyphicon glyphicon-circle-arrow-left"></span>
+                        {{'global.messages.action.previous' | translate}}
+                    </button>
+
+                    <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">
+                        {{'global.messages.action.save' | translate}}
+                        <span class="glyphicon glyphicon-circle-arrow-right"></span>
+                    </button>
+
+                    <button type="button"
+                            ng-disabled="tofu.id == 4671"
+                            class="btn btn-default"
+                            ng-click="nextTofu()">
+                        {{'global.messages.action.skip' | translate}}
+                        <span class="glyphicon glyphicon-circle-arrow-right"></span>
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

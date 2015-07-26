@@ -1,7 +1,8 @@
 {
     "tofu" : {
         "home": {
-            "title": "Tofu sentences"
+            "title": "Tofu sentences",
+            "downloadTranslations": "Download my translations"
         },
         "detail": {
             "title": "Tofu"

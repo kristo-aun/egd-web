@@ -4,13 +4,12 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import java.io.Serializable;
 
-
 public final class RestrPK implements Serializable {
 
-    private static final long serialVersionUID = -2838046974660462260L;
+    private static final long serialVersionUID = 8415887626487049028L;
     private int entr;
-    private short rdng;
-    private short kanj;
+    private int rdng;
+    private int kanj;
 
     @Column(name = "entr", nullable = false, insertable = true, updatable = true)
     @Id
@@ -24,21 +23,21 @@ public final class RestrPK implements Serializable {
 
     @Column(name = "kanj", nullable = false, insertable = true, updatable = true)
     @Id
-    public short getKanj() {
+    public int getKanj() {
         return kanj;
     }
 
-    public void setKanj(short kanj) {
+    public void setKanj(int kanj) {
         this.kanj = kanj;
     }
 
     @Column(name = "rdng", nullable = false, insertable = true, updatable = true)
     @Id
-    public short getRdng() {
+    public int getRdng() {
         return rdng;
     }
 
-    public void setRdng(short rdng) {
+    public void setRdng(int rdng) {
         this.rdng = rdng;
     }
 
@@ -57,8 +56,8 @@ public final class RestrPK implements Serializable {
 
     public int hashCode() {
         int result = entr;
-        result = 31 * result + (int) rdng;
-        result = 31 * result + (int) kanj;
+        result = 31 * result + rdng;
+        result = 31 * result + kanj;
         return result;
     }
 }

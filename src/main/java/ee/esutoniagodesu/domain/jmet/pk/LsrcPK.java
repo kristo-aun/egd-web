@@ -4,13 +4,12 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import java.io.Serializable;
 
-
 public final class LsrcPK implements Serializable {
 
-    private static final long serialVersionUID = -2374115835603708151L;
+    private static final long serialVersionUID = -7374210104956088666L;
     private int entr;
-    private short sens;
-    private short lang;
+    private int sens;
+    private int lang;
     private String txt;
 
     @Column(name = "entr", nullable = false, insertable = true, updatable = true)
@@ -25,21 +24,21 @@ public final class LsrcPK implements Serializable {
 
     @Column(name = "lang", nullable = false, insertable = true, updatable = true)
     @Id
-    public short getLang() {
+    public int getLang() {
         return lang;
     }
 
-    public void setLang(short lang) {
+    public void setLang(int lang) {
         this.lang = lang;
     }
 
     @Column(name = "sens", nullable = false, insertable = true, updatable = true)
     @Id
-    public short getSens() {
+    public int getSens() {
         return sens;
     }
 
-    public void setSens(short sens) {
+    public void setSens(int sens) {
         this.sens = sens;
     }
 
@@ -69,8 +68,8 @@ public final class LsrcPK implements Serializable {
 
     public int hashCode() {
         int result = entr;
-        result = 31 * result + (int) sens;
-        result = 31 * result + (int) lang;
+        result = 31 * result + sens;
+        result = 31 * result + lang;
         result = 31 * result + (txt != null ? txt.hashCode() : 0);
         return result;
     }

@@ -10,9 +10,10 @@ import java.io.Serializable;
 @Table(name = "vt_rinf", schema = "jmet")
 public final class VtRinf implements Serializable {
 
-    private static final long serialVersionUID = -5735710684014493995L;
+    private static final long serialVersionUID = 7474737354635310389L;
+
     private Integer entr;
-    private Short rdng;
+    private Integer rdng;
     private String ritxt;
 
     @Id
@@ -28,11 +29,11 @@ public final class VtRinf implements Serializable {
 
     @Basic
     @Column(name = "rdng", nullable = true, insertable = true, updatable = true)
-    public Short getRdng() {
+    public Integer getRdng() {
         return rdng;
     }
 
-    public void setRdng(Short rdng) {
+    public void setRdng(Integer rdng) {
         this.rdng = rdng;
     }
 

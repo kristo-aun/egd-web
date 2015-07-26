@@ -217,7 +217,7 @@ public class KanjiDB extends AbstractProjectRepository {
         try {
             long ms = System.currentTimeMillis();
             con = dao.getConnection();
-            String sql = "select rtxt from jmdict.rk_valid where rdng=1 and ktxt=?";
+            String sql = "select rtxt from jmet.rk_valid where rdng=1 and ktxt=?";
             s = con.prepareCall(sql);
             s.setString(1, jp);
 

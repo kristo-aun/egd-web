@@ -1,25 +1,24 @@
 package ee.esutoniagodesu.domain.jmet.table;
 
 import ee.esutoniagodesu.domain.jmet.pk.GlossPK;
-import org.hibernate.annotations.Immutable;
 
 import javax.persistence.*;
 import java.io.Serializable;
-
+import java.sql.Date;
 
 @Entity
-@Immutable
-@Table(name = "gloss", schema = "jmet")
 @IdClass(GlossPK.class)
+@Table(name = "Gloss", schema = "jmet")
 public final class Gloss implements Serializable {
 
-    private static final long serialVersionUID = -326353107448740577L;
+    private static final long serialVersionUID = -578353391829685811L;
     private int entr;
-    private short sens;
-    private short gloss;
-    private short lang;
-    private short ginf;
+    private int sens;
+    private int gloss;
+    private int lang;
+    private int ginf;
     private String txt;
+    private Date inserted;
     private Kwlang kwlangByLang;
     private Sens sens_0;
 
@@ -35,22 +34,32 @@ public final class Gloss implements Serializable {
 
     @Basic
     @Column(name = "ginf", nullable = false, insertable = true, updatable = true)
-    public short getGinf() {
+    public int getGinf() {
         return ginf;
     }
 
-    public void setGinf(short ginf) {
+    public void setGinf(int ginf) {
         this.ginf = ginf;
     }
 
     @Id
     @Column(name = "gloss", nullable = false, insertable = true, updatable = true)
-    public short getGloss() {
+    public int getGloss() {
         return gloss;
     }
 
-    public void setGloss(short gloss) {
+    public void setGloss(int gloss) {
         this.gloss = gloss;
+    }
+
+    @Basic
+    @Column(name = "inserted", nullable = true, insertable = true, updatable = true)
+    public Date getInserted() {
+        return inserted;
+    }
+
+    public void setInserted(Date inserted) {
+        this.inserted = inserted;
     }
 
     @ManyToOne
@@ -63,23 +72,23 @@ public final class Gloss implements Serializable {
         this.kwlangByLang = kwlangByLang;
     }
 
-    @Basic
+    @Id
     @Column(name = "lang", nullable = false, insertable = true, updatable = true)
-    public short getLang() {
+    public int getLang() {
         return lang;
     }
 
-    public void setLang(short lang) {
+    public void setLang(int lang) {
         this.lang = lang;
     }
 
     @Id
     @Column(name = "sens", nullable = false, insertable = true, updatable = true)
-    public short getSens() {
+    public int getSens() {
         return sens;
     }
 
-    public void setSens(short sens) {
+    public void setSens(int sens) {
         this.sens = sens;
     }
 
@@ -114,6 +123,7 @@ public final class Gloss implements Serializable {
         if (gloss != gloss1.gloss) return false;
         if (lang != gloss1.lang) return false;
         if (sens != gloss1.sens) return false;
+        if (inserted != null ? !inserted.equals(gloss1.inserted) : gloss1.inserted != null) return false;
         if (txt != null ? !txt.equals(gloss1.txt) : gloss1.txt != null) return false;
 
         return true;
@@ -121,15 +131,12 @@ public final class Gloss implements Serializable {
 
     public int hashCode() {
         int result = entr;
-        result = 31 * result + (int) sens;
-        result = 31 * result + (int) gloss;
-        result = 31 * result + (int) lang;
-        result = 31 * result + (int) ginf;
+        result = 31 * result + sens;
+        result = 31 * result + gloss;
+        result = 31 * result + lang;
+        result = 31 * result + ginf;
         result = 31 * result + (txt != null ? txt.hashCode() : 0);
+        result = 31 * result + (inserted != null ? inserted.hashCode() : 0);
         return result;
-    }
-
-    public String toString() {
-        return txt;
     }
 }

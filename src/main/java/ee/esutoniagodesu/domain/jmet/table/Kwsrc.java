@@ -9,22 +9,20 @@ import java.util.Collection;
 
 @Entity
 @Immutable
-@Table(name = "kwsrc", schema = "jmet")
+@Table(name = "Kwsrc", schema = "jmet")
 public final class Kwsrc implements Serializable {
 
-    private static final long serialVersionUID = 3336223460442935287L;
-    private short id;
+    private static final long serialVersionUID = -4213965396966352934L;
+    private int id;
     private String kw;
     private String descr;
     private Date dt;
     private String notes;
     private String seq;
-    private Short sinc;
+    private Integer sinc;
     private Long smin;
     private Long smax;
-    private short srct;
     private Collection<Entr> entrsById;
-    private Kwsrct kwsrctBySrct;
     private Collection<Sndvol> sndvolsById;
 
     @Basic
@@ -58,11 +56,11 @@ public final class Kwsrc implements Serializable {
 
     @Id
     @Column(name = "id", nullable = false, insertable = true, updatable = true)
-    public short getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(short id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -74,16 +72,6 @@ public final class Kwsrc implements Serializable {
 
     public void setKw(String kw) {
         this.kw = kw;
-    }
-
-    @ManyToOne
-    @JoinColumn(insertable = false, updatable = false, name = "srct", referencedColumnName = "id", nullable = false)
-    public Kwsrct getKwsrctBySrct() {
-        return kwsrctBySrct;
-    }
-
-    public void setKwsrctBySrct(Kwsrct kwsrctBySrct) {
-        this.kwsrctBySrct = kwsrctBySrct;
     }
 
     @Basic
@@ -108,11 +96,11 @@ public final class Kwsrc implements Serializable {
 
     @Basic
     @Column(name = "sinc", nullable = true, insertable = true, updatable = true)
-    public Short getSinc() {
+    public Integer getSinc() {
         return sinc;
     }
 
-    public void setSinc(Short sinc) {
+    public void setSinc(Integer sinc) {
         this.sinc = sinc;
     }
 
@@ -145,16 +133,6 @@ public final class Kwsrc implements Serializable {
         this.sndvolsById = sndvolsById;
     }
 
-    @Basic
-    @Column(name = "srct", nullable = false, insertable = true, updatable = true)
-    public short getSrct() {
-        return srct;
-    }
-
-    public void setSrct(short srct) {
-        this.srct = srct;
-    }
-
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -162,7 +140,6 @@ public final class Kwsrc implements Serializable {
         Kwsrc kwsrc = (Kwsrc) o;
 
         if (id != kwsrc.id) return false;
-        if (srct != kwsrc.srct) return false;
         if (descr != null ? !descr.equals(kwsrc.descr) : kwsrc.descr != null) return false;
         if (dt != null ? !dt.equals(kwsrc.dt) : kwsrc.dt != null) return false;
         if (kw != null ? !kw.equals(kwsrc.kw) : kwsrc.kw != null) return false;
@@ -176,7 +153,7 @@ public final class Kwsrc implements Serializable {
     }
 
     public int hashCode() {
-        int result = (int) id;
+        int result = id;
         result = 31 * result + (kw != null ? kw.hashCode() : 0);
         result = 31 * result + (descr != null ? descr.hashCode() : 0);
         result = 31 * result + (dt != null ? dt.hashCode() : 0);
@@ -185,7 +162,6 @@ public final class Kwsrc implements Serializable {
         result = 31 * result + (sinc != null ? sinc.hashCode() : 0);
         result = 31 * result + (smin != null ? smin.hashCode() : 0);
         result = 31 * result + (smax != null ? smax.hashCode() : 0);
-        result = 31 * result + (int) srct;
         return result;
     }
 }

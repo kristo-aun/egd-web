@@ -6,9 +6,9 @@ import java.io.Serializable;
 
 public final class HistPK implements Serializable {
 
-    private static final long serialVersionUID = -6204767370038627912L;
+    private static final long serialVersionUID = 2257283800959187918L;
     private int entr;
-    private short hist;
+    private int hist;
 
     @Column(name = "entr", nullable = false, insertable = true, updatable = true)
     @Id
@@ -22,11 +22,11 @@ public final class HistPK implements Serializable {
 
     @Column(name = "hist", nullable = false, insertable = true, updatable = true)
     @Id
-    public short getHist() {
+    public int getHist() {
         return hist;
     }
 
-    public void setHist(short hist) {
+    public void setHist(int hist) {
         this.hist = hist;
     }
 
@@ -44,7 +44,7 @@ public final class HistPK implements Serializable {
 
     public int hashCode() {
         int result = entr;
-        result = 31 * result + (int) hist;
+        result = 31 * result + hist;
         return result;
     }
 }

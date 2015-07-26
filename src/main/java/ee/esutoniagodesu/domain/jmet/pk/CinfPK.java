@@ -6,9 +6,9 @@ import java.io.Serializable;
 
 public final class CinfPK implements Serializable {
 
-    private static final long serialVersionUID = -2393167315466742474L;
+    private static final long serialVersionUID = -6147718987757228382L;
     private int entr;
-    private short kw;
+    private int kw;
     private String value;
     private String mctype;
 
@@ -24,11 +24,11 @@ public final class CinfPK implements Serializable {
 
     @Column(name = "kw", nullable = false, insertable = true, updatable = true)
     @Id
-    public short getKw() {
+    public int getKw() {
         return kw;
     }
 
-    public void setKw(short kw) {
+    public void setKw(int kw) {
         this.kw = kw;
     }
 
@@ -68,7 +68,7 @@ public final class CinfPK implements Serializable {
 
     public int hashCode() {
         int result = entr;
-        result = 31 * result + (int) kw;
+        result = 31 * result + kw;
         result = 31 * result + (value != null ? value.hashCode() : 0);
         result = 31 * result + (mctype != null ? mctype.hashCode() : 0);
         return result;

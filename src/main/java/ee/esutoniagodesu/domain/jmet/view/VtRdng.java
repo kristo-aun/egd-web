@@ -10,7 +10,8 @@ import java.io.Serializable;
 @Table(name = "vt_rdng", schema = "jmet")
 public final class VtRdng implements Serializable {
 
-    private static final long serialVersionUID = 3819482710039474228L;
+    private static final long serialVersionUID = -4059574469919485403L;
+
     private Integer entr;
     private String rtxt;
 

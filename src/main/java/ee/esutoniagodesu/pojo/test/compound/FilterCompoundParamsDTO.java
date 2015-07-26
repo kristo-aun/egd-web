@@ -14,7 +14,7 @@ public final class FilterCompoundParamsDTO implements Serializable {
 
     public final Map<Integer, String> dictionaryMap = JCMap.toMap(EDictionary.values());
     public final Map<Integer, String> core10kLevelMap = JCMap.toIntLinkedHashMap(1, 10);
-    //SELECT max(char_length(txt)) FROM jmdict.kanj
+    //SELECT max(char_length(txt)) FROM jmet.kanj
     public final Map<Integer, String> compLengthMap = JCMap.toIntLinkedHashMap(1, 37);
     public final Map<Integer, String> filterTypeMap = JCMap.toMap(EFilterType.values());
 

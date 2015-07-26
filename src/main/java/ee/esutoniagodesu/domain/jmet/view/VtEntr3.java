@@ -10,10 +10,11 @@ import java.io.Serializable;
 @Table(name = "vt_entr3", schema = "jmet")
 public final class VtEntr3 implements Serializable {
 
-    private static final long serialVersionUID = 4830695862626573997L;
+    private static final long serialVersionUID = 1728005960468459454L;
+
     private Integer id;
-    private Short src;
-    private Short stat;
+    private Integer src;
+    private Integer stat;
     private Long seq;
     private Integer dfrm;
     private Boolean unap;
@@ -25,16 +26,6 @@ public final class VtEntr3 implements Serializable {
     private Long nsens;
     private Boolean p;
 
-    @Basic
-    @Column(name = "dfrm", nullable = true, insertable = true, updatable = true)
-    public Integer getDfrm() {
-        return dfrm;
-    }
-
-    public void setDfrm(Integer dfrm) {
-        this.dfrm = dfrm;
-    }
-
     @Id
     @Basic
     @Column(name = "id", nullable = true, insertable = true, updatable = true)
@@ -44,6 +35,16 @@ public final class VtEntr3 implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    @Basic
+    @Column(name = "dfrm", nullable = true, insertable = true, updatable = true)
+    public Integer getDfrm() {
+        return dfrm;
+    }
+
+    public void setDfrm(Integer dfrm) {
+        this.dfrm = dfrm;
     }
 
     @Basic
@@ -108,11 +109,11 @@ public final class VtEntr3 implements Serializable {
 
     @Basic
     @Column(name = "src", nullable = true, insertable = true, updatable = true)
-    public Short getSrc() {
+    public Integer getSrc() {
         return src;
     }
 
-    public void setSrc(Short src) {
+    public void setSrc(Integer src) {
         this.src = src;
     }
 
@@ -128,11 +129,11 @@ public final class VtEntr3 implements Serializable {
 
     @Basic
     @Column(name = "stat", nullable = true, insertable = true, updatable = true)
-    public Short getStat() {
+    public Integer getStat() {
         return stat;
     }
 
-    public void setStat(Short stat) {
+    public void setStat(Integer stat) {
         this.stat = stat;
     }
 

@@ -4,30 +4,29 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import java.io.Serializable;
 
-
 public final class RadPK implements Serializable {
 
-    private static final long serialVersionUID = 4456718199673353713L;
-    private short num;
-    private short var;
+    private static final long serialVersionUID = -1217896413046347427L;
+    private int num;
+    private int var;
 
     @Column(name = "num", nullable = false, insertable = true, updatable = true)
     @Id
-    public short getNum() {
+    public int getNum() {
         return num;
     }
 
-    public void setNum(short num) {
+    public void setNum(int num) {
         this.num = num;
     }
 
     @Column(name = "var", nullable = false, insertable = true, updatable = true)
     @Id
-    public short getVar() {
+    public int getVar() {
         return var;
     }
 
-    public void setVar(short var) {
+    public void setVar(int var) {
         this.var = var;
     }
 
@@ -44,8 +43,8 @@ public final class RadPK implements Serializable {
     }
 
     public int hashCode() {
-        int result = (int) num;
-        result = 31 * result + (int) var;
+        int result = num;
+        result = 31 * result + var;
         return result;
     }
 }

@@ -6,17 +6,16 @@ import org.hibernate.annotations.Immutable;
 import javax.persistence.*;
 import java.io.Serializable;
 
-
 @Entity
 @Immutable
-@Table(name = "restr", schema = "jmet")
 @IdClass(RestrPK.class)
+@Table(name = "Restr", schema = "jmet")
 public final class Restr implements Serializable {
 
-    private static final long serialVersionUID = -8690998747710810136L;
+    private static final long serialVersionUID = -8440431935535454656L;
     private int entr;
-    private short rdng;
-    private short kanj;
+    private int rdng;
+    private int kanj;
     private Kanj kanj_0;
     private Rdng rdng_0;
 
@@ -32,11 +31,11 @@ public final class Restr implements Serializable {
 
     @Id
     @Column(name = "kanj", nullable = false, insertable = true, updatable = true)
-    public short getKanj() {
+    public int getKanj() {
         return kanj;
     }
 
-    public void setKanj(short kanj) {
+    public void setKanj(int kanj) {
         this.kanj = kanj;
     }
 
@@ -52,11 +51,11 @@ public final class Restr implements Serializable {
 
     @Id
     @Column(name = "rdng", nullable = false, insertable = true, updatable = true)
-    public short getRdng() {
+    public int getRdng() {
         return rdng;
     }
 
-    public void setRdng(short rdng) {
+    public void setRdng(int rdng) {
         this.rdng = rdng;
     }
 
@@ -85,8 +84,8 @@ public final class Restr implements Serializable {
 
     public int hashCode() {
         int result = entr;
-        result = 31 * result + (int) rdng;
-        result = 31 * result + (int) kanj;
+        result = 31 * result + rdng;
+        result = 31 * result + kanj;
         return result;
     }
 }

@@ -4,17 +4,16 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import java.io.Serializable;
 
-
 public final class SensPK implements Serializable {
 
-    private static final long serialVersionUID = 2688793812623168869L;
+    private static final long serialVersionUID = 2627256529634588610L;
     private int entr;
-    private short sens;
+    private int sens;
 
     public SensPK() {
     }
 
-    public SensPK(int entr, short sens) {
+    public SensPK(int entr, int sens) {
         this.entr = entr;
         this.sens = sens;
     }
@@ -31,11 +30,11 @@ public final class SensPK implements Serializable {
 
     @Column(name = "sens", nullable = false, insertable = true, updatable = true)
     @Id
-    public short getSens() {
+    public int getSens() {
         return sens;
     }
 
-    public void setSens(short sens) {
+    public void setSens(int sens) {
         this.sens = sens;
     }
 
@@ -53,7 +52,7 @@ public final class SensPK implements Serializable {
 
     public int hashCode() {
         int result = entr;
-        result = 31 * result + (int) sens;
+        result = 31 * result + sens;
         return result;
     }
 }

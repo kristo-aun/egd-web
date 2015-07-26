@@ -4,13 +4,12 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import java.io.Serializable;
 
-
 public final class MiscPK implements Serializable {
 
-    private static final long serialVersionUID = 439494683865412464L;
+    private static final long serialVersionUID = 1010732209033899678L;
     private int entr;
-    private short sens;
-    private short kw;
+    private int sens;
+    private int kw;
 
     @Column(name = "entr", nullable = false, insertable = true, updatable = true)
     @Id
@@ -24,21 +23,21 @@ public final class MiscPK implements Serializable {
 
     @Column(name = "kw", nullable = false, insertable = true, updatable = true)
     @Id
-    public short getKw() {
+    public int getKw() {
         return kw;
     }
 
-    public void setKw(short kw) {
+    public void setKw(int kw) {
         this.kw = kw;
     }
 
     @Column(name = "sens", nullable = false, insertable = true, updatable = true)
     @Id
-    public short getSens() {
+    public int getSens() {
         return sens;
     }
 
-    public void setSens(short sens) {
+    public void setSens(int sens) {
         this.sens = sens;
     }
 
@@ -57,8 +56,8 @@ public final class MiscPK implements Serializable {
 
     public int hashCode() {
         int result = entr;
-        result = 31 * result + (int) sens;
-        result = 31 * result + (int) kw;
+        result = 31 * result + sens;
+        result = 31 * result + kw;
         return result;
     }
 }

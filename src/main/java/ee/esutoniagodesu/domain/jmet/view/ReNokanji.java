@@ -10,10 +10,10 @@ import java.io.Serializable;
 @Table(name = "re_nokanji", schema = "jmet")
 public final class ReNokanji implements Serializable {
 
-    private static final long serialVersionUID = -4670563169176292653L;
+    private static final long serialVersionUID = 4115789537315751093L;
     private Integer id;
     private Long seq;
-    private Short rdng;
+    private Integer rdng;
     private String txt;
 
     @Id
@@ -29,11 +29,11 @@ public final class ReNokanji implements Serializable {
 
     @Basic
     @Column(name = "rdng", nullable = true, insertable = true, updatable = true)
-    public Short getRdng() {
+    public Integer getRdng() {
         return rdng;
     }
 
-    public void setRdng(Short rdng) {
+    public void setRdng(Integer rdng) {
         this.rdng = rdng;
     }
 

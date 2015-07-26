@@ -6,10 +6,10 @@ import java.io.Serializable;
 
 public final class DialPK implements Serializable {
 
-    private static final long serialVersionUID = 3259409255354807932L;
+    private static final long serialVersionUID = 1082034596685341168L;
     private int entr;
     private int sens;
-    private short kw;
+    private int kw;
 
     @Column(name = "entr", nullable = false, insertable = true, updatable = true)
     @Id
@@ -23,11 +23,11 @@ public final class DialPK implements Serializable {
 
     @Column(name = "kw", nullable = false, insertable = true, updatable = true)
     @Id
-    public short getKw() {
+    public int getKw() {
         return kw;
     }
 
-    public void setKw(short kw) {
+    public void setKw(int kw) {
         this.kw = kw;
     }
 
@@ -57,7 +57,7 @@ public final class DialPK implements Serializable {
     public int hashCode() {
         int result = entr;
         result = 31 * result + sens;
-        result = 31 * result + (int) kw;
+        result = 31 * result + kw;
         return result;
     }
 }

@@ -10,10 +10,10 @@ import java.io.Serializable;
 @Table(name = "sr_valid", schema = "jmet")
 public final class SrValid implements Serializable {
 
-    private static final long serialVersionUID = 6089425646163201244L;
+    private static final long serialVersionUID = -8366053880487129885L;
     private Integer entr;
-    private Short sens;
-    private Short rdng;
+    private Integer sens;
+    private Integer rdng;
     private String rtxt;
 
     @Id
@@ -29,11 +29,11 @@ public final class SrValid implements Serializable {
 
     @Basic
     @Column(name = "rdng", nullable = true, insertable = true, updatable = true)
-    public Short getRdng() {
+    public Integer getRdng() {
         return rdng;
     }
 
-    public void setRdng(Short rdng) {
+    public void setRdng(Integer rdng) {
         this.rdng = rdng;
     }
 
@@ -49,11 +49,11 @@ public final class SrValid implements Serializable {
 
     @Basic
     @Column(name = "sens", nullable = true, insertable = true, updatable = true)
-    public Short getSens() {
+    public Integer getSens() {
         return sens;
     }
 
-    public void setSens(Short sens) {
+    public void setSens(Integer sens) {
         this.sens = sens;
     }
 

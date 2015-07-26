@@ -6,21 +6,20 @@ import org.hibernate.annotations.Immutable;
 import javax.persistence.*;
 import java.io.Serializable;
 
-
 @Entity
 @Immutable
-@Table(name = "xresolv", schema = "jmet")
 @IdClass(XresolvPK.class)
+@Table(name = "xresolv", schema = "jmet")
 public final class Xresolv implements Serializable {
 
-    private static final long serialVersionUID = 6897164864713138066L;
+    private static final long serialVersionUID = -6574689233969937740L;
     private int entr;
-    private short sens;
-    private short typ;
-    private short ord;
+    private int sens;
+    private int typ;
+    private int ord;
     private String rtxt;
     private String ktxt;
-    private Short tsens;
+    private Integer tsens;
     private String notes;
     private Boolean prio;
     private Kwxref kwxrefByTyp;
@@ -68,11 +67,11 @@ public final class Xresolv implements Serializable {
 
     @Id
     @Column(name = "ord", nullable = false, insertable = true, updatable = true)
-    public short getOrd() {
+    public int getOrd() {
         return ord;
     }
 
-    public void setOrd(short ord) {
+    public void setOrd(int ord) {
         this.ord = ord;
     }
 
@@ -98,11 +97,11 @@ public final class Xresolv implements Serializable {
 
     @Id
     @Column(name = "sens", nullable = false, insertable = true, updatable = true)
-    public short getSens() {
+    public int getSens() {
         return sens;
     }
 
-    public void setSens(short sens) {
+    public void setSens(int sens) {
         this.sens = sens;
     }
 
@@ -118,21 +117,21 @@ public final class Xresolv implements Serializable {
 
     @Basic
     @Column(name = "tsens", nullable = true, insertable = true, updatable = true)
-    public Short getTsens() {
+    public Integer getTsens() {
         return tsens;
     }
 
-    public void setTsens(Short tsens) {
+    public void setTsens(Integer tsens) {
         this.tsens = tsens;
     }
 
     @Id
     @Column(name = "typ", nullable = false, insertable = true, updatable = true)
-    public short getTyp() {
+    public int getTyp() {
         return typ;
     }
 
-    public void setTyp(short typ) {
+    public void setTyp(int typ) {
         this.typ = typ;
     }
 
@@ -157,9 +156,9 @@ public final class Xresolv implements Serializable {
 
     public int hashCode() {
         int result = entr;
-        result = 31 * result + (int) sens;
-        result = 31 * result + (int) typ;
-        result = 31 * result + (int) ord;
+        result = 31 * result + sens;
+        result = 31 * result + typ;
+        result = 31 * result + ord;
         result = 31 * result + (rtxt != null ? rtxt.hashCode() : 0);
         result = 31 * result + (ktxt != null ? ktxt.hashCode() : 0);
         result = 31 * result + (tsens != null ? tsens.hashCode() : 0);

@@ -8,11 +8,11 @@ import java.util.Collection;
 
 @Entity
 @Immutable
-@Table(name = "kwxref", schema = "jmet")
+@Table(name = "Kwxref", schema = "jmet")
 public final class Kwxref implements Serializable {
 
-    private static final long serialVersionUID = 7637090125788401772L;
-    private short id;
+    private static final long serialVersionUID = 2840140714719289687L;
+    private int id;
     private String kw;
     private String descr;
     private Collection<Xref> xrefsById;
@@ -30,11 +30,11 @@ public final class Kwxref implements Serializable {
 
     @Id
     @Column(name = "id", nullable = false, insertable = true, updatable = true)
-    public short getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(short id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -80,7 +80,7 @@ public final class Kwxref implements Serializable {
     }
 
     public int hashCode() {
-        int result = (int) id;
+        int result = id;
         result = 31 * result + (kw != null ? kw.hashCode() : 0);
         result = 31 * result + (descr != null ? descr.hashCode() : 0);
         return result;

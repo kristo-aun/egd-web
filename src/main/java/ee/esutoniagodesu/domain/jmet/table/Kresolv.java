@@ -6,16 +6,15 @@ import org.hibernate.annotations.Immutable;
 import javax.persistence.*;
 import java.io.Serializable;
 
-
 @Entity
 @Immutable
-@Table(name = "kresolv", schema = "jmet")
 @IdClass(KresolvPK.class)
+@Table(name = "Kresolv", schema = "jmet")
 public final class Kresolv implements Serializable {
 
-    private static final long serialVersionUID = 3172721853367007592L;
+    private static final long serialVersionUID = -1256896413669210226L;
     private int entr;
-    private short kw;
+    private int kw;
     private String value;
     private Entr entrByEntr;
 
@@ -41,11 +40,11 @@ public final class Kresolv implements Serializable {
 
     @Id
     @Column(name = "kw", nullable = false, insertable = true, updatable = true)
-    public short getKw() {
+    public int getKw() {
         return kw;
     }
 
-    public void setKw(short kw) {
+    public void setKw(int kw) {
         this.kw = kw;
     }
 
@@ -74,7 +73,7 @@ public final class Kresolv implements Serializable {
 
     public int hashCode() {
         int result = entr;
-        result = 31 * result + (int) kw;
+        result = 31 * result + kw;
         result = 31 * result + (value != null ? value.hashCode() : 0);
         return result;
     }

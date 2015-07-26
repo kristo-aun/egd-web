@@ -8,18 +8,29 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 
+@NamedStoredProcedureQueries({
+    @NamedStoredProcedureQuery(name = "f_sens_by_kanj_and_rdng", procedureName = "f_sens_by_kanj_and_rdng",
+        resultClasses = Sens.class,
+        parameters = {
+            @StoredProcedureParameter(name = "kanj", type = String.class, mode = ParameterMode.IN),
+            @StoredProcedureParameter(name = "rdng", type = String.class, mode = ParameterMode.IN),
+            @StoredProcedureParameter(name = "sens", type = Integer.class, mode = ParameterMode.IN),
+            @StoredProcedureParameter(name = "jm_sens", type = void.class, mode = ParameterMode.REF_CURSOR)
+
+        })
+})
+
 @Entity
 @Immutable
-@Table(name = "sens", schema = "jmet")
 @IdClass(SensPK.class)
+@Table(name = "Sens", schema = "jmet")
 public final class Sens implements Serializable {
 
-    private static final long serialVersionUID = 6286155174803964320L;
-
+    private static final long serialVersionUID = -5075595434884638099L;
     @JsonIgnore
     private int entr;
     @JsonIgnore
-    private short sens;
+    private int sens;
     @JsonIgnore
     private String notes;
     @JsonIgnore
@@ -123,11 +134,11 @@ public final class Sens implements Serializable {
 
     @Id
     @Column(name = "sens", nullable = false, insertable = true, updatable = true)
-    public short getSens() {
+    public int getSens() {
         return sens;
     }
 
-    public void setSens(short sens) {
+    public void setSens(int sens) {
         this.sens = sens;
     }
 
@@ -191,7 +202,7 @@ public final class Sens implements Serializable {
 
     public int hashCode() {
         int result = entr;
-        result = 31 * result + (int) sens;
+        result = 31 * result + sens;
         result = 31 * result + (notes != null ? notes.hashCode() : 0);
         return result;
     }

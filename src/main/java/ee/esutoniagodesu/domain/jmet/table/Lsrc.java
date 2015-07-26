@@ -6,18 +6,17 @@ import org.hibernate.annotations.Immutable;
 import javax.persistence.*;
 import java.io.Serializable;
 
-
 @Entity
 @Immutable
-@Table(name = "lsrc", schema = "jmet")
 @IdClass(LsrcPK.class)
+@Table(name = "Lsrc", schema = "jmet")
 public final class Lsrc implements Serializable {
 
-    private static final long serialVersionUID = -3789853165764046294L;
+    private static final long serialVersionUID = -660340825614251192L;
     private int entr;
-    private short sens;
-    private short ord;
-    private short lang;
+    private int sens;
+    private int ord;
+    private int lang;
     private String txt;
     private Boolean part;
     private Boolean wasei;
@@ -46,21 +45,21 @@ public final class Lsrc implements Serializable {
 
     @Id
     @Column(name = "lang", nullable = false, insertable = true, updatable = true)
-    public short getLang() {
+    public int getLang() {
         return lang;
     }
 
-    public void setLang(short lang) {
+    public void setLang(int lang) {
         this.lang = lang;
     }
 
     @Basic
     @Column(name = "ord", nullable = false, insertable = true, updatable = true)
-    public short getOrd() {
+    public int getOrd() {
         return ord;
     }
 
-    public void setOrd(short ord) {
+    public void setOrd(int ord) {
         this.ord = ord;
     }
 
@@ -76,11 +75,11 @@ public final class Lsrc implements Serializable {
 
     @Id
     @Column(name = "sens", nullable = false, insertable = true, updatable = true)
-    public short getSens() {
+    public int getSens() {
         return sens;
     }
 
-    public void setSens(short sens) {
+    public void setSens(int sens) {
         this.sens = sens;
     }
 
@@ -133,9 +132,9 @@ public final class Lsrc implements Serializable {
 
     public int hashCode() {
         int result = entr;
-        result = 31 * result + (int) sens;
-        result = 31 * result + (int) ord;
-        result = 31 * result + (int) lang;
+        result = 31 * result + sens;
+        result = 31 * result + ord;
+        result = 31 * result + lang;
         result = 31 * result + (txt != null ? txt.hashCode() : 0);
         result = 31 * result + (part != null ? part.hashCode() : 0);
         result = 31 * result + (wasei != null ? wasei.hashCode() : 0);

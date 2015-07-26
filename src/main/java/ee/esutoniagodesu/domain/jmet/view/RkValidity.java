@@ -10,12 +10,12 @@ import java.io.Serializable;
 @Table(name = "rk_validity", schema = "jmet")
 public final class RkValidity implements Serializable {
 
-    private static final long serialVersionUID = -2027888623019705234L;
+    private static final long serialVersionUID = -7297229460436239343L;
     private Integer id;
     private Long seq;
-    private Short rdng;
+    private Integer rdng;
     private String rtxt;
-    private Short kanj;
+    private Integer kanj;
     private String ktxt;
     private String valid;
 
@@ -32,11 +32,11 @@ public final class RkValidity implements Serializable {
 
     @Basic
     @Column(name = "kanj", nullable = true, insertable = true, updatable = true)
-    public Short getKanj() {
+    public Integer getKanj() {
         return kanj;
     }
 
-    public void setKanj(Short kanj) {
+    public void setKanj(Integer kanj) {
         this.kanj = kanj;
     }
 
@@ -52,11 +52,11 @@ public final class RkValidity implements Serializable {
 
     @Basic
     @Column(name = "rdng", nullable = true, insertable = true, updatable = true)
-    public Short getRdng() {
+    public Integer getRdng() {
         return rdng;
     }
 
-    public void setRdng(Short rdng) {
+    public void setRdng(Integer rdng) {
         this.rdng = rdng;
     }
 

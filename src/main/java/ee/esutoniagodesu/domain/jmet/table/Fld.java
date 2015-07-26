@@ -6,18 +6,17 @@ import org.hibernate.annotations.Immutable;
 import javax.persistence.*;
 import java.io.Serializable;
 
-
 @Entity
 @Immutable
-@Table(name = "fld", schema = "jmet")
 @IdClass(FldPK.class)
+@Table(name = "Fld", schema = "jmet")
 public final class Fld implements Serializable {
 
-    private static final long serialVersionUID = -1797095969072461001L;
+    private static final long serialVersionUID = -1276509093053002707L;
     private int entr;
-    private short sens;
-    private short ord;
-    private short kw;
+    private int sens;
+    private int ord;
+    private int kw;
     private Kwfld kwfldByKw;
     private Sens sens_0;
 
@@ -33,11 +32,11 @@ public final class Fld implements Serializable {
 
     @Id
     @Column(name = "kw", nullable = false, insertable = true, updatable = true)
-    public short getKw() {
+    public int getKw() {
         return kw;
     }
 
-    public void setKw(short kw) {
+    public void setKw(int kw) {
         this.kw = kw;
     }
 
@@ -53,21 +52,21 @@ public final class Fld implements Serializable {
 
     @Basic
     @Column(name = "ord", nullable = false, insertable = true, updatable = true)
-    public short getOrd() {
+    public int getOrd() {
         return ord;
     }
 
-    public void setOrd(short ord) {
+    public void setOrd(int ord) {
         this.ord = ord;
     }
 
     @Id
     @Column(name = "sens", nullable = false, insertable = true, updatable = true)
-    public short getSens() {
+    public int getSens() {
         return sens;
     }
 
-    public void setSens(short sens) {
+    public void setSens(int sens) {
         this.sens = sens;
     }
 
@@ -97,9 +96,13 @@ public final class Fld implements Serializable {
 
     public int hashCode() {
         int result = entr;
-        result = 31 * result + (int) sens;
-        result = 31 * result + (int) ord;
-        result = 31 * result + (int) kw;
+        result = 31 * result + sens;
+        result = 31 * result + ord;
+        result = 31 * result + kw;
         return result;
+    }
+
+    public String toString() {
+        return kwfldByKw != null ? kwfldByKw.getKw() : null;
     }
 }

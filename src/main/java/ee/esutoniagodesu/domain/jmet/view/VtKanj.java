@@ -10,7 +10,8 @@ import java.io.Serializable;
 @Table(name = "vt_kanj", schema = "jmet")
 public final class VtKanj implements Serializable {
 
-    private static final long serialVersionUID = 5608681427222727210L;
+    private static final long serialVersionUID = 3992693166545462061L;
+
     private Integer entr;
     private String ktxt;
 

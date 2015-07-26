@@ -8,10 +8,10 @@ import java.util.Collection;
 
 @Entity
 @Immutable
-@Table(name = "chr", schema = "jmet")
+@Table(name = "Chr", schema = "jmet")
 public final class Chr implements Serializable {
 
-    private static final long serialVersionUID = -7805714474582693424L;
+    private static final long serialVersionUID = -6842922321422668849L;
     private int entr;
     private String chr;
     private Short bushu;

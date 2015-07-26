@@ -8,11 +8,11 @@ import java.util.Collection;
 
 @Entity
 @Immutable
-@Table(name = "kwstat", schema = "jmet")
+@Table(name = "Kwstat", schema = "jmet")
 public final class Kwstat implements Serializable {
 
-    private static final long serialVersionUID = 1599727330196878741L;
-    private short id;
+    private static final long serialVersionUID = -2577388880705170124L;
+    private int id;
     private String kw;
     private String descr;
     private Collection<Entr> entrsById;
@@ -48,11 +48,11 @@ public final class Kwstat implements Serializable {
 
     @Id
     @Column(name = "id", nullable = false, insertable = true, updatable = true)
-    public short getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(short id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -80,7 +80,7 @@ public final class Kwstat implements Serializable {
     }
 
     public int hashCode() {
-        int result = (int) id;
+        int result = id;
         result = 31 * result + (kw != null ? kw.hashCode() : 0);
         result = 31 * result + (descr != null ? descr.hashCode() : 0);
         return result;

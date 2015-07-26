@@ -6,10 +6,10 @@ import java.io.Serializable;
 
 public final class KinfPK implements Serializable {
 
-    private static final long serialVersionUID = -3832790023667169877L;
+    private static final long serialVersionUID = -4851015017428441448L;
     private int entr;
-    private short kanj;
-    private short kw;
+    private int kanj;
+    private int kw;
 
     @Column(name = "entr", nullable = false, insertable = true, updatable = true)
     @Id
@@ -23,21 +23,21 @@ public final class KinfPK implements Serializable {
 
     @Column(name = "kanj", nullable = false, insertable = true, updatable = true)
     @Id
-    public short getKanj() {
+    public int getKanj() {
         return kanj;
     }
 
-    public void setKanj(short kanj) {
+    public void setKanj(int kanj) {
         this.kanj = kanj;
     }
 
     @Column(name = "kw", nullable = false, insertable = true, updatable = true)
     @Id
-    public short getKw() {
+    public int getKw() {
         return kw;
     }
 
-    public void setKw(short kw) {
+    public void setKw(int kw) {
         this.kw = kw;
     }
 
@@ -56,8 +56,8 @@ public final class KinfPK implements Serializable {
 
     public int hashCode() {
         int result = entr;
-        result = 31 * result + (int) kanj;
-        result = 31 * result + (int) kw;
+        result = 31 * result + kanj;
+        result = 31 * result + kw;
         return result;
     }
 }

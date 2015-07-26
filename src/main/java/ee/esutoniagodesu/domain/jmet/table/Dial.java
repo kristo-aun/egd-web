@@ -6,18 +6,17 @@ import org.hibernate.annotations.Immutable;
 import javax.persistence.*;
 import java.io.Serializable;
 
-
 @Entity
 @Immutable
-@Table(name = "dial", schema = "jmet")
 @IdClass(DialPK.class)
+@Table(name = "Dial", schema = "jmet")
 public final class Dial implements Serializable {
 
-    private static final long serialVersionUID = 7868752471491787920L;
+    private static final long serialVersionUID = -3178897618616762659L;
     private int entr;
     private int sens;
-    private short ord;
-    private short kw;
+    private int ord;
+    private int kw;
     private Kwdial kwdialByKw;
     private Sens sens_0;
 
@@ -33,11 +32,11 @@ public final class Dial implements Serializable {
 
     @Id
     @Column(name = "kw", nullable = false, insertable = true, updatable = true)
-    public short getKw() {
+    public int getKw() {
         return kw;
     }
 
-    public void setKw(short kw) {
+    public void setKw(int kw) {
         this.kw = kw;
     }
 
@@ -53,11 +52,11 @@ public final class Dial implements Serializable {
 
     @Basic
     @Column(name = "ord", nullable = false, insertable = true, updatable = true)
-    public short getOrd() {
+    public int getOrd() {
         return ord;
     }
 
-    public void setOrd(short ord) {
+    public void setOrd(int ord) {
         this.ord = ord;
     }
 
@@ -98,8 +97,8 @@ public final class Dial implements Serializable {
     public int hashCode() {
         int result = entr;
         result = 31 * result + sens;
-        result = 31 * result + (int) ord;
-        result = 31 * result + (int) kw;
+        result = 31 * result + ord;
+        result = 31 * result + kw;
         return result;
     }
 }

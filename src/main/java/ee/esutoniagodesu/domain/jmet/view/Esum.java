@@ -10,11 +10,11 @@ import java.io.Serializable;
 @Table(name = "esum", schema = "jmet")
 public final class Esum implements Serializable {
 
-    private static final long serialVersionUID = 5151580085635653399L;
+    private static final long serialVersionUID = 3457508037757751930L;
     private Integer id;
     private Long seq;
-    private Short stat;
-    private Short src;
+    private Integer stat;
+    private Integer src;
     private Integer dfrm;
     private Boolean unap;
     private String notes;
@@ -118,11 +118,11 @@ public final class Esum implements Serializable {
 
     @Basic
     @Column(name = "src", nullable = true, insertable = true, updatable = true)
-    public Short getSrc() {
+    public Integer getSrc() {
         return src;
     }
 
-    public void setSrc(Short src) {
+    public void setSrc(Integer src) {
         this.src = src;
     }
 
@@ -138,11 +138,11 @@ public final class Esum implements Serializable {
 
     @Basic
     @Column(name = "stat", nullable = true, insertable = true, updatable = true)
-    public Short getStat() {
+    public Integer getStat() {
         return stat;
     }
 
-    public void setStat(Short stat) {
+    public void setStat(Integer stat) {
         this.stat = stat;
     }
 

@@ -10,10 +10,10 @@ import java.io.Serializable;
 @Table(name = "hdwds", schema = "jmet")
 public final class Hdwds implements Serializable {
 
-    private static final long serialVersionUID = 2287604888012041384L;
+    private static final long serialVersionUID = 1719315173355249487L;
     private Integer id;
-    private Short src;
-    private Short stat;
+    private Integer src;
+    private Integer stat;
     private Long seq;
     private Integer dfrm;
     private Boolean unap;
@@ -85,11 +85,11 @@ public final class Hdwds implements Serializable {
 
     @Basic
     @Column(name = "src", nullable = true, insertable = true, updatable = true)
-    public Short getSrc() {
+    public Integer getSrc() {
         return src;
     }
 
-    public void setSrc(Short src) {
+    public void setSrc(Integer src) {
         this.src = src;
     }
 
@@ -105,11 +105,11 @@ public final class Hdwds implements Serializable {
 
     @Basic
     @Column(name = "stat", nullable = true, insertable = true, updatable = true)
-    public Short getStat() {
+    public Integer getStat() {
         return stat;
     }
 
-    public void setStat(Short stat) {
+    public void setStat(Integer stat) {
         this.stat = stat;
     }
 

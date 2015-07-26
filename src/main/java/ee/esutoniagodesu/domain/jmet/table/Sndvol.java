@@ -8,14 +8,14 @@ import java.util.Collection;
 
 @Entity
 @Immutable
-@Table(name = "sndvol", schema = "jmet")
+@Table(name = "Sndvol", schema = "jmet")
 public final class Sndvol implements Serializable {
 
-    private static final long serialVersionUID = -6357815154003628579L;
+    private static final long serialVersionUID = 7802504414046282941L;
     private int id;
     private String title;
     private String loc;
-    private short type;
+    private int type;
     private String idstr;
     private Integer corp;
     private String notes;
@@ -103,11 +103,11 @@ public final class Sndvol implements Serializable {
 
     @Basic
     @Column(name = "type", nullable = false, insertable = true, updatable = true)
-    public short getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(short type) {
+    public void setType(int type) {
         this.type = type;
     }
 
@@ -132,7 +132,7 @@ public final class Sndvol implements Serializable {
         int result = id;
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (loc != null ? loc.hashCode() : 0);
-        result = 31 * result + (int) type;
+        result = 31 * result + type;
         result = 31 * result + (idstr != null ? idstr.hashCode() : 0);
         result = 31 * result + (corp != null ? corp.hashCode() : 0);
         result = 31 * result + (notes != null ? notes.hashCode() : 0);

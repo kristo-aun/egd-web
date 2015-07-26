@@ -9,14 +9,14 @@ import java.sql.Timestamp;
 
 @Entity
 @Immutable
-@Table(name = "hist", schema = "jmet")
 @IdClass(HistPK.class)
+@Table(name = "Hist", schema = "jmet")
 public final class Hist implements Serializable {
 
-    private static final long serialVersionUID = -2634159385709270002L;
+    private static final long serialVersionUID = 1202012374156801240L;
     private int entr;
-    private short hist;
-    private short stat;
+    private int hist;
+    private int stat;
     private boolean unap;
     private Timestamp dt;
     private String userid;
@@ -80,11 +80,11 @@ public final class Hist implements Serializable {
 
     @Id
     @Column(name = "hist", nullable = false, insertable = true, updatable = true)
-    public short getHist() {
+    public int getHist() {
         return hist;
     }
 
-    public void setHist(short hist) {
+    public void setHist(int hist) {
         this.hist = hist;
     }
 
@@ -130,11 +130,11 @@ public final class Hist implements Serializable {
 
     @Basic
     @Column(name = "stat", nullable = false, insertable = true, updatable = true)
-    public short getStat() {
+    public int getStat() {
         return stat;
     }
 
-    public void setStat(short stat) {
+    public void setStat(int stat) {
         this.stat = stat;
     }
 
@@ -181,8 +181,8 @@ public final class Hist implements Serializable {
 
     public int hashCode() {
         int result = entr;
-        result = 31 * result + (int) hist;
-        result = 31 * result + (int) stat;
+        result = 31 * result + hist;
+        result = 31 * result + stat;
         result = 31 * result + (unap ? 1 : 0);
         result = 31 * result + (dt != null ? dt.hashCode() : 0);
         result = 31 * result + (userid != null ? userid.hashCode() : 0);

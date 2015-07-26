@@ -8,12 +8,12 @@ import java.util.Collection;
 
 @Entity
 @Immutable
-@Table(name = "snd", schema = "jmet")
+@Table(name = "Snd", schema = "jmet")
 public final class Snd implements Serializable {
 
-    private static final long serialVersionUID = -5158298313845740389L;
+    private static final long serialVersionUID = 7098148042169286011L;
     private int id;
-    private short file;
+    private int file;
     private int strt;
     private int leng;
     private String trns;
@@ -33,11 +33,11 @@ public final class Snd implements Serializable {
 
     @Basic
     @Column(name = "file", nullable = false, insertable = true, updatable = true)
-    public short getFile() {
+    public int getFile() {
         return file;
     }
 
-    public void setFile(short file) {
+    public void setFile(int file) {
         this.file = file;
     }
 
@@ -128,7 +128,7 @@ public final class Snd implements Serializable {
 
     public int hashCode() {
         int result = id;
-        result = 31 * result + (int) file;
+        result = 31 * result + file;
         result = 31 * result + strt;
         result = 31 * result + leng;
         result = 31 * result + (trns != null ? trns.hashCode() : 0);

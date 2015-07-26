@@ -9,13 +9,13 @@ import java.util.Collection;
 
 @Entity
 @Immutable
-@Table(name = "rdng", schema = "jmet")
 @IdClass(RdngPK.class)
+@Table(name = "Rdng", schema = "jmet")
 public final class Rdng implements Serializable {
 
-    private static final long serialVersionUID = -1410532913674610196L;
+    private static final long serialVersionUID = -7414082995691209712L;
     private int entr;
-    private short rdng;
+    private int rdng;
     private String txt;
     private Collection<Freq> freqs;
     private Entr entrByEntr;
@@ -56,11 +56,11 @@ public final class Rdng implements Serializable {
 
     @Id
     @Column(name = "rdng", nullable = false, insertable = true, updatable = true)
-    public short getRdng() {
+    public int getRdng() {
         return rdng;
     }
 
-    public void setRdng(short rdng) {
+    public void setRdng(int rdng) {
         this.rdng = rdng;
     }
 
@@ -134,7 +134,7 @@ public final class Rdng implements Serializable {
 
     public int hashCode() {
         int result = entr;
-        result = 31 * result + (int) rdng;
+        result = 31 * result + rdng;
         result = 31 * result + (txt != null ? txt.hashCode() : 0);
         return result;
     }

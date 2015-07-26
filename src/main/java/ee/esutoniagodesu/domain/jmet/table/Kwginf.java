@@ -5,14 +5,13 @@ import org.hibernate.annotations.Immutable;
 import javax.persistence.*;
 import java.io.Serializable;
 
-
 @Entity
 @Immutable
-@Table(name = "kwginf", schema = "jmet")
+@Table(name = "Kwginf", schema = "jmet")
 public final class Kwginf implements Serializable {
 
-    private static final long serialVersionUID = 4247060263515704962L;
-    private short id;
+    private static final long serialVersionUID = -7881334882137449162L;
+    private int id;
     private String kw;
     private String descr;
 
@@ -28,11 +27,11 @@ public final class Kwginf implements Serializable {
 
     @Id
     @Column(name = "id", nullable = false, insertable = true, updatable = true)
-    public short getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(short id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -60,7 +59,7 @@ public final class Kwginf implements Serializable {
     }
 
     public int hashCode() {
-        int result = (int) id;
+        int result = id;
         result = 31 * result + (kw != null ? kw.hashCode() : 0);
         result = 31 * result + (descr != null ? descr.hashCode() : 0);
         return result;

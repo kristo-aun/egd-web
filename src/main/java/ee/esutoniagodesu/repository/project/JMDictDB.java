@@ -72,7 +72,7 @@ public class JMDictDB extends AbstractProjectRepository {
         try {
             long ms = System.currentTimeMillis();
             con = dao.getConnection();
-            StringBuilder sql = new StringBuilder("SELECT id FROM jmdict.rk_validity WHERE ktxt");
+            StringBuilder sql = new StringBuilder("SELECT id FROM jmet.rk_validity WHERE ktxt");
             if (kanj != null)
                 sql.append("='").append(kanj).append("'");
             else sql.append(" is null");
@@ -113,7 +113,7 @@ public class JMDictDB extends AbstractProjectRepository {
         try {
             long ms = System.currentTimeMillis();
             con = dao.getConnection();
-            s = con.prepareStatement("SELECT entr FROM jmdict.gloss WHERE txt=? ORDER BY sens, gloss");
+            s = con.prepareStatement("SELECT entr FROM jmet.gloss WHERE txt=? ORDER BY sens, gloss");
             s.setString(1, et);
             rs = s.executeQuery();
 
@@ -154,7 +154,7 @@ public class JMDictDB extends AbstractProjectRepository {
         try {
             long ms = System.currentTimeMillis();
             con = dao.getConnection();
-            String sql = kana ? "SELECT id FROM jmdict.esum WHERE rdng=?" : "SELECT id FROM jmdict.esum WHERE kanj=?";
+            String sql = kana ? "SELECT id FROM jmet.esum WHERE rdng=?" : "SELECT id FROM jmet.esum WHERE kanj=?";
             s = con.prepareStatement(sql);
             s.setString(1, jp);
             rs = s.executeQuery();
@@ -187,7 +187,7 @@ public class JMDictDB extends AbstractProjectRepository {
         try {
             long ms = System.currentTimeMillis();
             con = dao.getConnection();
-            StringBuilder sql = new StringBuilder("SELECT id FROM jmdict.esum WHERE kanj");
+            StringBuilder sql = new StringBuilder("SELECT id FROM jmet.esum WHERE kanj");
             if (kanj != null)
                 sql.append("='").append(kanj).append("'");
             else sql.append(" is null");
@@ -270,7 +270,7 @@ public class JMDictDB extends AbstractProjectRepository {
             long ms = System.currentTimeMillis();
             con = dao.getConnection();
 
-            StringBuilder sql = new StringBuilder("SELECT sens FROM jmdict.essum WHERE kanj");
+            StringBuilder sql = new StringBuilder("SELECT sens FROM jmet.essum WHERE kanj");
             if (kanj != null)
                 sql.append("='").append(kanj).append("'");
             else sql.append(" is null");
@@ -308,7 +308,7 @@ public class JMDictDB extends AbstractProjectRepository {
         try {
             long ms = System.currentTimeMillis();
             con = dao.getConnection();
-            String sql = "select count(*) from jmdict.sens where entr=?";
+            String sql = "select count(*) from jmet.sens where entr=?";
             s = con.prepareStatement(sql);
             s.setInt(1, entr);
             rs = s.executeQuery();
@@ -384,7 +384,7 @@ public class JMDictDB extends AbstractProjectRepository {
         try {
             long ms = System.currentTimeMillis();
             con = dao.getConnection();
-            String sql = "select count(*) from jmdict.gloss where entr=? and txt=?";
+            String sql = "select count(*) from jmet.gloss where entr=? and txt=?";
             s = con.prepareStatement(sql);
             s.setInt(1, entr);
             s.setString(2, txt);
@@ -473,7 +473,7 @@ public class JMDictDB extends AbstractProjectRepository {
         try {
             long ms = System.currentTimeMillis();
             con = dao.getConnection();
-            String sql = "select txt from jmdict.gloss where entr=? order by sens, gloss";
+            String sql = "select txt from jmet.gloss where entr=? order by sens, gloss";
             s = con.prepareStatement(sql);
             s.setInt(1, entr);
 
@@ -508,7 +508,7 @@ public class JMDictDB extends AbstractProjectRepository {
         try {
             long ms = System.currentTimeMillis();
             con = dao.getConnection();
-            String sql = "select gloss from jmdict.esum where rdng=? and kanj=?";
+            String sql = "select gloss from jmet.esum where rdng=? and kanj=?";
             s = con.prepareStatement(sql);
             s.setString(1, rdng);
             s.setString(2, kanj);

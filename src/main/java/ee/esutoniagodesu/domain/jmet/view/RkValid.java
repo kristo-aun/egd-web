@@ -10,11 +10,11 @@ import java.io.Serializable;
 @Table(name = "rk_valid", schema = "jmet")
 public final class RkValid implements Serializable {
 
-    private static final long serialVersionUID = -4090597414572971187L;
+    private static final long serialVersionUID = 745465144807408537L;
     private Integer entr;
-    private Short rdng;
+    private Integer rdng;
     private String rtxt;
-    private Short kanj;
+    private Integer kanj;
     private String ktxt;
 
     @Id
@@ -30,11 +30,11 @@ public final class RkValid implements Serializable {
 
     @Basic
     @Column(name = "kanj", nullable = true, insertable = true, updatable = true)
-    public Short getKanj() {
+    public Integer getKanj() {
         return kanj;
     }
 
-    public void setKanj(Short kanj) {
+    public void setKanj(Integer kanj) {
         this.kanj = kanj;
     }
 
@@ -50,11 +50,11 @@ public final class RkValid implements Serializable {
 
     @Basic
     @Column(name = "rdng", nullable = true, insertable = true, updatable = true)
-    public Short getRdng() {
+    public Integer getRdng() {
         return rdng;
     }
 
-    public void setRdng(Short rdng) {
+    public void setRdng(Integer rdng) {
         this.rdng = rdng;
     }
 

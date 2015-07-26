@@ -6,9 +6,9 @@ import java.io.Serializable;
 
 public final class KanjPK implements Serializable {
 
-    private static final long serialVersionUID = -882088041150044065L;
+    private static final long serialVersionUID = -4710609579041084109L;
     private int entr;
-    private short kanj;
+    private int kanj;
 
     @Column(name = "entr", nullable = false, insertable = true, updatable = true)
     @Id
@@ -22,11 +22,11 @@ public final class KanjPK implements Serializable {
 
     @Column(name = "kanj", nullable = false, insertable = true, updatable = true)
     @Id
-    public short getKanj() {
+    public int getKanj() {
         return kanj;
     }
 
-    public void setKanj(short kanj) {
+    public void setKanj(int kanj) {
         this.kanj = kanj;
     }
 
@@ -44,7 +44,7 @@ public final class KanjPK implements Serializable {
 
     public int hashCode() {
         int result = entr;
-        result = 31 * result + (int) kanj;
+        result = 31 * result + kanj;
         return result;
     }
 }

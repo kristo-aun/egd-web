@@ -8,11 +8,11 @@ import java.util.Collection;
 
 @Entity
 @Immutable
-@Table(name = "kwlang", schema = "jmet")
+@Table(name = "Kwlang", schema = "jmet")
 public final class Kwlang implements Serializable {
 
-    private static final long serialVersionUID = -7879099640748297121L;
-    private short id;
+    private static final long serialVersionUID = 6668200911613146384L;
+    private int id;
     private String kw;
     private String descr;
     private Collection<Gloss> glossesById;
@@ -39,11 +39,11 @@ public final class Kwlang implements Serializable {
 
     @Id
     @Column(name = "id", nullable = false, insertable = true, updatable = true)
-    public short getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(short id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -80,7 +80,7 @@ public final class Kwlang implements Serializable {
     }
 
     public int hashCode() {
-        int result = (int) id;
+        int result = id;
         result = 31 * result + (kw != null ? kw.hashCode() : 0);
         result = 31 * result + (descr != null ? descr.hashCode() : 0);
         return result;

@@ -10,7 +10,8 @@ import java.io.Serializable;
 @Table(name = "vt_sens", schema = "jmet")
 public final class VtSens implements Serializable {
 
-    private static final long serialVersionUID = 6193952181748762777L;
+    private static final long serialVersionUID = -2961440481108631538L;
+
     private Integer entr;
     private String stxt;
 

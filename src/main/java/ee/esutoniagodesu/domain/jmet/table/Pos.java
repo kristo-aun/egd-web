@@ -6,18 +6,17 @@ import org.hibernate.annotations.Immutable;
 import javax.persistence.*;
 import java.io.Serializable;
 
-
 @Entity
 @Immutable
-@Table(name = "pos", schema = "jmet")
 @IdClass(PosPK.class)
+@Table(name = "Pos", schema = "jmet")
 public final class Pos implements Serializable {
 
-    private static final long serialVersionUID = 1471939619350073826L;
+    private static final long serialVersionUID = -5764676206355611466L;
     private int entr;
-    private short sens;
-    private short ord;
-    private short kw;
+    private int sens;
+    private int ord;
+    private int kw;
     private Kwpos kwposByKw;
     private Sens sens_0;
 
@@ -33,11 +32,11 @@ public final class Pos implements Serializable {
 
     @Id
     @Column(name = "kw", nullable = false, insertable = true, updatable = true)
-    public short getKw() {
+    public int getKw() {
         return kw;
     }
 
-    public void setKw(short kw) {
+    public void setKw(int kw) {
         this.kw = kw;
     }
 
@@ -53,21 +52,21 @@ public final class Pos implements Serializable {
 
     @Basic
     @Column(name = "ord", nullable = false, insertable = true, updatable = true)
-    public short getOrd() {
+    public int getOrd() {
         return ord;
     }
 
-    public void setOrd(short ord) {
+    public void setOrd(int ord) {
         this.ord = ord;
     }
 
     @Id
     @Column(name = "sens", nullable = false, insertable = true, updatable = true)
-    public short getSens() {
+    public int getSens() {
         return sens;
     }
 
-    public void setSens(short sens) {
+    public void setSens(int sens) {
         this.sens = sens;
     }
 
@@ -97,13 +96,13 @@ public final class Pos implements Serializable {
 
     public int hashCode() {
         int result = entr;
-        result = 31 * result + (int) sens;
-        result = 31 * result + (int) ord;
-        result = 31 * result + (int) kw;
+        result = 31 * result + sens;
+        result = 31 * result + ord;
+        result = 31 * result + kw;
         return result;
     }
 
     public String toString() {
-        return kwposByKw.getKw();
+        return kwposByKw != null ? kwposByKw.getKw() : null;
     }
 }

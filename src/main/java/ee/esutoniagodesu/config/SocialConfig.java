@@ -34,31 +34,6 @@ public class SocialConfig implements SocialConfigurer {
     @Override
     public void addConnectionFactories(ConnectionFactoryConfigurer connectionFactoryConfigurer, Environment environment) {
 
-        // google configuration
-        String googleClientId = environment.getProperty("spring.social.google.app-id");
-        String googleClientSecret = environment.getProperty("spring.social.google.app-secret");
-        if (googleClientId != null && googleClientSecret != null) {
-            log.info("Configuring GoogleConnectionFactory {}", googleClientId);
-            connectionFactoryConfigurer.addConnectionFactory(
-                new GoogleConnectionFactory(
-                    googleClientId,
-                    googleClientSecret
-                )
-            );
-        }
-
-        // facebook configuration
-        String facebookClientId = environment.getProperty("spring.social.facebook.app-id");
-        String facebookClientSecret = environment.getProperty("spring.social.facebook.app-secret");
-        if (facebookClientId != null && facebookClientSecret != null) {
-            log.info("Configuring FacebookConnectionFactory {}", facebookClientId);
-            connectionFactoryConfigurer.addConnectionFactory(
-                new FacebookConnectionFactory(
-                    facebookClientId,
-                    facebookClientSecret
-                )
-            );
-        }
     }
 
     @Override

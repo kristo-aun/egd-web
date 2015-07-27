@@ -6,7 +6,7 @@ spring:
         active: prod
 
     mail:
-        baseUrl: https://localhost:8443
+        baseUrl: https://momo.koodur.com
 
     thymeleaf:
         mode: XHTML

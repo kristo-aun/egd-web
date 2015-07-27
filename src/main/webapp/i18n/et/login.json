@@ -2,7 +2,6 @@
     "login": {
         "title": "Logi sisse",
         "form": {
-            "rememberme": "Automaatne sisselogimine",
             "button": "Logi sisse"
         },
         "messages": {

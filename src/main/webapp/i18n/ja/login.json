@@ -2,8 +2,6 @@
     "login": {
         "title": "ログイン",
         "form": {
-            "password": "パスワード",
-            "rememberme": "Automatic Login",
             "button": "ログイン"
         },
         "messages": {
@@ -12,7 +10,7 @@
             }
         },
         "password": {
-            "forgot": "Did you forget your password?"
+            "forgot": "パスワードを忘れた場合はこちら"
         },
         "social": {
             "google": "Googleでログイン",

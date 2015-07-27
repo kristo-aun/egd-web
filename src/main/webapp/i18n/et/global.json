@@ -45,10 +45,6 @@
                 "confirm": "Olete kindel?",
                 "upload": "Lae üles"
             },
-            "detail": {
-                "field": "Väli",
-                "value": "Väärtus"
-            },
             "error": {
                 "fail": "Toiming ebaõnnestus!",
                 "saveError": "<strong>Viga!</strong> Ei saanud salvestada.",

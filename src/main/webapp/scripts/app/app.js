@@ -126,7 +126,6 @@ egdApp
                       httpRequestInterceptorCacheBusterProvider, ENV) {
 
         $logProvider.debugEnabled(ENV != 'prod');
-        $httpProvider.interceptors.push('HttpErrorInterceptor');
 
         //enable CSRF
         $httpProvider.defaults.xsrfCookieName = 'CSRF-TOKEN';
@@ -189,17 +188,6 @@ egdApp
         tmhDynamicLocaleProvider.useCookieStorage();
         tmhDynamicLocaleProvider.storageKey('NG_TRANSLATE_LANG_KEY');
     })
-    .factory('HttpErrorInterceptor', function ($q, $window) {
-        return {
-            'responseError': function (rejection) {
-                if (rejection.status === 403 || rejection.status === 405) {
-                    $window.location.href = "/#/error/" + rejection.status;
-                    return $q.reject(rejection);
-                }
-                return $q.reject(rejection);
-            }
-        }
-    })
     .config(function ($httpProvider) {
         // Intercept POST requests, convert to standard form encoding
         $httpProvider.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
@@ -216,4 +204,3 @@ egdApp
             return result.join("&");
         });
     });
-

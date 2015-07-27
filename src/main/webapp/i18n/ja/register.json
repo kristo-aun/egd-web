@@ -1,8 +1,10 @@
 {
     "register": {
-        "title": "Registration",
+        "title": "アカウント登録",
+        "_title": "akaunto tooroku",
         "form": {
-            "button": "Register"
+            "button": "アカウント登録",
+            "_button": "akaunto tooroku"
         },
         "messages": {
             "validate": {

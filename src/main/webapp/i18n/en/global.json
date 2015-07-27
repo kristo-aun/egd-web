@@ -45,10 +45,6 @@
                 "confirm": "Are you sure?",
                 "upload": "Upload"
             },
-            "detail": {
-                "field": "Field",
-                "value": "Value"
-            },
             "error": {
                 "fail": "Failed to perform this action!",
                 "saveError": "<strong>Error!</strong> Failed to save.",

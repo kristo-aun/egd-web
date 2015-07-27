@@ -13,18 +13,20 @@
             "index": "Index",
             "username": "ログイン",
             "password": "パスワード",
-            "newpassword": "New password",
+            "newpassword": "パスワード",
             "confirmpassword": "New password confirmation",
             "email": "メアド",
             "even": "Even",
             "odd": "Odd",
             "fname": "First name",
             "sname": "Last name",
-            "name": "Name",
-            "tos": "Terms of Service"
+            "name": "名前",
+            "tos": "利用規約",
+            "_tos": "ryoukyaku"
         },
         "audio": {
-            "playbackRate": "Playback rate"
+            "playbackRate": "再生速度",
+            "_playbackRate": "saisei sokudo"
         },
         "messages": {
             "action": {
@@ -33,7 +35,7 @@
                 "search": "探します",
                 "forward": "進みます",
                 "back": "帰ります",
-                "next": "Next",
+                "next": "次",
                 "skip": "Skip",
                 "previous": "Previous",
                 "cancel": "キャンセル",
@@ -46,10 +48,6 @@
                 "create": "新しい",
                 "confirm": "Are you sure?",
                 "upload": "Upload"
-            },
-            "detail": {
-                "field": "Field",
-                "value": "Value"
             },
             "error": {
                 "fail": "Failed to perform this action!",

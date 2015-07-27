@@ -13,6 +13,8 @@ import org.springframework.social.connect.ConnectionFactoryLocator;
 import org.springframework.social.connect.ConnectionSignUp;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.connect.mem.InMemoryUsersConnectionRepository;
+import org.springframework.social.facebook.connect.FacebookConnectionFactory;
+import org.springframework.social.google.connect.GoogleConnectionFactory;
 
 import javax.inject.Inject;
 
@@ -31,7 +33,32 @@ public class SocialConfig implements SocialConfigurer {
 
     @Override
     public void addConnectionFactories(ConnectionFactoryConfigurer connectionFactoryConfigurer, Environment environment) {
-        //spring boot has taken care of that already
+
+        // google configuration
+        String googleClientId = environment.getProperty("spring.social.google.app-id");
+        String googleClientSecret = environment.getProperty("spring.social.google.app-secret");
+        if (googleClientId != null && googleClientSecret != null) {
+            log.info("Configuring GoogleConnectionFactory {}", googleClientId);
+            connectionFactoryConfigurer.addConnectionFactory(
+                new GoogleConnectionFactory(
+                    googleClientId,
+                    googleClientSecret
+                )
+            );
+        }
+
+        // facebook configuration
+        String facebookClientId = environment.getProperty("spring.social.facebook.app-id");
+        String facebookClientSecret = environment.getProperty("spring.social.facebook.app-secret");
+        if (facebookClientId != null && facebookClientSecret != null) {
+            log.info("Configuring FacebookConnectionFactory {}", facebookClientId);
+            connectionFactoryConfigurer.addConnectionFactory(
+                new FacebookConnectionFactory(
+                    facebookClientId,
+                    facebookClientSecret
+                )
+            );
+        }
     }
 
     @Override

@@ -19,6 +19,7 @@ public class ApplicationWebXml extends SpringBootServletInitializer {
         try {
             String profile = defaultProfile();
             Properties secretProperties = ArgumentResolver.secretProperties(profile);
+            log.info("Configure secret: ", secretProperties);
             app.application().setDefaultProperties(secretProperties);
 
             return app.profiles(profile)

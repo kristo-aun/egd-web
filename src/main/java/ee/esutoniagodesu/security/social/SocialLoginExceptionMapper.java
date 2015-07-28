@@ -1,5 +1,7 @@
 package ee.esutoniagodesu.security.social;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.social.security.SocialAuthenticationFailureHandler;
@@ -16,32 +18,37 @@ import java.util.Map;
  */
 public class SocialLoginExceptionMapper extends SimpleUrlAuthenticationFailureHandler {
 
+    private static final Logger log = LoggerFactory.getLogger(SocialLoginExceptionMapper.class);
+
     private final static String DELEGATED = "SocialLoginRejectedFailureHandler.delegated";
 
     protected Map<Class<? extends AuthenticationException>, String> map = new HashMap<>();
     protected SocialAuthenticationFailureHandler delegate = new SocialAuthenticationFailureHandler(this);
 
     public SocialLoginExceptionMapper(String defaultFailureUrl) {
+        log.debug("New SocialLoginExceptionMapper {}", defaultFailureUrl);
         super.setDefaultFailureUrl(defaultFailureUrl);
     }
 
     @Override
-    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+    public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
+        log.debug("onAuthenticationFailure: " + e.getMessage(), e);
         if (request.getAttribute(DELEGATED) == null) {
             request.setAttribute(DELEGATED, Boolean.TRUE);
-            delegate.onAuthenticationFailure(request, response, exception);
+            delegate.onAuthenticationFailure(request, response, e);
         }
-        else if (map.containsKey(exception.getClass())) {
-            String url = map.get(exception.getClass());
+        else if (map.containsKey(e.getClass())) {
+            String url = map.get(e.getClass());
             super.getRedirectStrategy().sendRedirect(request, response, url);
         }
         else {
-            super.onAuthenticationFailure(request, response, exception);
+            super.onAuthenticationFailure(request, response, e);
         }
 
     }
 
     public SocialLoginExceptionMapper add(Class<? extends AuthenticationException> clazz, String url) {
+        log.debug("add: {}, {}" , clazz, url);
         map.put(clazz, url);
         return this;
     }

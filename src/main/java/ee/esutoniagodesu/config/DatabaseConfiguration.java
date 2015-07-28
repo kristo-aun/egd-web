@@ -49,7 +49,6 @@ public class DatabaseConfiguration implements EnvironmentAware {
     }
 
     @Bean(destroyMethod = "")
-    @Profile(Constants.SPRING_PROFILE_DEVELOPMENT)
     public DataSource dataSource() {
         log.info("Configuring Datasource");
 

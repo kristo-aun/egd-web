@@ -10,6 +10,13 @@ egdApp
                         return response;
                     }
                 }
+            },
+            'save': {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                transformRequest: function (data) {
+                    return angular.toJson(data);
+                }
             }
         });
     });

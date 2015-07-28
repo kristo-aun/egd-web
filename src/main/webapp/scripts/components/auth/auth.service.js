@@ -104,7 +104,7 @@ egdApp
             changePassword: function (newPassword, callback) {
                 var cb = callback || angular.noop;
 
-                return Password.save(newPassword, function () {
+                return Password.save({password:newPassword}, function () {
                     return cb();
                 }, function (err) {
                     return cb(err);
@@ -114,7 +114,7 @@ egdApp
             resetPasswordInit: function (mail, callback) {
                 var cb = callback || angular.noop;
 
-                return PasswordResetInit.save(mail, function() {
+                return PasswordResetInit.save({mail:mail}, function() {
                     return cb();
                 }, function (err) {
                     return cb(err);

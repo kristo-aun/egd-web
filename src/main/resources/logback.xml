@@ -18,10 +18,12 @@
             <Pattern>%d{dd.MM'@'HH:mm:ss.SSS} %5p [%thread] %c{2}:%L - %m%n</Pattern>
         </encoder>
     </appender>
+    <!--
     <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
         <queueSize>512</queueSize>
         <appender-ref ref="FILE"/>
     </appender>
+    -->
 
     <logger name="ee.esutoniagodesu" level="${logback.loglevel}"/>
 

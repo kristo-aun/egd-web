@@ -51,7 +51,7 @@ public class MailService {
     @PostConstruct
     public void init() {
         from = env.getProperty("mail.from");
-        baseUrl = env.getProperty("mail.baseUrl");
+        baseUrl = env.getProperty("spring.mail.baseUrl");
     }
 
     @Async

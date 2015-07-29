@@ -39,7 +39,7 @@ public class AccountResource {
 
     @RequestMapping(value = "/register",
         method = RequestMethod.POST,
-        produces = MediaType.TEXT_PLAIN_VALUE)
+        produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> register(@Valid @RequestBody User newUser, HttpServletRequest request) {
         log.debug("REST request to register {}", newUser);
 
@@ -116,7 +116,7 @@ public class AccountResource {
     @RequestMapping(value = "/account/change_password",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> changePassword(@RequestBody String password) {
+    public ResponseEntity<?> changePassword(@RequestParam String password) {
         if (!checkPasswordLength(password)) {
             return new ResponseEntity<>("Incorrect password", HttpStatus.BAD_REQUEST);
         }
@@ -126,8 +126,8 @@ public class AccountResource {
 
     @RequestMapping(value = "/account/reset_password/init",
         method = RequestMethod.POST,
-        produces = MediaType.TEXT_PLAIN_VALUE)
-    public ResponseEntity<?> requestPasswordReset(@RequestBody String mail, HttpServletRequest request) {
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> requestPasswordReset(@RequestParam String mail, HttpServletRequest request) {
         return userService.requestPasswordReset(mail)
             .map(user -> {
                 mailService.sendPasswordResetMail(user);

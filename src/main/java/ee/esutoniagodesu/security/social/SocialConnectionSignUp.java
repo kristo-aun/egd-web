@@ -15,28 +15,27 @@ import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionKey;
 import org.springframework.social.connect.ConnectionSignUp;
 import org.springframework.social.connect.UserProfile;
-import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.inject.Inject;
 
 /**
  * An implementation of ConnectionSignUp that resolves the User login for a social
  * Connection by searching for an UserAccountExternal that matches the Connection.
  */
-@Component("socialConnectionSignUp")
 public class SocialConnectionSignUp implements ConnectionSignUp {
 
     private static final Logger log = LoggerFactory.getLogger(SocialConnectionSignUp.class);
 
-    @Inject
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Inject
-    private UserService userService;
+    private final UserService userService;
 
-    @Inject
-    private MailService mailService;
+    private final MailService mailService;
+
+    public SocialConnectionSignUp(UserRepository userRepository, UserService userService, MailService mailService) {
+        this.userRepository = userRepository;
+        this.userService = userService;
+        this.mailService = mailService;
+    }
 
     private User retreiveSocialAsUser(Connection<?> con) {
         if (con == null) throw new IllegalStateException("No connection to social api");

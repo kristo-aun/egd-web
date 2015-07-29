@@ -46,10 +46,12 @@ public class MailService {
      * System default email address that sends the e-mails.
      */
     private String from;
+    private String baseUrl;
 
     @PostConstruct
     public void init() {
-        this.from = env.getProperty("mail.from");
+        from = env.getProperty("mail.from");
+        baseUrl = env.getProperty("mail.baseUrl");
     }
 
     @Async
@@ -73,7 +75,7 @@ public class MailService {
     }
 
     @Async
-    public void sendActivationEmail(User user, String baseUrl) {
+    public void sendActivationEmail(User user) {
         log.debug("Sending activation e-mail to '{}'", user.getEmail());
         Locale locale = Locale.forLanguageTag(user.getLangKey().name());
         Context context = new Context(locale);
@@ -108,7 +110,7 @@ public class MailService {
     }
 
     @Async
-    public void sendPasswordResetMail(User user, String baseUrl) {
+    public void sendPasswordResetMail(User user) {
         log.debug("Sending password reset e-mail to '{}'", user.getEmail());
         Locale locale = Locale.forLanguageTag(user.getLangKey().name());
         Context context = new Context(locale);

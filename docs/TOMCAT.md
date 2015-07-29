@@ -111,3 +111,14 @@ Verify the list of certs in trust store using
 keytool -list -keystore egd.truststore
 ```
 <br/>Truststore should only contain root CAs. Default EGD truststore contains www.sk.ee certificates for Mobile-ID authentication purposes.
+
+## Email
+
+Using Java email service requires you to to trust external service providers. Here is how to trust Gmail by adding their base64 certificate to truststore.
+By default Gmail's certificate is already in egd.truststore.
+
+    openssl s_client -connect smtp.gmail.com:465 > gmail.crt
+
+Now remove everything except the certificate and then add the certificate to truststore
+
+    keytool -import -alias smtp.gmail.com -keystore egd.truststore -file gmail.crt

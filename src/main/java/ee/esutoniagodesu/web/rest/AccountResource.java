@@ -49,7 +49,7 @@ public class AccountResource {
                     .map(user -> new ResponseEntity<>("e-mail address already in use", HttpStatus.BAD_REQUEST))
                     .orElseGet(() -> {
                         User user = userService.createUserWithAccountForm(newUser);
-                        mailService.sendActivationEmail(user, getBaseUrl(request));
+                        mailService.sendActivationEmail(user);
                         return new ResponseEntity<>(HttpStatus.CREATED);
                     })
             );
@@ -130,7 +130,7 @@ public class AccountResource {
     public ResponseEntity<?> requestPasswordReset(@RequestBody String mail, HttpServletRequest request) {
         return userService.requestPasswordReset(mail)
             .map(user -> {
-                mailService.sendPasswordResetMail(user, getBaseUrl(request));
+                mailService.sendPasswordResetMail(user);
                 return new ResponseEntity<>("e-mail was sent", HttpStatus.OK);
             }).orElse(new ResponseEntity<>("e-mail address not registered", HttpStatus.BAD_REQUEST));
     }
@@ -152,14 +152,6 @@ public class AccountResource {
         return (!StringUtils.isEmpty(password) &&
             password.length() >= UserAccountForm.PASSWORD_MIN_LENGTH &&
             password.length() <= UserAccountForm.PASSWORD_MAX_LENGTH);
-    }
-
-    private String getBaseUrl(HttpServletRequest request) {
-        return request.getScheme() + // "https"
-            "://" +                                // "://"
-            request.getServerName() +              // "myhost"
-            ":" +                                  // ":"
-            request.getServerPort();
     }
 
     @RequestMapping(value = "/account",

@@ -45,12 +45,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Inject
     private SocialUserDetailsService socialUserDetailsService;
 
-    @Bean(name = "socialAuthenticationManager")
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
-
     @Bean
     public SocialAuthenticationProvider socialAuthenticationProvider() {
         return new SocialAuthenticationProvider(usersConnectionRepository, socialUserDetailsService);

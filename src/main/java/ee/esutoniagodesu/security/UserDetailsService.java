@@ -22,7 +22,8 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component("userDetailsService")
-public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
+public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService,
+    org.springframework.social.security.SocialUserDetailsService  {
 
     private static final Logger log = LoggerFactory.getLogger(UserDetailsService.class);
 
@@ -49,6 +50,27 @@ public class UserDetailsService implements org.springframework.security.core.use
                 user.getAccountForm().getPassword(),
                 grantedAuthorities);
         }).orElseThrow(() -> new UsernameNotFoundException("User " + lowercaseLogin + " was not found in the database"));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public SocialUserDetails loadUserByUserId(final String uuid) throws UsernameNotFoundException, DataAccessException {
+        log.debug("Authenticating {} from social login", uuid);
+
+        Optional<User> userFromDatabase = userRepository.findOneByUuid(uuid);
+
+        return userFromDatabase.map(user -> {
+            if (!user.isActivated()) {
+                throw new UserNotActivatedException("User " + uuid + " was not activated");
+            }
+            List<GrantedAuthority> grantedAuthorities = user.getRoles().stream()
+                .map(authority -> new SimpleGrantedAuthority(authority.name()))
+                .collect(Collectors.toList());
+            log.debug("Login successful");
+            return new SocialUser(uuid,
+                UUID.randomUUID().toString(),
+                grantedAuthorities);
+        }).orElseThrow(() -> new UsernameNotFoundException("User " + uuid + " was not found in the database"));
     }
 }
 

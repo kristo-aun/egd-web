@@ -28,7 +28,7 @@
             "info": {
                 "delete": {
                     "confirm": {
-                        "label": "Kustutatakse kogu info"
+                        "label": "Kas olete kindel?"
                     }
                 }
             },

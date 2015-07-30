@@ -44,7 +44,6 @@ public class SocialLoginExceptionMapper extends SimpleUrlAuthenticationFailureHa
         else {
             super.onAuthenticationFailure(request, response, e);
         }
-
     }
 
     public SocialLoginExceptionMapper add(Class<? extends AuthenticationException> clazz, String url) {

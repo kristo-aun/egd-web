@@ -1,7 +1,7 @@
 'use strict';
 
 egdApp
-    .factory('Principal', function Principal($q, Account) {
+    .factory('Principal', function Principal($q, AccountResource) {
         var _identity,
             _authenticated = false;
 
@@ -58,9 +58,9 @@ egdApp
                 }
 
                 // retrieve the identity data from the server, update the identity object, and then resolve.
-                Account.get().$promise
+                AccountResource.get().$promise
                     .then(function (account) {
-                        _identity = account.data;
+                        _identity = account;
                         _authenticated = true;
                         deferred.resolve(_identity);
                     })

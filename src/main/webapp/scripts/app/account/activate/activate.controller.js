@@ -1,11 +1,11 @@
 'use strict';
 
 egdApp
-    .controller('ActivationController', function ($scope, $stateParams, Auth) {
-        Auth.activateAccount({key: $stateParams.key}).then(function () {
+    .controller('ActivationController', function ($scope, $stateParams, AccountResource) {
+        AccountResource.activate($stateParams.key).then(function () {
             $scope.error = null;
             $scope.success = 'OK';
-        }).catch(function () {
+        }, function () {
             $scope.success = null;
             $scope.error = 'ERROR';
         });

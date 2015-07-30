@@ -59,7 +59,7 @@ public class User implements Serializable {
         schema = "ac",
         name = "user_authority",
         joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")})
-    @ElementCollection(targetClass = EAuthority.class)
+    @ElementCollection(targetClass = EAuthority.class, fetch = FetchType.EAGER)
     @Column(name = "name", nullable = false)
     @Enumerated(EnumType.STRING)
     private Set<EAuthority> roles = new HashSet<>();
@@ -68,7 +68,7 @@ public class User implements Serializable {
     @PrimaryKeyJoinColumn
     private UserAccountForm accountForm;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user", fetch = FetchType.EAGER)
     private Set<UserAccountExternal> accountExternals = new HashSet<>();
 
     @NotNull

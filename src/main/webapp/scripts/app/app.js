@@ -187,20 +187,4 @@ egdApp
         tmhDynamicLocaleProvider.localeLocationPattern('i18n/angular-locale/angular-locale_{{locale}}.js');
         tmhDynamicLocaleProvider.useCookieStorage();
         tmhDynamicLocaleProvider.storageKey('NG_TRANSLATE_LANG_KEY');
-    })
-    .config(function ($httpProvider) {
-        // Intercept POST requests, convert to standard form encoding
-        $httpProvider.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
-        $httpProvider.defaults.transformRequest.unshift(function (data) {
-            var key, result = [];
-
-            if (typeof data === "string")
-                return data;
-
-            for (key in data) {
-                if (data.hasOwnProperty(key) && data[key])
-                    result.push(encodeURIComponent(key) + "=" + encodeURIComponent(data[key]));
-            }
-            return result.join("&");
-        });
     });

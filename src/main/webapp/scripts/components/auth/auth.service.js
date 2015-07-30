@@ -1,12 +1,12 @@
 'use strict';
 
 egdApp
-    .factory('Auth', function Auth($rootScope, $state, $q, $translate, Principal, AuthServerProvider, Account, Register, Activate, Password, PasswordResetInit, PasswordResetFinish) {
+    .factory('Auth', function Auth($log, $rootScope, $state, $q, $translate, Principal, AuthServerProvider, AccountResource) {
         return {
             deleteAccount: function () {
                 var deferred = $q.defer();
                 var that = this;
-                Account.delete({},
+                AccountResource.delete({},
                     function () {
                         that.logout();
                         deferred.resolve();
@@ -19,7 +19,7 @@ egdApp
 
                 AuthServerProvider.login(credentials).then(function (data) {
                     // retrieve the logged account information
-                    Principal.identity(true).then(function(account) {
+                    Principal.identity(true).then(function (account) {
 
                         // After the login the language will be changed to
                         // the language selected by the user during his registration
@@ -42,12 +42,13 @@ egdApp
                 Principal.authenticate(null);
             },
 
-            authorize: function(force) {
+            authorize: function (force) {
                 return Principal.identity(force)
-                    .then(function() {
+                    .then(function () {
                         var isAuthenticated = Principal.isAuthenticated();
 
-                        if ($rootScope.toState.data.roles && $rootScope.toState.data.roles.length > 0 && !Principal.isInAnyRole($rootScope.toState.data.roles)) {
+                        if ($rootScope.toState.data.roles && $rootScope.toState.data.roles.length > 0 &&
+                            !Principal.isInAnyRole($rootScope.toState.data.roles)) {
                             if (isAuthenticated) {
                                 // user is signed in but not authorized for desired state
                                 $state.go('accessdenied');
@@ -63,72 +64,6 @@ egdApp
                             }
                         }
                     });
-            },
-            createAccount: function (account, callback) {
-                var cb = callback || angular.noop;
-
-                return Register.save(account,
-                    function () {
-                        return cb(account);
-                    },
-                    function (err) {
-                        this.logout();
-                        return cb(err);
-                    }.bind(this)).$promise;
-            },
-
-            updateAccount: function (account, callback) {
-                var cb = callback || angular.noop;
-
-                return Account.save(account,
-                    function () {
-                        return cb(account);
-                    },
-                    function (err) {
-                        return cb(err);
-                    }.bind(this)).$promise;
-            },
-
-            activateAccount: function (key, callback) {
-                var cb = callback || angular.noop;
-
-                return Activate.get(key,
-                    function (response) {
-                        return cb(response);
-                    },
-                    function (err) {
-                        return cb(err);
-                    }.bind(this)).$promise;
-            },
-
-            changePassword: function (newPassword, callback) {
-                var cb = callback || angular.noop;
-
-                return Password.save({password:newPassword}, function () {
-                    return cb();
-                }, function (err) {
-                    return cb(err);
-                }).$promise;
-            },
-
-            resetPasswordInit: function (mail, callback) {
-                var cb = callback || angular.noop;
-
-                return PasswordResetInit.save({mail:mail}, function() {
-                    return cb();
-                }, function (err) {
-                    return cb(err);
-                }).$promise;
-            },
-
-            resetPasswordFinish: function(key, newPassword, callback) {
-                var cb = callback || angular.noop;
-
-                return PasswordResetFinish.save(key, newPassword, function () {
-                    return cb();
-                }, function (err) {
-                    return cb(err);
-                }).$promise;
             }
         };
     });

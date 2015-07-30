@@ -144,8 +144,6 @@ public class SocialConfig extends SocialConfigurerAdapter {
      */
     @Bean
     public SpringSocialConfigurer springSocialConfigurer() {
-        //return new SpringSocialConfigurer();
-
 
         // build an AuthenticationFailureHandler that is aware of our own exception types
         final SocialLoginExceptionMapper handler = new SocialLoginExceptionMapper("/#/register/external")
@@ -169,6 +167,5 @@ public class SocialConfig extends SocialConfigurerAdapter {
         );
 
         return configurer;
-        //*/
     }
 }

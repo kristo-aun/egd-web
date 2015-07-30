@@ -1,7 +1,7 @@
 'use strict';
 
 egdApp
-    .controller('RegisterController', function ($state, $rootScope, $scope, $translate, $timeout, Auth) {
+    .controller('RegisterController', function ($state, $rootScope, $scope, $translate, $timeout, AccountResource) {
         $scope.error = null;
         $scope.doNotMatch = null;
         $scope.errorUserExists = null;
@@ -18,9 +18,9 @@ egdApp
                 $scope.errorUserExists = null;
                 $scope.errorEmailExists = null;
 
-                Auth.createAccount($scope.registerAccount).then(function () {
+                AccountResource.register($scope.registerAccount).then(function () {
                     $scope.success = true;
-                }).catch(function (response) {
+                }, function (response) {
                     $scope.success = null;
                     if (response.status === 400 && response.data === 'login already in use') {
                         $scope.errorUserExists = true;

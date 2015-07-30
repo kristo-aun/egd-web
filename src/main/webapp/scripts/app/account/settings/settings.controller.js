@@ -1,7 +1,7 @@
 'use strict';
 
 egdApp
-    .controller('SettingsController', function ($state, $rootScope, $scope, $log, Principal, Auth, Language, $translate, $confirm) {
+    .controller('SettingsController', function ($state, $rootScope, $scope, $log, Principal, Auth, AccountResource, Language, $translate, $confirm) {
 
         $scope.isDeleteAccount = function() {
             return !Principal.isInRole('ROLE_ADMIN');
@@ -14,7 +14,7 @@ egdApp
         });
 
         $scope.save = function () {
-            Auth.updateAccount($scope.settingsAccount).then(function() {
+            AccountResource.save($scope.settingsAccount).then(function() {
                 $scope.error = null;
                 $scope.success = true;
 
@@ -24,8 +24,7 @@ egdApp
                     }
                 });
                 $rootScope.$broadcast('accountChange');
-            }).catch(function(response) {
-                $log.debug("re", response);
+            }, function(response) {
                 $scope.success = null;
                 if (response.status === 400 && response.data === 'e-mail address already in use') {
                     $scope.errorEmailExists = true;

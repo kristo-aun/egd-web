@@ -1,7 +1,7 @@
 'use strict';
 
 egdApp
-    .controller('ResetFinishController', function ($scope, $stateParams, $timeout, Auth) {
+    .controller('ResetFinishController', function ($scope, $stateParams, $timeout, AccountResource) {
 
         $scope.keyMissing = $stateParams.key === undefined;
         $scope.doNotMatch = null;
@@ -13,14 +13,12 @@ egdApp
             if ($scope.resetAccount.password !== $scope.confirmPassword) {
                 $scope.doNotMatch = 'ERROR';
             } else {
-                Auth.resetPasswordFinish({key: $stateParams.key, newPassword: $scope.resetAccount.password}).then(function () {
+                AccountResource.resetPasswordFinish($stateParams.key, $scope.resetAccount.password).then(function () {
                     $scope.success = 'OK';
-                }).catch(function (response) {
+                }, function () {
                     $scope.success = null;
                     $scope.error = 'ERROR';
-
                 });
             }
-
         };
     });

@@ -1,7 +1,7 @@
 'use strict';
 
 egdApp
-    .controller('PasswordController', function ($scope, Auth, Principal) {
+    .controller('PasswordController', function ($scope, AccountResource, Principal) {
         Principal.identity().then(function(account) {
             $scope.account = account;
         });
@@ -14,10 +14,10 @@ egdApp
                 $scope.doNotMatch = 'ERROR';
             } else {
                 $scope.doNotMatch = null;
-                Auth.changePassword($scope.password).then(function () {
+                AccountResource.changePassword($scope.password).then(function () {
                     $scope.error = null;
                     $scope.success = 'OK';
-                }).catch(function () {
+                }, function () {
                     $scope.success = null;
                     $scope.error = 'ERROR';
                 });

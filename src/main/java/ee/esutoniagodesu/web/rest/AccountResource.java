@@ -12,11 +12,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -27,6 +29,12 @@ import java.util.Optional;
 public class AccountResource {
 
     private static final Logger log = LoggerFactory.getLogger(AccountResource.class);
+
+    public static final String LOGIN_IN_USE = "login already in use";
+    public static final String EMAIL_IN_USE = "e-mail address already in use";
+    public static final String INCORRECT_PASSWORD = "Incorrect password";
+    public static final String EMAIL_NOT_REGISTERED = "e-mail address not registered";
+    public static final String EMAIL_WAS_SENT = "e-mail was sent";
 
     @Inject
     private UserRepository userRepository;
@@ -40,13 +48,13 @@ public class AccountResource {
     @RequestMapping(value = "/register",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> register(@Valid @RequestBody User newUser, HttpServletRequest request) {
+    public ResponseEntity<?> register(@Valid @RequestBody User newUser) {
         log.debug("REST request to register {}", newUser);
 
         return userRepository.findOneByLogin(newUser.getAccountForm().getLogin())
-            .map(user -> new ResponseEntity<>("login already in use", HttpStatus.BAD_REQUEST))
+            .map(user -> new ResponseEntity<>(LOGIN_IN_USE, HttpStatus.BAD_REQUEST))
             .orElseGet(() -> userRepository.findOneByEmail(newUser.getEmail())
-                    .map(user -> new ResponseEntity<>("e-mail address already in use", HttpStatus.BAD_REQUEST))
+                    .map(user -> new ResponseEntity<>(EMAIL_IN_USE, HttpStatus.BAD_REQUEST))
                     .orElseGet(() -> {
                         User user = userService.createUserWithAccountForm(newUser);
                         mailService.sendActivationEmail(user);
@@ -103,7 +111,7 @@ public class AccountResource {
         log.debug("REST request to saveAccount {}", saveUser);
 
         return userRepository.findOneByEmailNotThisUuid(saveUser.getEmail(), SecurityUtils.getUserUuid())
-            .map(user -> new ResponseEntity<>("e-mail address already in use", HttpStatus.BAD_REQUEST))
+            .map(user -> new ResponseEntity<>(EMAIL_IN_USE, HttpStatus.BAD_REQUEST))
             .orElseGet(() -> {
                 userService.updateUserInformation(saveUser.getFirstName(),
                     saveUser.getLastName(),
@@ -119,39 +127,44 @@ public class AccountResource {
     @RequestMapping(value = "/account/change_password",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> changePassword(@RequestParam String password) {
+    public ResponseEntity<?> changePassword(@RequestBody Map<String, String> body) {
+        String password = body.get("password");
+        System.out.println(password);
         if (!checkPasswordLength(password)) {
-            return new ResponseEntity<>("Incorrect password", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(INCORRECT_PASSWORD, HttpStatus.BAD_REQUEST);
         }
-        userService.changePassword(password);
+        userService.changePassword(body.get("password"));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/account/reset_password/init",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> requestPasswordReset(@RequestParam String mail, HttpServletRequest request) {
+    public ResponseEntity<?> requestPasswordReset(@RequestBody Map<String, String> body) {
+        String mail = body.get("mail");
         return userService.requestPasswordReset(mail)
             .map(user -> {
                 mailService.sendPasswordResetMail(user);
-                return new ResponseEntity<>("e-mail was sent", HttpStatus.OK);
-            }).orElse(new ResponseEntity<>("e-mail address not registered", HttpStatus.BAD_REQUEST));
+                return new ResponseEntity<>(EMAIL_WAS_SENT, HttpStatus.OK);
+            }).orElse(new ResponseEntity<>(EMAIL_NOT_REGISTERED, HttpStatus.BAD_REQUEST));
     }
 
     @RequestMapping(value = "/account/reset_password/finish",
         method = RequestMethod.POST,
         produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> finishPasswordReset(@RequestParam String key,
-                                                      @RequestParam String newPassword) {
-        if (!checkPasswordLength(newPassword)) {
-            return new ResponseEntity<>("Incorrect password", HttpStatus.BAD_REQUEST);
+    public ResponseEntity<String> finishPasswordReset(@RequestBody Map<String, String> body) {
+        String key = body.get("key");
+        String password = body.get("password");
+
+        if (!checkPasswordLength(password)) {
+            return new ResponseEntity<>(INCORRECT_PASSWORD, HttpStatus.BAD_REQUEST);
         }
-        return userService.completePasswordReset(newPassword, key)
+        return userService.completePasswordReset(password, key)
             .map(user -> new ResponseEntity<String>(HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
     }
 
-    private boolean checkPasswordLength(String password) {
+    private static boolean checkPasswordLength(String password) {
         return (!StringUtils.isEmpty(password) &&
             password.length() >= UserAccountForm.PASSWORD_MIN_LENGTH &&
             password.length() <= UserAccountForm.PASSWORD_MAX_LENGTH);
@@ -162,5 +175,6 @@ public class AccountResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     public void delete() {
         userService.deleteAccount();
+        SecurityContextHolder.getContext().setAuthentication(null);
     }
 }

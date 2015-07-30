@@ -20,7 +20,7 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-@Component("socialUserDetailsService")
+@Component("userDetailsService")
 public class SocialUserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService,
     org.springframework.social.security.SocialUserDetailsService {
 

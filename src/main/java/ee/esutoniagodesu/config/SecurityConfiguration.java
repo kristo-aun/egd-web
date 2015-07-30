@@ -1,7 +1,6 @@
 package ee.esutoniagodesu.config;
 
 import ee.esutoniagodesu.security.*;
-import ee.esutoniagodesu.security.SocialUserDetailsService;
 import ee.esutoniagodesu.web.filter.CsrfCookieGeneratorFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
@@ -39,12 +39,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private Http401UnauthorizedEntryPoint authenticationEntryPoint;
 
     @Inject
-    private SocialUserDetailsService socialUserDetailsService;
-
-    @Bean
-    public SocialAuthenticationProvider socialAuthenticationProvider() {
-        return new SocialAuthenticationProvider(usersConnectionRepository, socialUserDetailsService);
-    }
+    private UserDetailsService userDetailsService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -53,7 +48,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Inject
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(socialUserDetailsService)
+        auth.userDetailsService(userDetailsService)
             .passwordEncoder(passwordEncoder());
     }
 

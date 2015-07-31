@@ -28,7 +28,7 @@ public class TranslatorResource {
     public ResponseEntity<String> get(@PathVariable String from, @PathVariable String to,
                                       @PathVariable String string) {
 
-        return Optional.ofNullable(service.translate(from, to, string))
+        return Optional.ofNullable(MicrosoftTranslateService.translate(from, to, string))
             .map(t -> new ResponseEntity<>(
                 t,
                 HttpStatus.OK))

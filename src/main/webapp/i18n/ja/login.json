@@ -6,7 +6,7 @@
         },
         "messages": {
             "error": {
-                "authentication": "<strong>Authentication failed!</strong> Please check your credentials and try again."
+                "authentication": "<strong>お困りの場合!</strong> Please check your credentials and try again."
             }
         },
         "password": {

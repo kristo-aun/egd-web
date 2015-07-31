@@ -63,7 +63,7 @@
                 "deleted": "Deleted!"
             },
             "info": {
-                "register": "You don't have an account yet? <a href=\"#/register\">Register a new account</a>"
+                "register": "アカウントを<a href=\"#/register\">作成</a>"
             },
             "confirm": "Confirm operation?",
             "validate": {

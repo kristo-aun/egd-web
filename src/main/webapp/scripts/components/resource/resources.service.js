@@ -73,8 +73,12 @@ egdApp
         return {
             translate: function (from, to, string) {
                 var context = "api/translator/" + from + "/" + to + "/" + string;
-                return $http.get(context).then(function (response) {
-                    return response.data;
+                return $http({
+                    method: 'GET',
+                    url: context,
+                    transformResponse: function (response) {
+                        return response;
+                    }
                 });
             }
         }

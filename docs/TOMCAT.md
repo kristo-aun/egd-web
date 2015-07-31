@@ -122,3 +122,13 @@ By default Gmail's certificate is already in egd.truststore.
 Now remove everything except the certificate and then add the certificate to truststore
 
     keytool -import -alias smtp.gmail.com -keystore egd.truststore -file gmail.crt
+    
+    
+## Bing translation service
+Same thing with has to be done with Bing translator API.
+
+    openssl s_client -connect datamarket.accesscontrol.windows.net:443 > ms.crt    
+
+Now remove everything except the certificate and then add the certificate to truststore
+    
+    keytool -import -alias datamarket.accesscontrol.windows.net -keystore egd.truststore -file ms.crt

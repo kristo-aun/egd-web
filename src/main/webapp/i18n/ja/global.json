@@ -14,7 +14,7 @@
             "username": "ログイン",
             "password": "パスワード",
             "newpassword": "パスワード",
-            "confirmpassword": "New password confirmation",
+            "confirmpassword": "パスワードを再入力",
             "email": "メアド",
             "even": "Even",
             "odd": "Odd",
@@ -67,7 +67,7 @@
             },
             "confirm": "Confirm operation?",
             "validate": {
-                "required": "This field is required.",
+                "required": "入力必須項目です。",
                 "minlength": "This field is required to be at least {{min}} characters.",
                 "maxlength": "This field cannot be longer than {{max}} characters.",
                 "min": "This field should be more than {{min}}.",
@@ -75,13 +75,13 @@
                 "pattern": "This field should follow pattern {{pattern}}.",
                 "number": "This field should be a number.",
                 "datetimelocal": "This field should be a date and time.",
-                "length": "This field should be {{length}} characters.",
+                "length": "{{length}}文字以上にしてください。",
 
                 "newpassword": {
                     "required": "Your password is required.",
                     "minlength": "Your password is required to be at least 5 characters",
                     "maxlength": "Your password cannot be longer than 50 characters",
-                    "strength": "Password strength:"
+                    "strength": "パスワードの安全度:"
                 },
                 "confirmpassword": {
                     "required": "Your confirmation password is required.",

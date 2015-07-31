@@ -1,18 +1,50 @@
 {
     "reading": {
-        "title": "Reading exercises",
         "home": {
+            "title": "Reading exercises",
             "createLabel": "Add new reading"
         },
+
+        "view": {
+
+        },
+        "edit": {
+            "title": "Edit reading"
+        },
+        "new": {
+            "title": "New Reading"
+        },
+
+        "confirm": {
+            "delete": {
+                "label": "Are you sure?"
+            }
+        },
+
         "grid": {
             "author": "Author",
             "copyright": "Copyright",
+            "copyright.tip": "Up to 160 characters.",
             "title": "Title",
             "transcriptLang": "Transcript language",
             "created": "Created",
             "lastModified": "Last modified",
             "bodyLang": "Language",
-            "tags": "Tags"
+            "audio": "Audio",
+            "audio.tip": "Most browsers can handle 192Kbps/44kHz, 128/44 and 48/22 OGG subformats. You can upload mp3-s.",
+            "tags": "Tags",
+            "tags.placeholder": "Add tag",
+            "tags.tip": "Users can filter and sort readings according to selection of tags",
+            "body": "Body",
+            "body.tip": "Jätke tühi rida lõikude vahele. Lugemise vaates programm asetab teksti ja tõlke lõigud kohakuti.",
+            "transcript": "Transcript",
+            "transcript.tip": "Jälgige, et teksti ja tõlke lõike on võrdne arv. Lõigud peavad olema eraldatud tühja reaga.",
+            "shared": "Public",
+            "shared.tip": "Kui linnuke on peal, siis on nähtav kõigile, ka sisse logimata kasutajatele. Ainult teie ja administraator saavad muuta.",
+            "summary": "Summary",
+            "summary.tip": "Up to 160 characters. Soovitavalt tõlkega samas keeles. Näidatakse lugude nimekirjas. Kui kokkuvõte on tühi, siis näidatakse nimekirjas teksti esimesed 160 tähte."
         }
     }
 }
+
+

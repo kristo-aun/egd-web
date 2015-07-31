@@ -135,3 +135,26 @@ tags-input .tags .tag-item {
 .alert {
     margin-bottom:10px;
 }
+
+.position-fixed {
+    position: fixed;
+}
+
+/*keelame dialoogide animatsiooni*/
+.modal.fade {
+    opacity: 1;
+}
+
+.modal.fade .modal-dialog, .modal.in .modal-dialog {
+    -webkit-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    transform: translate(0, 0);
+}
+
+.modal-header {
+    border-bottom: none;
+}
+
+.modal-footer {
+    border-top: none;
+}

@@ -160,3 +160,28 @@ ul#strength {
 }
 /* end Password strength bar style */
 
+.css-col-2 {
+    -webkit-column-count: 2;/* Chrome, Safari, Opera */
+    -moz-column-count: 2;/* Firefox */
+    column-count: 2;
+}
+
+.css-col-3 {
+    -webkit-column-count: 2;/* Chrome, Safari, Opera */
+    -moz-column-count: 2;/* Firefox */
+    column-count: 2;
+}
+
+.css-col-4 {
+    -webkit-column-count: 2;/* Chrome, Safari, Opera */
+    -moz-column-count: 2;/* Firefox */
+    column-count: 2;
+}
+
+.hoverable {
+    *background: #fff;
+}
+.hoverable:hover {
+    background: #e8e8e8;
+}
+

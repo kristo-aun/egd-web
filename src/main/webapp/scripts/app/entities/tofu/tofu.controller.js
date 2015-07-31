@@ -41,7 +41,7 @@ egdApp
             TofuResource.get({id: id}, function(result) {
                 $scope.tofu = result;
                 deferred.resolve();
-                if ($scope.tofu.translation == undefined) {
+                if (!$scope.tofu.translation) {
                     TranslatorResource.translate("ja", "en", $scope.tofu.sentence).then(function(response) {
                         $scope.tofu.sentenceHint = response.data;
                     });

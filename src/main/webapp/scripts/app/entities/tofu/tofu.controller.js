@@ -42,8 +42,8 @@ egdApp
                 $scope.tofu = result;
                 deferred.resolve();
                 if ($scope.tofu.translation == undefined) {
-                    TranslatorResource.translate("ja", "en", $scope.tofu.sentence).then(function(result) {
-                        $scope.tofu.sentenceHint = result;
+                    TranslatorResource.translate("ja", "en", $scope.tofu.sentence).then(function(response) {
+                        $scope.tofu.sentenceHint = response.data;
                     });
                 }
             });

@@ -69,9 +69,14 @@
                 <div class="modal-body">
                     <div class="form-group" style="min-height: 170px;">
                         <div class="japanese" style="font-size: 4em">{{tofu.sentence}}</div>
-                            <span ng-show="tofu.sentenceHint">
-                                <i>{{tofu.sentenceHint}}</i>
+                        <span ng-show="tofu.sentenceHint">
+                            <button type="button" class="btn btn-default btn-xs" ng-click="tofu.sentenceHintVisible=true">
+                                <i class="fa fa-cloud"></i>
+                            </button>
+                            <span ng-show="tofu.sentenceHintVisible">
+                                {{tofu.sentenceHint}}
                             </span>
+                        </span>
                     </div>
 
                     <div class="form-group">

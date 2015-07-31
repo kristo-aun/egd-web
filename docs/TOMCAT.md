@@ -112,23 +112,30 @@ keytool -list -keystore egd.truststore
 ```
 <br/>Truststore should only contain root CAs. Default EGD truststore contains www.sk.ee certificates for Mobile-ID authentication purposes.
 
-## Email
+## Truststore
+In order to consume https web service or download something over SSL Java has to trust external service providers. 
+Here is how to trust these services by adding their base64 certificate to truststore.
+By default all required certificates are already in egd.truststore.
+You should configure Tomcat's setenv.sh to include custom truststore.
 
-Using Java email service requires you to to trust external service providers. Here is how to trust Gmail by adding their base64 certificate to truststore.
-By default Gmail's certificate is already in egd.truststore.
+Gmail
 
-    openssl s_client -connect smtp.gmail.com:465 > gmail.crt
-
-Now remove everything except the certificate and then add the certificate to truststore
-
-    keytool -import -alias smtp.gmail.com -keystore egd.truststore -file gmail.crt
+    openssl s_client -connect smtp.gmail.com:465 2>&1 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > gmail.txt
+    keytool -import -alias smtp.gmail.com -keystore egd.truststore -file gmail.txt
+ 
     
+Bing Translator
     
-## Bing translation service
-Same thing with has to be done with Bing translator API.
-
-    openssl s_client -connect datamarket.accesscontrol.windows.net:443 > ms.crt    
-
-Now remove everything except the certificate and then add the certificate to truststore
+    openssl s_client -connect datamarket.accesscontrol.windows.net:443 2>&1 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > ms.txt
+    keytool -import -alias smtp.gmail.com -keystore egd.truststore -file ms.txt
     
-    keytool -import -alias datamarket.accesscontrol.windows.net -keystore egd.truststore -file ms.crt
+Facebook
+    
+    openssl s_client -connect www.facebook.com:443 2>&1 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > facebook.txt
+    keytool -import -alias www.facebook.com -keystore egd.truststore -file facebook.txt
+        
+Google 
+       
+    openssl s_client -connect accounts.google.com:443 2>&1 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > google.txt
+    keytool -import -alias accounts.google.com -keystore egd.truststore -file google.txt
+    

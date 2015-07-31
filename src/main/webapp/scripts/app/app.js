@@ -131,6 +131,8 @@ egdApp
         $httpProvider.defaults.xsrfCookieName = 'CSRF-TOKEN';
         $httpProvider.defaults.xsrfHeaderName = 'X-CSRF-TOKEN';
 
+        $httpProvider.interceptors.push('HttpErrorInterceptor');
+
         //Cache everything except rest api requests
         httpRequestInterceptorCacheBusterProvider.setMatchlist([/.*api.*/, /.*protected.*/], true);
 
@@ -187,4 +189,14 @@ egdApp
         tmhDynamicLocaleProvider.localeLocationPattern('i18n/angular-locale/angular-locale_{{locale}}.js');
         tmhDynamicLocaleProvider.useCookieStorage();
         tmhDynamicLocaleProvider.storageKey('NG_TRANSLATE_LANG_KEY');
+    })
+    .factory('HttpErrorInterceptor', function ($q) {
+        return {
+            'responseError': function (rejection) {
+                if (rejection.status < 1) {
+                    alert("Server ei ole kättesaadav! Proovige uuesti sisse logida.");
+                }
+                return $q.reject(rejection);
+            }
+        }
     });

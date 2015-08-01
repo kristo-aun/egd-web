@@ -18,6 +18,7 @@ import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.social.UserIdSource;
 import org.springframework.social.connect.UsersConnectionRepository;
 import org.springframework.social.security.*;
+import org.springframework.social.security.SocialUserDetailsService;
 
 import javax.inject.Inject;
 
@@ -40,6 +41,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Inject
     private UserDetailsService userDetailsService;
+
+    @Inject
+    private SocialUserDetailsService socialUserDetailsService;
 
     @Bean
     public PasswordEncoder passwordEncoder() {

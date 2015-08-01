@@ -21,6 +21,19 @@ public class ApplicationWebXml extends SpringBootServletInitializer {
             Properties secretProperties = ArgumentResolver.secretProperties(profile);
             log.info("Configure secret: ", secretProperties);
 
+            System.setProperty( "http.proxyPort", "8080" );
+            System.setProperty( "https.proxyPort", "8443" );
+            System.setProperty( "http.proxyHost", "momo.koodur.com" );
+            System.setProperty("https.proxyHost", "momo.koodur.com");
+
+            String proxyHost = System.getProperties().getProperty("http.proxyHost");
+            String proxyPort = System.getProperties().getProperty("http.proxyPort");
+            log.info("Proxy http: {} {}", proxyHost, proxyPort);
+
+            String proxysHost = System.getProperties().getProperty("https.proxyHost");
+            String proxysPort = System.getProperties().getProperty("https.proxyPort");
+            log.info("Proxy https: {} {}", proxysHost, proxysPort);
+
             return app.properties(secretProperties).profiles(profile)
                 .showBanner(false)
                 .sources(Application.class);

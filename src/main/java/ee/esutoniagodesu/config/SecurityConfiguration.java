@@ -17,6 +17,7 @@ import org.springframework.security.data.repository.query.SecurityEvaluationCont
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.social.UserIdSource;
 import org.springframework.social.security.AuthenticationNameUserIdSource;
+import org.springframework.social.security.SocialAuthenticationFilter;
 import org.springframework.social.security.SpringSocialConfigurer;
 
 import javax.inject.Inject;
@@ -98,6 +99,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers(permitAdmin).hasAuthority(AuthoritiesConstants.ADMIN)
             .antMatchers("/protected/**").authenticated()
             .and().apply(springSocialConfigurer);
+
+        SocialAuthenticationFilter a;
+
+        //http.requiresChannel().anyRequest().requiresSecure();
     }
 
     @Inject

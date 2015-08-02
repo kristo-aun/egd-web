@@ -10,7 +10,10 @@
     <!-- The FILE and ASYNC appenders are here as examples for a production configuration -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--
             <fileNamePattern>${catalina.base}/logs/apps/egd/egd.log.%d{yyyy-MM-dd}</fileNamePattern>
+            -->
+            <fileNamePattern>/usr/local/tomcat/logs/apps/egd/egd.log.%d{yyyy-MM-dd}</fileNamePattern>
             <maxHistory>90</maxHistory>
         </rollingPolicy>
         <encoder>

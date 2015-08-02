@@ -16,9 +16,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.social.UserIdSource;
-import org.springframework.social.connect.UsersConnectionRepository;
-import org.springframework.social.security.*;
-import org.springframework.social.security.SocialUserDetailsService;
+import org.springframework.social.security.AuthenticationNameUserIdSource;
+import org.springframework.social.security.SpringSocialConfigurer;
 
 import javax.inject.Inject;
 
@@ -42,9 +41,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Inject
     private UserDetailsService userDetailsService;
 
-    @Inject
-    private SocialUserDetailsService socialUserDetailsService;
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -67,28 +63,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/console/**");
     }
 
-    @Inject
-    private SpringSocialConfigurer springSocialConfigurer;
-
-    @Inject
-    private UsersConnectionRepository usersConnectionRepository;
-
-    @Inject
-    private SocialAuthenticationServiceLocator connectionFactoryLocator;
-
-    @Bean
-    public SocialAuthenticationFilter socialAuthenticationFilter()
-        throws Exception {
-        SocialAuthenticationFilter filter = new SocialAuthenticationFilter(
-            authenticationManager(), userIdSource(),
-            usersConnectionRepository, connectionFactoryLocator);
-        filter.setFilterProcessesUrl("/#/login");
-        filter.setSignupUrl("/#/register");
-        filter.setConnectionAddedRedirectUrl("/#/");
-        filter.setPostLoginUrl("/#/");
-        return filter;
-    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -96,7 +70,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .ignoringAntMatchers("/websocket/**")
             .and()
             .addFilterAfter(new CsrfCookieGeneratorFilter(), CsrfFilter.class)
-            //.addFilterBefore(socialAuthenticationFilter(), RequestHeaderAuthenticationFilter.class)
+                //.addFilterBefore(socialAuthenticationFilter(), RequestHeaderAuthenticationFilter.class)
             .exceptionHandling()
             .authenticationEntryPoint(authenticationEntryPoint)
             .and()
@@ -123,9 +97,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/**").authenticated()
             .antMatchers(permitAdmin).hasAuthority(AuthoritiesConstants.ADMIN)
             .antMatchers("/protected/**").authenticated()
-            .and()
-            .apply(springSocialConfigurer);
+            .and().apply(springSocialConfigurer);
     }
+
+    @Inject
+    private SpringSocialConfigurer springSocialConfigurer;
+
 
     public static final String[] permitAll = {
         "/api/readings",
@@ -134,6 +111,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         "/api/git",
         "/api/dict/**",
         "/api/media/*",
+        "/signin/**",
         "/api/rtk/**",
         "/auth/**",
         "/api/auth/**",

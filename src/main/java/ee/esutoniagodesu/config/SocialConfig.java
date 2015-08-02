@@ -3,6 +3,7 @@ package ee.esutoniagodesu.config;
 import ee.esutoniagodesu.repository.domain.ac.UserRepository;
 import ee.esutoniagodesu.security.SecurityUtils;
 import ee.esutoniagodesu.security.UserNotActivatedException;
+import ee.esutoniagodesu.security.social.SimpleSignInAdapter;
 import ee.esutoniagodesu.security.social.SocialConnectionSignUp;
 import ee.esutoniagodesu.security.social.SocialLoginExceptionMapper;
 import ee.esutoniagodesu.service.MailService;
@@ -15,6 +16,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.social.UserIdSource;
 import org.springframework.social.config.annotation.ConnectionFactoryConfigurer;
 import org.springframework.social.config.annotation.EnableSocial;
@@ -23,7 +25,9 @@ import org.springframework.social.connect.*;
 import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
 import org.springframework.social.connect.mem.InMemoryUsersConnectionRepository;
 import org.springframework.social.connect.web.ConnectController;
+import org.springframework.social.connect.web.ProviderSignInController;
 import org.springframework.social.connect.web.ReconnectFilter;
+import org.springframework.social.connect.web.SignInAdapter;
 import org.springframework.social.facebook.api.Facebook;
 import org.springframework.social.facebook.connect.FacebookConnectionFactory;
 import org.springframework.social.facebook.web.DisconnectController;
@@ -167,5 +171,22 @@ public class SocialConfig extends SocialConfigurerAdapter {
         );
 
         return configurer;
+    }
+
+    @Bean
+    public SignInAdapter signInAdapter() {
+        return new SimpleSignInAdapter(new HttpSessionRequestCache());
+    }
+
+    @Bean
+    public ProviderSignInController providerSignInController(ConnectionFactoryLocator connectionFactoryLocator,
+                                                             UsersConnectionRepository usersConnectionRepository,
+                                                             SignInAdapter signInAdapter) {
+
+        ProviderSignInController providerSigninController =
+            new ProviderSignInController(connectionFactoryLocator, usersConnectionRepository, signInAdapter);
+        providerSigninController.setSignUpUrl("/#/register-social");
+        providerSigninController.setSignInUrl("/#/login");
+        return providerSigninController;
     }
 }

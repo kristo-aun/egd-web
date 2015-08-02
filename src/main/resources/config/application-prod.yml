@@ -1,6 +1,9 @@
 app:
     url: https://momo.koodur.com
 
+server:
+    port: 8080
+
 spring:
     jmx:
         enabled: false

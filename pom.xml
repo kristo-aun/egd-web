@@ -55,6 +55,7 @@
         <url>https://github.com/EsutoniaGoDesu/egd-web/issues</url>
     </issueManagement>
 
+
     <properties>
         <tomcat.maven.deploy.url>http://192.168.72.100:8080/manager/text</tomcat.maven.deploy.url>
 
@@ -73,6 +74,9 @@
         <jasperreports>6.1.0</jasperreports>
         <spring-social-google.version>1.0.0.RELEASE</spring-social-google.version>
         <spring-social-facebook.version>2.0.1.RELEASE</spring-social-facebook.version>
+
+        <tomcat.version>8.0.24</tomcat.version>
+        <start-class>ee.esutoniagodesu.Application</start-class>
 
         <java.version>1.8</java.version>
         <javax.inject.version>1</javax.inject.version>
@@ -99,6 +103,10 @@
             <groupId>org.springframework.social</groupId>
             <artifactId>spring-social-facebook-web</artifactId>
             <version>2.0.1.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.tika</groupId>

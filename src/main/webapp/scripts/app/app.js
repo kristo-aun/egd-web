@@ -91,25 +91,6 @@ egdApp
             $rootScope.$emit('egdApp:' + eventname, data);
         };
     })
-    .factory('authExpiredInterceptor', function ($rootScope, $q, $injector) {
-        return {
-            responseError: function (response) {
-                // If we have an unauthorized request we redirect to the login page
-                // Don't do this check on the account API to avoid infinite loop
-                if (response.status == 401 && response.data.path !== undefined && response.data.path.indexOf("/api/account") == -1) {
-                    var Auth = $injector.get('Auth');
-                    var $state = $injector.get('$state');
-                    var to = $rootScope.toState;
-                    var params = $rootScope.toStateParams;
-                    Auth.logout();
-                    $rootScope.returnToState = to;
-                    $rootScope.returnToStateParams = params;
-                    $state.go('login');
-                }
-                return $q.reject(response);
-            }
-        };
-    })
     .config(function (blockUIConfig) {//loading spinner configuration
         blockUIConfig.cssClass = 'block-ui block-ui-custom-spinner';
         // Change the default delay to 100ms before the blocking is visible
@@ -175,7 +156,9 @@ egdApp
             }
         });
 
+        $httpProvider.interceptors.push('errorHandlerInterceptor');
         $httpProvider.interceptors.push('authExpiredInterceptor');
+        $httpProvider.interceptors.push('notificationInterceptor');
 
         // Initialize angular-translate
         $translateProvider.useLoader('$translatePartialLoader', {
@@ -196,7 +179,7 @@ egdApp
         $translateProvider.useSanitizeValueStrategy('escaped');
         $translateProvider.addInterpolation('$translateMessageFormatInterpolation');
 
-            tmhDynamicLocaleProvider.localeLocationPattern('i18n/angular-locale/angular-locale_{{locale}}.js');
+        tmhDynamicLocaleProvider.localeLocationPattern('i18n/angular-locale/angular-locale_{{locale}}.js');
         tmhDynamicLocaleProvider.useCookieStorage();
         tmhDynamicLocaleProvider.storageKey('NG_TRANSLATE_LANG_KEY');
 

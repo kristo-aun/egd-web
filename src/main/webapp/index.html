@@ -71,16 +71,11 @@
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
 <![endif]-->
-<div ng-show="alerts" id="alert-wr" ng-controller="AlertController" ui-scrollfix="+100" ng-cloak>
-    <alert ng-if="alerts" ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
-        <span ng-if="alert.count > 1" style="margin-right:10px"><strong>({{alert.count}})</strong></span>
-        <span ng-bind-html="alert.msg | unsafe"></span>
-    </alert>
-</div>
 
 <div ui-view="navbar" ng-cloak=""></div>
 
 <div class="container">
+    <jh-alert-toast></jh-alert-toast>
     <div id="egd-content" class="well" ui-view="content" style="overflow:visible;padding: 10px 0 10px 10px;"></div>
     <div class="footer" ui-view="footer"></div>
 </div>
@@ -95,7 +90,10 @@
 <script src="bower_components/angular-resource/angular-resource.js"></script>
 <script src="bower_components/angular-cookies/angular-cookies.js"></script>
 <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+
 <script src="bower_components/angular-translate/angular-translate.js"></script>
+<script src="bower_components/messageformat/messageformat.js"></script>
+<script src="bower_components/angular-translate-interpolation-messageformat/angular-translate-interpolation-messageformat.js"></script>
 <script src="bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.js"></script>
 <script src="bower_components/angular-translate-loader-partial/angular-translate-loader-partial.js"></script>
 <script src="bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js"></script>
@@ -130,9 +128,15 @@
 <script src="bower_components/jqplot/plugins/jqplot.barRenderer.js"></script>
 <script src="bower_components/jqplot/plugins/jqplot.categoryAxisRenderer.js"></script>
 <script src="bower_components/ng-file-upload/ng-file-upload-shim.min.js"></script>
+<script src="bower_components/messageformat/locale/en.js"></script>
+<script src="bower_components/messageformat/locale/et.js"></script>
+<script src="bower_components/messageformat/locale/ja.js"></script>
 
 <script src="scripts/app/app.js"></script>
 <script src="scripts/app/app.constants.js"></script>
+<script src="scripts/components/interceptor/auth.interceptor.js"></script>
+<script src="scripts/components/interceptor/errorhandler.interceptor.js"></script>
+<script src="scripts/components/interceptor/notification.interceptor.js"></script>
 <script src="scripts/components/auth/auth.service.js"></script>
 <script src="scripts/components/auth/principal.service.js"></script>
 <script src="scripts/components/auth/authority.directive.js"></script>
@@ -158,7 +162,8 @@
 <script src="scripts/components/util/constant/iso.countries.js"></script>
 <script src="scripts/components/util/constant/iso.languages.js"></script>
 <script src="scripts/components/util/angular.audio-1.7.0.js"></script>
-<script src="scripts/components/alert/alert.controller.js"></script>
+<script src="scripts/components/alert/alert.service.js"></script>
+<script src="scripts/components/alert/alert.directive.js"></script>
 <script src="scripts/components/footer/footer.controller.js"></script>
 <script src="scripts/components/resource/resources.service.js"></script>
 

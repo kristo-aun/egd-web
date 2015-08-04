@@ -1,5 +1,7 @@
 package ee.esutoniagodesu.security.social;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
@@ -14,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 public class SimpleSignInAdapter implements SignInAdapter {
 
+    private static final Logger log = LoggerFactory.getLogger(SimpleSignInAdapter.class);
 	private final RequestCache requestCache;
 
 	@Inject
@@ -28,7 +31,8 @@ public class SimpleSignInAdapter implements SignInAdapter {
 	}
 
 	private String extractOriginalUrl(NativeWebRequest request) {
-		HttpServletRequest nativeReq = request.getNativeRequest(HttpServletRequest.class);
+        log.debug("extractOriginalUrl {}", request.getContextPath());
+        HttpServletRequest nativeReq = request.getNativeRequest(HttpServletRequest.class);
 		HttpServletResponse nativeRes = request.getNativeResponse(HttpServletResponse.class);
 		SavedRequest saved = requestCache.getRequest(nativeReq, nativeRes);
 		if (saved == null) {
@@ -40,7 +44,8 @@ public class SimpleSignInAdapter implements SignInAdapter {
 	}
 
 	private void removeAutheticationAttributes(HttpSession session) {
-		if (session == null) {
+        log.debug("removeAutheticationAttributes {}", session);
+        if (session == null) {
 			return;
 		}
 		session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);

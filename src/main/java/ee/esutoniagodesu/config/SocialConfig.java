@@ -8,6 +8,8 @@ import ee.esutoniagodesu.security.social.SocialConnectionSignUp;
 import ee.esutoniagodesu.security.social.SocialLoginExceptionMapper;
 import ee.esutoniagodesu.service.MailService;
 import ee.esutoniagodesu.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -44,6 +46,8 @@ import javax.sql.DataSource;
 @EnableSocial
 public class SocialConfig extends SocialConfigurerAdapter {
 
+    private static final Logger log = LoggerFactory.getLogger(SocialConfig.class);
+
     @Inject
     private DataSource dataSource;
 
@@ -60,16 +64,19 @@ public class SocialConfig extends SocialConfigurerAdapter {
     private MailService mailService;
 
     private ConnectionSignUp connectionSignUp() {
+        log.debug("New instance of " + ConnectionSignUp.class);
         return new SocialConnectionSignUp(userRepository, userService, mailService);
     }
 
     private FacebookConnectionFactory facebookConnectionFactory() {
+        log.debug("New instance of " + FacebookConnectionFactory.class);
         String key = env.getProperty("spring.social.facebook.clientId");
         String secret = env.getProperty("spring.social.facebook.clientSecret");
         return new FacebookConnectionFactory(key, secret);
     }
 
     private GoogleConnectionFactory googleConnectionFactory() {
+        log.debug("New instance of " + GoogleConnectionFactory.class);
         String key = env.getProperty("spring.social.google.clientId");
         String secret = env.getProperty("spring.social.google.clientSecret");
         return new GoogleConnectionFactory(key, secret);
@@ -77,16 +84,19 @@ public class SocialConfig extends SocialConfigurerAdapter {
 
     @Override
     public void addConnectionFactories(ConnectionFactoryConfigurer cfConfig, Environment env) {
+        log.debug("addConnectionFactories");
         cfConfig.addConnectionFactory(facebookConnectionFactory());
         cfConfig.addConnectionFactory(googleConnectionFactory());
     }
 
     private TextEncryptor textEncryptor() {
+        log.debug("New instance of " + TextEncryptor.class);
         return Encryptors.noOpText();
     }
 
     @Override
     public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
+        log.debug("New instance of " + UsersConnectionRepository.class);
         return memoryCR(connectionFactoryLocator);
     }
 
@@ -107,11 +117,13 @@ public class SocialConfig extends SocialConfigurerAdapter {
 
     @Override
     public UserIdSource getUserIdSource() {
+        log.debug("New instance of " + UserIdSource.class);
         return SecurityUtils::getUserUuid;
     }
 
     @Bean
     public ConnectController connectController(ConnectionFactoryLocator connectionFactoryLocator, ConnectionRepository connectionRepository) {
+        log.debug("New instance of " + ConnectController.class);
         ConnectController controller = new ConnectController(connectionFactoryLocator, connectionRepository);
         controller.setApplicationUrl(env.getProperty("app.url"));
         return controller;
@@ -119,17 +131,20 @@ public class SocialConfig extends SocialConfigurerAdapter {
 
     @Bean
     public DisconnectController disconnectController(UsersConnectionRepository usersConnectionRepository) {
+        log.debug("New instance of " + DisconnectController.class);
         return new DisconnectController(usersConnectionRepository, env.getProperty("spring.social.facebook.clientSecret"));
     }
 
     @Bean
     public ReconnectFilter apiExceptionHandler(UsersConnectionRepository usersConnectionRepository, UserIdSource userIdSource) {
+        log.debug("New instance of " + ReconnectFilter.class);
         return new ReconnectFilter(usersConnectionRepository, userIdSource);
     }
 
     @Bean
     @Scope(value = "request", proxyMode = ScopedProxyMode.INTERFACES)
     public Facebook facebook(ConnectionRepository repository) {
+        log.debug("Connection from " + Facebook.class);
         Connection<Facebook> connection = repository.findPrimaryConnection(Facebook.class);
         return connection != null ? connection.getApi() : null;
     }
@@ -137,6 +152,7 @@ public class SocialConfig extends SocialConfigurerAdapter {
     @Bean
     @Scope(value = "request", proxyMode = ScopedProxyMode.INTERFACES)
     public Google google(ConnectionRepository repository) {
+        log.debug("Connection from " + Google.class);
         Connection<Google> connection = repository.findPrimaryConnection(Google.class);
         return connection != null ? connection.getApi() : null;
     }
@@ -146,8 +162,9 @@ public class SocialConfig extends SocialConfigurerAdapter {
      * Spring Social Security's {@link org.springframework.social.security.SocialAuthenticationFilter}
      * will be added to the HttpSecurity's SecurityFilterChain.
      */
-    @Bean
+    @Bean(name = "springSocialConfigurer")
     public SpringSocialConfigurer springSocialConfigurer() {
+        log.debug("New instance of " + SpringSocialConfigurer.class);
 
         // build an AuthenticationFailureHandler that is aware of our own exception types
         final SocialLoginExceptionMapper handler = new SocialLoginExceptionMapper("/#/register/external")
@@ -175,6 +192,7 @@ public class SocialConfig extends SocialConfigurerAdapter {
 
     @Bean
     public SignInAdapter signInAdapter() {
+        log.debug("New instance of " + ConnectionSignUp.class);
         return new SimpleSignInAdapter(new HttpSessionRequestCache());
     }
 
@@ -182,6 +200,8 @@ public class SocialConfig extends SocialConfigurerAdapter {
     public ProviderSignInController providerSignInController(ConnectionFactoryLocator connectionFactoryLocator,
                                                              UsersConnectionRepository usersConnectionRepository,
                                                              SignInAdapter signInAdapter) {
+
+        log.debug("New instance of " + ProviderSignInController.class);
 
         ProviderSignInController providerSigninController =
             new ProviderSignInController(connectionFactoryLocator, usersConnectionRepository, signInAdapter);

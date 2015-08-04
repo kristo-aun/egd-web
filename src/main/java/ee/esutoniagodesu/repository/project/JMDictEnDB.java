@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.*;
 import java.util.List;
 
+@SuppressWarnings("unchecked")
 @Repository
 public class JMDictEnDB extends AbstractProjectRepository {
 

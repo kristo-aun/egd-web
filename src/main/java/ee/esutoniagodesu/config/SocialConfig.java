@@ -18,9 +18,13 @@ import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.social.UserIdSource;
+import org.springframework.social.config.annotation.ConnectionFactoryConfigurer;
+import org.springframework.social.config.annotation.EnableSocial;
+import org.springframework.social.config.annotation.SocialConfigurerAdapter;
 import org.springframework.social.connect.*;
 import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
 import org.springframework.social.connect.mem.InMemoryUsersConnectionRepository;
+import org.springframework.social.connect.support.ConnectionFactoryRegistry;
 import org.springframework.social.connect.web.ConnectController;
 import org.springframework.social.connect.web.ProviderSignInController;
 import org.springframework.social.connect.web.ReconnectFilter;
@@ -36,7 +40,8 @@ import javax.inject.Inject;
 import javax.sql.DataSource;
 
 @Configuration
-public class SocialConfig {
+@EnableSocial
+public class SocialConfig extends SocialConfigurerAdapter {
 
     private static final Logger log = LoggerFactory.getLogger(SocialConfig.class);
 
@@ -75,7 +80,17 @@ public class SocialConfig {
         return new GoogleConnectionFactory(key, secret);
     }
 
-    @Bean
+    public void addConnectionFactories(ConnectionFactoryConfigurer configurer, Environment environment) {
+        addConnectionFactories(configurer);
+    }
+
+    public ConnectionFactoryConfigurer addConnectionFactories(ConnectionFactoryConfigurer registry) {
+        registry.addConnectionFactory(facebookConnectionFactory());
+        registry.addConnectionFactory(googleConnectionFactory());
+        return registry;
+    }
+
+    //@Bean
     public ConnectionFactoryLocator connectionFactoryLocator() {
         log.debug("New instance of " + ConnectionFactoryLocator.class);
         SocialAuthenticationServiceRegistry registry = new SocialAuthenticationServiceRegistry();
@@ -89,8 +104,7 @@ public class SocialConfig {
         return Encryptors.noOpText();
     }
 
-    @Bean
-    public UsersConnectionRepository usersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
+    public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
         return memoryCR(connectionFactoryLocator);
     }
 
@@ -122,8 +136,8 @@ public class SocialConfig {
         return usersConnectionRepository.createConnectionRepository(uuid);
     }
 
-    @Bean
-    public UserIdSource userIdSource() {
+    //@Bean
+    public UserIdSource getUserIdSource() {
         log.debug("New instance of " + AuthenticationNameUserIdSource.class);
         return new AuthenticationNameUserIdSource();
     }
@@ -176,9 +190,9 @@ public class SocialConfig {
     }
 
     @Bean
-    public SignInAdapter signInAdapter() {
+    public SignInAdapter signInAdapter(SocialUserDetailsService socialUserDetailsService) {
         log.debug("New instance of " + ConnectionSignUp.class);
-        return new SimpleSignInAdapter(new HttpSessionRequestCache());
+        return new SimpleSignInAdapter(socialUserDetailsService);
     }
 
     @Bean

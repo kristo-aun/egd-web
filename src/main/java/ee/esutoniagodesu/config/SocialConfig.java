@@ -2,10 +2,9 @@ package ee.esutoniagodesu.config;
 
 import ee.esutoniagodesu.repository.domain.ac.UserRepository;
 import ee.esutoniagodesu.security.SecurityUtils;
-import ee.esutoniagodesu.security.UserNotActivatedException;
 import ee.esutoniagodesu.security.social.SimpleSignInAdapter;
+import ee.esutoniagodesu.security.social.SimpleSocialUserDetailsService;
 import ee.esutoniagodesu.security.social.SocialConnectionSignUp;
-import ee.esutoniagodesu.security.social.SocialLoginExceptionMapper;
 import ee.esutoniagodesu.service.MailService;
 import ee.esutoniagodesu.service.UserService;
 import org.slf4j.Logger;
@@ -15,14 +14,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.core.env.Environment;
-import org.springframework.security.config.annotation.ObjectPostProcessor;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.social.UserIdSource;
-import org.springframework.social.config.annotation.ConnectionFactoryConfigurer;
-import org.springframework.social.config.annotation.EnableSocial;
-import org.springframework.social.config.annotation.SocialConfigurerAdapter;
 import org.springframework.social.connect.*;
 import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
 import org.springframework.social.connect.mem.InMemoryUsersConnectionRepository;
@@ -35,16 +30,13 @@ import org.springframework.social.facebook.connect.FacebookConnectionFactory;
 import org.springframework.social.facebook.web.DisconnectController;
 import org.springframework.social.google.api.Google;
 import org.springframework.social.google.connect.GoogleConnectionFactory;
-import org.springframework.social.security.SocialAuthenticationException;
-import org.springframework.social.security.SocialAuthenticationFilter;
-import org.springframework.social.security.SpringSocialConfigurer;
+import org.springframework.social.security.*;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;
 
 @Configuration
-@EnableSocial
-public class SocialConfig extends SocialConfigurerAdapter {
+public class SocialConfig {
 
     private static final Logger log = LoggerFactory.getLogger(SocialConfig.class);
 
@@ -63,9 +55,10 @@ public class SocialConfig extends SocialConfigurerAdapter {
     @Inject
     private MailService mailService;
 
-    private ConnectionSignUp connectionSignUp() {
-        log.debug("New instance of " + ConnectionSignUp.class);
-        return new SocialConnectionSignUp(userRepository, userService, mailService);
+    @Bean
+    public SocialUserDetailsService socialUserDetailsService() {
+        log.debug("New instance of " + SocialUserDetailsService.class);
+        return new SimpleSocialUserDetailsService(userRepository);
     }
 
     private FacebookConnectionFactory facebookConnectionFactory() {
@@ -82,23 +75,30 @@ public class SocialConfig extends SocialConfigurerAdapter {
         return new GoogleConnectionFactory(key, secret);
     }
 
-    @Override
-    public void addConnectionFactories(ConnectionFactoryConfigurer cfConfig, Environment env) {
-        log.debug("addConnectionFactories");
-        cfConfig.addConnectionFactory(facebookConnectionFactory());
-        cfConfig.addConnectionFactory(googleConnectionFactory());
+    @Bean
+    public ConnectionFactoryLocator connectionFactoryLocator() {
+        log.debug("New instance of " + ConnectionFactoryLocator.class);
+        SocialAuthenticationServiceRegistry registry = new SocialAuthenticationServiceRegistry();
+        registry.addConnectionFactory(facebookConnectionFactory());
+        registry.addConnectionFactory(googleConnectionFactory());
+        return registry;
     }
 
-    private TextEncryptor textEncryptor() {
+    private static TextEncryptor textEncryptor() {
         log.debug("New instance of " + TextEncryptor.class);
         return Encryptors.noOpText();
     }
 
-    @Override
-    public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
-        log.debug("New instance of " + UsersConnectionRepository.class);
+    @Bean
+    public UsersConnectionRepository usersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
         return memoryCR(connectionFactoryLocator);
     }
+
+    private ConnectionSignUp connectionSignUp() {
+        log.debug("New instance of " + ConnectionSignUp.class);
+        return new SocialConnectionSignUp(userRepository, userService, mailService);
+    }
+
 
     private UsersConnectionRepository jdbcCR(ConnectionFactoryLocator connectionFactoryLocator) {
         JdbcUsersConnectionRepository repository = new JdbcUsersConnectionRepository(
@@ -109,20 +109,29 @@ public class SocialConfig extends SocialConfigurerAdapter {
         return repository;
     }
 
-    private InMemoryUsersConnectionRepository memoryCR(ConnectionFactoryLocator connectionFactoryLocator) {
+    private UsersConnectionRepository memoryCR(ConnectionFactoryLocator connectionFactoryLocator) {
         InMemoryUsersConnectionRepository repository = new InMemoryUsersConnectionRepository(connectionFactoryLocator);
         repository.setConnectionSignUp(connectionSignUp());
         return repository;
     }
 
-    @Override
-    public UserIdSource getUserIdSource() {
-        log.debug("New instance of " + UserIdSource.class);
-        return SecurityUtils::getUserUuid;
+    @Bean
+    @Scope(value = "request", proxyMode = ScopedProxyMode.INTERFACES)
+    public ConnectionRepository connectionRepository(UsersConnectionRepository usersConnectionRepository) {
+        String uuid = SecurityUtils.getUserUuid();
+        return usersConnectionRepository.createConnectionRepository(uuid);
     }
 
     @Bean
-    public ConnectController connectController(ConnectionFactoryLocator connectionFactoryLocator, ConnectionRepository connectionRepository) {
+    public UserIdSource userIdSource() {
+        log.debug("New instance of " + AuthenticationNameUserIdSource.class);
+        return new AuthenticationNameUserIdSource();
+    }
+
+    @Bean
+    public ConnectController connectController(ConnectionFactoryLocator connectionFactoryLocator,
+                                               ConnectionRepository connectionRepository) {
+
         log.debug("New instance of " + ConnectController.class);
         ConnectController controller = new ConnectController(connectionFactoryLocator, connectionRepository);
         controller.setApplicationUrl(env.getProperty("app.url"));
@@ -157,37 +166,13 @@ public class SocialConfig extends SocialConfigurerAdapter {
         return connection != null ? connection.getApi() : null;
     }
 
-    /**
-     * Build a configurer that can be applied to an HttpSecurity instance.  When the configurer is applied,
-     * Spring Social Security's {@link org.springframework.social.security.SocialAuthenticationFilter}
-     * will be added to the HttpSecurity's SecurityFilterChain.
-     */
-    @Bean(name = "springSocialConfigurer")
+    @Bean
     public SpringSocialConfigurer springSocialConfigurer() {
         log.debug("New instance of " + SpringSocialConfigurer.class);
 
-        // build an AuthenticationFailureHandler that is aware of our own exception types
-        final SocialLoginExceptionMapper handler = new SocialLoginExceptionMapper("/#/register/external")
-            .add(SocialAuthenticationException.class, "/#/register/external/rejected")
-            .add(UserNotActivatedException.class, "/#/activate");
-
-        SpringSocialConfigurer configurer = new SpringSocialConfigurer()
+        return new SpringSocialConfigurer()
             .postLoginUrl("/#/")
             .alwaysUsePostLoginUrl(true);
-
-        // configure options not available using the standard configurer
-        configurer.addObjectPostProcessor(
-            new ObjectPostProcessor<SocialAuthenticationFilter>() {
-                public SocialAuthenticationFilter postProcess(SocialAuthenticationFilter object) {
-                    // replace the default exception
-                    object.setAuthenticationFailureHandler(handler);
-                    object.setSignupUrl("/#/register/external");
-                    return object;
-                }
-            }
-        );
-
-        return configurer;
     }
 
     @Bean
@@ -202,11 +187,6 @@ public class SocialConfig extends SocialConfigurerAdapter {
                                                              SignInAdapter signInAdapter) {
 
         log.debug("New instance of " + ProviderSignInController.class);
-
-        ProviderSignInController providerSigninController =
-            new ProviderSignInController(connectionFactoryLocator, usersConnectionRepository, signInAdapter);
-        providerSigninController.setSignUpUrl("/#/register-social");
-        providerSigninController.setSignInUrl("/#/login");
-        return providerSigninController;
+        return new ProviderSignInController(connectionFactoryLocator, usersConnectionRepository, signInAdapter);
     }
 }

@@ -6,6 +6,7 @@ import ee.esutoniagodesu.security.social.SimpleSocialUserDetailsService;
 import ee.esutoniagodesu.web.filter.CsrfCookieGeneratorFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -16,11 +17,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
+import org.springframework.security.web.authentication.preauth.RequestHeaderAuthenticationFilter;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.social.UserIdSource;
-import org.springframework.social.security.AuthenticationNameUserIdSource;
-import org.springframework.social.security.SocialUserDetailsService;
-import org.springframework.social.security.SpringSocialConfigurer;
+import org.springframework.social.connect.UsersConnectionRepository;
+import org.springframework.social.security.*;
 
 import javax.inject.Inject;
 
@@ -43,11 +44,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Inject
     private UserRepository userRepository;
-
-    @Bean
-    public SocialUserDetailsService socialUserDetailsService() {
-        return new SimpleSocialUserDetailsService(userRepository);
-    }
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -83,7 +79,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .ignoringAntMatchers("/websocket/**")
             .and()
             .addFilterAfter(new CsrfCookieGeneratorFilter(), CsrfFilter.class)
-                //.addFilterBefore(socialAuthenticationFilter(), RequestHeaderAuthenticationFilter.class)
             .exceptionHandling()
             .authenticationEntryPoint(authenticationEntryPoint)
             .and()
@@ -118,7 +113,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Inject
     private SpringSocialConfigurer springSocialConfigurer;
 
-
     public static final String[] permitAll = {
         "/api/readings",
         "/api/readings/*",
@@ -129,7 +123,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         "/signin/**",
         "/api/rtk/**",
         "/auth/**",
-        "/api/auth/**",
         "/disconnect/facebook",
         "/api/morphology/**",
         "/api/translator",
@@ -152,8 +145,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return new SecurityEvaluationContextExtension();
     }
 
-    @Bean
-    public UserIdSource userIdSource() {
-        return new AuthenticationNameUserIdSource();
-    }
+
 }

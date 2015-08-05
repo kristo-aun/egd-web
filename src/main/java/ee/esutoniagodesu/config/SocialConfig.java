@@ -104,17 +104,19 @@ public class SocialConfig extends SocialConfigurerAdapter {
         return Encryptors.noOpText();
     }
 
-    public UsersConnectionRepository getUsersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator) {
-        return memoryCR(connectionFactoryLocator);
+    @Bean
+    public UsersConnectionRepository usersConnectionRepository(ConnectionFactoryLocator connectionFactoryLocator, ConnectionSignUp connectionSignUp) {
+        return memoryCR(connectionFactoryLocator, connectionSignUp);
     }
 
-    private ConnectionSignUp connectionSignUp() {
+    @Bean
+    public ConnectionSignUp connectionSignUp() {
         log.debug("New instance of " + ConnectionSignUp.class);
         return new SocialConnectionSignUp(userRepository, userService, mailService);
     }
 
 
-    private UsersConnectionRepository jdbcCR(ConnectionFactoryLocator connectionFactoryLocator) {
+    private UsersConnectionRepository jdbcCR(ConnectionFactoryLocator connectionFactoryLocator, ConnectionSignUp connectionSignUp) {
         JdbcUsersConnectionRepository repository = new JdbcUsersConnectionRepository(
             dataSource, connectionFactoryLocator, textEncryptor());
 
@@ -123,9 +125,9 @@ public class SocialConfig extends SocialConfigurerAdapter {
         return repository;
     }
 
-    private UsersConnectionRepository memoryCR(ConnectionFactoryLocator connectionFactoryLocator) {
+    private UsersConnectionRepository memoryCR(ConnectionFactoryLocator connectionFactoryLocator, ConnectionSignUp connectionSignUp) {
         InMemoryUsersConnectionRepository repository = new InMemoryUsersConnectionRepository(connectionFactoryLocator);
-        repository.setConnectionSignUp(connectionSignUp());
+        repository.setConnectionSignUp(connectionSignUp);
         return repository;
     }
 

@@ -120,22 +120,33 @@ You should configure Tomcat's setenv.sh to include custom truststore.
 
 Gmail
 
-    openssl s_client -connect smtp.gmail.com:465 2>&1 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > gmail.txt
-    keytool -import -alias smtp.gmail.com -keystore egd.truststore -file gmail.txt
- 
+    openssl s_client -connect smtp.gmail.com:465 2>&1 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > gmail.crt
+    keytool -import -alias smtp.gmail.com -keystore egd.truststore -file gmail.crt
     
 Bing Translator
     
-    openssl s_client -connect datamarket.accesscontrol.windows.net:443 2>&1 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > ms.txt
-    keytool -import -alias smtp.gmail.com -keystore egd.truststore -file ms.txt
+    openssl s_client -connect datamarket.accesscontrol.windows.net:443 2>&1 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > ms.crt
+    keytool -import -alias smtp.gmail.com -keystore egd.truststore -file ms.crt
     
 Facebook
     
-    openssl s_client -connect www.facebook.com:443 2>&1 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > facebook.txt
-    keytool -import -alias www.facebook.com -keystore egd.truststore -file facebook.txt
+    openssl s_client -connect www.facebook.com:443 2>&1 | sed -ne '/-----BEGIN CERTIFICATE-----/,/-END CERTIFICATE-/p' > facebook.crt
+    keytool -import -alias www.facebook.com -keystore egd.truststore -file facebook.crt
         
-Google 
+Social login 
+
+    openssl s_client -connect graph.facebook.com:443 2>&1 graph.facebook.com.crt
+    keytool -import -alias graph.facebook.com -keystore egd.truststore -file graph.facebook.com.crt
        
-    openssl s_client -connect accounts.google.com:443 2>&1 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > google.txt
-    keytool -import -alias accounts.google.com -keystore egd.truststore -file google.txt
+    openssl s_client -connect accounts.google.com:443 2>&1 accounts.google.com.crt
+    keytool -import -alias accounts.google.com -keystore egd.truststore -file accounts.google.com.crt
+    
+    openssl s_client -connect googleapis.com:443 2>&1 > googleapis.com.crt
+    keytool -import -alias googleapis.com -keystore egd.truststore -file googleapis.com.crt
+    
+
+
+#### Tips 
+
+    keytool -delete -noprompt -alias accounts.google.com -keystore egd.truststore -storepass changeit
     

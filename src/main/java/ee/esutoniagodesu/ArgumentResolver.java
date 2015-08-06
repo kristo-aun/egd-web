@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.YamlPropertiesFactoryBean;
 import org.springframework.core.env.SimpleCommandLinePropertySource;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 
 import java.net.UnknownHostException;
 import java.util.Arrays;
@@ -24,6 +25,7 @@ public class ArgumentResolver {
         String profile = getProfile(args);
         String[] mergedArgs = (String[]) ArrayUtils.addAll(secretArgs(profile), args);
 
+        HttpSessionSecurityContextRepository a;
         log.info("Merged arguments {}", Arrays.toString(mergedArgs));
         return mergedArgs;
     }

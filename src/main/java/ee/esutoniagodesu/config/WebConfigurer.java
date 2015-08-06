@@ -1,6 +1,7 @@
 package ee.esutoniagodesu.config;
 
 import ee.esutoniagodesu.web.filter.CachingHttpHeadersFilter;
+import ee.esutoniagodesu.web.filter.SimpleCORSFilter;
 import ee.esutoniagodesu.web.filter.gzip.GZipServletFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,11 +38,19 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
         log.info("Web application configuration, using profiles: {}", Arrays.toString(env.getActiveProfiles()));
         EnumSet<DispatcherType> disps = EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.ASYNC);
 
+        initCORSFilter(servletContext, disps);
+
         if (env.acceptsProfiles(Constants.SPRING_PROFILE_PRODUCTION)) {
             initCachingHttpHeadersFilter(servletContext, disps);
             initGzipFilter(servletContext, disps);
         }
         log.info("Web application fully configured");
+    }
+
+    private void initCORSFilter(ServletContext servletContext, EnumSet<DispatcherType> disps) {
+        FilterRegistration.Dynamic filter = servletContext.addFilter("corsFilter", new SimpleCORSFilter());
+        filter.addMappingForUrlPatterns(disps, true, "/*");
+        filter.setAsyncSupported(true);
     }
 
     /**

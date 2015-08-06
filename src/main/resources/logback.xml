@@ -4,7 +4,7 @@
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <charset>utf-8</charset>
-            <Pattern>%d{dd.MM'@'HH:mm:ss.SSS} %5p %c{2}:%L - %m%n</Pattern>
+            <Pattern>%d{dd.MM'@'HH:mm:ss.SSS} %5p %c:%L - %m%n</Pattern>
         </encoder>
     </appender>
     <!-- The FILE and ASYNC appenders are here as examples for a production configuration -->
@@ -18,7 +18,7 @@
         </rollingPolicy>
         <encoder>
             <charset>utf-8</charset>
-            <Pattern>%d{dd.MM'@'HH:mm:ss.SSS} %5p [%thread] %c{2}:%L - %m%n</Pattern>
+            <Pattern>%d{dd.MM'@'HH:mm:ss.SSS} %5p [%thread] %c:%L - %m%n</Pattern>
         </encoder>
     </appender>
     <!--
@@ -47,7 +47,8 @@
     <logger name="org.hibernate.ejb.HibernatePersistence" level="OFF"/>
     <logger name="org.springframework" level="WARN"/>
     <logger name="org.springframework.web" level="WARN"/>
-    <logger name="org.springframework.security" level="WARN"/>
+    <logger name="org.springframework.security" level="${logback.loglevel}"/>
+    <logger name="org.springframework.social" level="${logback.loglevel}"/>
     <logger name="org.springframework.cache" level="WARN"/>
     <logger name="org.thymeleaf" level="WARN"/>
     <logger name="org.xnio" level="WARN"/>

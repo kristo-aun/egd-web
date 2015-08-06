@@ -56,8 +56,8 @@ public class MailService {
 
     @Async
     public void sendEmail(String to, String subject, String content, boolean isMultipart, boolean isHtml) {
-        log.debug("Send e-mail[multipart '{}' and html '{}'] to '{}' with subject '{}' and content={}",
-                isMultipart, isHtml, to, subject, content);
+        log.debug("Send e-mail[multipart '{}' and html '{}'] to '{}' with subject '{}' and content.length={}",
+                isMultipart, isHtml, to, subject, content.length());
 
         // Prepare message using a Spring helper
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();

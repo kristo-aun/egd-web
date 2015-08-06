@@ -50,4 +50,3 @@ public class SimpleSocialUserDetailsService implements SocialUserDetailsService 
         }).orElseThrow(() -> new UsernameNotFoundException("User " + uuid + " was not found in the database"));
     }
 }
-

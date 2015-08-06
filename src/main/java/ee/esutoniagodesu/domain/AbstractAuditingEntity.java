@@ -26,8 +26,7 @@ import javax.persistence.Transient;
 @EntityListeners(AuditingEntityListener.class)
 public abstract class AbstractAuditingEntity {
 
-    @JsonView(View.Detailed.class)
-    @JsonIgnore
+    @JsonView(View.Basic.class)
     @CreatedBy
     @Column(name = "created_by", updatable = false, nullable = false)
     protected String createdBy;
@@ -38,13 +37,12 @@ public abstract class AbstractAuditingEntity {
     @Column(name = "created_date", updatable = false, nullable = false)
     protected DateTime createdDate;
 
-    @JsonView(View.Detailed.class)
-    @JsonIgnore
+    @JsonView(View.Basic.class)
     @LastModifiedBy
     @Column(name = "last_modified_by")
     protected String lastModifiedBy;
 
-    @JsonView(View.Detailed.class)
+    @JsonView(View.Basic.class)
     @LastModifiedDate
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @Column(name = "last_modified_date")

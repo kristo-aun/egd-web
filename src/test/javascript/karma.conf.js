@@ -23,6 +23,8 @@ module.exports = function (config) {
             'main/webapp/bower_components/angular-translate/angular-translate.js',
             'main/webapp/bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.js',
             'main/webapp/bower_components/angular-translate-loader-partial/angular-translate-loader-partial.js',
+            'main/webapp/bower_components/messageformat/messageformat.js',
+            'main/webapp/bower_components/angular-translate-interpolation-messageformat/angular-translate-interpolation-messageformat.js',
             'main/webapp/bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js',
             'main/webapp/bower_components/angular-local-storage/dist/angular-local-storage.js',
             'main/webapp/bower_components/angular-cache-buster/angular-cache-buster.js',

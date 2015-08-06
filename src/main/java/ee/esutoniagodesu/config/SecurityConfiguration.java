@@ -2,32 +2,26 @@ package ee.esutoniagodesu.config;
 
 import ee.esutoniagodesu.repository.domain.ac.UserRepository;
 import ee.esutoniagodesu.security.*;
-import ee.esutoniagodesu.security.social.SimpleSocialUserDetailsService;
 import ee.esutoniagodesu.web.filter.CsrfCookieGeneratorFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.data.repository.query.SecurityEvaluationContextExtension;
-import org.springframework.security.web.authentication.preauth.RequestHeaderAuthenticationFilter;
 import org.springframework.security.web.csrf.CsrfFilter;
-import org.springframework.social.UserIdSource;
-import org.springframework.social.connect.UsersConnectionRepository;
-import org.springframework.social.security.*;
+import org.springframework.social.security.SpringSocialConfigurer;
 
 import javax.inject.Inject;
 
 @Configuration
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity(debug = false)
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
@@ -75,7 +69,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+        http.requiresChannel()
+            .anyRequest()
+            .requiresSecure()
+            .and()
             .csrf()
             .ignoringAntMatchers("/websocket/**")
             .and()
@@ -107,8 +104,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers(permitAdmin).hasAuthority(AuthoritiesConstants.ADMIN)
             .antMatchers("/protected/**").authenticated()
             .and().apply(springSocialConfigurer);
-
-        //http.requiresChannel().anyRequest().requiresSecure();
     }
 
     @Inject
@@ -121,7 +116,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         "/api/git",
         "/api/dict/**",
         "/api/media/*",
-        "/signin/**",
         "/api/rtk/**",
         "/auth/**",
         "/disconnect/facebook",
@@ -145,6 +139,4 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public SecurityEvaluationContextExtension securityEvaluationContextExtension() {
         return new SecurityEvaluationContextExtension();
     }
-
-
 }

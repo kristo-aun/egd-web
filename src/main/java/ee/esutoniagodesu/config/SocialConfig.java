@@ -16,7 +16,6 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.core.env.Environment;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
-import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.social.UserIdSource;
 import org.springframework.social.config.annotation.ConnectionFactoryConfigurer;
 import org.springframework.social.config.annotation.EnableSocial;
@@ -24,7 +23,6 @@ import org.springframework.social.config.annotation.SocialConfigurerAdapter;
 import org.springframework.social.connect.*;
 import org.springframework.social.connect.jdbc.JdbcUsersConnectionRepository;
 import org.springframework.social.connect.mem.InMemoryUsersConnectionRepository;
-import org.springframework.social.connect.support.ConnectionFactoryRegistry;
 import org.springframework.social.connect.web.ConnectController;
 import org.springframework.social.connect.web.ProviderSignInController;
 import org.springframework.social.connect.web.ReconnectFilter;
@@ -34,7 +32,10 @@ import org.springframework.social.facebook.connect.FacebookConnectionFactory;
 import org.springframework.social.facebook.web.DisconnectController;
 import org.springframework.social.google.api.Google;
 import org.springframework.social.google.connect.GoogleConnectionFactory;
-import org.springframework.social.security.*;
+import org.springframework.social.security.AuthenticationNameUserIdSource;
+import org.springframework.social.security.SocialAuthenticationServiceRegistry;
+import org.springframework.social.security.SocialUserDetailsService;
+import org.springframework.social.security.SpringSocialConfigurer;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;
@@ -51,17 +52,8 @@ public class SocialConfig extends SocialConfigurerAdapter {
     @Inject
     private Environment env;
 
-    @Inject
-    private UserRepository userRepository;
-
-    @Inject
-    private UserService userService;
-
-    @Inject
-    private MailService mailService;
-
     @Bean
-    public SocialUserDetailsService socialUserDetailsService() {
+    public SocialUserDetailsService socialUserDetailsService(UserRepository userRepository) {
         log.debug("New instance of " + SocialUserDetailsService.class);
         return new SimpleSocialUserDetailsService(userRepository);
     }
@@ -84,14 +76,13 @@ public class SocialConfig extends SocialConfigurerAdapter {
         addConnectionFactories(configurer);
     }
 
-    public ConnectionFactoryConfigurer addConnectionFactories(ConnectionFactoryConfigurer registry) {
+    private ConnectionFactoryConfigurer addConnectionFactories(ConnectionFactoryConfigurer registry) {
         registry.addConnectionFactory(facebookConnectionFactory());
         registry.addConnectionFactory(googleConnectionFactory());
         return registry;
     }
 
-    //@Bean
-    public ConnectionFactoryLocator connectionFactoryLocator() {
+    private ConnectionFactoryLocator connectionFactoryLocator() {
         log.debug("New instance of " + ConnectionFactoryLocator.class);
         SocialAuthenticationServiceRegistry registry = new SocialAuthenticationServiceRegistry();
         registry.addConnectionFactory(facebookConnectionFactory());
@@ -110,18 +101,17 @@ public class SocialConfig extends SocialConfigurerAdapter {
     }
 
     @Bean
-    public ConnectionSignUp connectionSignUp() {
+    public ConnectionSignUp connectionSignUp(UserRepository userRepository, UserService userService, MailService mailService) {
         log.debug("New instance of " + ConnectionSignUp.class);
         return new SocialConnectionSignUp(userRepository, userService, mailService);
     }
-
 
     private UsersConnectionRepository jdbcCR(ConnectionFactoryLocator connectionFactoryLocator, ConnectionSignUp connectionSignUp) {
         JdbcUsersConnectionRepository repository = new JdbcUsersConnectionRepository(
             dataSource, connectionFactoryLocator, textEncryptor());
 
         repository.setTablePrefix("ac.");
-        repository.setConnectionSignUp(connectionSignUp());
+        repository.setConnectionSignUp(connectionSignUp);
         return repository;
     }
 
@@ -138,7 +128,6 @@ public class SocialConfig extends SocialConfigurerAdapter {
         return usersConnectionRepository.createConnectionRepository(uuid);
     }
 
-    //@Bean
     public UserIdSource getUserIdSource() {
         log.debug("New instance of " + AuthenticationNameUserIdSource.class);
         return new AuthenticationNameUserIdSource();

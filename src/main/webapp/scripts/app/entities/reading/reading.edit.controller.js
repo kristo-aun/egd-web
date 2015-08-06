@@ -58,6 +58,7 @@ egdApp
                 });
             } else {
                 $scope.reading = {"bodyLang": "ja", "transcriptLang": $translate.use()};
+                $scope.readingPages = [{active: true, page: 1, id: undefined}];
             }
         };
         $scope.load($stateParams.id);
@@ -88,8 +89,10 @@ egdApp
         $scope.submit = function () {
 
             commitRemovedPages().then(function() {
-                ReadingResource.save($scope.reading, function () {
+                ReadingResource.save($scope.reading, function (data) {
+                    $scope.reading.id = data.id;
                     $scope.readingPages.forEach(function(item, index) {
+                        item.readingId = data.id;
                         var copy = angular.copy(item);
                         delete copy.audioFile;
 

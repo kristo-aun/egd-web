@@ -78,7 +78,7 @@ public class ReadingService {
 
     public ReadingPage create(ReadingPage page) throws IOException {
         log.debug("create: page=" + page);
-        CPE.check(readingRepository.findOne(page.getId()), Permission.reading_update);
+        CPE.check(page, Permission.reading_create);
         return save(page);
     }
 

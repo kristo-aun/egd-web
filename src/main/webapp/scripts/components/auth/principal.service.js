@@ -1,16 +1,19 @@
 'use strict';
 
 egdApp
-    .factory('Principal', function Principal($q, AccountResource) {
+    .factory('Principal', function Principal($q, AccountResource, $log) {
         var _identity,
             _authenticated = false;
 
         return {
             equals: function(uuid) {
                 if (!_authenticated || !_identity || !_identity.uuid) {
+                    $log.debug("Principal.equals", uuid, false);
                     return false;
                 }
-                return _identity.uuid === uuid;
+                var result = _identity.uuid === uuid;
+                $log.debug("Principal.equals", uuid, _identity.uuid, result);
+                return result;
             },
             isIdentityResolved: function () {
                 return angular.isDefined(_identity);

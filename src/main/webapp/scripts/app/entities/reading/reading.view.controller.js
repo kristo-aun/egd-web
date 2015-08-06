@@ -50,6 +50,8 @@ egdApp
         $scope.load($stateParams.id);
 
         $scope.isReadingEditAllowed = function (reading) {
-            return $scope.isAuthenticated() && (Principal.isInRole('ROLE_ADMIN') || (reading && Principal.equals(reading.createdBy)));
+            var result = $scope.isAuthenticated() && (Principal.isInRole('ROLE_ADMIN') || (reading && Principal.equals(reading.createdBy)));
+            $log.debug("isReadingEditAllowed", result);
+            return result;
         };
     });

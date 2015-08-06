@@ -75,7 +75,6 @@ public class ReadingResource {
         return ResponseEntity.ok().body(service.autocompleteTag(tagstart));
     }
 
-    @JsonView(View.Detailed.class)
     @RequestMapping(value = "/{id}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)

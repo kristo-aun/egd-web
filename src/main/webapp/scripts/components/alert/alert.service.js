@@ -1,22 +1,22 @@
 'use strict';
 
 egdApp
-    .factory('AlertService', function ($timeout, $sce,$translate) {
+    .factory('AlertService', function ($timeout, $sce, $translate) {
         var exports = {
-            factory: factory,
-            add: addAlert,
-            closeAlert: closeAlert,
-            closeAlertByIndex: closeAlertByIndex,
-            clear: clear,
-            get: get,
-            success: success,
-            error: error,
-            info: info,
-            warning : warning
-        },
-        alertId = 0, // unique id for each alert. Starts from 0.
-        alerts = [],
-        timeout = 5000; // default timeout
+                factory: factory,
+                add: addAlert,
+                closeAlert: closeAlert,
+                closeAlertByIndex: closeAlertByIndex,
+                clear: clear,
+                get: get,
+                success: success,
+                error: error,
+                info: info,
+                warning: warning
+            },
+            alertId = 0, // unique id for each alert. Starts from 0.
+            alerts = [],
+            timeout = 10000; // default timeout
 
         function clear() {
             alerts = [];
@@ -63,15 +63,29 @@ egdApp
         }
 
         function factory(alertOptions) {
-            return alerts.push({
-                type: alertOptions.type,
-                msg: $sce.trustAsHtml(alertOptions.msg),
-                id: alertOptions.alertId,
-                timeout: alertOptions.timeout,
-                close: function () {
-                    return exports.closeAlert(this);
+            var exists = false;
+            alerts.forEach(function(item) {
+                if (item.type == alertOptions.type && item.msg == alertOptions.msg) {
+                    item.count++;
+                    item.timeout = false;
+                    exists = true;
                 }
             });
+
+            var create = function() {
+                return {
+                    type: alertOptions.type,
+                    msg: $sce.trustAsHtml(alertOptions.msg),
+                    id: alertOptions.alertId,
+                    count: 1,
+                    timeout: alertOptions.timeout,
+                    close: function () {
+                        return exports.closeAlert(this);
+                    }
+                };
+            };
+
+            return exists ? alerts : alerts.push(create());
         }
 
         function addAlert(alertOptions) {
@@ -95,5 +109,4 @@ egdApp
         }
 
         return exports;
-
     });

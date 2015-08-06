@@ -1,0 +1,6 @@
+<div ng-show="alerts" id="alertContent" ng-cloak="">
+    <alert ng-if="alerts" ng-repeat="alert in alerts" type="{{alert.type}}" ng-click="alert.close()" class="hand">
+        <span ng-if="alert.count > 1" style="margin-right:10px"><strong>({{alert.count}})</strong></span>
+        {{alert.msg}}
+    </alert>
+</div>

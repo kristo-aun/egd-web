@@ -1,10 +1,16 @@
 'use strict';
 
 egdApp
-    .factory('Moment', function ($translate, $log, FORMAT_DATE_TIME, FORMAT_LOCAL_DATE_TIME, FORMAT_LOCAL_DATE) {
+    .factory('Moment', function ($translate, $log, FORMAT_LOCAL_TIME, FORMAT_DATE_TIME, FORMAT_LOCAL_DATE_TIME, FORMAT_LOCAL_DATE, DISPLAY_DATE, DISPLAY_DATE_TIME, DISPLAY_TIME) {
         return {
+            now: function() {
+                return moment().locale($translate.use());
+            },
+            valueOf: function(date) {
+                return moment(date).locale($translate.use());
+            },
             deserialize: function(string, format) {
-                return string ? moment(string, format) : undefined;
+                return moment(string, format);
             },
             deserializeDateTime: function (input) {
                 return this.deserialize(input, FORMAT_DATE_TIME);
@@ -14,6 +20,9 @@ egdApp
             },
             deserializeLocalDate: function (input) {
                 return this.deserialize(input, FORMAT_LOCAL_DATE);
+            },
+            deserializeLocalTime: function (input) {
+                return this.deserialize(input, FORMAT_LOCAL_TIME);
             },
             serialize: function (input, format) {
                 if (input == undefined || input == null) return input;
@@ -30,6 +39,9 @@ egdApp
             },
             serializeLocalDate: function (input) {
                 return this.serialize(input, FORMAT_LOCAL_DATE);
+            },
+            serializeLocalTime: function (input) {
+                return this.serialize(input, FORMAT_LOCAL_TIME);
             },
             isBetween: function(from, to, date, compareDates) {
                 if (compareDates) {
@@ -48,6 +60,25 @@ egdApp
             },
             format: function(date, format) {
             	return date.locale($translate.use()).format(format);
+            },
+            displayLocalDate: function(input) {
+                var mdate = this.deserializeLocalDate(input);
+                return this.format(mdate, DISPLAY_DATE);
+            },
+            displayTime: function(input) {
+                var mdate = this.deserializeLocalDateTime(input);
+                return this.format(mdate, DISPLAY_TIME);
+            },
+            dateTimeToString: function(input) {
+                return this.serialize(input, DISPLAY_DATE_TIME);
+            },
+            deserializeDisplayDate: function(input) {
+                return this.deserialize(input, DISPLAY_DATE);
+            },
+            serializeDisplayDate: function(input) {
+                var a = this.deserializeDisplayDate(input);
+                var b = this.serializeLocalDate(a);
+                return b;
             }
         };
     });

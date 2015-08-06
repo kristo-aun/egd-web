@@ -47,7 +47,7 @@ egdApp
         });
 
         StatResource.countGlossToSumFreq().then(function (data) {
-            $log.debug("StatsController.translatedEntrRatio: data=", data);
+            $log.debug("StatsController.countGlossToSumFreq: data=", data);
             $scope.countGlossToSumFreq = [
                 $.map(data, function (item) {
                     return [item.countGloss, item.sumFreq]

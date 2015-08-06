@@ -117,36 +117,39 @@ In order to consume https web service or download something over SSL Java has to
 Here is how to trust these services by adding their base64 certificate to truststore.
 By default all required certificates are already in egd.truststore.
 You should configure Tomcat's setenv.sh to include custom truststore.
+PS! Delete all but the certificate from the following .crt files.
 
 Gmail
 
-    openssl s_client -connect smtp.gmail.com:465 2>&1 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > gmail.crt
-    keytool -import -alias smtp.gmail.com -keystore egd.truststore -file gmail.crt
+    openssl s_client -connect smtp.gmail.com:465 2>&1 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > smtp.gmail.com.crt
+    keytool -import -noprompt -storepass changeit -alias smtp.gmail.com -keystore egd.truststore -file smtp.gmail.com.crt
     
 Bing Translator
     
-    openssl s_client -connect datamarket.accesscontrol.windows.net:443 2>&1 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > ms.crt
-    keytool -import -alias smtp.gmail.com -keystore egd.truststore -file ms.crt
+    openssl s_client -connect datamarket.accesscontrol.windows.net:443 2>&1 > datamarket.accesscontrol.windows.net.crt
+    keytool -import -noprompt -storepass changeit -alias datamarket.accesscontrol.windows.net -keystore egd.truststore -file datamarket.accesscontrol.windows.net.crt
     
 Facebook
     
-    openssl s_client -connect www.facebook.com:443 2>&1 | sed -ne '/-----BEGIN CERTIFICATE-----/,/-END CERTIFICATE-/p' > facebook.crt
-    keytool -import -alias www.facebook.com -keystore egd.truststore -file facebook.crt
+    openssl s_client -connect www.facebook.com:443 2>&1 > www.facebook.com.crt
+    keytool -import -noprompt -storepass changeit -alias www.facebook.com -keystore egd.truststore -file www.facebook.com.crt
         
 Social login 
 
     openssl s_client -connect graph.facebook.com:443 2>&1 graph.facebook.com.crt
-    keytool -import -alias graph.facebook.com -keystore egd.truststore -file graph.facebook.com.crt
+    keytool -import -noprompt -storepass changeit -alias graph.facebook.com -keystore egd.truststore -file graph.facebook.com.crt
        
     openssl s_client -connect accounts.google.com:443 2>&1 accounts.google.com.crt
-    keytool -import -alias accounts.google.com -keystore egd.truststore -file accounts.google.com.crt
+    keytool -import -noprompt -storepass changeit -alias accounts.google.com -keystore egd.truststore -file accounts.google.com.crt
     
     openssl s_client -connect googleapis.com:443 2>&1 > googleapis.com.crt
-    keytool -import -alias googleapis.com -keystore egd.truststore -file googleapis.com.crt
+    keytool -import -noprompt -storepass changeit -alias googleapis.com -keystore egd.truststore -file googleapis.com.crt
     
+    openssl s_client -connect www.googleapis.com:443 2>&1 > www.googleapis.com.crt
+    keytool -import -noprompt -storepass changeit -alias www.googleapis.com -keystore egd.truststore -file www.googleapis.com.crt
 
 
 #### Tips 
 
-    keytool -delete -noprompt -alias accounts.google.com -keystore egd.truststore -storepass changeit
+    keytool -delete -noprompt -storepass changeit -alias accounts.google.com -keystore egd.truststore
     

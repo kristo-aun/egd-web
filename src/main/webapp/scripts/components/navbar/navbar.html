@@ -151,7 +151,7 @@
                             </span>
                             <span ng-show="!isWarning()" class="glyphicon glyphicon-wrench"></span>
                             &#xA0;<span translate="navbar.account.settings"></span></a></li>
-                        <li ui-sref-active="active"><a ui-sref="password"><span
+                        <li ui-sref-active="active" ng-if="account.accountForm"><a ui-sref="password"><span
                             class="glyphicon glyphicon-lock"></span>
                             &#xA0;<span translate="navbar.account.password"></span></a></li>
                         <li ui-sref-active="active"><a href="" ng-click="logout()"><span

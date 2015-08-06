@@ -79,7 +79,7 @@ public class UserService {
             });
     }
 
-    private User newUser(User newUser) {
+    public static User newUser(User newUser) {
 
         newUser.setUuid(JCRandom.random13B());
 
@@ -100,6 +100,10 @@ public class UserService {
     }
 
     public User createUserWithExternal(User newUser) {
+        return createUserWithExternal(newUser, userRepository);
+    }
+
+    public static User createUserWithExternal(User newUser, UserRepository userRepository) {
         newUser = newUser(newUser);
         newUser.setActivated(true);
 

@@ -101,9 +101,15 @@ public class SocialConnectionSignUp implements ConnectionSignUp {
                         log.debug("Create new user from social information");
                         //täiesti uus kasutaja
                         socialUser.setLangKey(ISO6391.et);
-                        log.debug("Send socialUser to creation in userService, shc={}", userService.hashCode());
-                        User user = userService.createUserWithExternal(socialUser);
-                        mailService.sendWelcomeEmail(user);
+                        log.debug("Send socialUser to creation in userService, {}", socialUser);
+                        User user = UserService.createUserWithExternal(socialUser, userRepository);
+
+                        try {
+                            mailService.sendWelcomeEmail(user);
+                        } catch (Exception e) {
+                            log.error("sendWelcomeEmail", e);
+                        }
+
                         return user.getUuid();
                     });
             });

@@ -767,7 +767,7 @@
                 </plugins>
             </build>
             <properties>
-                <logback.loglevel>DEBUG</logback.loglevel>
+                <logback.loglevel>WARN</logback.loglevel>
             </properties>
             <dependencies>
                 <dependency>

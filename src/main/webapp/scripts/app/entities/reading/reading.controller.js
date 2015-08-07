@@ -25,7 +25,7 @@ egdApp
         };
 
         $scope.loadAll = function() {
-            ReadingResource.query({page: $scope.page, limit: $scope.limit}, function(result, headers) {
+            ReadingResource.query({}, function(result, headers) {
                 $scope.links = ParseLinks.parse(headers('link'));
                 $scope.totalCount = headers('X-Total-Count');
                 $scope.readingRows = modReadings(result);

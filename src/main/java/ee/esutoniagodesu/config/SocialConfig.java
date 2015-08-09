@@ -62,14 +62,18 @@ public class SocialConfig extends SocialConfigurerAdapter {
         log.debug("New instance of " + FacebookConnectionFactory.class);
         String key = env.getProperty("spring.social.facebook.clientId");
         String secret = env.getProperty("spring.social.facebook.clientSecret");
-        return new FacebookConnectionFactory(key, secret);
+        FacebookConnectionFactory result = new FacebookConnectionFactory(key, secret);
+        result.setScope("public_profile,email");
+        return result;
     }
 
     private GoogleConnectionFactory googleConnectionFactory() {
         log.debug("New instance of " + GoogleConnectionFactory.class);
         String key = env.getProperty("spring.social.google.clientId");
         String secret = env.getProperty("spring.social.google.clientSecret");
-        return new GoogleConnectionFactory(key, secret);
+        GoogleConnectionFactory result = new GoogleConnectionFactory(key, secret);
+        result.setScope("https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email");
+        return result;
     }
 
     public void addConnectionFactories(ConnectionFactoryConfigurer configurer, Environment environment) {

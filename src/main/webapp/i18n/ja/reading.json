@@ -36,7 +36,7 @@
             "bodyLang": "語",
             "audio": "Audio",
             "audio.tip": "Most browsers can handle 192Kbps/44kHz, 128/44 and 48/22 OGG subformats. You can upload mp3-s.",
-            "tags": "タグ"
+            "tags": "タグ",
             "tags.placeholder": "Add tag",
             "tags.tip": "Users can filter and sort readings according to selection of tags",
             "body": "Body",

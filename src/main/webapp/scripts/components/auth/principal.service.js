@@ -8,11 +8,11 @@ egdApp
         return {
             equals: function(uuid) {
                 if (!_authenticated || !_identity || !_identity.uuid) {
-                    $log.debug("Principal.equals", uuid, false);
+                    //$log.debug("Principal.equals", uuid, false);
                     return false;
                 }
                 var result = _identity.uuid === uuid;
-                $log.debug("Principal.equals", uuid, _identity.uuid, result);
+                //$log.debug("Principal.equals", uuid, _identity.uuid, result);
                 return result;
             },
             isIdentityResolved: function () {

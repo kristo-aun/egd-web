@@ -146,7 +146,17 @@ egdApp
         };
 
         $scope.setDefaultHeisigWord = function (compound) {
-            var kanji = compound.signs[0].sign;
+            var kanji;
+            var i = 0;
+            //esimene märk ei pruugi alati olla kanji
+            while (!kanji) {
+                if (compound.signs[i].kanji) {
+                    kanji = compound.signs[i].sign;
+                    break;
+                }
+                i++;
+            }
+
             var word = compound.answer;
             var wordReading = compound.reading;
             var wordTranslation = compound.et ? compound.et : compound.en;

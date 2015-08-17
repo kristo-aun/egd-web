@@ -26,7 +26,7 @@
             "main": "Account",
             "settings": "Settings",
             "password": "Password",
-            "login": "Authenticate",
+            "login": "Log in",
             "logout": "Log out",
             "register": "Register"
         },

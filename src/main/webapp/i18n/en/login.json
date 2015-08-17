@@ -2,7 +2,7 @@
     "login": {
         "title": "Authentication",
         "form": {
-            "button": "Authenticate"
+            "button": "Log in"
         },
         "messages": {
             "error": {

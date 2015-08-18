@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="Heisig 6 Custom"
+              topMargin="0"
+              leftMargin="0"
+              whenNoDataType="AllSectionsNoDetail"
+              isIgnorePagination="true">
+
+    <property name="ireport.scriptlethandling" value="0"/>
+    <property name="ireport.encoding" value="UTF-8"/>
+    <import value="net.sf.jasperreports.engine.*"/>
+    <import value="net.sf.jasperreports.engine.data.*"/>
+    <import value="java.util.*"/>
+
+
+    <field name="id" class="java.lang.Integer"/>
+    <field name="strokeImageHtml" class="java.lang.String"/>
+    <field name="keywordEn" class="java.lang.String"/>
+    <field name="myKeyword" class="java.lang.String"/>
+    <field name="myStory" class="java.lang.String"/>
+
+    <field name="jpWord" class="java.lang.String"/>
+    <field name="jpWordReading" class="java.lang.String"/>
+    <field name="jpWordTranslation" class="java.lang.String"/>
+    <field name="constituents" class="java.lang.String"/>
+    <field name="heisigStory" class="java.lang.String"/>
+
+    <field name="heisigComment" class="java.lang.String"/>
+    <field name="strokeCount" class="java.lang.Integer"/>
+    <field name="koohiiStory1" class="java.lang.String"/>
+    <field name="koohiiStory2" class="java.lang.String"/>
+    <field name="kanji" class="java.lang.String"/>
+
+    <field name="exampleWordsHtml" class="java.lang.String"/>
+    <field name="lessonNo" class="java.lang.Integer"/>
+    <field name="onYomi" class="java.lang.String"/>
+    <field name="kunYomi" class="java.lang.String"/>
+    <field name="frameNo4" class="java.lang.Integer"/>
+
+    <field name="jouyou" class="java.lang.Integer"/>
+    <field name="jlpt" class="java.lang.Integer"/>
+    <field name="jpWordAudioHtml" class="java.lang.String"/>
+    <field name="keywordEnAudioFileName" class="java.lang.String"/>
+
+    <columnHeader>
+        <band height="16" splitType="Stretch">
+            <staticText>
+                <reportElement key="staticText" x="0" y="0" width="40" height="16"/>
+                <text><![CDATA[id]]></text>
+            </staticText>
+            <staticText>
+                <reportElement key="staticText" x="40" y="0" width="40" height="16"/>
+                <text><![CDATA[strokeImageHtml]]></text>
+            </staticText>
+            <staticText>
+                <reportElement key="staticText" x="80" y="0" width="40" height="16"/>
+                <text><![CDATA[keywordEn]]></text>
+            </staticText>
+            <staticText>
+                <reportElement key="staticText" x="120" y="0" width="40" height="16"/>
+                <text><![CDATA[myKeyword]]></text>
+            </staticText>
+            <staticText>
+                <reportElement key="staticText" x="160" y="0" width="40" height="16"/>
+                <text><![CDATA[myStory]]></text>
+            </staticText>
+
+
+            <staticText>
+                <reportElement key="staticText" x="200" y="0" width="40" height="16"/>
+                <text><![CDATA[jpWord]]></text>
+            </staticText>
+            <staticText>
+                <reportElement key="staticText" x="240" y="0" width="40" height="16"/>
+                <text><![CDATA[jpWordReading]]></text>
+            </staticText>
+            <staticText>
+                <reportElement key="staticText" x="280" y="0" width="40" height="16"/>
+                <text><![CDATA[jpWordTranslation]]></text>
+            </staticText>
+            <staticText>
+                <reportElement key="staticText" x="320" y="0" width="40" height="16"/>
+                <text><![CDATA[constituents]]></text>
+            </staticText>
+            <staticText>
+                <reportElement key="staticText" x="360" y="0" width="40" height="16"/>
+                <text><![CDATA[heisigStory]]></text>
+            </staticText>
+
+
+            <staticText>
+                <reportElement key="staticText" x="400" y="0" width="40" height="16"/>
+                <text><![CDATA[heisigComment]]></text>
+            </staticText>
+            <staticText>
+                <reportElement key="staticText" x="440" y="0" width="40" height="16"/>
+                <text><![CDATA[strokeCount]]></text>
+            </staticText>
+            <staticText>
+                <reportElement key="staticText" x="480" y="0" width="40" height="16"/>
+                <text><![CDATA[koohiiStory1]]></text>
+            </staticText>
+            <staticText>
+                <reportElement key="staticText" x="520" y="0" width="40" height="16"/>
+                <text><![CDATA[koohiiStory2]]></text>
+            </staticText>
+            <staticText>
+                <reportElement key="staticText" x="560" y="0" width="40" height="16"/>
+                <text><![CDATA[kanji]]></text>
+            </staticText>
+
+
+            <staticText>
+                <reportElement key="staticText" x="600" y="0" width="40" height="16"/>
+                <text><![CDATA[exampleWordsHtml]]></text>
+            </staticText>
+            <staticText>
+                <reportElement key="staticText" x="640" y="0" width="40" height="16"/>
+                <text><![CDATA[lessonNo]]></text>
+            </staticText>
+            <staticText>
+                <reportElement key="staticText" x="680" y="0" width="40" height="16"/>
+                <text><![CDATA[onYomi]]></text>
+            </staticText>
+            <staticText>
+                <reportElement key="staticText" x="720" y="0" width="40" height="16"/>
+                <text><![CDATA[kunYomi]]></text>
+            </staticText>
+            <staticText>
+                <reportElement key="staticText" x="760" y="0" width="40" height="16"/>
+                <text><![CDATA[frameNo4]]></text>
+            </staticText>
+
+
+            <staticText>
+                <reportElement key="staticText" x="800" y="0" width="40" height="16"/>
+                <text><![CDATA[jouyou]]></text>
+            </staticText>
+            <staticText>
+                <reportElement key="staticText" x="840" y="0" width="40" height="16"/>
+                <text><![CDATA[jlpt]]></text>
+            </staticText>
+            <staticText>
+                <reportElement key="staticText" x="880" y="0" width="40" height="16"/>
+                <text><![CDATA[jpWordAudioHtml]]></text>
+            </staticText>
+            <staticText>
+                <reportElement key="staticText" x="920" y="0" width="40" height="16"/>
+                <text><![CDATA[keywordEnAudioFileName]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+
+    <detail>
+        <band height="16" splitType="Stretch">
+
+            <textField isBlankWhenNull="true" isStretchWithOverflow="true">
+                <reportElement stretchType="RelativeToTallestObject" key="textField" x="0" y="0" width="40"
+                               height="16"/>
+                <textElement/>
+                <textFieldExpression class="java.lang.Integer"><![CDATA[$F{id}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true" isStretchWithOverflow="true">
+                <reportElement stretchType="RelativeToTallestObject" key="textField" x="40" y="0" width="40"
+                               height="16"/>
+                <textElement/>
+                <textFieldExpression><![CDATA[$F{strokeImageHtml}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true" isStretchWithOverflow="true">
+                <reportElement stretchType="RelativeToTallestObject" key="textField" x="80" y="0" width="40"
+                               height="16"/>
+                <textElement/>
+                <textFieldExpression><![CDATA[$F{keywordEn}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true" isStretchWithOverflow="true">
+                <reportElement stretchType="RelativeToTallestObject" key="textField" x="120" y="0" width="40"
+                               height="16"/>
+                <textElement/>
+                <textFieldExpression><![CDATA[$F{myKeyword}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true" isStretchWithOverflow="true">
+                <reportElement stretchType="RelativeToTallestObject" key="textField" x="160" y="0" width="40"
+                               height="16"/>
+                <textElement/>
+                <textFieldExpression><![CDATA[$F{myStory}]]></textFieldExpression>
+            </textField>
+
+
+            <textField isBlankWhenNull="true" isStretchWithOverflow="true">
+                <reportElement stretchType="RelativeToTallestObject" key="textField" x="200" y="0" width="40"
+                               height="16"/>
+                <textElement/>
+                <textFieldExpression><![CDATA[$F{jpWord}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true" isStretchWithOverflow="true">
+                <reportElement stretchType="RelativeToTallestObject" key="textField" x="240" y="0" width="40"
+                               height="16"/>
+                <textElement/>
+                <textFieldExpression><![CDATA[$F{jpWordReading}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true" isStretchWithOverflow="true">
+                <reportElement stretchType="RelativeToTallestObject" key="textField" x="280" y="0" width="40"
+                               height="16"/>
+                <textElement/>
+                <textFieldExpression><![CDATA[$F{jpWordTranslation}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true" isStretchWithOverflow="true">
+                <reportElement stretchType="RelativeToTallestObject" key="textField" x="320" y="0" width="40"
+                               height="16"/>
+                <textElement/>
+                <textFieldExpression><![CDATA[$F{constituents}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true" isStretchWithOverflow="true">
+                <reportElement stretchType="RelativeToTallestObject" key="textField" x="360" y="0" width="40"
+                               height="16"/>
+                <textElement/>
+                <textFieldExpression><![CDATA[$F{heisigStory}]]></textFieldExpression>
+            </textField>
+
+
+            <textField isBlankWhenNull="true" isStretchWithOverflow="true">
+                <reportElement stretchType="RelativeToTallestObject" key="textField" x="400" y="0" width="40"
+                               height="16"/>
+                <textElement/>
+                <textFieldExpression><![CDATA[$F{heisigComment}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true" isStretchWithOverflow="true">
+                <reportElement stretchType="RelativeToTallestObject" key="textField" x="440" y="0" width="40"
+                               height="16"/>
+                <textElement/>
+                <textFieldExpression class="java.lang.Integer"><![CDATA[$F{strokeCount}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true" isStretchWithOverflow="true">
+                <reportElement stretchType="RelativeToTallestObject" key="textField" x="480" y="0" width="40"
+                               height="16"/>
+                <textElement/>
+                <textFieldExpression><![CDATA[$F{koohiiStory1}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true" isStretchWithOverflow="true">
+                <reportElement stretchType="RelativeToTallestObject" key="textField" x="520" y="0" width="40"
+                               height="16"/>
+                <textElement/>
+                <textFieldExpression><![CDATA[$F{koohiiStory2}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true" isStretchWithOverflow="true">
+                <reportElement stretchType="RelativeToTallestObject" key="textField" x="560" y="0" width="40"
+                               height="16"/>
+                <textElement/>
+                <textFieldExpression><![CDATA[$F{kanji}]]></textFieldExpression>
+            </textField>
+
+
+            <textField isBlankWhenNull="true" isStretchWithOverflow="true">
+                <reportElement stretchType="RelativeToTallestObject" key="textField" x="600" y="0" width="40"
+                               height="16"/>
+                <textElement/>
+                <textFieldExpression><![CDATA[$F{exampleWordsHtml}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true" isStretchWithOverflow="true">
+                <reportElement stretchType="RelativeToTallestObject" key="textField" x="640" y="0" width="40"
+                               height="16"/>
+                <textElement/>
+                <textFieldExpression class="java.lang.Integer"><![CDATA[$F{lessonNo}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true" isStretchWithOverflow="true">
+                <reportElement stretchType="RelativeToTallestObject" key="textField" x="680" y="0" width="40"
+                               height="16"/>
+                <textElement/>
+                <textFieldExpression><![CDATA[$F{onYomi}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true" isStretchWithOverflow="true">
+                <reportElement stretchType="RelativeToTallestObject" key="textField" x="720" y="0" width="40"
+                               height="16"/>
+                <textElement/>
+                <textFieldExpression><![CDATA[$F{kunYomi}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true" isStretchWithOverflow="true">
+                <reportElement stretchType="RelativeToTallestObject" key="textField" x="760" y="0" width="40"
+                               height="16"/>
+                <textElement/>
+                <textFieldExpression class="java.lang.Integer"><![CDATA[$F{frameNo4}]]></textFieldExpression>
+            </textField>
+
+
+            <textField isBlankWhenNull="true" isStretchWithOverflow="true">
+                <reportElement stretchType="RelativeToTallestObject" key="textField" x="800" y="0" width="40"
+                               height="16"/>
+                <textElement/>
+                <textFieldExpression class="java.lang.Integer"><![CDATA[$F{jouyou}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true" isStretchWithOverflow="true">
+                <reportElement stretchType="RelativeToTallestObject" key="textField" x="840" y="0" width="40"
+                               height="16"/>
+                <textElement/>
+                <textFieldExpression class="java.lang.Integer"><![CDATA[$F{jlpt}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true" isStretchWithOverflow="true">
+                <reportElement stretchType="RelativeToTallestObject" key="textField" x="880" y="0" width="40"
+                               height="16"/>
+                <textElement/>
+                <textFieldExpression><![CDATA[$F{jpWordAudioHtml}]]></textFieldExpression>
+            </textField>
+            <textField isBlankWhenNull="true" isStretchWithOverflow="true">
+                <reportElement stretchType="RelativeToTallestObject" key="textField" x="920" y="0" width="40"
+                               height="16"/>
+                <textElement/>
+                <textFieldExpression><![CDATA[$F{keywordEnAudioFileName}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+</jasperReport>

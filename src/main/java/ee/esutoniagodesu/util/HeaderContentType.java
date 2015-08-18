@@ -9,6 +9,7 @@ public enum HeaderContentType {
     PDF("application/x-download"),
     ODS("application/vnd.oasis.opendocument.spreadsheet"),
     CSV("text/csv"),
+    ZIP("application/x-download"),
     TXT("text/html"),
 
     MP3("audio/mpeg");

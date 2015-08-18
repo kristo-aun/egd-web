@@ -4,14 +4,15 @@ import ee.esutoniagodesu.bean.EGDAssets;
 import ee.esutoniagodesu.bean.ProjectDAO;
 import ee.esutoniagodesu.domain.heisig.view.VHeisig6Custom;
 import ee.esutoniagodesu.pojo.cf.ECfReportType;
+import ee.esutoniagodesu.repository.domain.kanjidic2.KanjiRepository;
 import ee.esutoniagodesu.repository.project.KanjiDB;
 import ee.esutoniagodesu.repository.project.ReportDB;
 import ee.esutoniagodesu.security.SecurityUtils;
 import ee.esutoniagodesu.util.JCDateTime;
 import ee.esutoniagodesu.util.commons.JCIOUtils;
+import ee.esutoniagodesu.util.commons.JCText;
 import ee.esutoniagodesu.util.jasperreports.CSVGenerator;
 import ee.esutoniagodesu.util.jasperreports.JSGeneratorType;
-import ee.esutoniagodesu.util.lang.lingv.JCKana;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -25,6 +26,7 @@ import javax.inject.Inject;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.zip.ZipOutputStream;
@@ -42,13 +44,16 @@ public class JasperService {
     private KanjiDB kanjiDB;
 
     @Inject
+    private KanjiRepository kanjiRepository;
+
+    @Inject
     private ReportDB reportDB;
 
     private static final CSVGenerator _csvGenerator = new CSVGenerator("\t");
 
     private int _exampleWordsCount = 20;
 
-    private List<VHeisig6Custom> findAllVHeisig6Custom() {
+    private List<VHeisig6Custom> findAllVHeisig6Custom() throws UnsupportedEncodingException {
         return findVHeisig6Custom(1, 2200);
     }
 
@@ -57,7 +62,7 @@ public class JasperService {
      * 2) Lisab näidissõnad
      * 3) Koostab html'i
      */
-    private List<VHeisig6Custom> findVHeisig6Custom(int from, int to) {
+    private List<VHeisig6Custom> findVHeisig6Custom(int from, int to) throws UnsupportedEncodingException {
         Assert.isTrue(from > 0 && to > from && to <= 2200);
         List<VHeisig6Custom> result = dao.findAll(VHeisig6Custom.class);
         Assert.isTrue(2200 == result.size());
@@ -66,29 +71,27 @@ public class JasperService {
         StringBuilder words = new StringBuilder();
         for (VHeisig6Custom p : result) {
 
-            List<String> allreadings = kanjiDB.getKanjiReadingsJp(p.getKanji().charAt(0));
-
-            for (String q : allreadings) {
-                String hiragana = JCKana.toHiragana(q);
-                if (p.getWordReading().contains(hiragana)) {
-                    if (p.getWordReading().length() > hiragana.length())
-                        p.setWordReading(p.getWordReading().replaceFirst(hiragana, "<b>" + hiragana + "</b>"));
-                    break;
+            kanjiRepository.findByLiteral(p.getKanji()).ifPresent(item -> {
+                p.setJlpt(item.getJlpt());
+                if (item.getJouyou() != null) {
+                    p.setJouyou(item.getJouyou().getJouyouId());
                 }
-            }
+            });
 
             if (_exampleWordsCount > 0) {
                 p.setExampleWords(kanjiDB.getExampleWords(p.getKanji(), _exampleWordsCount));
             }
 
             if (p.getImageSha() != null) {
-                String diagram = "<img src=\"" + p.getKanji() + ".svg" + "\" />";
+                String diagram = "<img src=\"" + JCText.toHex(p.getKanji()).toUpperCase() + ".png" + "\" />";
                 p.setStrokeImageHtml(diagram);
             }
 
-            if (p.getWordAudioFileName() != null) {
-                p.setWordAudioHtml("[sound:" + p.getWordAudioFileName() + "]");
+            if (p.getJpWordAudioFileName() != null) {
+                p.setJpWordAudioHtml("[sound:" + p.getJpWordAudioFileName() + "]");
             }
+
+            p.setKeywordEnAudioFileName("[sound:RTK1_keyword_en_" + p.getId() + ".mp3" + "]");
 
             if (p.getExampleWords() != null) {
                 words.setLength(0);
@@ -115,7 +118,7 @@ public class JasperService {
         return reportDB.getTofuTranslatedByUser(SecurityUtils.getUserUuid());
     }
 
-    private List<?> getData(ECfReportType reportType) {
+    private List<?> getData(ECfReportType reportType) throws UnsupportedEncodingException {
         List data = null;
 
         switch (reportType) {
@@ -236,11 +239,14 @@ public class JasperService {
         ByteArrayOutputStream ostream = new ByteArrayOutputStream();
         ZipOutputStream zos = new ZipOutputStream(ostream);
 
-        JCIOUtils.addToZipFile(report, zos);
+        String name = "RTK1_" + from + "-" + to + ".csv";
+        Map.Entry<String, byte[]> report2 = new AbstractMap.SimpleEntry<>(name, report.getValue());
+
+        JCIOUtils.addToZipFile(report2, zos);
 
         for (VHeisig6Custom p : data) {
-            if (p.getWordAudioFileName() != null && p.getWordAudio() != null && p.getWordAudio().length > 0) {
-                JCIOUtils.addToZipFile("word_audio/" + p.getWordAudioFileName(), p.getWordAudio(), zos);
+            if (p.getJpWordAudioFileName() != null && p.getJpWordAudio() != null && p.getJpWordAudio().length > 0) {
+                JCIOUtils.addToZipFile("keyword_jp/" + p.getJpWordAudioFileName(), p.getJpWordAudio(), zos);
             }
 
             //if (p.getStrokeImage() != null && p.getStrokeImage().length > 0) {

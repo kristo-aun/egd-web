@@ -9,4 +9,6 @@ public enum EAuthority {
     ROLE_SENSEI,
     ROLE_USER,
     ROLE_ANONYMOUS;
+
+    public static final String role_admin = "ROLE_ADMIN";
 }

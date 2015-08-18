@@ -22,18 +22,18 @@ public final class VHeisig6Custom implements Serializable {
     private String heisigComment;
     private String keywordEn;
 
-    private String keywordEt;
+    private String myKeyword;
     @JsonIgnore
-    private String word;
+    private String jpWord;
     @JsonIgnore
-    private String wordReading;
+    private String jpWordReading;
     @JsonIgnore
-    private byte[] wordAudio;
+    private byte[] jpWordAudio;
     @JsonIgnore
-    private String wordAudioFileName;
+    private String jpWordAudioFileName;
 
     @JsonIgnore
-    private String wordTranslation;
+    private String jpWordTranslation;
     @JsonIgnore
     private String myStory;
     private Integer strokeCount;
@@ -59,9 +59,20 @@ public final class VHeisig6Custom implements Serializable {
     private String exampleWordsHtml;
 
     @JsonIgnore
-    private String wordAudioHtml;
-    private int jouyou;
-    private int jlpt;
+    private String jpWordAudioHtml;
+    private Integer jouyou;
+    private Integer jlpt;
+
+    private String keywordEnAudioFileName;
+
+    @Transient
+    public String getKeywordEnAudioFileName() {
+        return keywordEnAudioFileName;
+    }
+
+    public void setKeywordEnAudioFileName(String keywordEnAudioFileName) {
+        this.keywordEnAudioFileName = keywordEnAudioFileName;
+    }
 
     @Transient
     public List<String[]> getExampleWords() {
@@ -91,29 +102,29 @@ public final class VHeisig6Custom implements Serializable {
     }
 
     @Transient
-    public String getWordAudioHtml() {
-        return wordAudioHtml;
+    public String getJpWordAudioHtml() {
+        return jpWordAudioHtml;
     }
 
-    public void setWordAudioHtml(String wordAudioHtml) {
-        this.wordAudioHtml = wordAudioHtml;
+    public void setJpWordAudioHtml(String jpWordAudioHtml) {
+        this.jpWordAudioHtml = jpWordAudioHtml;
     }
 
     @Transient
-    public int getJouyou() {
+    public Integer getJouyou() {
         return jouyou;
     }
 
-    public void setJouyou(int jouyou) {
+    public void setJouyou(Integer jouyou) {
         this.jouyou = jouyou;
     }
 
     @Transient
-    public int getJlpt() {
+    public Integer getJlpt() {
         return jlpt;
     }
 
-    public void setJlpt(int jlpt) {
+    public void setJlpt(Integer jlpt) {
         this.jlpt = jlpt;
     }
 
@@ -189,12 +200,12 @@ public final class VHeisig6Custom implements Serializable {
 
     @Column(name = "keyword_et", nullable = true, insertable = true, updatable = true, length = 2147483647, precision = 0)
     @Basic
-    public String getKeywordEt() {
-        return keywordEt;
+    public String getMyKeyword() {
+        return myKeyword;
     }
 
-    public void setKeywordEt(String keywordEt) {
-        this.keywordEt = keywordEt;
+    public void setMyKeyword(String myKeyword) {
+        this.myKeyword = myKeyword;
     }
 
     @Column(name = "koohii_story_1", nullable = true, insertable = true, updatable = true, length = 2147483647, precision = 0)
@@ -277,54 +288,55 @@ public final class VHeisig6Custom implements Serializable {
         this.imageSha = imageSha;
     }
 
+
     @Column(name = "word", nullable = true, insertable = true, updatable = true, length = 2147483647, precision = 0)
     @Basic
-    public String getWord() {
-        return word;
+    public String getJpWord() {
+        return jpWord;
     }
 
-    public void setWord(String word) {
-        this.word = word;
-    }
-
-    @Column(name = "word_audio", nullable = true, insertable = true, updatable = true, length = 2147483647, precision = 0)
-    @Basic
-    public byte[] getWordAudio() {
-        return wordAudio;
-    }
-
-    public void setWordAudio(byte[] wordAudio) {
-        this.wordAudio = wordAudio;
-    }
-
-    @Column(name = "word_audio_file_name", nullable = true, insertable = true, updatable = true, length = 2147483647, precision = 0)
-    @Basic
-    public String getWordAudioFileName() {
-        return wordAudioFileName;
-    }
-
-    public void setWordAudioFileName(String wordAudioFileName) {
-        this.wordAudioFileName = wordAudioFileName;
+    public void setJpWord(String jpWord) {
+        this.jpWord = jpWord;
     }
 
     @Column(name = "word_reading", nullable = true, insertable = true, updatable = true, length = 2147483647, precision = 0)
     @Basic
-    public String getWordReading() {
-        return wordReading;
+    public String getJpWordReading() {
+        return jpWordReading;
     }
 
-    public void setWordReading(String wordReading) {
-        this.wordReading = wordReading;
+    public void setJpWordReading(String jpWordReading) {
+        this.jpWordReading = jpWordReading;
+    }
+
+    @Column(name = "word_audio", nullable = true, insertable = true, updatable = true, length = 2147483647, precision = 0)
+    @Basic
+    public byte[] getJpWordAudio() {
+        return jpWordAudio;
+    }
+
+    public void setJpWordAudio(byte[] jpWordAudio) {
+        this.jpWordAudio = jpWordAudio;
+    }
+
+    @Column(name = "word_audio_file_name", nullable = true, insertable = true, updatable = true, length = 2147483647, precision = 0)
+    @Basic
+    public String getJpWordAudioFileName() {
+        return jpWordAudioFileName;
+    }
+
+    public void setJpWordAudioFileName(String jpWordAudioFileName) {
+        this.jpWordAudioFileName = jpWordAudioFileName;
     }
 
     @Column(name = "word_translation", nullable = true, insertable = true, updatable = true, length = 2147483647, precision = 0)
     @Basic
-    public String getWordTranslation() {
-        return wordTranslation;
+    public String getJpWordTranslation() {
+        return jpWordTranslation;
     }
 
-    public void setWordTranslation(String wordTranslation) {
-        this.wordTranslation = wordTranslation;
+    public void setJpWordTranslation(String jpWordTranslation) {
+        this.jpWordTranslation = jpWordTranslation;
     }
 
     @Override

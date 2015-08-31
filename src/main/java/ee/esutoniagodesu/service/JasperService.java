@@ -238,7 +238,7 @@ public class JasperService {
     }
 
     private static String enFilename(VHeisig6Custom item) {
-        return "[sound:RTK1_keyword_en_" + item.getId() + ".mp3" + "]";
+        return "RTK1_keyword_en_" + item.getId() + ".mp3";
     }
 
     public byte[] getHeisig6CustomAsArchive(int from, int to) throws IOException, JRException, SQLException {

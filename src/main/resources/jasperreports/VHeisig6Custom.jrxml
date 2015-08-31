@@ -44,6 +44,7 @@
     <field name="jpWordAudioHtml" class="java.lang.String"/>
     <field name="keywordEnAudioFileName" class="java.lang.String"/>
 
+    <!--
     <columnHeader>
         <band height="16" splitType="Stretch">
             <staticText>
@@ -152,6 +153,7 @@
             </staticText>
         </band>
     </columnHeader>
+    -->
 
     <detail>
         <band height="16" splitType="Stretch">

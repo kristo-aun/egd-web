@@ -9,6 +9,8 @@ import ee.esutoniagodesu.repository.project.KanjiDB;
 import ee.esutoniagodesu.repository.project.ReportDB;
 import ee.esutoniagodesu.security.SecurityUtils;
 import ee.esutoniagodesu.util.JCDateTime;
+import ee.esutoniagodesu.util.JCFile;
+import ee.esutoniagodesu.util.JCString;
 import ee.esutoniagodesu.util.commons.JCIOUtils;
 import ee.esutoniagodesu.util.commons.JCText;
 import ee.esutoniagodesu.util.jasperreports.CSVGenerator;
@@ -66,7 +68,7 @@ public class JasperService {
         Assert.isTrue(from > 0 && to > from && to <= 2200);
         List<VHeisig6Custom> result = dao.findAll(VHeisig6Custom.class);
         Assert.isTrue(2200 == result.size());
-        result = result.subList(from - 1, to - 1);
+        result = result.subList(from - 1, to);
 
         StringBuilder words = new StringBuilder();
         for (VHeisig6Custom p : result) {
@@ -88,7 +90,9 @@ public class JasperService {
             }
 
             if (p.getJpWordAudioFileName() != null) {
-                p.setJpWordAudioHtml("[sound:" + p.getJpWordAudioFileName() + "]");
+                String ext = JCString.getExtension(p.getJpWordAudioFileName());
+                if (ext == null || ext.length() < 1) ext = ".mp3";
+                p.setJpWordAudioHtml("[sound:RTK1_keyword_jp_" + p.getId() + "." + ext + "]");
             }
 
             p.setKeywordEnAudioFileName("[sound:RTK1_keyword_en_" + p.getId() + ".mp3" + "]");

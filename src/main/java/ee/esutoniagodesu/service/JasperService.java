@@ -9,7 +9,6 @@ import ee.esutoniagodesu.repository.project.KanjiDB;
 import ee.esutoniagodesu.repository.project.ReportDB;
 import ee.esutoniagodesu.security.SecurityUtils;
 import ee.esutoniagodesu.util.JCDateTime;
-import ee.esutoniagodesu.util.JCFile;
 import ee.esutoniagodesu.util.JCString;
 import ee.esutoniagodesu.util.commons.JCIOUtils;
 import ee.esutoniagodesu.util.commons.JCText;
@@ -90,12 +89,10 @@ public class JasperService {
             }
 
             if (p.getJpWordAudioFileName() != null) {
-                String ext = JCString.getExtension(p.getJpWordAudioFileName());
-                if (ext == null || ext.length() < 1) ext = ".mp3";
-                p.setJpWordAudioHtml("[sound:RTK1_keyword_jp_" + p.getId() + "." + ext + "]");
+                p.setJpWordAudioHtml("[sound:" + jpFilename(p) + "]");
             }
 
-            p.setKeywordEnAudioFileName("[sound:RTK1_keyword_en_" + p.getId() + ".mp3" + "]");
+            p.setKeywordEnAudioFileName("[sound:" + enFilename(p) + "]");
 
             if (p.getExampleWords() != null) {
                 words.setLength(0);
@@ -234,6 +231,16 @@ public class JasperService {
 
     //------------------------------ cache management ------------------------------
 
+    private static String jpFilename(VHeisig6Custom item) {
+        String ext = JCString.getExtension(item.getJpWordAudioFileName());
+        if (ext == null || ext.length() < 1) ext = ".mp3";
+        return "RTK1_keyword_jp_" + item.getId() + "." + ext;
+    }
+
+    private static String enFilename(VHeisig6Custom item) {
+        return "[sound:RTK1_keyword_en_" + item.getId() + ".mp3" + "]";
+    }
+
     public byte[] getHeisig6CustomAsArchive(int from, int to) throws IOException, JRException, SQLException {
         List<VHeisig6Custom> data = findVHeisig6Custom(from, to);
         Assert.notNull(data.get(0).getExampleWordsHtml());
@@ -250,7 +257,7 @@ public class JasperService {
 
         for (VHeisig6Custom p : data) {
             if (p.getJpWordAudioFileName() != null && p.getJpWordAudio() != null && p.getJpWordAudio().length > 0) {
-                JCIOUtils.addToZipFile("keyword_jp/" + p.getJpWordAudioFileName(), p.getJpWordAudio(), zos);
+                JCIOUtils.addToZipFile("keyword_jp/" + jpFilename(p), p.getJpWordAudio(), zos);
             }
 
             //if (p.getStrokeImage() != null && p.getStrokeImage().length > 0) {

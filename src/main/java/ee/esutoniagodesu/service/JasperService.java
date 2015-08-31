@@ -88,10 +88,7 @@ public class JasperService {
                 p.setStrokeImageHtml(diagram);
             }
 
-            if (p.getJpWordAudioFileName() != null) {
-                p.setJpWordAudioHtml("[sound:" + jpFilename(p) + "]");
-            }
-
+            p.setJpWordAudioHtml("[sound:" + jpFilename(p) + "]");
             p.setKeywordEnAudioFileName("[sound:" + enFilename(p) + "]");
 
             if (p.getExampleWords() != null) {

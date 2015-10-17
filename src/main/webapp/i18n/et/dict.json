@@ -1,8 +1,8 @@
 {
     "dict": {
-        "intro1": "Welcome to EsutoniaGoDesu! This is a JMDict based Japanese-Estonian dictionary.",
-        "intro2": "And there is a lot more - check out study materials to improve your Japanese.",
-        "intro3": "We have <a target=\"_blank\" href=\"https://facebook.com/EsutoniaGoDesu\">Facebook</a> and <a target=\"_blank\" href=\"https://twitter.com/EsutoniaGoDesu\">Twitter</a>!",
+        "intro1": "Tere tulemast! EsutoniaGoDesu on Jaapani ⇆ Eesti sõnastik. Jaapanikeelne alussõnavara on Dr. Jim Breen'i JMDict, millele on vastu seatud JATIK'u ja teiste sõnastike eestikeelsed tõlked.",
+        "intro2": "Lisaks saab siin ka lugemist harjutada ja teste genereerida. Registreerige kasutajaks, et kasutada kõiki EsutoniaGoDesu võimalusi.",
+        "intro3": "Jälgige ka <a target=\"_blank\" href=\"https://facebook.com/EsutoniaGoDesu\">Facebook'i lehte</a> ja <a target=\"_blank\" href=\"https://twitter.com/EsutoniaGoDesu\">Twitter'i säutse</a>!",
         "notTranslated": "ei ole tõlgitud",
         "unknownWord": "sõna puudub"
     }

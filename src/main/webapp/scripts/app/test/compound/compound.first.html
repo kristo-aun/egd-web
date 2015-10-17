@@ -1,7 +1,10 @@
 <form name="form" role="form" ng-submit="doSubmit()" novalidate show-validation>
     <div class="col-lg-6 col-lg-offset-3" block-ui="compound.first" style="padding-left:10px">
         <div class="row centered">
-            <h2 translate="test.compound.title"></h2>
+            <h2>
+                {{'test.compound.title' | translate}}
+                (<a href="https://github.com/esutoniagodesu/egd-autoquiz" target="_blank">{{'test.compound.readymade' | translate}}</a>)
+            </h2>
         </div>
         <div class="row form-group" style="margin-top:20px">
             <label class="vertical-align">

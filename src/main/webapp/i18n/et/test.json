@@ -2,6 +2,7 @@
     "test": {
         "compound": {
             "title": "Testi genereerimine",
+            "readymade": "vt. ka valmisteste",
 
             "defaultFormMap": "Eeltäidetud vorm",
             "defaultFormMap.values": {

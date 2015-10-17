@@ -230,7 +230,7 @@ public class JasperService {
 
     private static String jpFilename(VHeisig6Custom item) {
         String ext = JCString.getExtension(item.getJpWordAudioFileName());
-        if (ext == null || ext.length() < 1) ext = ".mp3";
+        if (ext == null || ext.length() < 1) ext = "mp3";
         return "RTK1_keyword_jp_" + item.getId() + "." + ext;
     }
 

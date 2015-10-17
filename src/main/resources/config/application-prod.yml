@@ -2,9 +2,6 @@ app:
     url: https://momo.koodur.com
 
 spring:
-    jmx:
-        enabled: false
-
     profiles:
         active: prod
 

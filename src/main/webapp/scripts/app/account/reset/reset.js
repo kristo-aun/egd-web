@@ -7,7 +7,7 @@ egdApp
                 parent: 'account',
                 url: '/reset/finish?key',
                 data: {
-                    roles: []
+                    authorities: []
                 },
                 views: {
                     'content@': {
@@ -25,7 +25,7 @@ egdApp
                 parent: 'account',
                 url: '/reset/request',
                 data: {
-                    roles: []
+                    authorities: []
                 },
                 views: {
                     'content@': {

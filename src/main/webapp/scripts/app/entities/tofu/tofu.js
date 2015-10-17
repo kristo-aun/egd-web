@@ -7,7 +7,7 @@ egdApp
                 parent: 'entity',
                 url: '/tofu',
                 data: {
-                    roles: ['ROLE_USER'],
+                    authorities: ['ROLE_USER'],
                     pageTitle: 'tofu.home.title'
                 },
                 views: {

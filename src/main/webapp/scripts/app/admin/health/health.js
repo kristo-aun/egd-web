@@ -7,7 +7,7 @@ egdApp
                 parent: 'admin',
                 url: '/health',
                 data: {
-                    roles: ['ROLE_ADMIN'],
+                    authorities: ['ROLE_ADMIN'],
                     pageTitle: 'health.title'
                 },
                 views: {

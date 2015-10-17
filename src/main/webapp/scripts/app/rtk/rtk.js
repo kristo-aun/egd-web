@@ -7,7 +7,7 @@ egdApp
                 parent: 'site',
                 url: '/rtk',
                 data: {
-                    roles: [],
+                    authorities: [],
                     pageTitle: 'rtk.title'
                 },
                 views: {
@@ -26,7 +26,7 @@ egdApp
                 parent: 'site',
                 url: '/rtk/:book/:query',
                 data: {
-                    roles: [],
+                    authorities: [],
                     pageTitle: 'rtk.title'
                 },
                 views: {

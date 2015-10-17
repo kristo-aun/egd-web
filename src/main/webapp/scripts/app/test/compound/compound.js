@@ -7,7 +7,7 @@ egdApp
                 parent: 'test',
                 url: '/compound',
                 data: {
-                    roles: ['ROLE_USER'],
+                    authorities: ['ROLE_USER'],
                     pageTitle: 'compound.home.title'
                 },
                 views: {

@@ -7,7 +7,7 @@ egdApp
                 parent: 'entity',
                 url: '/reading',
                 data: {
-                    roles: [],
+                    authorities: [],
                     pageTitle: 'reading.home.title'
                 },
                 views: {
@@ -27,7 +27,7 @@ egdApp
                 parent: 'reading',
                 url: '/{id}',
                 data: {
-                    roles: []
+                    authorities: []
                 },
                 views: {
                     'content@': {
@@ -46,7 +46,7 @@ egdApp
                 parent: 'reading',
                 url: '/{id}/edit',
                 data: {
-                    roles: ['ROLE_USER']
+                    authorities: ['ROLE_USER']
                 },
                 views: {
                     'content@': {

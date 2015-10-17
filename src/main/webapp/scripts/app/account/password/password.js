@@ -7,7 +7,7 @@ egdApp
                 parent: 'account',
                 url: '/password',
                 data: {
-                    roles: ['ROLE_USER'],
+                    authorities: ['ROLE_USER'],
                     pageTitle: 'navbar.account.password'
                 },
                 views: {

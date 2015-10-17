@@ -22,7 +22,7 @@ egdApp
                 parent: 'site',
                 url: '/error/:code',
                 data: {
-                    roles: [],
+                    authorities: [],
                     pageTitle: 'error.title'
                 },
                 views: {

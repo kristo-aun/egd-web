@@ -7,7 +7,7 @@ egdApp
                 parent: 'site',
                 url: '/',
                 data: {
-                    roles: []
+                    authorities: []
                 },
                 views: {
                     'content@': {
@@ -25,7 +25,7 @@ egdApp
                 parent: 'site',
                 url: '/dict',
                 data: {
-                    roles: []
+                    authorities: []
                 },
                 views: {
                     'content@': {
@@ -43,7 +43,7 @@ egdApp
                 parent: 'site',
                 url: '/dict/:phrase',
                 data: {
-                    roles: []
+                    authorities: []
                 },
                 views: {
                     'content@': {
@@ -61,7 +61,7 @@ egdApp
                 parent: 'site',
                 url: '/abbr',
                 data: {
-                    roles: []
+                    authorities: []
                 },
                 views: {
                     'content@': {
@@ -78,7 +78,7 @@ egdApp
                 parent: 'site',
                 url: '/tos',
                 data: {
-                    roles: []
+                    authorities: []
                 },
                 views: {
                     'content@': {

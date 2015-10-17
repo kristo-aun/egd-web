@@ -1,4 +1,4 @@
-egdApp.factory('GitService', function ($resource) {
+egdApp.factory('GitService', function($resource) {
     return $resource('api/git', {}, {
         'get': {method: 'GET', params: {}, isArray: false}
     });

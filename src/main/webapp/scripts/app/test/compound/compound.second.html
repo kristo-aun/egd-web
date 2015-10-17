@@ -26,7 +26,7 @@
             {{'test.compound.hideTranslation' | translate}}
         </button>
         <button type="button"
-                ng-show="isInRole('ROLE_ADMIN')"
+                has-authority="ROLE_ADMIN"
                 class="{{showHeisigCores | ie: 'btn btn-success':'btn btn-default'}}"
                 ng-model="showHeisigCores"
                 btn-checkbox>
@@ -50,7 +50,7 @@
             <span ng-if="p.et && (!hideTranslation || p.showSign || showAnswer)" class="cmpd-et">{{p.et}}</span>
             <span ng-if="p.en && (!hideTranslation || p.showSign || showAnswer)" class="cmpd-en">{{p.en}}</span>
             <span ng-if="p.notes" class="cmpd-notes">({{p.notes}})</span>
-            <span ng-if="isInRole('ROLE_ADMIN') && (p.showSign || showAnswer)" style="float:right;">
+            <span has-authority="ROLE_ADMIN" ng-if="p.showSign || showAnswer" style="float:right;">
                 <button type="button"
                         class="{{!p.heisigEquals | ie: 'btn btn-sm btn-danger':'btn btn-sm btn-default'}}"
                         ng-click="p.showHeisig=!p.showHeisig"
@@ -85,7 +85,7 @@
                 </tr>
             </table>
         </div>
-        <div class="cmpd-answer-wr" ng-show="isInRole('ROLE_ADMIN') && (p.showHeisig || showHeisigCores)">
+        <div class="cmpd-answer-wr" has-authority="ROLE_ADMIN" ng-show="p.showHeisig || showHeisigCores">
              <span style="float:right">
                 <button class="btn btn-sm btn-default"
                         type="button"

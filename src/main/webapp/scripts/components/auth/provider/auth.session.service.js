@@ -11,24 +11,24 @@ egdApp
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     }
-                }).success(function (response) {
+                }).success(function(response) {
                     return response;
                 });
             },
             logout: function() {
                 // logout from the server
-                $http.post('api/logout').success(function (response) {
+                $http.post('api/logout').success(function(response) {
                     localStorageService.clearAll();
                     // to get a new csrf token call the api
                     $http.get('api/account');
                     return response;
                 });
             },
-            getToken: function () {
+            getToken: function() {
                 var token = localStorageService.get('token');
                 return token;
             },
-            hasValidToken: function () {
+            hasValidToken: function() {
                 var token = this.getToken();
                 return !!token;
             }

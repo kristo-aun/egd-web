@@ -1,4 +1,4 @@
-// Generated on 2015-06-15 using generator-jhipster 2.16.0
+// Generated on 2015-10-17 using generator-jhipster 2.22.0
 'use strict';
 var fs = require('fs');
 
@@ -20,7 +20,7 @@ var useminAutoprefixer = {
         if (block.src.length === 0) {
             return {};
         } else {
-            return require('grunt-usemin/lib/config/cssmin').createConfig(context, block) // Reuse cssmins createConfig
+            return require('grunt-usemin/lib/config/cssmin').createConfig(context, block);// Reuse cssmins createConfig
         }
     }
 };
@@ -52,13 +52,12 @@ module.exports = function (grunt) {
             app: {
                 src: ['src/main/webapp/index.html'],
                 exclude: [
-                    /angular-i18n/,  // localizations are loaded dynamically
-                    /swagger-ui/
+                    /angular-i18n/  // localizations are loaded dynamically
                 ]
             },
             test: {
                 src: 'src/test/javascript/karma.conf.js',
-                exclude: [/angular-i18n/, /swagger-ui/, /angular-scenario/],
+                exclude: [/angular-i18n/, /angular-scenario/],
                 ignorePath: /\.\.\/\.\.\//, // remove ../../ from paths of injected javascripts
                 devDependencies: true,
                 fileTypes: {
@@ -81,7 +80,7 @@ module.exports = function (grunt) {
                         'src/main/webapp/**/*.html',
                         'src/main/webapp/**/*.json',
                         'src/main/webapp/assets/styles/**/*.css',
-                        'src/main/webapp/scripts/**/*.js',
+                        'src/main/webapp/scripts/**/*.{js,html}',
                         'src/main/webapp/assets/images/**/*.{png,jpg,jpeg,gif,webp,svg}',
                         'tmp/**/*.{css,js}'
                     ]
@@ -184,9 +183,6 @@ module.exports = function (grunt) {
             }
         },
         cssmin: {
-            options: {
-                root: 'src/main/webapp' // Replace relative paths for static resources with absolute path
-            }
             // src and dest is configured in a subtask called "generated" by usemin
         },
         ngtemplates: {
@@ -197,17 +193,7 @@ module.exports = function (grunt) {
                 options: {
                     module: 'egdApp',
                     usemin: 'scripts/app.js',
-                    htmlmin: {
-                        removeCommentsFromCDATA: true,
-                        // https://github.com/yeoman/grunt-usemin/issues/44
-                        collapseWhitespace: true,
-                        collapseBooleanAttributes: true,
-                        conservativeCollapse: true,
-                        removeAttributeQuotes: true,
-                        removeRedundantAttributes: true,
-                        useShortDoctype: true,
-                        removeEmptyAttributes: true
-                    }
+                    htmlmin: '<%= htmlmin.dist.options %>'
                 }
             }
         },
@@ -235,6 +221,18 @@ module.exports = function (grunt) {
         },
         // Put files not handled in other tasks here
         copy: {
+            fonts: {
+                files: [{
+                    expand: true,
+                    dot: true,
+                    flatten: true,
+                    cwd: 'src/main/webapp',
+                    dest: '<%= yeoman.dist %>/assets/fonts',
+                    src: [
+                        'bower_components/bootstrap/fonts/*.*'
+                    ]
+                }]
+            },
             dist: {
                 files: [{
                     expand: true,
@@ -244,7 +242,8 @@ module.exports = function (grunt) {
                     src: [
                         '*.html',
                         'scripts/**/*.html',
-                        'assets/images/**/*.{png,gif,webp,jpg,jpeg,svg}'
+                        'assets/images/**/*.{png,gif,webp,jpg,jpeg,svg}',
+                        'assets/fonts/*'
                     ]
                 }, {
                     expand: true,
@@ -338,7 +337,8 @@ module.exports = function (grunt) {
     grunt.registerTask('test', [
         'clean:server',
         'wiredep:test',
-        'ngconstant:dev'
+        'ngconstant:dev',
+        'karma'
     ]);
 
     grunt.registerTask('build', [
@@ -350,6 +350,7 @@ module.exports = function (grunt) {
         'imagemin',
         'svgmin',
         'concat',
+        'copy:fonts',
         'copy:dist',
         'ngAnnotate',
         'cssmin',
@@ -380,7 +381,7 @@ module.exports = function (grunt) {
     grunt.registerTask('buildOpenshift', [
         'test',
         'build',
-        'copy:generateOpenshiftDirectory',
+        'copy:generateOpenshiftDirectory'
     ]);
 
     grunt.registerTask('deployOpenshift', [
@@ -390,8 +391,5 @@ module.exports = function (grunt) {
         'buildcontrol:openshift'
     ]);
 
-    grunt.registerTask('default', [
-        'test',
-        'build'
-    ]);
+    grunt.registerTask('default', ['serve']);
 };

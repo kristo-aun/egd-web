@@ -1,7 +1,7 @@
 'use strict';
 
 egdApp
-    .factory('Principal', function Principal($q, AccountResource, $log) {
+    .factory('Principal', function Principal($q, AccountResource) {
         var _identity,
             _authenticated = false;
 
@@ -11,41 +11,43 @@ egdApp
                     //$log.debug("Principal.equals", uuid, false);
                     return false;
                 }
-                var result = _identity.uuid === uuid;
-                //$log.debug("Principal.equals", uuid, _identity.uuid, result);
-                return result;
+                return _identity.uuid === uuid;
             },
-            isIdentityResolved: function () {
+            isIdentityResolved: function() {
                 return angular.isDefined(_identity);
             },
-            isAuthenticated: function () {
+            isAuthenticated: function() {
                 return _authenticated;
             },
-            isInRole: function (role) {
-                if (!_authenticated || !_identity || !_identity.roles) {
-                    return false;
+            hasAuthority: function(authority) {
+                if (!_authenticated) {
+                    return $q.when(false);
                 }
 
-                return _identity.roles.indexOf(role) !== -1;
+                return this.identity().then(function(_id) {
+                    return _id.authorities && _id.authorities.indexOf(authority) !== -1;
+                }, function(err) {
+                    return false;
+                });
             },
-            isInAnyRole: function (roles) {
-                if (!_authenticated || !_identity.roles) {
+            hasAnyAuthority: function(authorities) {
+                if (!_authenticated || !_identity || !_identity.authorities) {
                     return false;
                 }
 
-                for (var i = 0; i < roles.length; i++) {
-                    if (this.isInRole(roles[i])) {
+                for (var i = 0; i < authorities.length; i++) {
+                    if (_identity.authorities.indexOf(authorities[i]) !== -1) {
                         return true;
                     }
                 }
 
                 return false;
             },
-            authenticate: function (identity) {
+            authenticate: function(identity) {
                 _identity = identity;
                 _authenticated = identity !== null;
             },
-            identity: function (force) {
+            identity: function(force) {
                 var deferred = $q.defer();
 
                 if (force === true) {
@@ -62,7 +64,7 @@ egdApp
 
                 // retrieve the identity data from the server, update the identity object, and then resolve.
                 AccountResource.get().$promise
-                    .then(function (account) {
+                    .then(function(account) {
                         _identity = account;
                         _authenticated = true;
                         deferred.resolve(_identity);

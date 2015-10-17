@@ -1,47 +1,47 @@
 'use strict';
 
 egdApp
-    .factory('AccountResource', function ($resource, $http) {
+    .factory('AccountResource', function($resource, $http) {
         var BASE_URL = 'api/account';
         var result = $resource(BASE_URL);
         delete result.save;
 
-        var post = function (url, data) {
+        var post = function(url, data) {
             return $http.post(url, data, {
                 headers: {'Content-Type': 'application/json'},
-                transformRequest: function (data) {
+                transformRequest: function(data) {
                     return angular.toJson(data);
                 },
-                transformResponse: function (response) {
+                transformResponse: function(response) {
                     return response;
                 }
             });
         };
 
-        result.save = function (account) {
+        result.save = function(account) {
             return post("api/account", account);
         };
 
-        result.register = function (account) {
+        result.register = function(account) {
             return post("api/register", account);
         };
 
-        result.activate = function (key) {
+        result.activate = function(key) {
             var context = "api/activate?key=" + key;
-            return $http.get(context).then(function (response) {
+            return $http.get(context).then(function(response) {
                 return response.data;
             });
         };
 
-        result.changePassword = function (password) {
+        result.changePassword = function(password) {
             return post("api/account/change_password", {password: password});
         };
 
-        result.resetPasswordInit = function (mail) {
+        result.resetPasswordInit = function(mail) {
             return post("api/account/reset_password/init", {mail: mail});
         };
 
-        result.resetPasswordFinish = function (key, password) {
+        result.resetPasswordFinish = function(key, password) {
             return post("api/account/reset_password/finish", {key: key, password: password});
         };
 

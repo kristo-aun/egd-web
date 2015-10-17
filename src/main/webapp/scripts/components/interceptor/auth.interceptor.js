@@ -1,9 +1,9 @@
 'use strict';
 
 egdApp
-    .factory('authExpiredInterceptor', function ($rootScope, $q, $injector) {
+    .factory('authExpiredInterceptor', function($rootScope, $q, $injector) {
         return {
-            responseError: function (response) {
+            responseError: function(response) {
                 // If we have an unauthorized request we redirect to the login page
                 // Don't do this check on the account API to avoid infinite loop
                 if (response.status == 401 && response.data.path !== undefined && response.data.path.indexOf("/api/account") == -1) {
@@ -12,8 +12,8 @@ egdApp
                     var to = $rootScope.toState;
                     var params = $rootScope.toStateParams;
                     Auth.logout();
-                    $rootScope.returnToState = to;
-                    $rootScope.returnToStateParams = params;
+                    $rootScope.previousStateName = to;
+                    $rootScope.previousStateNameParams = params;
                     $state.go('login');
                 }
                 return $q.reject(response);

@@ -1,7 +1,5 @@
 <div class="alert alert-success vertical-align" style="cursor:pointer;" ng-class="{'hidden': !show}" ng-click="show=false">
-    <div ng-if="translated" ng-bind-html="translated | sanitize" style="width: 100%;">
-    </div>
-    <div ng-if="!translated" ng-bind-html="i18n | translate | sanitize" style="width: 100%;">
+    <div ng-bind-html="i18n | translate: i18nValues | unsafe" style="width: 100%;">
     </div>
     <i class="fa fa-times pull-right"></i>
 </div>

@@ -90,7 +90,7 @@
             </button>
         </form>
     </div>
-    <div class="col-md-4 text-right" ng-if="isDeleteAccount()">
+    <div class="col-md-4 text-right" has-authority="ROLE_USER">
         <button type="button" class="btn btn-danger"
                 ng-click="deleteAccountConfirm()"
                 translate="settings.messages.action.deleteAccount">

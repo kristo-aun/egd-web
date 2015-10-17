@@ -37,7 +37,7 @@ public class RepositoryUserDetailsService implements UserDetailsService {
             if (!user.isActivated()) {
                 throw new UserNotActivatedException("User " + lowercaseLogin + " was not activated");
             }
-            List<GrantedAuthority> grantedAuthorities = user.getRoles().stream()
+            List<GrantedAuthority> grantedAuthorities = user.getAuthorities().stream()
                 .map(authority -> new SimpleGrantedAuthority(authority.name()))
                 .collect(Collectors.toList());
             log.debug("Login successful");

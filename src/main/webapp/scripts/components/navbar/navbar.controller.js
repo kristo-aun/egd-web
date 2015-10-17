@@ -1,9 +1,8 @@
 'use strict';
 
 egdApp
-    .controller('NavbarController', function ($rootScope, $scope, $location, $state, $log, Auth, Principal) {
+    .controller('NavbarController', function($rootScope, $scope, $location, $state, $log, Auth, Principal) {
         $scope.isAuthenticated = Principal.isAuthenticated;
-        $scope.isInRole = Principal.isInRole;
         $scope.$state = $state;
 
         $scope.identity = function() {
@@ -11,7 +10,7 @@ egdApp
         };
         $scope.identity();
 
-        $scope.logout = function () {
+        $scope.logout = function() {
             Auth.logout();
             $scope.identity();
             $state.go('home');

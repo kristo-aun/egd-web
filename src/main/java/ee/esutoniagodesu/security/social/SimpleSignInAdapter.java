@@ -22,11 +22,11 @@ public class SimpleSignInAdapter implements SignInAdapter {
     }
 
     @Override
-	public String signIn(String localUserId, Connection<?> connection, NativeWebRequest request) {
+    public String signIn(String localUserId, Connection<?> connection, NativeWebRequest request) {
         log.debug("signin {}", localUserId);
         SocialUserDetails userDetails = socialUserDetailsService.loadUserByUserId(localUserId);
         Authentication token = new SocialAuthenticationToken(connection, userDetails, null, userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(token);
-		return null;
-	}
+        return null;
+    }
 }

@@ -86,6 +86,7 @@
 <script src="bower_components/modernizr/modernizr.js"></script>
 <script src="bower_components/json3/lib/json3.js"></script>
 <script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-aria/angular-aria.js"></script>
 <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 <script src="bower_components/angular-resource/angular-resource.js"></script>
 <script src="bower_components/angular-cookies/angular-cookies.js"></script>
@@ -122,7 +123,7 @@
 
 <!-- build:js({.tmp,src/main/webapp}) scripts/app.js -->
 <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-<script src="scripts/components/util/ui-bootstrap-tpls-0.13.3-SNAPSHOT.js"></script>
+<script src="scripts/components/util/ui-bootstrap-tpls-0.14.3-SNAPSHOT.js"></script>
 <script src="bower_components/jqplot/jquery.jqplot.js"></script>
 <script src="bower_components/jqplot/plugins/jqplot.barRenderer.js"></script>
 <script src="bower_components/jqplot/plugins/jqplot.categoryAxisRenderer.js"></script>
@@ -142,6 +143,8 @@
 <script src="scripts/components/auth/services/account.resource.js"></script>
 <script src="scripts/components/auth/provider/auth.session.service.js"></script>
 <script src="scripts/components/form/form.directive.js"></script>
+<script src="scripts/components/form/maxbytes.directive.js"></script>
+<script src="scripts/components/form/minbytes.directive.js"></script>
 <script src="scripts/components/language/language.service.js"></script>
 <script src="scripts/components/language/language.controller.js"></script>
 <script src="scripts/components/admin/audits.service.js"></script>
@@ -157,7 +160,8 @@
 <script src="scripts/components/util/directive/directives.js"></script>
 <script src="scripts/components/util/git.service.js"></script>
 <script src="scripts/components/util/moment.service.js"></script>
-<script src="scripts/components/util/constant/constants.js"></script>
+<script src="scripts/components/util/constant/constants.enum.js"></script>
+<script src="scripts/components/util/constant/constants.locale.js"></script>
 <script src="scripts/components/util/constant/iso.countries.js"></script>
 <script src="scripts/components/util/constant/iso.languages.js"></script>
 <script src="scripts/components/util/angular.audio-1.7.0.js"></script>
@@ -217,11 +221,12 @@
 
 <script>
     (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-    function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-    e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-    e.src='//www.google-analytics.com/analytics.js';
-    r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-    ga('create','UA-46602271-1');ga('send','pageview');
+        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+        e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+        e.src='//www.google-analytics.com/analytics.js';
+        r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    ga('create','UA-46602271-1');/* ga('send','pageview'); */
 </script>
+
 </body>
 </html>

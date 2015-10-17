@@ -83,10 +83,10 @@ public class UserService {
 
         newUser.setUuid(JCRandom.random13B());
 
-        Set<EAuthority> roles = new HashSet<>();
+        Set<EAuthority> authorities = new HashSet<>();
 
-        roles.add(EAuthority.ROLE_USER);
-        newUser.setRoles(roles);
+        authorities.add(EAuthority.ROLE_USER);
+        newUser.setAuthorities(authorities);
         return newUser;
     }
 
@@ -158,7 +158,7 @@ public class UserService {
     @Transactional(readOnly = true)
     public User getUserWithAuthorities() {
         User currentUser = securityUser().get();
-        currentUser.getRoles().size(); // eagerly load the association
+        currentUser.getAuthorities().size(); // eagerly load the association
         return currentUser;
     }
 

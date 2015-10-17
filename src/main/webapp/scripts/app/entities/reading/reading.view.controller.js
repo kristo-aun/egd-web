@@ -2,7 +2,6 @@
 
 egdApp
     .controller('ReadingViewController', function ($scope, $rootScope, $stateParams, $log, ReadingResource, Principal, ReadingPageResource) {
-        $scope.isAuthenticated = Principal.isAuthenticated;
 
         var cleanup = function(text) {
             if (text) {
@@ -50,8 +49,12 @@ egdApp
         $scope.load($stateParams.id);
 
         $scope.isReadingEditAllowed = function (reading) {
-            var result = $scope.isAuthenticated() && (Principal.isInRole('ROLE_ADMIN') || (reading && Principal.equals(reading.createdBy)));
-            $log.debug("isReadingEditAllowed", result);
-            return result;
+            if (!reading) return false;
+            if (angular.isDefined(reading.isReadingEditAllowed)) {
+                return reading.isReadingEditAllowed;
+            } else {
+                reading.isReadingEditAllowed = Principal.isAuthenticated() && (Principal.hasAuthority('ROLE_ADMIN') || (reading && Principal.equals(reading.createdBy)));
+                return reading.isReadingEditAllowed;
+            }
         };
     });

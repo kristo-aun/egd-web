@@ -4,7 +4,7 @@ egdApp
     .directive('activeMenu', function($translate, $locale, tmhDynamicLocale) {
         return {
             restrict: 'A',
-            link: function (scope, element, attrs) {
+            link: function(scope, element, attrs) {
                 var language = attrs.activeMenu;
 
                 scope.$watch(function() {
@@ -23,7 +23,7 @@ egdApp
     .directive('activeLink', function(location) {
         return {
             restrict: 'A',
-            link: function (scope, element, attrs) {
+            link: function(scope, element, attrs) {
                 var clazz = attrs.activeLink;
                 var path = attrs.href;
                 path = path.substring(1); //hack because path does bot return including hashbang

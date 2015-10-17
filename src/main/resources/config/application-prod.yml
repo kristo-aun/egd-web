@@ -4,12 +4,9 @@ app:
 spring:
     profiles:
         active: prod
-
     mail:
         baseUrl: https://momo.koodur.com
-
     thymeleaf:
-        mode: XHTML
         cache: true
 
 http:

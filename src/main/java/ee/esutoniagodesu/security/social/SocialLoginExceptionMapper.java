@@ -50,20 +50,18 @@ public class SocialLoginExceptionMapper extends SimpleUrlAuthenticationFailureHa
             System.out.println("stsena 1 boot");
             request.setAttribute(DELEGATED, Boolean.TRUE);
             delegate.onAuthenticationFailure(request, response, e);
-        }
-        else if (map.containsKey(e.getClass())) {
+        } else if (map.containsKey(e.getClass())) {
             System.out.println("stsena 2");
             String url = map.get(e.getClass());
             super.getRedirectStrategy().sendRedirect(request, response, url);
-        }
-        else {
+        } else {
             System.out.println("stsena 3 tomcat");
             super.onAuthenticationFailure(request, response, e);
         }
     }
 
     public SocialLoginExceptionMapper add(Class<? extends AuthenticationException> clazz, String url) {
-        log.debug("add: {}, {}" , clazz, url);
+        log.debug("add: {}, {}", clazz, url);
         map.put(clazz, url);
         return this;
     }

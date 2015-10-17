@@ -168,7 +168,7 @@ public class SHAFileService implements EnvironmentAware {
         int mod = 2;
         for (char c : chars) {
             s.append(c);
-            if ((i+2) % mod == 0) {
+            if ((i + 2) % mod == 0) {
                 s.append(File.separator);
                 mod *= mod;
             }

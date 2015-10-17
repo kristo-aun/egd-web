@@ -73,6 +73,7 @@ local.properties
 ######################
 # Package Files
 ######################
+*.jar
 *.war
 *.ear
 *.db

@@ -1,18 +1,18 @@
 'use strict';
 
 egdApp
-    .directive('ngValidateEmail', function () {
+    .directive('ngValidateEmail', function() {
         return {
             restrict: 'E',
             templateUrl: 'scripts/components/util/directive/ngValidateEmail.html',
             scope: {
                 field: '='
             },
-            link: function (scope, element, attrs) {
+            link: function(scope, element, attrs) {
             }
         };
     })
-    .directive('ngPagination', function () {
+    .directive('ngPagination', function() {
         return {
             replace: true,
             scope: {
@@ -26,8 +26,8 @@ egdApp
             },
             restrict: 'E',
             templateUrl: 'scripts/components/util/directive/ngPagination.html',
-            link: function (scope, iElement, attr) {
-                scope.hide = scope.hideIfLimitCount || false;
+            link: function(scope, iElement, attr) {
+                scope.hide = false;
 
                 if (!angular.isDefined(scope.wrapcount) || scope.wrapcount < 1) scope.wrapcount = 3;
 
@@ -41,15 +41,11 @@ egdApp
                     }
                 }
 
-                scope.range = function (n) {
-                    var arr = [];
-                    if (n > 0) {
-                        arr.length = n;
-                    }
-                    return arr;
+                scope.range = function(n) {
+                    return new Array(n);
                 };
 
-                scope.getPageForLimit = function (currentpage, newlimit) {
+                scope.getPageForLimit = function(currentpage, newlimit) {
                     var firstrowidx = (scope.limit * (currentpage - 1)) + 1;
                     var result = ((firstrowidx - 1) / newlimit) + 1;
                     return Math.floor(result);
@@ -57,13 +53,14 @@ egdApp
 
                 var wrapcount = scope.wrapcount;
 
-                scope.$watch('links', function (links) {
+                scope.$watch('links', function(links) {
 
                     if (angular.isDefined(links)) {
 
                         scope.prevcount = Math.min(wrapcount, scope.page - 1);
-
                         scope.firstcount = Math.max(0, Math.min(wrapcount, scope.page - scope.prevcount - 1));
+
+
                         scope.showfirstpause = scope.page - wrapcount > scope.firstcount + 1;
 
                         var last = angular.isDefined(links['last']) ? links['last'] : scope.page;
@@ -83,15 +80,15 @@ egdApp
             }
         };
     })
-    .directive('ngReallyClick', [function () {
+    .directive('ngReallyClick', [function() {
         /**
          * A generic confirmation for risky actions.
          * Usage: Add attributes: ng-really-message="Are you sure"? ng-really-click="takeAction()" function
          */
         return {
             restrict: 'A',
-            link: function (scope, element, attrs) {
-                element.bind('click', function () {
+            link: function(scope, element, attrs) {
+                element.bind('click', function() {
                     var message = attrs.ngReallyMessage;
                     if (message && confirm(message)) {
                         scope.$apply(attrs.ngReallyClick);
@@ -100,15 +97,15 @@ egdApp
             }
         }
     }])
-    .directive('egdReally', function ($translate) {
+    .directive('egdReally', function($translate) {
         /**
          * A generic confirmation for risky actions.
          * Usage: Add attributes: ng-really-message="Are you sure"? ng-really-click="takeAction()" function
          */
         return {
             restrict: 'A',
-            link: function (scope, element, attrs) {
-                element.bind('click', function (e) {
+            link: function(scope, element, attrs) {
+                element.bind('click', function(e) {
                     $translate('global.messages.action.confirm').then(function(value) {
                         if (value && confirm(value)) {
                             scope.$apply(attrs.egdReally);
@@ -118,8 +115,8 @@ egdApp
             }
         }
     })
-    .directive('autoGrow', function () {
-        return function (scope, element, attr) {
+    .directive('autoGrow', function() {
+        return function(scope, element, attr) {
             var minHeight, paddingLeft, paddingRight, $shadow = null;
 
             function createShadow() {
@@ -144,12 +141,12 @@ egdApp
 
             }
 
-            var update = function () {
+            var update = function() {
                 if ($shadow === null)
                     createShadow();
                 if ($shadow === null)
                     return;
-                var times = function (string, number) {
+                var times = function(string, number) {
                     for (var i = 0, r = ''; i < number; i++) {
                         r += string;
                     }
@@ -161,7 +158,7 @@ egdApp
                     .replace(/&/g, '&amp;')
                     .replace(/\n$/, '<br/>&nbsp;')
                     .replace(/\n/g, '<br/>')
-                    .replace(/\s{2,}/g, function (space) {
+                    .replace(/\s{2,}/g, function(space) {
                         return times('&nbsp;', space.length - 1) + ' ';
                     });
                 $shadow.html(val);
@@ -171,17 +168,17 @@ egdApp
 
             element.bind('keyup keydown keypress change focus', update);
             scope.$watch(attr.ngModel, update);
-            scope.$watch(function () {
+            scope.$watch(function() {
                 return element.is(':visible');
             }, update);
         };
     })
-    .directive('ngRepeatN', function () {
+    .directive('ngRepeatN', function() {
         return {
             restrict: 'A',
             transclude: 'element',
             replace: true,
-            link: function (scope, element, attrs, ctrl, $transclude) {
+            link: function(scope, element, attrs, ctrl, $transclude) {
 
                 // the element to insert after
                 scope.last = element;
@@ -192,7 +189,7 @@ egdApp
                 // list of elements in the repeater
                 scope.elems = [element];
 
-                scope.$watch('repeat', function (newValue, oldValue) {
+                scope.$watch('repeat', function(newValue, oldValue) {
 
                     var newInt = parseInt(newValue)
                         , oldInt = parseInt(oldValue)
@@ -218,7 +215,7 @@ egdApp
                         for (i; i < newInt; i += 1) {
                             childScope = scope.$new();
                             childScope.$index = i;
-                            $transclude(childScope, function (clone) {
+                            $transclude(childScope, function(clone) {
                                 scope.last.after(clone);
                                 scope.last = clone;
                                 scope.elems.push(clone);
@@ -232,7 +229,7 @@ egdApp
             }
         };
     })
-    .directive('ngTip', function ($translate) {
+    .directive('ngTip', function($translate) {
         return {
             scope: {
                 translated: '=?',
@@ -241,12 +238,12 @@ egdApp
                 placement: '@?'
             },
             templateUrl: 'scripts/components/util/directive/ngTip.html',
-            link: function (scope) {
+            link: function(scope) {
                 if (!scope.placement) {
-                    scope.placement="right";
+                    scope.placement = "right";
                 }
                 if (scope.i18n) {
-                    $translate(scope.i18n).then(function (data) {
+                    $translate(scope.i18n).then(function(data) {
                         scope.translated = data;
                     });
                 }
@@ -254,58 +251,76 @@ egdApp
         }
     })
     .directive('ngRightClick', function($parse) {
-	    return function(scope, element, attrs) {
-	        var fn = $parse(attrs.ngRightClick);
-	        element.bind('contextmenu', function(event) {
-	            scope.$apply(function() {
-	                event.preventDefault();
-	                fn(scope, {$event:event});
-	            });
-	        });
-	    };
-	})
-    .directive('ngMessageDanger', function () {
+        return function(scope, element, attrs) {
+            var fn = $parse(attrs.ngRightClick);
+            element.bind('contextmenu', function(event) {
+                scope.$apply(function() {
+                    event.preventDefault();
+                    fn(scope, {$event: event});
+                });
+            });
+        };
+    })
+    .directive('ngMessageWarning', function() {
         return {
             scope: {
                 show: "=",
                 i18n: '=?',
-                translated: '=?'
+                i18nValues: '=?'
+            },
+            replace: true,
+            templateUrl: 'scripts/components/util/directive/ngMessageWarning.html'
+        }
+    })
+    .directive('ngMessageDanger', function() {
+        return {
+            scope: {
+                show: "=",
+                i18n: '=?',
+                i18nValues: '=?'
             },
             replace: true,
             templateUrl: 'scripts/components/util/directive/ngMessageDanger.html'
         }
     })
-    .directive('ngMessageSuccess', function () {
+    .directive('ngMessageSuccess', function() {
         return {
             scope: {
                 show: "=",
                 i18n: '=?',
-                translated: '=?'
+                i18nValues: '=?'
             },
             replace: true,
             templateUrl: 'scripts/components/util/directive/ngMessageSuccess.html'
         }
     })
-    .directive('fileModel', ['$parse', function ($parse) {
+    .directive('fileModel', ['$parse', function($parse) {
         return {
             restrict: 'A',
             link: function(scope, element, attrs) {
                 var model = $parse(attrs.fileModel);
                 var modelSetter = model.assign;
 
-                element.bind('change', function(){
-                    scope.$apply(function(){
+                element.bind('change', function() {
+                    scope.$apply(function() {
                         modelSetter(scope, element[0].files[0]);
                     });
                 });
             }
         };
     }])
-    .directive('ngMaskTime', function () {
+    .directive('ngMaskTime', function() {
         return {
             restrict: 'A',
-            link: function (scope, element) {
-                element.mask("99:99", {placeholder: "__:__"});
+            link: function(scope, element) {
+                element.setMask("29:59")
+                    .keypress(function() {
+                        var currentMask = $(this).data('mask').mask;
+                        var newMask = $(this).val().match(/^2.*/) ? "23:59" : "29:59";
+                        if (newMask != currentMask) {
+                            $(this).setMask(newMask);
+                        }
+                    });
             }
         };
     });

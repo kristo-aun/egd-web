@@ -40,7 +40,7 @@ public class SimpleSocialUserDetailsService implements SocialUserDetailsService 
             if (!user.isActivated()) {
                 throw new UserNotActivatedException("User " + uuid + " was not activated");
             }
-            List<GrantedAuthority> grantedAuthorities = user.getRoles().stream()
+            List<GrantedAuthority> grantedAuthorities = user.getAuthorities().stream()
                 .map(authority -> new SimpleGrantedAuthority(authority.name()))
                 .collect(Collectors.toList());
             log.debug("Login successful");

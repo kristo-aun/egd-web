@@ -1,41 +1,43 @@
 'use strict';
 
 egdApp
-    /**
-     * https://gist.github.com/cmmartin/341b017194bac09ffa1a
-     * {{ anyDateObjectOrString | moment: 'format': 'MMM DD, YYYY' }} = Nov 11, 2014
-     * {{ anyDateObjectOrString | moment: 'fromNow' }} = 10 minutes ago
-     * {{ someDate | moment: 'utc' | moment: 'format': 'MMM DD, YYYY' }}
-     */
-    .filter('moment', function ($translate) {
-        return function (input, momentFn) {
+/**
+ * https://gist.github.com/cmmartin/341b017194bac09ffa1a
+ * {{ anyDateObjectOrString | moment: 'format': 'MMM DD, YYYY' }} = Nov 11, 2014
+ * {{ anyDateObjectOrString | moment: 'fromNow' }} = 10 minutes ago
+ * {{ someDate | moment: 'utc' | moment: 'format': 'MMM DD, YYYY' }}
+ */
+    .filter('moment', function($translate) {
+        return function(input, momentFn) {
             var args = Array.prototype.slice.call(arguments, 2),
                 momentObj = moment(input).locale($translate.use());
             return momentObj[momentFn].apply(momentObj, args);
         };
     })
-    .filter('momentDateTime', function (Moment, DISPLAY_DATE_TIME) {
-        return function (input) {
+    .filter('momentDateTime', function(Moment, DISPLAY_DATE_TIME) {
+        return function(input) {
             return Moment.serialize(input, DISPLAY_DATE_TIME);
         };
     })
-    .filter('momentDate', function (Moment, DISPLAY_DATE) {
-        return function (input) {
+    .filter('momentDate', function(Moment, DISPLAY_DATE) {
+        return function(input) {
             return Moment.serialize(input, DISPLAY_DATE);
         };
     })
-    .filter('momentTime', function (Moment, DISPLAY_TIME) {
-        return function (input) {
+    .filter('momentTime', function(Moment, DISPLAY_TIME) {
+        return function(input) {
             return Moment.serialize(input, DISPLAY_TIME);
         };
     })
     .filter('capitalize', function() {
         return function(input, all) {
-            return (!!input) ? input.replace(/([^\W_]+[^\s-]*) */g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}) : '';
+            return (!!input) ? input.replace(/([^\W_]+[^\s-]*) */g, function(txt) {
+                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            }) : '';
         }
     })
-    .filter('arrayToString', function () {
-        return function (input) {
+    .filter('arrayToString', function() {
+        return function(input) {
             var result = "";
             angular.forEach(input, function(item) {
                 if (result.length > 0)
@@ -45,8 +47,8 @@ egdApp
             return result;
         };
     })
-    .filter('characters', function () {
-        return function (input, chars, breakOnWord) {
+    .filter('characters', function() {
+        return function(input, chars, breakOnWord) {
             if (isNaN(chars)) {
                 return input;
             }
@@ -72,13 +74,8 @@ egdApp
             return input;
         };
     })
-    .filter("sanitize", ['$sce', function($sce) {
-        return function(htmlCode){
-            return $sce.trustAsHtml(htmlCode);
-        }
-    }])
-    .filter('words', function () {
-        return function (input, words) {
+    .filter('words', function() {
+        return function(input, words) {
             if (isNaN(words)) {
                 return input;
             }
@@ -94,21 +91,21 @@ egdApp
             return input;
         };
     })
-    .filter('unsafe', function ($sce) {
-        return function (value) {
+    .filter('unsafe', function($sce) {
+        return function(value) {
             if (!value) {
                 return '';
             }
             return $sce.trustAsHtml(value);
         };
     })
-    .filter('checkmark', function () {
-        return function (input) {
+    .filter('checkmark', function() {
+        return function(input) {
             return input ? '\u2713' : '\u2718';
         };
     })
-    .filter('securehash', function () {
-        return function (input) {
+    .filter('securehash', function() {
+        return function(input) {
             var port = window.location.port;
             if (port == 8443 || port == 443) {
                 return input;
@@ -117,8 +114,8 @@ egdApp
             return "https://" + window.location.hostname + portstring + input;
         };
     })
-    .filter('ie', function () {
-        return function (v, yes, no) {
+    .filter('ie', function() {
+        return function(v, yes, no) {
             return v ? yes : no;
         };
     });

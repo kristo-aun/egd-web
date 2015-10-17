@@ -3,10 +3,6 @@
 egdApp
     .controller('SettingsController', function ($state, $rootScope, $scope, $log, Principal, Auth, AccountResource, Language, $translate, $confirm) {
 
-        $scope.isDeleteAccount = function() {
-            return !Principal.isInRole('ROLE_ADMIN');
-        };
-
         $scope.success = null;
         $scope.error = null;
         Principal.identity(true).then(function(account) {

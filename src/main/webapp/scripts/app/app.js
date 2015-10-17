@@ -3,6 +3,7 @@
 var egdApp = angular.module('egdApp', [
     'ngAnimate',
     'LocalStorageModule',
+    'ngAria',
     'tmh.dynamicLocale',
     'ngResource',
     'ui.router',
@@ -25,17 +26,19 @@ var egdApp = angular.module('egdApp', [
 ]);
 
 egdApp
-    .run(function ($rootScope, $location, $window, $http, $state, $translate, $log, Auth, Principal, Language, ENV) {
+    .run(function($rootScope, $location, $window, $http, $state, $translate, $log, Auth, Principal, Language, tmhDynamicLocale, ENV) {
         $rootScope.ENV = ENV;
 
-        $rootScope.forceSSL = function (event) {
+        if (!$translate.use()) tmhDynamicLocale.set("et");
+
+        $rootScope.forceSSL = function(event) {
             if ($location.protocol() !== 'https') {
                 event.preventDefault();
                 $window.location.href = $location.absUrl().replace('http', 'https');
             }
         };
 
-        $rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
+        $rootScope.$on('$stateChangeStart', function(event, toState, toStateParams) {
 
             //in case someone manually tries to change the protocol
             if (Principal.isAuthenticated()) {
@@ -50,35 +53,48 @@ egdApp
             }
 
             // Update the language
-            Language.getCurrent().then(function (language) {
+            Language.getCurrent().then(function(language) {
                 $translate.use(language);
             });
+
         });
 
-        $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+        $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
             var titleKey = 'global.title';
-            $rootScope.previousStateName = fromState.name;
-            $rootScope.previousStateParams = fromParams;
+
+            // Remember previous state unless we've been redirected to login or we've just
+            // reset the state memory after logout. If we're redirected to login, our
+            // previousState is already set in the authExpiredInterceptor. If we're going
+            // to login directly, we don't want to be sent to some previous state anyway
+            if (toState.name != 'login' && $rootScope.previousStateName) {
+                $rootScope.previousStateName = fromState.name;
+                $rootScope.previousStateParams = fromParams;
+            }
 
             // Set the page title key to the one configured in state or use default one
             if (toState.data.pageTitle) {
                 titleKey = toState.data.pageTitle;
             }
-            $translate(titleKey).then(function (title) {
+
+            $translate(titleKey).then(function(title) {
                 // Change window title with translated one
                 $window.document.title = title;
             });
+
+            if (!$window.ga)
+                return;
+            $window.ga('send', 'pageview', { page: $location.url() });
         });
 
-        $rootScope.$on('accountChange', function () {
-            Principal.identity(true).then(function (account) {
+        $rootScope.$on('accountChange', function() {
+            Principal.identity(true).then(function(account) {
                 $rootScope.account = angular.copy(account);
-            }, function () {
+            }, function() {
                 delete $rootScope.account;
             });
         });
 
-        $rootScope.back = function () {
+        $rootScope.back = function() {
             // If previous state is 'activate' or do not exist go to 'home'
             if ($rootScope.previousStateName === 'activate' || $state.get($rootScope.previousStateName) === null) {
                 $state.go('home');
@@ -87,11 +103,11 @@ egdApp
             }
         };
 
-        $rootScope.emit = function (eventname, data) {
+        $rootScope.emit = function(eventname, data) {
             $rootScope.$emit('egdApp:' + eventname, data);
         };
     })
-    .config(function (blockUIConfig) {//loading spinner configuration
+    .config(function(blockUIConfig) {//loading spinner configuration
         blockUIConfig.cssClass = 'block-ui block-ui-custom-spinner';
         // Change the default delay to 100ms before the blocking is visible
         blockUIConfig.delay = 100;
@@ -99,12 +115,12 @@ egdApp
         // Disable auto body block
         blockUIConfig.autoInjectBodyBlock = false;
     })
-    .config(function (cfpLoadingBarProvider) {//blue ribbon shooting through header during http request
+    .config(function(cfpLoadingBarProvider) {//blue ribbon shooting through header during http request
         cfpLoadingBarProvider.includeSpinner = false;
     })
-    .config(function ($stateProvider, $urlRouterProvider, $httpProvider,
-                      $logProvider, $translateProvider, tmhDynamicLocaleProvider,
-                      httpRequestInterceptorCacheBusterProvider, ENV) {
+    .config(function($stateProvider, $urlRouterProvider, $httpProvider,
+                     $logProvider, $translateProvider, tmhDynamicLocaleProvider,
+                     httpRequestInterceptorCacheBusterProvider, ENV) {
 
         $logProvider.debugEnabled(ENV != 'prod');
 
@@ -115,8 +131,8 @@ egdApp
         //Cache everything except rest api requests
         httpRequestInterceptorCacheBusterProvider.setMatchlist([/.*api.*/, /.*protected.*/], true);
 
-        $urlRouterProvider.otherwise(function ($injector, $location) {
-            $injector.invoke(function ($state) {
+        $urlRouterProvider.otherwise(function($injector, $location) {
+            $injector.invoke(function($state) {
                 if ($location.path()) {
                     $state.go('error', {code: '404'});
                 } else {
@@ -139,12 +155,12 @@ egdApp
             },
             resolve: {
                 authorize: ['Auth',
-                    function (Auth) {
+                    function(Auth) {
                         return Auth.authorize();
                     }
                 ],
                 translatePartialLoader: ['$translate', '$translatePartialLoader',
-                    function ($translate, $translatePartialLoader) {
+                    function($translate, $translatePartialLoader) {
                         $translatePartialLoader.addPart('global');
                         $translatePartialLoader.addPart('navbar');
                         $translatePartialLoader.addPart('ontology');
@@ -171,4 +187,5 @@ egdApp
         tmhDynamicLocaleProvider.localeLocationPattern('i18n/angular-locale/angular-locale_{{locale}}.js');
         tmhDynamicLocaleProvider.useCookieStorage();
         tmhDynamicLocaleProvider.storageKey('NG_TRANSLATE_LANG_KEY');
+
     });

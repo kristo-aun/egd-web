@@ -50,7 +50,6 @@ public class AccountResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> register(@Valid @RequestBody User newUser) {
         log.debug("REST request to register {}", newUser);
-
         return userRepository.findOneByLogin(newUser.getAccountForm().getLogin())
             .map(user -> new ResponseEntity<>(LOGIN_IN_USE, HttpStatus.BAD_REQUEST))
             .orElseGet(() -> userRepository.findOneByEmail(newUser.getEmail())

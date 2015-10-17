@@ -168,8 +168,6 @@ egdApp
             });
         };
 
-        $scope.isInRole = Principal.isInRole;
-
         $scope.toggleSign = function (showSign, index, compound) {
             angular.forEach(compound.signs, function (sign) {
                 if (sign.kanji) {

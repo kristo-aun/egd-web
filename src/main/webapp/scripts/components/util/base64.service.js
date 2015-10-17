@@ -2,13 +2,13 @@
 'use strict';
 
 egdApp
-    .service('Base64', function () {
+    .service('Base64', function() {
         var keyStr = 'ABCDEFGHIJKLMNOP' +
             'QRSTUVWXYZabcdef' +
             'ghijklmnopqrstuv' +
             'wxyz0123456789+/' +
             '=';
-        this.encode = function (input) {
+        this.encode = function(input) {
             var output = '',
                 chr1, chr2, chr3 = '',
                 enc1, enc2, enc3, enc4 = '',
@@ -42,7 +42,7 @@ egdApp
             return output;
         };
 
-        this.decode = function (input) {
+        this.decode = function(input) {
             var output = '',
                 chr1, chr2, chr3 = '',
                 enc1, enc2, enc3, enc4 = '',
@@ -75,22 +75,22 @@ egdApp
             }
         };
     })
-    .factory('StorageService', function ($window) {
+    .factory('StorageService', function($window) {
         return {
 
-            get: function (key) {
+            get: function(key) {
                 return JSON.parse($window.localStorage.getItem(key));
             },
 
-            save: function (key, data) {
+            save: function(key, data) {
                 $window.localStorage.setItem(key, JSON.stringify(data));
             },
 
-            remove: function (key) {
+            remove: function(key) {
                 $window.localStorage.removeItem(key);
             },
 
-            clearAll : function () {
+            clearAll: function() {
                 $window.localStorage.clear();
             }
         };

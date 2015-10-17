@@ -62,7 +62,7 @@ public class User implements Serializable {
     @ElementCollection(targetClass = EAuthority.class, fetch = FetchType.EAGER)
     @Column(name = "name", nullable = false)
     @Enumerated(EnumType.STRING)
-    private Set<EAuthority> roles = new HashSet<>();
+    private Set<EAuthority> authorities = new HashSet<>();
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
     @PrimaryKeyJoinColumn
@@ -182,12 +182,12 @@ public class User implements Serializable {
         this.createdDate = createdDate;
     }
 
-    public Set<EAuthority> getRoles() {
-        return roles;
+    public Set<EAuthority> getAuthorities() {
+        return authorities;
     }
 
-    public void setRoles(Set<EAuthority> roles) {
-        this.roles = roles;
+    public void setAuthorities(Set<EAuthority> authorities) {
+        this.authorities = authorities;
     }
 
     public void setAccountExternals(Set<UserAccountExternal> accountExternals) {
@@ -220,7 +220,7 @@ public class User implements Serializable {
             ", activated=" + activated +
             ", langKey=" + langKey +
             ", activationKey='" + activationKey + '\'' +
-            ", roles=" + roles +
+            ", authorities=" + authorities +
             ", accountForm=" + accountForm +
             ", accountExternals=" + accountExternals +
             ", createdDate=" + createdDate +

@@ -14,13 +14,9 @@ server:
 spring:
     profiles:
         active: dev
-
     mail:
         baseUrl: https://localhost:8443
-
     messages:
-            cache-seconds: 1
-
+        cache-seconds: 1
     thymeleaf:
-        mode: XHTML
         cache: false

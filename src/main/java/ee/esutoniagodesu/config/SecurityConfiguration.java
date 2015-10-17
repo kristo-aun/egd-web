@@ -62,9 +62,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/scripts/**/*.{js,html}")
             .antMatchers("/bower_components/**")
             .antMatchers("/i18n/**")
-            .antMatchers("/assets/**")
-            .antMatchers("/test/**")
-            .antMatchers("/console/**");
+            .antMatchers("/assets/**");
     }
 
     @Override
@@ -102,7 +100,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers(permitAll).permitAll()
             .antMatchers("/api/**").authenticated()
             .antMatchers(permitAdmin).hasAuthority(AuthoritiesConstants.ADMIN)
-            .antMatchers("/protected/**").authenticated()
             .and().apply(springSocialConfigurer);
     }
 

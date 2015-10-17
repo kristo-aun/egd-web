@@ -3,10 +3,6 @@
 egdApp
     .controller('RTKController', function ($scope, $state, $stateParams, $log, RTKResource, Principal) {
 
-        $scope.isAdmin = function() {
-            return Principal.isInRole('ROLE_ADMIN');
-        };
-
         $scope.clear = function () {
             delete $scope.book;
             delete $scope.query;

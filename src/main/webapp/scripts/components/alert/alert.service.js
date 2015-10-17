@@ -1,7 +1,7 @@
 'use strict';
 
 egdApp
-    .factory('AlertService', function ($timeout, $sce, $translate) {
+    .factory('AlertService', function($timeout, $sce, $translate) {
         var exports = {
                 factory: factory,
                 add: addAlert,
@@ -79,8 +79,8 @@ egdApp
                     id: alertOptions.alertId,
                     count: 1,
                     timeout: alertOptions.timeout,
-                    close: function () {
-                        return exports.closeAlert(this);
+                    close: function() {
+                        return exports.closeAlert(this.id);
                     }
                 };
             };
@@ -94,14 +94,16 @@ egdApp
             var that = this;
             this.factory(alertOptions);
             if (alertOptions.timeout && alertOptions.timeout > 0) {
-                $timeout(function () {
+                $timeout(function() {
                     that.closeAlert(alertOptions.alertId);
                 }, alertOptions.timeout);
             }
         }
 
         function closeAlert(id) {
-            return this.closeAlertByIndex(alerts.indexOf(id));
+            return this.closeAlertByIndex(alerts.map(function(e) {
+                return e.id;
+            }).indexOf(id));
         }
 
         function closeAlertByIndex(index) {

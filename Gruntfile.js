@@ -337,8 +337,7 @@ module.exports = function (grunt) {
     grunt.registerTask('test', [
         'clean:server',
         'wiredep:test',
-        'ngconstant:dev',
-        'karma'
+        'ngconstant:dev'
     ]);
 
     grunt.registerTask('build', [
@@ -350,7 +349,6 @@ module.exports = function (grunt) {
         'imagemin',
         'svgmin',
         'concat',
-        'copy:fonts',
         'copy:dist',
         'ngAnnotate',
         'cssmin',
@@ -377,19 +375,6 @@ module.exports = function (grunt) {
 
         grunt.file.write(filepath, fileContent + "\nskipBower=true\n");
     });
-
-    grunt.registerTask('buildOpenshift', [
-        'test',
-        'build',
-        'copy:generateOpenshiftDirectory'
-    ]);
-
-    grunt.registerTask('deployOpenshift', [
-        'test',
-        'build',
-        'copy:generateOpenshiftDirectory',
-        'buildcontrol:openshift'
-    ]);
 
     grunt.registerTask('default', ['serve']);
 };

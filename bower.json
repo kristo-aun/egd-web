@@ -49,14 +49,8 @@
     "bootstrap-social": {
       "dependencies": []
     },
-    "components-font-awesome": {
-      "main": [
-        "src/main/webapp/assets/styles/font-awesome.css"
-      ]
-    },
     "bootstrap": {
       "main": [
-        "src/main/webapp/assets/styles/bootstrap.css",
         "dist/js/bootstrap.js",
         "dist/css/bootstrap.css",
         "less/bootstrap.less"

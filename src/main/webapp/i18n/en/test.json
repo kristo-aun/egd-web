@@ -2,7 +2,7 @@
     "test": {
         "compound": {
             "title": "Generate test",
-            "readymade": "ready-made tests on github",
+            "readymade": "ready-made tests on GitHub",
 
             "defaultFormMap": "Default form values",
             "defaultFormMap.values": {

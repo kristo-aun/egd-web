@@ -22,7 +22,7 @@ public class MicrosoftTranslateService {
             log.debug("translate: {}, {}, {}", string, lfrom, lto);
             return Translate.execute(string, lfrom, lto);
         } catch (Exception e) {
-            log.error("translate: ", e.getMessage());
+            log.error("translate: ", e.getMessage(), e);
             return null;
         }
     }

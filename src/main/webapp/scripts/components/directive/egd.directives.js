@@ -1,6 +1,15 @@
 'use strict';
 
 egdApp
+    .directive('ngAutokana', function($log) {
+        return {
+            restrict: 'A',
+            link: function(scope, element, attrs) {
+                $log.debug("autokana");
+                element.autokana();
+            }
+        }
+    })
     .directive('egdAudio', function(ngAudio) {
         return {
             restrict: 'E',

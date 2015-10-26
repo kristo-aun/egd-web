@@ -23,7 +23,7 @@ egdApp
                 } else {
                     $rootScope.back();
                 }
-            }).catch(function () {
+            }, function(e) {
                 $scope.authenticationError = true;
             });
         };

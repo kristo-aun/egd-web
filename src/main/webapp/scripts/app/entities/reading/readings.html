@@ -1,5 +1,5 @@
 <div>
-    <button ng-if="isAuthenticated()" class="btn btn-primary btn-sm" ui-sref="reading.edit({id:-1})">
+    <button has-authority="ROLE_USER" class="btn btn-primary btn-sm" ui-sref="reading.edit({id:-1})">
         <span class="fa fa-plus"></span>
         {{'global.messages.action.create' | translate}}
     </button>

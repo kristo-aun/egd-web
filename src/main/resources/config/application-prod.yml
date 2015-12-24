@@ -4,6 +4,11 @@ app:
 spring:
     profiles:
         active: prod
+    devtools:
+        restart:
+            enabled: false
+        livereload:
+            enabled: false
     mail:
         baseUrl: https://momo.koodur.com
     thymeleaf:

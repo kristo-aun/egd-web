@@ -253,8 +253,8 @@ egdApp
             findByDates: function(from, to) {
                 return $http.get('api/audits/byDates', {
                     params: {
-                        from: Moment.serializeDateTime(from),
-                        to: Moment.serializeDateTime(to)
+                        from: Moment.serializeLocalDate(from),
+                        to: Moment.serializeLocalDate(to)
                     }
                 }).then(function(response) {
                     return response.data;

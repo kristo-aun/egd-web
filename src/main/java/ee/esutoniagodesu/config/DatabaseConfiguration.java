@@ -54,11 +54,14 @@ public class DatabaseConfiguration implements EnvironmentAware {
                 JndiDataSourceLookup dataSourceLookup = new JndiDataSourceLookup();
                 return dataSourceLookup.getDataSource(jndi);
             } else {
-                log.debug("Initializing PGPoolingDataSource");
+
+                String url = propertyResolver.getProperty("url");
+                String username = propertyResolver.getProperty("username");
+
+                log.debug("Initializing PGPoolingDataSource: url={}, username={}", url, username);
                 PGPoolingDataSource source = new PGPoolingDataSource();
-                source.setUrl(propertyResolver.getProperty("url"));
-                source.setDataSourceName("jdbc/egd");
-                source.setUser(propertyResolver.getProperty("username"));
+                source.setUrl(url);
+                source.setUser(username);
                 source.setPassword(propertyResolver.getProperty("password"));
                 source.setMaxConnections(10);
                 return source;

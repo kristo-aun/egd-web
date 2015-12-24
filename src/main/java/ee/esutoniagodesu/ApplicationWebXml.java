@@ -22,7 +22,6 @@ public class ApplicationWebXml extends SpringBootServletInitializer {
             log.info("Configure secret");
 
             return app.properties(secretProperties).profiles(profile)
-                .showBanner(false)
                 .sources(Application.class);
         } catch (Exception e) {
             e.printStackTrace();

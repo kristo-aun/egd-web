@@ -37,11 +37,11 @@
 </div>
 
 <div class="row" ng-if="reading.pages">
-    <pagination direction-links="false"
+    <uib-pagination direction-links="false"
                 total-items="reading.pages.length"
                 ng-model="currentPage"
                 ng-change="setPage(currentPage)"
-                items-per-page="1"></pagination>
+                items-per-page="1"></uib-pagination>
 </div>
 
 <div class="row">

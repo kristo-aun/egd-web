@@ -1,35 +1,35 @@
 <div class="row">
     <div class="col-lg-6">
         <button type="button" class="{{showAnswer | ie: 'btn btn-success':'btn btn-default'}}"
-                ng-model="showAnswer" btn-checkbox>
+                ng-model="showAnswer" uib-btn-checkbox>
             {{'test.compound.showAnswer' | translate}}
         </button>
         <button type="button"
                 ng-disabled="!first.radicalHintVisible || turnCompound"
                 class="{{showHints | ie: 'btn btn-success':'btn btn-default'}}"
                 ng-model="showHints"
-                btn-checkbox>
+                uib-btn-checkbox>
             {{'test.compound.showHints' | translate}}
         </button>
         <button type="button"
                 class="{{turnCompound | ie: 'btn btn-success':'btn btn-default'}}"
                 ng-model="turnCompound"
                 ng-click="hideTranslation=false"
-                btn-checkbox>
+                uib-btn-checkbox>
             {{'test.compound.turnCompound' | translate}}
         </button>
         <button type="button"
                 ng-show="turnCompound"
                 class="{{hideTranslation | ie: 'btn btn-success':'btn btn-default'}}"
                 ng-model="hideTranslation"
-                btn-checkbox>
+                uib-btn-checkbox>
             {{'test.compound.hideTranslation' | translate}}
         </button>
         <button type="button"
                 has-authority="ROLE_ADMIN"
                 class="{{showHeisigCores | ie: 'btn btn-success':'btn btn-default'}}"
                 ng-model="showHeisigCores"
-                btn-checkbox>
+                uib-btn-checkbox>
             {{'test.compound.showHeisigCores' | translate}}
         </button>
     </div>

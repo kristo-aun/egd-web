@@ -1,7 +1,7 @@
 'use strict';
 
 egdApp
-    .controller('LoginController', function ($rootScope, $scope, $state, $timeout, $location, $window, Auth) {
+    .controller('LoginController', function ($rootScope, $scope, $state, $timeout, $location, $window, Auth, $log) {
 
         $scope.user = {};
         $scope.errors = {};
@@ -23,7 +23,8 @@ egdApp
                 } else {
                     $rootScope.back();
                 }
-            }, function(e) {
+            }).catch(function (e) {
+                $log.debug("catch", e);
                 $scope.authenticationError = true;
             });
         };

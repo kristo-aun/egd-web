@@ -1,7 +1,8 @@
 'use strict';
 
 egdApp
-    .controller('SettingsController', function ($state, $rootScope, $scope, $log, Principal, Auth, AccountResource, Language, $translate, $confirm) {
+    .controller('SettingsController', function ($state, $rootScope, $scope, $log, Principal, Auth,
+                                                AccountResource, Language, $translate, $confirm) {
 
         $scope.success = null;
         $scope.error = null;

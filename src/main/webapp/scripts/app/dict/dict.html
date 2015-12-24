@@ -2,11 +2,11 @@
     <div class="col-lg-3" style="width:310px;">
         <form class="form egd-dict-search-form" role="form" ng-submit="showResult()">
             <div class="row">
-                <div class="dropdown input-group" dropdown on-toggle="toggled(open)">
+                <div class="dropdown input-group" uib-dropdown on-toggle="toggled(open)">
                     <div class="input-group-btn">
                         <div class="btn-group">
                             <button class="btn btn-default dropdown-toggle"
-                                    dropdown-toggle
+                                    uib-dropdown-toggle
                                     ng-disabled="toggleButtonDisabled"
                                     tabindex="-1">
                                 <span class="caret"></span>
@@ -17,9 +17,9 @@
                     <input type="text"
                            ng-model="phrase"
                            placeholder="{{'global.label.word' | translate}}"
-                           typeahead="title for title in getAutocomplete($viewValue)"
-                           typeahead-min-length="2"
-                           typeahead-wait-ms="200"
+                           uib-typeahead="title for title in getAutocomplete($viewValue)"
+                           uib-typeahead-min-length="2"
+                           uib-typeahead-wait-ms="200"
                            class="form-control">
 
                     <ul ng-if="toggleButtonDisabled" class="dropdown-menu" style="left:33px">

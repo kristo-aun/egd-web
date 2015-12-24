@@ -46,6 +46,7 @@ import java.util.Arrays;
  * kui radikaale on rohkem kui 1, lisab 10 suvalises järjekorras radikaali
  */
 public final class FilterCompoundSubmitDTO implements Serializable {
+
     private static final long serialVersionUID = 6845522545849202408L;
 
     public int filterType;//millist kanji indekstit kasutada

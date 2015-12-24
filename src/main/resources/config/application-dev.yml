@@ -14,6 +14,11 @@ server:
 spring:
     profiles:
         active: dev
+    devtools:
+        restart:
+            enabled: true
+        livereload:
+            enabled: true
     mail:
         baseUrl: https://localhost:8443
     messages:

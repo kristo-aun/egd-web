@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class FieldErrorDTO implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = -1246914734210260375L;
 
     private final String objectName;
 

@@ -1,10 +1,11 @@
 package ee.esutoniagodesu.util.json;
 
-import java.time.*;
-import java.util.Date;
-
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.util.Date;
 
 public final class JSR310PersistenceConverters {
 

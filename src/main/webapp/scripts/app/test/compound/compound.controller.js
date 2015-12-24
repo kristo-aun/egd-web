@@ -1,62 +1,79 @@
 'use strict';
 
 egdApp
-    .controller('CompoundController', function ($state, $scope, $translate, $log, TestCompoundResource, RTKResource, Principal, blockUI) {
+    .controller('CompoundController', function($state, $scope, $translate, $log, TestCompoundResource, RTKResource, Principal, blockUI) {
 
         //------------------------------ success & error ------------------------------
 
-        var clearSuccess = function () {
+        var clearSuccess = function() {
             delete $scope.success;
             delete $scope.successI18n;
         };
 
-        var setSuccess = function (i18n) {
+        var setSuccess = function(i18n) {
             $log.debug("setSuccess", i18n);
             clearError();
             $scope.successI18n = i18n;
             $scope.success = true;
         };
 
-        var clearError = function () {
+        var clearError = function() {
             delete $scope.error;
             delete $scope.errorI18n;
         };
 
-        var setError = function (i18n) {
+        var setError = function(i18n) {
             $log.debug("setError", i18n);
             clearSuccess();
             $scope.errorI18n = i18n;
             $scope.error = true;
         };
 
-        var clearNotice = function () {
+        var clearNotice = function() {
             clearError();
             clearSuccess();
         };
 
         //------------------------------ first ------------------------------
 
-        $scope.clear = function () {
+        $scope.clear = function() {
             delete $scope.params;
         };
 
-        $scope.setFactsToDefault = function () {
+        $scope.setFactsToDefault = function() {
+
             $scope.first = {
-                kanjiInterval: [1, 100]
+                filterType: undefined,
+                kanjiIntervalType: undefined,
+                kanjiInterval: [undefined, undefined],
+                dictionary: undefined,
+                notesVisible: undefined,
+                noEnIfHasEt: undefined,
+                generateCount: undefined,
+                compLengthInterval: [1, 3],
+                orderByType: undefined,
+                strokeCountHintVisible: false,
+                radicalHintVisible: false,
+                generatePdf: false,
+                eorderByType: undefined,
+                efilterType: undefined,
+                ekanjiIntervalType: undefined,
+                edictionary: undefined
             };
+
             $log.debug("setFactsToDefault", $scope.first);
         };
 
-        $scope.load = function () {
+        $scope.load = function() {
             $scope.clear();
-            TestCompoundResource.params().then(function (data) {
+            TestCompoundResource.params().then(function(data) {
                 $scope.params = data;
             });
             $scope.setFactsToDefault();
         };
         $scope.load();
 
-        $scope.filterTypeChange = function () {
+        $scope.filterTypeChange = function() {
             var filterType = $scope.first.filterType;
             var intervalType = $scope.first.kanjiIntervalType;//level or index
             $log.debug("filterTypeChange: filterType=" + filterType + ", intervalType=" + intervalType);
@@ -92,12 +109,12 @@ egdApp
             }
         };
 
-        $scope.onDefaultFormChange = function (defaultForm) {
+        $scope.onDefaultFormChange = function(defaultForm) {
             $log.debug("onDefaultFormChange: defaultForm=", defaultForm);
             $scope.formDefaultId = defaultForm;
             if (defaultForm) {
                 $log.debug("onDefaultFormChange: will change form values");
-                TestCompoundResource.formDefault(defaultForm).then(function (data) {
+                TestCompoundResource.formDefault(defaultForm).then(function(data) {
                     $scope.first = data;
                 });
             } else {
@@ -105,23 +122,24 @@ egdApp
             }
         };
 
-        $scope.onFilterTypeChange = function () {
+        $scope.onFilterTypeChange = function() {
             $scope.filterTypeChange();
         };
 
-        $scope.onKanjiIntervalTypeChange = function () {
+        $scope.onKanjiIntervalTypeChange = function() {
             $scope.filterTypeChange();
         };
 
-        $scope.doSubmit = function () {
+        $scope.doSubmit = function() {
             clearNotice();
             var elementToBlock = blockUI.instances.get('compound.first');
             elementToBlock.start();
-            TestCompoundResource.submit($scope.first).then(function (data) {
+            console.log($scope.first);
+            TestCompoundResource.submit($scope.first).then(function(data) {
                 $scope.compounds = data;
                 elementToBlock.stop();
                 $state.go("compound.second");
-            }, function () {
+            }, function() {
                 elementToBlock.stop();
                 setError("global.messages.error.fail");
             });
@@ -135,9 +153,9 @@ egdApp
         $scope.showHeisigCores = false;
         $scope.turnCompound = false;
 
-        $scope.setCompoundHeisigCoreKw = function (kanji, heisigCoreKw) {
-            angular.forEach($scope.compounds, function (compound) {
-                angular.forEach(compound.signs, function (sign) {
+        $scope.setCompoundHeisigCoreKw = function(kanji, heisigCoreKw) {
+            angular.forEach($scope.compounds, function(compound) {
+                angular.forEach(compound.signs, function(sign) {
                     if (sign.kanji && sign.sign == kanji) {
                         sign.heisigCoreKw = heisigCoreKw;
                     }
@@ -145,7 +163,7 @@ egdApp
             });
         };
 
-        $scope.setDefaultHeisigWord = function (compound) {
+        $scope.setDefaultHeisigWord = function(compound) {
             var kanji;
             var i = 0;
             //esimene märk ei pruugi alati olla kanji
@@ -161,15 +179,15 @@ egdApp
             var wordReading = compound.reading;
             var wordTranslation = compound.et ? compound.et : compound.en;
 
-            RTKResource.setDefaultHeisigWord(kanji, word, wordReading, wordTranslation).then(function (data) {
+            RTKResource.setDefaultHeisigWord(kanji, word, wordReading, wordTranslation).then(function(data) {
                 compound.heisigCoreKw = data.id + "-" + data.keywordEn + "-" + data.word + "-" +
                     data.wordReading + "-" + data.wordTranslation;
                 $scope.setCompoundHeisigCoreKw(data.kanji, compound.heisigCoreKw);
             });
         };
 
-        $scope.toggleSign = function (showSign, index, compound) {
-            angular.forEach(compound.signs, function (sign) {
+        $scope.toggleSign = function(showSign, index, compound) {
+            angular.forEach(compound.signs, function(sign) {
                 if (sign.kanji) {
                     compound.showSign = showSign;
                     return true;

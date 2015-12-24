@@ -1,13 +1,15 @@
 package ee.esutoniagodesu.config;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import java.time.*;
-
-import ee.esutoniagodesu.util.json.*;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+import ee.esutoniagodesu.util.json.JSR310DateTimeSerializer;
+import ee.esutoniagodesu.util.json.JSR310LocalDateDeserializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+
+import java.time.*;
 
 @Configuration
 public class JacksonConfiguration {
@@ -20,9 +22,13 @@ public class JacksonConfiguration {
         module.addSerializer(LocalDateTime.class, JSR310DateTimeSerializer.INSTANCE);
         module.addSerializer(Instant.class, JSR310DateTimeSerializer.INSTANCE);
         module.addDeserializer(LocalDate.class, JSR310LocalDateDeserializer.INSTANCE);
+
         return new Jackson2ObjectMapperBuilder()
-                .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
-                .findModulesViaServiceLoader(true)
-                .modulesToInstall(module);
+            .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+            .serializationInclusion(JsonInclude.Include.NON_NULL)
+            .findModulesViaServiceLoader(true)
+            //.featuresToEnable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING)
+            //.featuresToEnable(DeserializationFeature.READ_ENUMS_USING_TO_STRING)
+            .modulesToInstall(module);
     }
 }

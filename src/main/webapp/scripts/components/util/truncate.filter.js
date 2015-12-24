@@ -1,8 +1,8 @@
 'use strict';
 
-egdApp
-    .filter('characters', function() {
-        return function(input, chars, breakOnWord) {
+angular.module('egdApp')
+    .filter('characters', function () {
+        return function (input, chars, breakOnWord) {
             if (isNaN(chars)) {
                 return input;
             }
@@ -19,7 +19,7 @@ egdApp
                         input = input.substr(0, lastspace);
                     }
                 } else {
-                    while (input.charAt(input.length - 1) === ' ') {
+                    while (input.charAt(input.length-1) === ' ') {
                         input = input.substr(0, input.length - 1);
                     }
                 }
@@ -28,8 +28,8 @@ egdApp
             return input;
         };
     })
-    .filter('words', function() {
-        return function(input, words) {
+    .filter('words', function () {
+        return function (input, words) {
             if (isNaN(words)) {
                 return input;
             }

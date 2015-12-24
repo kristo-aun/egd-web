@@ -1,8 +1,10 @@
 package ee.esutoniagodesu.web.rest.errors;
 
+import ee.esutoniagodesu.service.LocaleService;
 import org.springframework.dao.ConcurrencyFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import javax.inject.Inject;
 import java.util.List;
 
 /**
@@ -20,11 +23,42 @@ import java.util.List;
 @ControllerAdvice
 public class ExceptionTranslator {
 
+    @Inject
+    private LocaleService localeService;
+
+    @ExceptionHandler(BadCredentialsException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ResponseBody
+    public ErrorDTO processAuthenticationError(BadCredentialsException ex) {
+        return new ErrorDTO(ErrorConstants.ERR_UNAUTHORIZED);
+    }
+
     @ExceptionHandler(ConcurrencyFailureException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     @ResponseBody
     public ErrorDTO processConcurencyError(ConcurrencyFailureException ex) {
         return new ErrorDTO(ErrorConstants.ERR_CONCURRENCY_FAILURE);
+    }
+
+    @ExceptionHandler(CustomLocalizedException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ErrorDTO processCustomLocalizedException(CustomLocalizedException ex) {
+        return new ErrorDTO(ex.getCode(), localeService.m(ex.getCode()), null);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ErrorDTO processIllegalArgumentException(IllegalArgumentException ex) {
+        return new ErrorDTO(ex.getMessage());
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseBody
+    public ErrorDTO processIllegalStateException(IllegalStateException ex) {
+        return new ErrorDTO(ex.getLocalizedMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

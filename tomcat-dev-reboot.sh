@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 #tomcat-muisb shutdown
 sh /usr/local/tomcat/bin/shutdown.sh

@@ -2,20 +2,16 @@ package ee.esutoniagodesu.domain.ac.table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import ee.esutoniagodesu.util.iso.ISO6391;
-import org.hibernate.annotations.Type;
 import org.hibernate.validator.constraints.Email;
-import org.joda.time.DateTime;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * A user.
- */
 @Entity
 @Table(schema = "ac", name = "user")
 public class User implements Serializable {
@@ -72,9 +68,8 @@ public class User implements Serializable {
     private Set<UserAccountExternal> accountExternals = new HashSet<>();
 
     @NotNull
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @Column(name = "created_date", nullable = false)
-    protected DateTime createdDate = DateTime.now();
+    protected ZonedDateTime createdDate = ZonedDateTime.now();
 
     public User() {
     }
@@ -174,11 +169,11 @@ public class User implements Serializable {
         return accountExternals;
     }
 
-    public DateTime getCreatedDate() {
+    public ZonedDateTime getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(DateTime createdDate) {
+    public void setCreatedDate(ZonedDateTime createdDate) {
         this.createdDate = createdDate;
     }
 

@@ -41,7 +41,7 @@ egdApp
         $rootScope.$on('$stateChangeStart', function(event, toState, toStateParams) {
 
             //in case someone manually tries to change the protocol
-            if (Principal.isAuthenticated()) {
+            if (Principal.isAuthenticated() || toState == 'login') {
                 $rootScope.forceSSL(event);
             }
 

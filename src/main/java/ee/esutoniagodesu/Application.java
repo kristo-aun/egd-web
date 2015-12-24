@@ -33,8 +33,8 @@ public class Application {
      */
     @PostConstruct
     public void initApplication() throws IOException {
-        if (env.getActiveProfiles().length == 0) {
-            log.warn("No Spring profile configured, running with default configuration");
+        if (env.getActiveProfiles().length < 1) {
+            log.error("No Spring profile configured, running with default configuration");
         } else {
             log.info("Running with Spring profile(s) : {}", Arrays.toString(env.getActiveProfiles()));
             Collection activeProfiles = Arrays.asList(env.getActiveProfiles());
@@ -52,7 +52,6 @@ public class Application {
      */
     public static void main(String[] args) throws UnknownHostException {
         SpringApplication app = new SpringApplication(Application.class);
-        app.setShowBanner(false);
 
         Environment env = app.run(ArgumentResolver.withSecretArgs(args)).getEnvironment();
 

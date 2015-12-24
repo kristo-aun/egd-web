@@ -73,7 +73,7 @@ public final class JCAudio {
 
     public static byte[] retrieveBytes(URL url) throws IOException {
         HttpURLConnection urlConn = (HttpURLConnection) url.openConnection();
-        urlConn.addRequestProperty("User-Agent", "Mozilla/4.76");
+        urlConn.addRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)");
         InputStream audioSrc = urlConn.getInputStream();
         DataInputStream read = new DataInputStream(audioSrc);
 

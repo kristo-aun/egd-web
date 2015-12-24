@@ -57,7 +57,7 @@ public class DatabaseConfiguration implements EnvironmentAware {
                 log.debug("Initializing PGPoolingDataSource");
                 PGPoolingDataSource source = new PGPoolingDataSource();
                 source.setUrl(propertyResolver.getProperty("url"));
-                source.setDataSourceName("jdbc/tootaja");
+                source.setDataSourceName("jdbc/egd");
                 source.setUser(propertyResolver.getProperty("username"));
                 source.setPassword(propertyResolver.getProperty("password"));
                 source.setMaxConnections(10);

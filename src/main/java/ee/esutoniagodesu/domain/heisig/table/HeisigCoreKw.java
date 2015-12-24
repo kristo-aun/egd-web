@@ -21,6 +21,29 @@ public final class HeisigCoreKw implements Serializable {
     private byte[] wordAudio;
     private String wordAudioFileName;
 
+    private byte[] keywordEnAudio;
+    private String keywordEnAudioSrc;
+
+    @Column(name = "keyword_en_audio_src", nullable = false, insertable = true, updatable = true, length = 255, precision = 0)
+    @Basic
+    public String getKeywordEnAudioSrc() {
+        return keywordEnAudioSrc;
+    }
+
+    public void setKeywordEnAudioSrc(String keywordEnAudioSrc) {
+        this.keywordEnAudioSrc = keywordEnAudioSrc;
+    }
+
+    @Column(name = "keyword_en_audio", nullable = true, insertable = true, updatable = true, length = 2147483647, precision = 0)
+    @Basic
+    public byte[] getKeywordEnAudio() {
+        return keywordEnAudio;
+    }
+
+    public void setKeywordEnAudio(byte[] keywordEnAudio) {
+        this.keywordEnAudio = keywordEnAudio;
+    }
+
     @Column(name = "audio_addr", nullable = true, insertable = true, updatable = true, length = 2147483647, precision = 0)
     @Basic
     public String getAudioAddr() {
@@ -145,5 +168,12 @@ public final class HeisigCoreKw implements Serializable {
         result = 31 * result + (wordAudio != null ? Arrays.hashCode(wordAudio) : 0);
         result = 31 * result + (wordAudioFileName != null ? wordAudioFileName.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "HeisigCoreKw{" +
+            "id=" + id +
+            '}';
     }
 }

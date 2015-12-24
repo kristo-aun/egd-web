@@ -13,7 +13,7 @@
 
 
 # ===================================================================
-# JHipster specific properties
+# App specific properties
 # ===================================================================
 
 app.files.path: ~/esutoniagodesu/egd-files/
@@ -28,6 +28,16 @@ async:
     queueCapacity: 10000
 
 spring:
+    social:
+        # see https://developers.google.com/+/web/signin/server-side-flow#step_1_create_a_client_id_and_client_secret
+        google:
+            clientId: clientId
+            clientSecret: clientSecret
+
+        facebook:
+            clientId: clientId
+            clientSecret: clientSecret
+
     datasource:
         url: jdbc:postgresql://localhost:5432/egd
         username: egdrole
@@ -49,6 +59,16 @@ spring:
 security:
     basic:
         enabled: false
+
+google:
+    translate-service:
+        clientId: esutoniagodesu-dev
+        clientSecret: AIzaSyCmMlaAiIk5oDNa7f0wsTNH3MfkRP3RR7M
+
+microsoft:
+    translate-service:
+        clientId: clientId
+        clientSecret: clientSecret
 
 mail:
     host: localhost

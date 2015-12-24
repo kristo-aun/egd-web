@@ -1,12 +1,11 @@
 package ee.esutoniagodesu.repository.domain.ac;
 
-
 import ee.esutoniagodesu.domain.ac.table.ExternalProvider;
 import ee.esutoniagodesu.domain.ac.table.User;
-import org.joda.time.DateTime;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +16,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     Optional<User> findOneByActivationKey(String activationKey);
 
-    List<User> findAllByActivatedIsFalseAndCreatedDateBefore(DateTime createdDate);
+    List<User> findAllByActivatedIsFalseAndCreatedDateBefore(ZonedDateTime createdDate);
 
     @Query("select u from User u left join u.accountForm f where f.resetKey = ?1")
     Optional<User> findOneByResetKey(String resetKey);

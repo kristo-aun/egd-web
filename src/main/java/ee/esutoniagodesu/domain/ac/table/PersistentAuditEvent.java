@@ -1,10 +1,8 @@
 package ee.esutoniagodesu.domain.ac.table;
 
-import org.hibernate.annotations.Type;
-import org.joda.time.DateTime;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,8 +25,7 @@ public class PersistentAuditEvent {
     private String principal;
 
     @Column(name = "event_date")
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    private DateTime auditEventDate;
+    private LocalDateTime auditEventDate;
     @Column(name = "event_type")
     private String auditEventType;
 
@@ -54,11 +51,11 @@ public class PersistentAuditEvent {
         this.principal = principal;
     }
 
-    public DateTime getAuditEventDate() {
+    public LocalDateTime getAuditEventDate() {
         return auditEventDate;
     }
 
-    public void setAuditEventDate(DateTime auditEventDate) {
+    public void setAuditEventDate(LocalDateTime auditEventDate) {
         this.auditEventDate = auditEventDate;
     }
 

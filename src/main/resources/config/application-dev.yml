@@ -4,7 +4,7 @@ app:
 server:
     port: 8443
     ssl:
-        key-store: ssl/localhost.keystore
+        key-store: ssl/localhost.jks
         key-store-password: changeit
         key-alias: tomcat
         trust-store: ssl/egd.truststore

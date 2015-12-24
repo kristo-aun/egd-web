@@ -1,5 +1,6 @@
 package ee.esutoniagodesu.config;
 
+import com.google.api.GoogleAPI;
 import com.memetix.mst.translate.Translate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,20 +15,36 @@ public class IntegrationServerConfiguration implements EnvironmentAware {
     private static final Logger log = LoggerFactory.getLogger(IntegrationServerConfiguration.class);
 
     private RelaxedPropertyResolver microsoftTranslatePropertyResolver;
+    private RelaxedPropertyResolver googleTranslatePropertyResolver;
 
     @Override
     public void setEnvironment(Environment env) {
         this.microsoftTranslatePropertyResolver = new RelaxedPropertyResolver(env, "microsoft.translate-service.");
+        this.googleTranslatePropertyResolver = new RelaxedPropertyResolver(env, "google.translate-service.");
         microsoftTranslate();
+        googleTranslate();
     }
 
     public void microsoftTranslate() {
         String clientId = microsoftTranslatePropertyResolver.getProperty("clientId");
         String clientSecret = microsoftTranslatePropertyResolver.getProperty("clientSecret");
 
-        log.info("MicrosoftTranslateService.init: {} {}", clientId, clientSecret);
+        log.info("microsoftTranslate.init: {} {}", clientId, clientSecret);
 
         Translate.setClientId(clientId);
         Translate.setClientSecret(clientSecret);
+    }
+
+    public void googleTranslate() {
+        String clientId = googleTranslatePropertyResolver.getProperty("clientId");
+        String clientSecret = googleTranslatePropertyResolver.getProperty("clientSecret");
+
+        log.info("googleTranslate.init: {} {}", clientId, clientSecret);
+
+        GoogleAPI.setHttpReferrer(clientId);
+
+        // Set the Google Translate API key
+        // See: http://code.google.com/apis/language/translate/v2/getting_started.html
+        GoogleAPI.setKey(clientSecret);
     }
 }

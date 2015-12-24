@@ -121,17 +121,17 @@ PS! Delete all but the certificate from the following .crt files.
 
 Gmail - (you can use another SMTP server)
 
-    openssl s_client -connect smtp.gmail.com:465 2>&1 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > smtp.gmail.com.crt
+    openssl s_client -showcerts -connect smtp.gmail.com:465 2>&1 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > smtp.gmail.com.crt
     keytool -import -noprompt -storepass changeit -alias smtp.gmail.com -keystore egd.truststore -file smtp.gmail.com.crt
     
 Bing Translator (used for translating Tofu sentences)
     
-    openssl s_client -connect datamarket.accesscontrol.windows.net:443 2>&1 > datamarket.accesscontrol.windows.net.crt
+    openssl s_client -showcerts -connect datamarket.accesscontrol.windows.net:443 2>&1 > datamarket.accesscontrol.windows.net.crt
     keytool -import -noprompt -storepass changeit -alias datamarket.accesscontrol.windows.net -keystore egd.truststore -file datamarket.accesscontrol.windows.net.crt
             
 Social login 
 
-    openssl s_client -connect graph.facebook.com:443 2>&1 graph.facebook.com.crt
+    openssl s_client -showcerts -connect graph.facebook.com:443 2>&1 graph.facebook.com.crt
     keytool -import -noprompt -storepass changeit -alias graph.facebook.com -keystore egd.truststore -file graph.facebook.com.crt
        
     Download Google Internet Authority G2 from https://pki.google.com/ 	

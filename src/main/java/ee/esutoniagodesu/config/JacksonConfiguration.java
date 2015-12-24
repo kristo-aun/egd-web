@@ -1,14 +1,11 @@
 package ee.esutoniagodesu.config;
 
-import com.fasterxml.jackson.datatype.joda.JodaModule;
-import ee.esutoniagodesu.util.json.CustomDateTimeConverter;
-import ee.esutoniagodesu.util.json.CustomLocalDateConverter;
-import ee.esutoniagodesu.util.json.CustomLocalDateTimeConverter;
-import ee.esutoniagodesu.util.json.CustomLocalTimeConverter;
-import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
-import org.joda.time.LocalDateTime;
-import org.joda.time.LocalTime;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import java.time.*;
+
+import ee.esutoniagodesu.util.json.*;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,25 +13,16 @@ import org.springframework.context.annotation.Configuration;
 public class JacksonConfiguration {
 
     @Bean
-    public JodaModule jacksonJodaModule() {
-        JodaModule module = new JodaModule();
-
-        //kuupäev ja kellaaeg koos ajavööndiga
-        module.addSerializer(DateTime.class, new CustomDateTimeConverter.Serializer());
-        module.addDeserializer(DateTime.class, new CustomDateTimeConverter.Deserializer());
-
-        //kuupäev ja kellaaeg ilma ajavööndita
-        module.addSerializer(LocalDateTime.class, new CustomLocalDateTimeConverter.Serializer());
-        module.addDeserializer(LocalDateTime.class, new CustomLocalDateTimeConverter.Deserializer());
-
-        //kuupäev ilma ajavööndita
-        module.addSerializer(LocalDate.class, new CustomLocalDateConverter.Serializer());
-        module.addDeserializer(LocalDate.class, new CustomLocalDateConverter.Deserializer());
-
-        //kellaaeg ilma ajavööndita
-        module.addSerializer(LocalTime.class, new CustomLocalTimeConverter.Serializer());
-        module.addDeserializer(LocalTime.class, new CustomLocalTimeConverter.Deserializer());
-
-        return module;
+    Jackson2ObjectMapperBuilder jackson2ObjectMapperBuilder() {
+        JavaTimeModule module = new JavaTimeModule();
+        module.addSerializer(OffsetDateTime.class, JSR310DateTimeSerializer.INSTANCE);
+        module.addSerializer(ZonedDateTime.class, JSR310DateTimeSerializer.INSTANCE);
+        module.addSerializer(LocalDateTime.class, JSR310DateTimeSerializer.INSTANCE);
+        module.addSerializer(Instant.class, JSR310DateTimeSerializer.INSTANCE);
+        module.addDeserializer(LocalDate.class, JSR310LocalDateDeserializer.INSTANCE);
+        return new Jackson2ObjectMapperBuilder()
+                .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+                .findModulesViaServiceLoader(true)
+                .modulesToInstall(module);
     }
 }

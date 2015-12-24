@@ -2,7 +2,6 @@ package ee.esutoniagodesu.web.rest;
 
 import ee.esutoniagodesu.security.AuthoritiesConstants;
 import ee.esutoniagodesu.service.AuditEventService;
-import org.joda.time.DateTime;
 import org.springframework.boot.actuate.audit.AuditEvent;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -36,8 +36,8 @@ public class AuditResource {
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @RolesAllowed(AuthoritiesConstants.ADMIN)
-    public List<AuditEvent> byDates(@RequestParam DateTime from,
-                                    @RequestParam DateTime to) {
+    public List<AuditEvent> byDates(@RequestParam LocalDateTime from,
+                                    @RequestParam LocalDateTime to) {
         return auditEventService.findByDates(from, to);
     }
 }

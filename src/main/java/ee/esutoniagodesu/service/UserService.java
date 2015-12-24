@@ -9,7 +9,6 @@ import ee.esutoniagodesu.security.SecurityUtils;
 import ee.esutoniagodesu.util.JCRandom;
 import ee.esutoniagodesu.util.RandomUtil;
 import ee.esutoniagodesu.util.iso.ISO6391;
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -18,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -56,8 +56,8 @@ public class UserService {
 
         return userRepository.findOneByResetKey(key)
             .filter(user -> {
-                DateTime oneDayAgo = DateTime.now().minusHours(24);
-                return user.getAccountForm().getResetDate().isAfter(oneDayAgo.toInstant().getMillis());
+                ZonedDateTime oneDayAgo = ZonedDateTime.now().minusHours(24);
+                return user.getAccountForm().getResetDate().isAfter(oneDayAgo);
             })
             .map(user -> {
                 user.getAccountForm().setPassword(passwordEncoder.encode(newPassword));
@@ -73,7 +73,7 @@ public class UserService {
             .filter(User::isActivated)
             .map(user -> {
                 user.getAccountForm().setResetKey(RandomUtil.generateResetKey());
-                user.getAccountForm().setResetDate(DateTime.now());
+                user.getAccountForm().setResetDate(ZonedDateTime.now());
                 userRepository.save(user);
                 return user;
             });
@@ -189,7 +189,7 @@ public class UserService {
      */
     @Scheduled(cron = "0 0 1 * * ?")
     public void removeNotActivatedUsers() {
-        DateTime now = new DateTime();
+        ZonedDateTime now = ZonedDateTime.now();
         List<User> users = userRepository.findAllByActivatedIsFalseAndCreatedDateBefore(now.minusDays(3));
         for (User user : users) {
             log.debug("Deleting not activated user {}", user.toString());

@@ -2,18 +2,14 @@ package ee.esutoniagodesu.domain.ac.table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.annotations.Type;
-import org.joda.time.DateTime;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 
-/**
- * A user.
- */
 @Entity
 @Table(schema = "ac", name = "user_account_form")
 public class UserAccountForm implements Serializable {
@@ -50,9 +46,8 @@ public class UserAccountForm implements Serializable {
     private String resetKey;
 
     @JsonIgnore
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @Column(name = "reset_date", nullable = true)
-    private DateTime resetDate = null;
+    private ZonedDateTime resetDate = null;
 
     public UserAccountForm() {
     }
@@ -104,11 +99,11 @@ public class UserAccountForm implements Serializable {
         this.resetKey = resetKey;
     }
 
-    public DateTime getResetDate() {
+    public ZonedDateTime getResetDate() {
         return resetDate;
     }
 
-    public void setResetDate(DateTime resetDate) {
+    public void setResetDate(ZonedDateTime resetDate) {
         this.resetDate = resetDate;
     }
 

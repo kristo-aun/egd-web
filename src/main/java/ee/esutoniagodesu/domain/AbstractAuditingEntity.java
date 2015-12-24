@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonView;
 import ee.esutoniagodesu.web.rest.dto.View;
 import org.hibernate.annotations.Type;
 import org.hibernate.envers.Audited;
-import org.joda.time.DateTime;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -15,6 +14,7 @@ import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Transient;
+import java.time.ZonedDateTime;
 
 /**
  * Base abstract class for entities which will hold definitions for created, last modified by and created,
@@ -32,9 +32,8 @@ public abstract class AbstractAuditingEntity {
 
     @JsonView(View.Basic.class)
     @CreatedDate
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @Column(name = "created_date", updatable = false, nullable = false)
-    protected DateTime createdDate;
+    protected ZonedDateTime createdDate;
 
     @JsonView(View.Basic.class)
     @LastModifiedBy
@@ -43,9 +42,8 @@ public abstract class AbstractAuditingEntity {
 
     @JsonView(View.Basic.class)
     @LastModifiedDate
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     @Column(name = "last_modified_date")
-    protected DateTime lastModifiedDate;
+    protected ZonedDateTime lastModifiedDate;
 
     @Transient
     public boolean isCreatedBy(String userId) {
@@ -65,11 +63,11 @@ public abstract class AbstractAuditingEntity {
         this.createdBy = createdBy;
     }
 
-    public DateTime getCreatedDate() {
+    public ZonedDateTime getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(DateTime createdDate) {
+    public void setCreatedDate(ZonedDateTime createdDate) {
         this.createdDate = createdDate;
     }
 
@@ -81,11 +79,11 @@ public abstract class AbstractAuditingEntity {
         this.lastModifiedBy = lastModifiedBy;
     }
 
-    public DateTime getLastModifiedDate() {
+    public ZonedDateTime getLastModifiedDate() {
         return lastModifiedDate;
     }
 
-    public void setLastModifiedDate(DateTime lastModifiedDate) {
+    public void setLastModifiedDate(ZonedDateTime lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
     }
 

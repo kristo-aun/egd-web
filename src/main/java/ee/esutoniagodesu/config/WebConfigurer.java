@@ -40,7 +40,7 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
 
         initCORSFilter(servletContext, disps);
 
-        if (env.acceptsProfiles(Constants.SPRING_PROFILE_PRODUCTION)) {
+        if (env.acceptsProfiles(Constants.SPRING_PROFILE_PROD)) {
             initCachingHttpHeadersFilter(servletContext, disps);
             initGzipFilter(servletContext, disps);
         }

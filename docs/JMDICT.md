@@ -27,6 +27,8 @@ To serve both Estonian translations and features for various EsutoniaGoDesu's mo
 the JMDict data is duplicated in jmen nad jmet database schemas. 
 These schemas are not linked to other egd-db objects, thus can be replaced at any time.
 
+Make sure you have a full backup of your database first!
+
 *The JMdictDB project is an informal project to put the contents 
 of Jim Breen's JMdict Japanese-English dictionary data  
 into a database.*
@@ -64,7 +66,8 @@ and Examples files into it and recreate the necessary foreign
 key constraints and indexes which were disabled during loading
 for performance reasons.
 
-### Export 
+### Transfering newly imported data to your own database
+I will export jmnew.public schema to an SQL file without owner info, which can be imported to other databases. 
 
 Prepare schema for export
 
@@ -76,28 +79,50 @@ Dump schema to an SQL file
 
     pg_dump --host=localhost --port=5432 --username=jmdictdb --format=plain --blobs --verbose --no-owner --no-privileges --file="jmen.sql" --dbname=jmnew
 
+Drop the previous schema 
 
-Prepare schema for export for a second language
+    DROP SCHEMA jmen;
+
+Import the schema
+
+    psql --host=localhost --port=5432 --username=egdrole --dbname=egd --single-transaction --file "jmen.sql"
+    
+    
+## Importing a JMDict with empty "gloss". You can translate this schema to your own language     
+I'll delere all records from the table gloss, which is 
+
+I'm using "et" suffic to identify the second schema, but you can use any string you like.
+ 
+Prepare the schema for a second export
 
     jmnew=# ALTER SCHEMA jmen RENAME TO jmet; 
+    jmnew=# TRUNCATE jmet.gloss;
 
 Dump schema to an SQL file
 
     pg_dump --host=localhost --port=5432 --username=jmdictdb --format=plain --blobs --verbose --no-owner --no-privileges --file="jmet.sql" --dbname=jmnew
 
+Backup the old schema   
 
-### Import
+    ALTER SCHEMA jmet RENAME TO jmet_bak; 
+    
+Import the new schema
+    
+    psql --host=localhost --port=5432 --username=egdrole --dbname=egd --single-transaction --file "jmet.sql"
 
-    pg_restore --host=localhost --port=5432 --username=egdrole --dbname=egd "jmen.sql" --single-transaction --verbose --exit-on-error
 
 ## Mapping CSV records to JMDict glosses
 
 ## Final points
+- If the domain model has been changed, then ORM mapping must be updated as well.
+- You should keep a record of translation author, time and changes.
 
-
-
-You might want to delete all entries from gloss table.
-You should keep a record of translation author, time and changes.
-
-Comments about a particular translation have enormous value to users, but the design doesn't support adding contextual information.
+- Comments about a particular translation have enormous value to users, but the design doesn't support adding contextual information.
 Therefore, in EGD, metainfo is being kept in a dedicated table in another schema.
+
+### Tips
+
+Remove prefix from all files recursively
+for f in TestSR*; do mv "$f" "CL${f#TestSR}"; done
+
+for f in EN_*; do mv "$f" "${f#EN_}"; done

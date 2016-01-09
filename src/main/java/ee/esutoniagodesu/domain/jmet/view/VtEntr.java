@@ -10,11 +10,10 @@ import java.io.Serializable;
 @Table(name = "vt_entr", schema = "jmet")
 public final class VtEntr implements Serializable {
 
-    private static final long serialVersionUID = 6150210794124702872L;
-
+    private static final long serialVersionUID = -7432977713930816756L;
     private Integer id;
-    private Integer src;
-    private Integer stat;
+    private Short src;
+    private Short stat;
     private Long seq;
     private Integer dfrm;
     private Boolean unap;
@@ -26,6 +25,16 @@ public final class VtEntr implements Serializable {
     private Long nsens;
     private Boolean p;
 
+    @Basic
+    @Column(name = "dfrm", nullable = true, insertable = true, updatable = true)
+    public Integer getDfrm() {
+        return dfrm;
+    }
+
+    public void setDfrm(Integer dfrm) {
+        this.dfrm = dfrm;
+    }
+
     @Id
     @Basic
     @Column(name = "id", nullable = true, insertable = true, updatable = true)
@@ -35,16 +44,6 @@ public final class VtEntr implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    @Basic
-    @Column(name = "dfrm", nullable = true, insertable = true, updatable = true)
-    public Integer getDfrm() {
-        return dfrm;
-    }
-
-    public void setDfrm(Integer dfrm) {
-        this.dfrm = dfrm;
     }
 
     @Basic
@@ -109,11 +108,11 @@ public final class VtEntr implements Serializable {
 
     @Basic
     @Column(name = "src", nullable = true, insertable = true, updatable = true)
-    public Integer getSrc() {
+    public Short getSrc() {
         return src;
     }
 
-    public void setSrc(Integer src) {
+    public void setSrc(Short src) {
         this.src = src;
     }
 
@@ -129,11 +128,11 @@ public final class VtEntr implements Serializable {
 
     @Basic
     @Column(name = "stat", nullable = true, insertable = true, updatable = true)
-    public Integer getStat() {
+    public Short getStat() {
         return stat;
     }
 
-    public void setStat(Integer stat) {
+    public void setStat(Short stat) {
         this.stat = stat;
     }
 

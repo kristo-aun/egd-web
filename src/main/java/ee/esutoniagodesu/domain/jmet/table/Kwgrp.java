@@ -8,10 +8,10 @@ import java.util.Collection;
 
 @Entity
 @Immutable
-@Table(name = "Kwgrp", schema = "jmet")
+@Table(name = "kwgrp", schema = "jmet")
 public final class Kwgrp implements Serializable {
 
-    private static final long serialVersionUID = 8961119975274168272L;
+    private static final long serialVersionUID = 3172508267523159267L;
     private int id;
     private String kw;
     private String descr;

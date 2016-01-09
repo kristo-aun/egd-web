@@ -6,21 +6,22 @@ import org.hibernate.annotations.Immutable;
 import javax.persistence.*;
 import java.io.Serializable;
 
+
 @Entity
 @Immutable
+@Table(name = "xref", schema = "jmet")
 @IdClass(XrefPK.class)
-@Table(name = "Xref", schema = "jmet")
 public final class Xref implements Serializable {
 
-    private static final long serialVersionUID = 7036779536265441697L;
+    private static final long serialVersionUID = -5275300412997264918L;
     private int entr;
-    private int sens;
-    private int xref;
-    private int typ;
+    private short sens;
+    private short xref;
+    private short typ;
     private int xentr;
-    private int xsens;
-    private Integer rdng;
-    private Integer kanj;
+    private short xsens;
+    private Short rdng;
+    private Short kanj;
     private String notes;
     private Kanj kanj_0;
     private Kwxref kwxrefByTyp;
@@ -40,11 +41,11 @@ public final class Xref implements Serializable {
 
     @Basic
     @Column(name = "kanj", nullable = true, insertable = true, updatable = true)
-    public Integer getKanj() {
+    public Short getKanj() {
         return kanj;
     }
 
-    public void setKanj(Integer kanj) {
+    public void setKanj(Short kanj) {
         this.kanj = kanj;
     }
 
@@ -82,11 +83,11 @@ public final class Xref implements Serializable {
 
     @Basic
     @Column(name = "rdng", nullable = true, insertable = true, updatable = true)
-    public Integer getRdng() {
+    public Short getRdng() {
         return rdng;
     }
 
-    public void setRdng(Integer rdng) {
+    public void setRdng(Short rdng) {
         this.rdng = rdng;
     }
 
@@ -104,11 +105,11 @@ public final class Xref implements Serializable {
 
     @Id
     @Column(name = "sens", nullable = false, insertable = true, updatable = true)
-    public int getSens() {
+    public short getSens() {
         return sens;
     }
 
-    public void setSens(int sens) {
+    public void setSens(short sens) {
         this.sens = sens;
     }
 
@@ -138,11 +139,11 @@ public final class Xref implements Serializable {
 
     @Basic
     @Column(name = "typ", nullable = false, insertable = true, updatable = true)
-    public int getTyp() {
+    public short getTyp() {
         return typ;
     }
 
-    public void setTyp(int typ) {
+    public void setTyp(short typ) {
         this.typ = typ;
     }
 
@@ -158,21 +159,21 @@ public final class Xref implements Serializable {
 
     @Id
     @Column(name = "xref", nullable = false, insertable = true, updatable = true)
-    public int getXref() {
+    public short getXref() {
         return xref;
     }
 
-    public void setXref(int xref) {
+    public void setXref(short xref) {
         this.xref = xref;
     }
 
     @Id
     @Column(name = "xsens", nullable = false, insertable = true, updatable = true)
-    public int getXsens() {
+    public short getXsens() {
         return xsens;
     }
 
-    public void setXsens(int xsens) {
+    public void setXsens(short xsens) {
         this.xsens = xsens;
     }
 
@@ -197,11 +198,11 @@ public final class Xref implements Serializable {
 
     public int hashCode() {
         int result = entr;
-        result = 31 * result + sens;
-        result = 31 * result + xref;
-        result = 31 * result + typ;
+        result = 31 * result + (int) sens;
+        result = 31 * result + (int) xref;
+        result = 31 * result + (int) typ;
         result = 31 * result + xentr;
-        result = 31 * result + xsens;
+        result = 31 * result + (int) xsens;
         result = 31 * result + (rdng != null ? rdng.hashCode() : 0);
         result = 31 * result + (kanj != null ? kanj.hashCode() : 0);
         result = 31 * result + (notes != null ? notes.hashCode() : 0);

@@ -6,18 +6,19 @@ import org.hibernate.annotations.Immutable;
 import javax.persistence.*;
 import java.io.Serializable;
 
+
 @Entity
 @Immutable
+@Table(name = "rad", schema = "jmet")
 @IdClass(RadPK.class)
-@Table(name = "Rad", schema = "jmet")
 public final class Rad implements Serializable {
 
-    private static final long serialVersionUID = 6635819959042294036L;
-    private int num;
-    private int var;
+    private static final long serialVersionUID = 5489798792299591183L;
+    private short num;
+    private short var;
     private String rchr;
     private String chr;
-    private Integer strokes;
+    private Short strokes;
     private String loc;
     private String name;
     private String examples;
@@ -64,11 +65,11 @@ public final class Rad implements Serializable {
 
     @Id
     @Column(name = "num", nullable = false, insertable = true, updatable = true)
-    public int getNum() {
+    public short getNum() {
         return num;
     }
 
-    public void setNum(int num) {
+    public void setNum(short num) {
         this.num = num;
     }
 
@@ -84,21 +85,21 @@ public final class Rad implements Serializable {
 
     @Basic
     @Column(name = "strokes", nullable = true, insertable = true, updatable = true)
-    public Integer getStrokes() {
+    public Short getStrokes() {
         return strokes;
     }
 
-    public void setStrokes(Integer strokes) {
+    public void setStrokes(Short strokes) {
         this.strokes = strokes;
     }
 
     @Id
     @Column(name = "var", nullable = false, insertable = true, updatable = true)
-    public int getVar() {
+    public short getVar() {
         return var;
     }
 
-    public void setVar(int var) {
+    public void setVar(short var) {
         this.var = var;
     }
 
@@ -121,8 +122,8 @@ public final class Rad implements Serializable {
     }
 
     public int hashCode() {
-        int result = num;
-        result = 31 * result + var;
+        int result = (int) num;
+        result = 31 * result + (int) var;
         result = 31 * result + (rchr != null ? rchr.hashCode() : 0);
         result = 31 * result + (chr != null ? chr.hashCode() : 0);
         result = 31 * result + (strokes != null ? strokes.hashCode() : 0);

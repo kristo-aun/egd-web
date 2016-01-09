@@ -4,9 +4,10 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import java.io.Serializable;
 
+
 public final class RdngsndPK implements Serializable {
 
-    private static final long serialVersionUID = -5061426049174788779L;
+    private static final long serialVersionUID = -8633312833329775148L;
     private int entr;
     private int rdng;
     private int snd;

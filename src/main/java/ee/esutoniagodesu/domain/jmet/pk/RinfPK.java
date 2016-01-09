@@ -4,12 +4,13 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import java.io.Serializable;
 
+
 public final class RinfPK implements Serializable {
 
-    private static final long serialVersionUID = 1011455801159868868L;
+    private static final long serialVersionUID = 4819993041403363875L;
     private int entr;
-    private int rdng;
-    private int kw;
+    private short rdng;
+    private short kw;
 
     @Column(name = "entr", nullable = false, insertable = true, updatable = true)
     @Id
@@ -23,21 +24,21 @@ public final class RinfPK implements Serializable {
 
     @Column(name = "kw", nullable = false, insertable = true, updatable = true)
     @Id
-    public int getKw() {
+    public short getKw() {
         return kw;
     }
 
-    public void setKw(int kw) {
+    public void setKw(short kw) {
         this.kw = kw;
     }
 
     @Column(name = "rdng", nullable = false, insertable = true, updatable = true)
     @Id
-    public int getRdng() {
+    public short getRdng() {
         return rdng;
     }
 
-    public void setRdng(int rdng) {
+    public void setRdng(short rdng) {
         this.rdng = rdng;
     }
 
@@ -56,8 +57,8 @@ public final class RinfPK implements Serializable {
 
     public int hashCode() {
         int result = entr;
-        result = 31 * result + rdng;
-        result = 31 * result + kw;
+        result = 31 * result + (int) rdng;
+        result = 31 * result + (int) kw;
         return result;
     }
 }

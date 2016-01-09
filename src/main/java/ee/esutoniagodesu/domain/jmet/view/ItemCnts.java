@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Table(name = "item_cnts", schema = "jmet")
 public final class ItemCnts implements Serializable {
 
-    private static final long serialVersionUID = 3898113798773425448L;
+    private static final long serialVersionUID = -7564094684824848730L;
     private Integer id;
     private Long seq;
     private Long nrdng;

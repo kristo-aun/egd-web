@@ -6,10 +6,10 @@ import java.io.Serializable;
 
 public final class FldPK implements Serializable {
 
-    private static final long serialVersionUID = 8782921452502920828L;
+    private static final long serialVersionUID = 4598012853035015266L;
     private int entr;
-    private int sens;
-    private int kw;
+    private short sens;
+    private short kw;
 
     @Column(name = "entr", nullable = false, insertable = true, updatable = true)
     @Id
@@ -23,21 +23,21 @@ public final class FldPK implements Serializable {
 
     @Column(name = "kw", nullable = false, insertable = true, updatable = true)
     @Id
-    public int getKw() {
+    public short getKw() {
         return kw;
     }
 
-    public void setKw(int kw) {
+    public void setKw(short kw) {
         this.kw = kw;
     }
 
     @Column(name = "sens", nullable = false, insertable = true, updatable = true)
     @Id
-    public int getSens() {
+    public short getSens() {
         return sens;
     }
 
-    public void setSens(int sens) {
+    public void setSens(short sens) {
         this.sens = sens;
     }
 
@@ -56,8 +56,8 @@ public final class FldPK implements Serializable {
 
     public int hashCode() {
         int result = entr;
-        result = 31 * result + sens;
-        result = 31 * result + kw;
+        result = 31 * result + (int) sens;
+        result = 31 * result + (int) kw;
         return result;
     }
 }

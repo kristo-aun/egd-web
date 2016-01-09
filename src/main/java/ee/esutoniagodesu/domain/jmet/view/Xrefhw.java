@@ -10,12 +10,11 @@ import java.io.Serializable;
 @Table(name = "xrefhw", schema = "jmet")
 public final class Xrefhw implements Serializable {
 
-    private static final long serialVersionUID = -8196186059052998647L;
-
+    private static final long serialVersionUID = 226448006510406386L;
     private Integer entr;
-    private Integer sens;
+    private Short sens;
     private String rtxt;
-    private Integer kanj;
+    private Short kanj;
     private String ktxt;
 
     @Id
@@ -31,11 +30,11 @@ public final class Xrefhw implements Serializable {
 
     @Basic
     @Column(name = "kanj", nullable = true, insertable = true, updatable = true)
-    public Integer getKanj() {
+    public Short getKanj() {
         return kanj;
     }
 
-    public void setKanj(Integer kanj) {
+    public void setKanj(Short kanj) {
         this.kanj = kanj;
     }
 
@@ -61,11 +60,11 @@ public final class Xrefhw implements Serializable {
 
     @Basic
     @Column(name = "sens", nullable = true, insertable = true, updatable = true)
-    public Integer getSens() {
+    public Short getSens() {
         return sens;
     }
 
-    public void setSens(Integer sens) {
+    public void setSens(Short sens) {
         this.sens = sens;
     }
 

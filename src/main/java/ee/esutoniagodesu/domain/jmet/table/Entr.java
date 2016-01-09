@@ -9,14 +9,13 @@ import java.util.Collection;
 
 @Entity
 @Immutable
-@Table(name = "Entr", schema = "jmet")
+@Table(name = "entr", schema = "jmet")
 public final class Entr implements Serializable {
 
-    private static final long serialVersionUID = 9199636571604968007L;
-
+    private static final long serialVersionUID = 932747108408957400L;
     private int id;
-    private int src;
-    private int stat;
+    private short src;
+    private short stat;
     @JsonIgnore
     private long seq;
     private Integer dfrm;
@@ -42,11 +41,11 @@ public final class Entr implements Serializable {
     private Collection<Grp> grps;
     @JsonIgnore
     private Collection<Hist> hists;
-
-    private Collection<Kanj> kanjs;
     @JsonIgnore
     private Collection<Kresolv> kresolvs;
 
+
+    private Collection<Kanj> kanjs;
     private Collection<Rdng> rdngs;
     private Collection<Sens> senses;
 
@@ -203,11 +202,11 @@ public final class Entr implements Serializable {
 
     @Basic
     @Column(name = "src", nullable = false, insertable = true, updatable = true)
-    public int getSrc() {
+    public short getSrc() {
         return src;
     }
 
-    public void setSrc(int src) {
+    public void setSrc(short src) {
         this.src = src;
     }
 
@@ -223,11 +222,11 @@ public final class Entr implements Serializable {
 
     @Basic
     @Column(name = "stat", nullable = false, insertable = true, updatable = true)
-    public int getStat() {
+    public short getStat() {
         return stat;
     }
 
-    public void setStat(int stat) {
+    public void setStat(short stat) {
         this.stat = stat;
     }
 
@@ -261,8 +260,8 @@ public final class Entr implements Serializable {
 
     public int hashCode() {
         int result = id;
-        result = 31 * result + src;
-        result = 31 * result + stat;
+        result = 31 * result + (int) src;
+        result = 31 * result + (int) stat;
         result = 31 * result + (int) (seq ^ (seq >>> 32));
         result = 31 * result + (dfrm != null ? dfrm.hashCode() : 0);
         result = 31 * result + (unap ? 1 : 0);

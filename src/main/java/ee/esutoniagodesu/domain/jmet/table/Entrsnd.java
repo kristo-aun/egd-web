@@ -6,15 +6,16 @@ import org.hibernate.annotations.Immutable;
 import javax.persistence.*;
 import java.io.Serializable;
 
+
 @Entity
 @Immutable
+@Table(name = "entrsnd", schema = "jmet")
 @IdClass(EntrsndPK.class)
-@Table(name = "Entrsnd", schema = "jmet")
 public final class Entrsnd implements Serializable {
 
-    private static final long serialVersionUID = 151559942852047361L;
+    private static final long serialVersionUID = -4256581444890716302L;
     private int entr;
-    private int ord;
+    private short ord;
     private int snd;
     private Entr entrByEntr;
     private Snd sndBySnd;
@@ -41,11 +42,11 @@ public final class Entrsnd implements Serializable {
 
     @Basic
     @Column(name = "ord", nullable = false, insertable = true, updatable = true)
-    public int getOrd() {
+    public short getOrd() {
         return ord;
     }
 
-    public void setOrd(int ord) {
+    public void setOrd(short ord) {
         this.ord = ord;
     }
 
@@ -84,7 +85,7 @@ public final class Entrsnd implements Serializable {
 
     public int hashCode() {
         int result = entr;
-        result = 31 * result + ord;
+        result = 31 * result + (int) ord;
         result = 31 * result + snd;
         return result;
     }

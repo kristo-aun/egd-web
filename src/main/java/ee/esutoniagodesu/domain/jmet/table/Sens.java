@@ -1,6 +1,5 @@
 package ee.esutoniagodesu.domain.jmet.table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import ee.esutoniagodesu.domain.jmet.pk.SensPK;
 import org.hibernate.annotations.Immutable;
 
@@ -8,34 +7,17 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 
-@NamedStoredProcedureQueries({
-    @NamedStoredProcedureQuery(name = "f_sens_by_kanj_and_rdng", procedureName = "f_sens_by_kanj_and_rdng",
-        resultClasses = Sens.class,
-        parameters = {
-            @StoredProcedureParameter(name = "kanj", type = String.class, mode = ParameterMode.IN),
-            @StoredProcedureParameter(name = "rdng", type = String.class, mode = ParameterMode.IN),
-            @StoredProcedureParameter(name = "sens", type = Integer.class, mode = ParameterMode.IN),
-            @StoredProcedureParameter(name = "jm_sens", type = void.class, mode = ParameterMode.REF_CURSOR)
-
-        })
-})
-
 @Entity
 @Immutable
+@Table(name = "sens", schema = "jmet")
 @IdClass(SensPK.class)
-@Table(name = "Sens", schema = "jmet")
 public final class Sens implements Serializable {
 
-    private static final long serialVersionUID = -5075595434884638099L;
-    @JsonIgnore
+    private static final long serialVersionUID = 6286155174803964320L;
     private int entr;
-    @JsonIgnore
-    private int sens;
-    @JsonIgnore
+    private short sens;
     private String notes;
-    @JsonIgnore
     private Collection<Dial> dials;
-    @JsonIgnore
     private Collection<Fld> flds;
     private Collection<Gloss> glosses;
     private Collection<Lsrc> lsrcs;
@@ -134,11 +116,11 @@ public final class Sens implements Serializable {
 
     @Id
     @Column(name = "sens", nullable = false, insertable = true, updatable = true)
-    public int getSens() {
+    public short getSens() {
         return sens;
     }
 
-    public void setSens(int sens) {
+    public void setSens(short sens) {
         this.sens = sens;
     }
 
@@ -202,7 +184,7 @@ public final class Sens implements Serializable {
 
     public int hashCode() {
         int result = entr;
-        result = 31 * result + sens;
+        result = 31 * result + (int) sens;
         result = 31 * result + (notes != null ? notes.hashCode() : 0);
         return result;
     }

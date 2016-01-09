@@ -6,17 +6,18 @@ import org.hibernate.annotations.Immutable;
 import javax.persistence.*;
 import java.io.Serializable;
 
+
 @Entity
 @Immutable
+@Table(name = "rinf", schema = "jmet")
 @IdClass(RinfPK.class)
-@Table(name = "Rinf", schema = "jmet")
 public final class Rinf implements Serializable {
 
-    private static final long serialVersionUID = 9069508606439952613L;
+    private static final long serialVersionUID = 4601555031620860098L;
     private int entr;
-    private int rdng;
-    private int ord;
-    private int kw;
+    private short rdng;
+    private short ord;
+    private short kw;
     private Kwrinf kwrinfByKw;
     private Rdng rdng_0;
 
@@ -32,11 +33,11 @@ public final class Rinf implements Serializable {
 
     @Id
     @Column(name = "kw", nullable = false, insertable = true, updatable = true)
-    public int getKw() {
+    public short getKw() {
         return kw;
     }
 
-    public void setKw(int kw) {
+    public void setKw(short kw) {
         this.kw = kw;
     }
 
@@ -52,21 +53,21 @@ public final class Rinf implements Serializable {
 
     @Basic
     @Column(name = "ord", nullable = false, insertable = true, updatable = true)
-    public int getOrd() {
+    public short getOrd() {
         return ord;
     }
 
-    public void setOrd(int ord) {
+    public void setOrd(short ord) {
         this.ord = ord;
     }
 
     @Id
     @Column(name = "rdng", nullable = false, insertable = true, updatable = true)
-    public int getRdng() {
+    public short getRdng() {
         return rdng;
     }
 
-    public void setRdng(int rdng) {
+    public void setRdng(short rdng) {
         this.rdng = rdng;
     }
 
@@ -96,9 +97,9 @@ public final class Rinf implements Serializable {
 
     public int hashCode() {
         int result = entr;
-        result = 31 * result + rdng;
-        result = 31 * result + ord;
-        result = 31 * result + kw;
+        result = 31 * result + (int) rdng;
+        result = 31 * result + (int) ord;
+        result = 31 * result + (int) kw;
         return result;
     }
 }

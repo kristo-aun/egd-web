@@ -4,11 +4,12 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import java.io.Serializable;
 
+
 public final class KresolvPK implements Serializable {
 
-    private static final long serialVersionUID = 4517007534833549289L;
+    private static final long serialVersionUID = 6001046013859465531L;
     private int entr;
-    private int kw;
+    private short kw;
     private String value;
 
     @Column(name = "entr", nullable = false, insertable = true, updatable = true)
@@ -23,11 +24,11 @@ public final class KresolvPK implements Serializable {
 
     @Column(name = "kw", nullable = false, insertable = true, updatable = true)
     @Id
-    public int getKw() {
+    public short getKw() {
         return kw;
     }
 
-    public void setKw(int kw) {
+    public void setKw(short kw) {
         this.kw = kw;
     }
 
@@ -56,7 +57,7 @@ public final class KresolvPK implements Serializable {
 
     public int hashCode() {
         int result = entr;
-        result = 31 * result + kw;
+        result = 31 * result + (int) kw;
         result = 31 * result + (value != null ? value.hashCode() : 0);
         return result;
     }

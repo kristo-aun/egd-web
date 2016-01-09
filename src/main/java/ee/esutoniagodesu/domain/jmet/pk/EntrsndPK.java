@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 public final class EntrsndPK implements Serializable {
 
-    private static final long serialVersionUID = -4477155781780373313L;
+    private static final long serialVersionUID = -6547305375057117779L;
     private int entr;
     private int snd;
 

@@ -1,14 +1,16 @@
 package ee.esutoniagodesu.domain.jmen.table;
 
+import ee.esutoniagodesu.domain.jmen.pk.EN_FldPK;
+import ee.esutoniagodesu.domain.jmen.pk.EN_FreqPK;
 import org.hibernate.annotations.Immutable;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
-
 @Entity
 @Immutable
 @Table(name = "freq", schema = "jmen")
+@IdClass(EN_FreqPK.class)
 public final class EN_Freq implements Serializable {
 
     private static final long serialVersionUID = -1747128126304841385L;
@@ -20,19 +22,8 @@ public final class EN_Freq implements Serializable {
     private EN_Kanj kanj_0;
     private EN_Kwfreq kwfreqByKw;
     private EN_Rdng rdng_0;
-    private Integer id;//ise tehtud
 
     @Id
-    @Column(name = "id", nullable = false, insertable = true, updatable = true)
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    @Basic
     @Column(name = "entr", nullable = false, insertable = true, updatable = true)
     public int getEntr() {
         return entr;
@@ -42,7 +33,7 @@ public final class EN_Freq implements Serializable {
         this.entr = entr;
     }
 
-    @Basic
+    @Id
     @Column(name = "kanj", nullable = true, insertable = true, updatable = true)
     public Short getKanj() {
         return kanj;
@@ -64,7 +55,7 @@ public final class EN_Freq implements Serializable {
         this.kanj_0 = kanj_0;
     }
 
-    @Basic
+    @Id
     @Column(name = "kw", nullable = false, insertable = true, updatable = true)
     public short getKw() {
         return kw;
@@ -84,7 +75,7 @@ public final class EN_Freq implements Serializable {
         this.kwfreqByKw = kwfreqByKw;
     }
 
-    @Basic
+    @Id
     @Column(name = "rdng", nullable = true, insertable = true, updatable = true)
     public Short getRdng() {
         return rdng;

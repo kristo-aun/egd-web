@@ -10,10 +10,9 @@ import java.io.Serializable;
 @Table(name = "vt_gloss2", schema = "jmet")
 public final class VtGloss2 implements Serializable {
 
-    private static final long serialVersionUID = 1305476164216044936L;
-
+    private static final long serialVersionUID = 3871875048123525370L;
     private Integer entr;
-    private Integer sens;
+    private Short sens;
     private String gtxt;
 
     @Id
@@ -39,11 +38,11 @@ public final class VtGloss2 implements Serializable {
 
     @Basic
     @Column(name = "sens", nullable = true, insertable = true, updatable = true)
-    public Integer getSens() {
+    public Short getSens() {
         return sens;
     }
 
-    public void setSens(Integer sens) {
+    public void setSens(Short sens) {
         this.sens = sens;
     }
 

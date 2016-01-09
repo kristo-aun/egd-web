@@ -4,14 +4,15 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import java.io.Serializable;
 
+
 public final class XrefPK implements Serializable {
 
-    private static final long serialVersionUID = 7113247440311444471L;
+    private static final long serialVersionUID = 7643361902646235155L;
     private int entr;
-    private int sens;
-    private int xref;
+    private short sens;
+    private short xref;
     private int xentr;
-    private int xsens;
+    private short xsens;
 
     @Column(name = "entr", nullable = false, insertable = true, updatable = true)
     @Id
@@ -25,11 +26,11 @@ public final class XrefPK implements Serializable {
 
     @Column(name = "sens", nullable = false, insertable = true, updatable = true)
     @Id
-    public int getSens() {
+    public short getSens() {
         return sens;
     }
 
-    public void setSens(int sens) {
+    public void setSens(short sens) {
         this.sens = sens;
     }
 
@@ -45,21 +46,21 @@ public final class XrefPK implements Serializable {
 
     @Column(name = "xref", nullable = false, insertable = true, updatable = true)
     @Id
-    public int getXref() {
+    public short getXref() {
         return xref;
     }
 
-    public void setXref(int xref) {
+    public void setXref(short xref) {
         this.xref = xref;
     }
 
     @Column(name = "xsens", nullable = false, insertable = true, updatable = true)
     @Id
-    public int getXsens() {
+    public short getXsens() {
         return xsens;
     }
 
-    public void setXsens(int xsens) {
+    public void setXsens(short xsens) {
         this.xsens = xsens;
     }
 
@@ -80,10 +81,10 @@ public final class XrefPK implements Serializable {
 
     public int hashCode() {
         int result = entr;
-        result = 31 * result + sens;
-        result = 31 * result + xref;
+        result = 31 * result + (int) sens;
+        result = 31 * result + (int) xref;
         result = 31 * result + xentr;
-        result = 31 * result + xsens;
+        result = 31 * result + (int) xsens;
         return result;
     }
 }

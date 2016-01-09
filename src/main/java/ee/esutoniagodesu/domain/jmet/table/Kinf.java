@@ -6,17 +6,18 @@ import org.hibernate.annotations.Immutable;
 import javax.persistence.*;
 import java.io.Serializable;
 
+
 @Entity
 @Immutable
+@Table(name = "kinf", schema = "jmet")
 @IdClass(KinfPK.class)
-@Table(name = "Kinf", schema = "jmet")
 public final class Kinf implements Serializable {
 
-    private static final long serialVersionUID = -126420594763605226L;
+    private static final long serialVersionUID = 7828108989997341322L;
     private int entr;
-    private int kanj;
-    private int ord;
-    private int kw;
+    private short kanj;
+    private short ord;
+    private short kw;
     private Kanj kanj_0;
     private Kwkinf kwkinfByKw;
 
@@ -32,11 +33,11 @@ public final class Kinf implements Serializable {
 
     @Id
     @Column(name = "kanj", nullable = false, insertable = true, updatable = true)
-    public int getKanj() {
+    public short getKanj() {
         return kanj;
     }
 
-    public void setKanj(int kanj) {
+    public void setKanj(short kanj) {
         this.kanj = kanj;
     }
 
@@ -52,11 +53,11 @@ public final class Kinf implements Serializable {
 
     @Id
     @Column(name = "kw", nullable = false, insertable = true, updatable = true)
-    public int getKw() {
+    public short getKw() {
         return kw;
     }
 
-    public void setKw(int kw) {
+    public void setKw(short kw) {
         this.kw = kw;
     }
 
@@ -72,11 +73,11 @@ public final class Kinf implements Serializable {
 
     @Basic
     @Column(name = "ord", nullable = false, insertable = true, updatable = true)
-    public int getOrd() {
+    public short getOrd() {
         return ord;
     }
 
-    public void setOrd(int ord) {
+    public void setOrd(short ord) {
         this.ord = ord;
     }
 
@@ -96,9 +97,9 @@ public final class Kinf implements Serializable {
 
     public int hashCode() {
         int result = entr;
-        result = 31 * result + kanj;
-        result = 31 * result + ord;
-        result = 31 * result + kw;
+        result = 31 * result + (int) kanj;
+        result = 31 * result + (int) ord;
+        result = 31 * result + (int) kw;
         return result;
     }
 }

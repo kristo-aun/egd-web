@@ -6,16 +6,17 @@ import org.hibernate.annotations.Immutable;
 import javax.persistence.*;
 import java.io.Serializable;
 
+
 @Entity
 @Immutable
+@Table(name = "stagr", schema = "jmet")
 @IdClass(StagrPK.class)
-@Table(name = "Stagr", schema = "jmet")
 public final class Stagr implements Serializable {
 
-    private static final long serialVersionUID = 8319029079099622190L;
+    private static final long serialVersionUID = -8827270477251502587L;
     private int entr;
-    private int sens;
-    private int rdng;
+    private short sens;
+    private short rdng;
     private Rdng rdng_0;
     private Sens sens_0;
 
@@ -31,11 +32,11 @@ public final class Stagr implements Serializable {
 
     @Id
     @Column(name = "rdng", nullable = false, insertable = true, updatable = true)
-    public int getRdng() {
+    public short getRdng() {
         return rdng;
     }
 
-    public void setRdng(int rdng) {
+    public void setRdng(short rdng) {
         this.rdng = rdng;
     }
 
@@ -51,11 +52,11 @@ public final class Stagr implements Serializable {
 
     @Id
     @Column(name = "sens", nullable = false, insertable = true, updatable = true)
-    public int getSens() {
+    public short getSens() {
         return sens;
     }
 
-    public void setSens(int sens) {
+    public void setSens(short sens) {
         this.sens = sens;
     }
 
@@ -84,8 +85,8 @@ public final class Stagr implements Serializable {
 
     public int hashCode() {
         int result = entr;
-        result = 31 * result + sens;
-        result = 31 * result + rdng;
+        result = 31 * result + (int) sens;
+        result = 31 * result + (int) rdng;
         return result;
     }
 }

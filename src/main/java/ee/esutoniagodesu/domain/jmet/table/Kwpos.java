@@ -8,14 +8,34 @@ import java.util.Collection;
 
 @Entity
 @Immutable
-@Table(name = "Kwpos", schema = "jmet")
+@Table(name = "kwpos", schema = "jmet")
 public final class Kwpos implements Serializable {
 
-    private static final long serialVersionUID = 7566893943289710607L;
-    private int id;
+    private static final long serialVersionUID = 6446427306013368829L;
+    private short id;
     private String kw;
     private String descr;
+    private Collection<Conjo> conjosById;
+    private Collection<Conjo> conjosById_0;
     private Collection<Pos> posesById;
+
+    @OneToMany(mappedBy = "kwposByPos2")
+    public Collection<Conjo> getConjosById() {
+        return conjosById;
+    }
+
+    public void setConjosById(Collection<Conjo> conjosById) {
+        this.conjosById = conjosById;
+    }
+
+    @OneToMany(mappedBy = "kwposByPos")
+    public Collection<Conjo> getConjosById_0() {
+        return conjosById_0;
+    }
+
+    public void setConjosById_0(Collection<Conjo> conjosById_0) {
+        this.conjosById_0 = conjosById_0;
+    }
 
     @Basic
     @Column(name = "descr", nullable = true, insertable = true, updatable = true, length = 255)
@@ -29,11 +49,11 @@ public final class Kwpos implements Serializable {
 
     @Id
     @Column(name = "id", nullable = false, insertable = true, updatable = true)
-    public int getId() {
+    public short getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(short id) {
         this.id = id;
     }
 
@@ -70,7 +90,7 @@ public final class Kwpos implements Serializable {
     }
 
     public int hashCode() {
-        int result = id;
+        int result = (int) id;
         result = 31 * result + (kw != null ? kw.hashCode() : 0);
         result = 31 * result + (descr != null ? descr.hashCode() : 0);
         return result;

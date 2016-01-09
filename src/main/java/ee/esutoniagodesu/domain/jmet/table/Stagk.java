@@ -6,16 +6,17 @@ import org.hibernate.annotations.Immutable;
 import javax.persistence.*;
 import java.io.Serializable;
 
+
 @Entity
 @Immutable
+@Table(name = "stagk", schema = "jmet")
 @IdClass(StagkPK.class)
-@Table(name = "Stagk", schema = "jmet")
 public final class Stagk implements Serializable {
 
-    private static final long serialVersionUID = -1350467517606934055L;
+    private static final long serialVersionUID = -885400893917244703L;
     private int entr;
-    private int sens;
-    private int kanj;
+    private short sens;
+    private short kanj;
     private Kanj kanj_0;
     private Sens sens_0;
 
@@ -31,18 +32,16 @@ public final class Stagk implements Serializable {
 
     @Id
     @Column(name = "kanj", nullable = false, insertable = true, updatable = true)
-    public int getKanj() {
+    public short getKanj() {
         return kanj;
     }
 
-    public void setKanj(int kanj) {
+    public void setKanj(short kanj) {
         this.kanj = kanj;
     }
 
     @ManyToOne
-    @JoinColumns({
-        @JoinColumn(insertable = false, updatable = false, name = "entr", referencedColumnName = "entr", nullable = false),
-        @JoinColumn(insertable = false, updatable = false, name = "kanj", referencedColumnName = "kanj", nullable = false)})
+    @JoinColumns({@JoinColumn(insertable = false, updatable = false, name = "entr", referencedColumnName = "entr", nullable = false), @JoinColumn(insertable = false, updatable = false, name = "kanj", referencedColumnName = "kanj", nullable = false)})
     public Kanj getKanj_0() {
         return kanj_0;
     }
@@ -53,18 +52,16 @@ public final class Stagk implements Serializable {
 
     @Id
     @Column(name = "sens", nullable = false, insertable = true, updatable = true)
-    public int getSens() {
+    public short getSens() {
         return sens;
     }
 
-    public void setSens(int sens) {
+    public void setSens(short sens) {
         this.sens = sens;
     }
 
     @ManyToOne
-    @JoinColumns({
-        @JoinColumn(insertable = false, updatable = false, name = "entr", referencedColumnName = "entr", nullable = false),
-        @JoinColumn(insertable = false, updatable = false, name = "sens", referencedColumnName = "sens", nullable = false)})
+    @JoinColumns({@JoinColumn(insertable = false, updatable = false, name = "entr", referencedColumnName = "entr", nullable = false), @JoinColumn(insertable = false, updatable = false, name = "sens", referencedColumnName = "sens", nullable = false)})
     public Sens getSens_0() {
         return sens_0;
     }
@@ -88,8 +85,8 @@ public final class Stagk implements Serializable {
 
     public int hashCode() {
         int result = entr;
-        result = 31 * result + sens;
-        result = 31 * result + kanj;
+        result = 31 * result + (int) sens;
+        result = 31 * result + (int) kanj;
         return result;
     }
 }

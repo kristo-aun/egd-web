@@ -6,13 +6,14 @@ import org.hibernate.annotations.Immutable;
 import javax.persistence.*;
 import java.io.Serializable;
 
+
 @Entity
 @Immutable
+@Table(name = "grp", schema = "jmet")
 @IdClass(GrpPK.class)
-@Table(name = "Grp", schema = "jmet")
 public final class Grp implements Serializable {
 
-    private static final long serialVersionUID = -8743548017509629324L;
+    private static final long serialVersionUID = 4325930150982942094L;
     private int entr;
     private int kw;
     private int ord;

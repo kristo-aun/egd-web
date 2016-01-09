@@ -8,11 +8,11 @@ import java.util.Collection;
 
 @Entity
 @Immutable
-@Table(name = "Kwrinf", schema = "jmet")
+@Table(name = "kwrinf", schema = "jmet")
 public final class Kwrinf implements Serializable {
 
-    private static final long serialVersionUID = -6521212025289010174L;
-    private int id;
+    private static final long serialVersionUID = 4821386130011034221L;
+    private short id;
     private String kw;
     private String descr;
     private Collection<Rinf> rinfsById;
@@ -29,11 +29,11 @@ public final class Kwrinf implements Serializable {
 
     @Id
     @Column(name = "id", nullable = false, insertable = true, updatable = true)
-    public int getId() {
+    public short getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(short id) {
         this.id = id;
     }
 
@@ -70,7 +70,7 @@ public final class Kwrinf implements Serializable {
     }
 
     public int hashCode() {
-        int result = id;
+        int result = (int) id;
         result = 31 * result + (kw != null ? kw.hashCode() : 0);
         result = 31 * result + (descr != null ? descr.hashCode() : 0);
         return result;

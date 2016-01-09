@@ -4,13 +4,14 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import java.io.Serializable;
 
+
 public final class XresolvPK implements Serializable {
 
-    private static final long serialVersionUID = -3478479172633552407L;
+    private static final long serialVersionUID = -6583085927737256522L;
     private int entr;
-    private int sens;
-    private int typ;
-    private int ord;
+    private short sens;
+    private short typ;
+    private short ord;
 
     @Column(name = "entr", nullable = false, insertable = true, updatable = true)
     @Id
@@ -24,31 +25,31 @@ public final class XresolvPK implements Serializable {
 
     @Column(name = "ord", nullable = false, insertable = true, updatable = true)
     @Id
-    public int getOrd() {
+    public short getOrd() {
         return ord;
     }
 
-    public void setOrd(int ord) {
+    public void setOrd(short ord) {
         this.ord = ord;
     }
 
     @Column(name = "sens", nullable = false, insertable = true, updatable = true)
     @Id
-    public int getSens() {
+    public short getSens() {
         return sens;
     }
 
-    public void setSens(int sens) {
+    public void setSens(short sens) {
         this.sens = sens;
     }
 
     @Column(name = "typ", nullable = false, insertable = true, updatable = true)
     @Id
-    public int getTyp() {
+    public short getTyp() {
         return typ;
     }
 
-    public void setTyp(int typ) {
+    public void setTyp(short typ) {
         this.typ = typ;
     }
 
@@ -68,9 +69,9 @@ public final class XresolvPK implements Serializable {
 
     public int hashCode() {
         int result = entr;
-        result = 31 * result + sens;
-        result = 31 * result + typ;
-        result = 31 * result + ord;
+        result = 31 * result + (int) sens;
+        result = 31 * result + (int) typ;
+        result = 31 * result + (int) ord;
         return result;
     }
 }

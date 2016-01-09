@@ -10,10 +10,9 @@ import java.io.Serializable;
 @Table(name = "vt_kinf", schema = "jmet")
 public final class VtKinf implements Serializable {
 
-    private static final long serialVersionUID = 7182592965153230166L;
-
+    private static final long serialVersionUID = -6553144566667102469L;
     private Integer entr;
-    private Integer kanj;
+    private Short kanj;
     private String kitxt;
 
     @Id
@@ -29,11 +28,11 @@ public final class VtKinf implements Serializable {
 
     @Basic
     @Column(name = "kanj", nullable = true, insertable = true, updatable = true)
-    public Integer getKanj() {
+    public Short getKanj() {
         return kanj;
     }
 
-    public void setKanj(Integer kanj) {
+    public void setKanj(Short kanj) {
         this.kanj = kanj;
     }
 

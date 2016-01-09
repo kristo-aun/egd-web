@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 public final class GrpPK implements Serializable {
 
-    private static final long serialVersionUID = 5099743749119336396L;
+    private static final long serialVersionUID = 937308102072673652L;
     private int entr;
     private int kw;
 

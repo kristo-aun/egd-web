@@ -1,5 +1,6 @@
 package ee.esutoniagodesu.domain.jmet.table;
 
+import ee.esutoniagodesu.domain.jmet.pk.FreqPK;
 import org.hibernate.annotations.Immutable;
 
 import javax.persistence.*;
@@ -8,20 +9,20 @@ import java.io.Serializable;
 @Entity
 @Immutable
 @Table(name = "freq", schema = "jmet")
+@IdClass(FreqPK.class)
 public final class Freq implements Serializable {
 
-    private static final long serialVersionUID = -4117824177395254731L;
+    private static final long serialVersionUID = -1747128126304841385L;
     private int entr;
-    private Integer rdng;
-    private Integer kanj;
-    private int kw;
+    private Short rdng;
+    private Short kanj;
+    private short kw;
     private Integer value;
-    private int id;
     private Kanj kanj_0;
     private Kwfreq kwfreqByKw;
     private Rdng rdng_0;
 
-    @Basic
+    @Id
     @Column(name = "entr", nullable = false, insertable = true, updatable = true)
     public int getEntr() {
         return entr;
@@ -32,31 +33,19 @@ public final class Freq implements Serializable {
     }
 
     @Id
-    @Column(name = "id", nullable = false, insertable = true, updatable = true)
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    @Basic
     @Column(name = "kanj", nullable = true, insertable = true, updatable = true)
-    public Integer getKanj() {
+    public Short getKanj() {
         return kanj;
     }
 
-    public void setKanj(Integer kanj) {
+    public void setKanj(Short kanj) {
         this.kanj = kanj;
     }
 
     @ManyToOne
-    @JoinColumns(
-        {
-            @JoinColumn(insertable = false, updatable = false, name = "entr", referencedColumnName = "entr"),
-            @JoinColumn(insertable = false, updatable = false, name = "kanj", referencedColumnName = "kanj")
-        })
+    @JoinColumns({
+        @JoinColumn(insertable = false, updatable = false, name = "entr", referencedColumnName = "entr"),
+        @JoinColumn(insertable = false, updatable = false, name = "kanj", referencedColumnName = "kanj")})
     public Kanj getKanj_0() {
         return kanj_0;
     }
@@ -65,13 +54,13 @@ public final class Freq implements Serializable {
         this.kanj_0 = kanj_0;
     }
 
-    @Basic
+    @Id
     @Column(name = "kw", nullable = false, insertable = true, updatable = true)
-    public int getKw() {
+    public short getKw() {
         return kw;
     }
 
-    public void setKw(int kw) {
+    public void setKw(short kw) {
         this.kw = kw;
     }
 
@@ -85,13 +74,13 @@ public final class Freq implements Serializable {
         this.kwfreqByKw = kwfreqByKw;
     }
 
-    @Basic
+    @Id
     @Column(name = "rdng", nullable = true, insertable = true, updatable = true)
-    public Integer getRdng() {
+    public Short getRdng() {
         return rdng;
     }
 
-    public void setRdng(Integer rdng) {
+    public void setRdng(Short rdng) {
         this.rdng = rdng;
     }
 
@@ -124,7 +113,6 @@ public final class Freq implements Serializable {
         Freq freq = (Freq) o;
 
         if (entr != freq.entr) return false;
-        if (id != freq.id) return false;
         if (kw != freq.kw) return false;
         if (kanj != null ? !kanj.equals(freq.kanj) : freq.kanj != null) return false;
         if (rdng != null ? !rdng.equals(freq.rdng) : freq.rdng != null) return false;
@@ -137,9 +125,8 @@ public final class Freq implements Serializable {
         int result = entr;
         result = 31 * result + (rdng != null ? rdng.hashCode() : 0);
         result = 31 * result + (kanj != null ? kanj.hashCode() : 0);
-        result = 31 * result + kw;
+        result = 31 * result + (int) kw;
         result = 31 * result + (value != null ? value.hashCode() : 0);
-        result = 31 * result + id;
         return result;
     }
 }

@@ -6,11 +6,10 @@ import java.io.Serializable;
 
 public final class GlossPK implements Serializable {
 
-    private static final long serialVersionUID = -1899841963977998825L;
+    private static final long serialVersionUID = -7804433934591010448L;
     private int entr;
-    private int sens;
-    private int gloss;
-    private int lang;
+    private short sens;
+    private short gloss;
 
     @Column(name = "entr", nullable = false, insertable = true, updatable = true)
     @Id
@@ -24,31 +23,21 @@ public final class GlossPK implements Serializable {
 
     @Column(name = "gloss", nullable = false, insertable = true, updatable = true)
     @Id
-    public int getGloss() {
+    public short getGloss() {
         return gloss;
     }
 
-    public void setGloss(int gloss) {
+    public void setGloss(short gloss) {
         this.gloss = gloss;
-    }
-
-    @Column(name = "lang", nullable = false, insertable = true, updatable = true)
-    @Id
-    public int getLang() {
-        return lang;
-    }
-
-    public void setLang(int lang) {
-        this.lang = lang;
     }
 
     @Column(name = "sens", nullable = false, insertable = true, updatable = true)
     @Id
-    public int getSens() {
+    public short getSens() {
         return sens;
     }
 
-    public void setSens(int sens) {
+    public void setSens(short sens) {
         this.sens = sens;
     }
 
@@ -60,7 +49,6 @@ public final class GlossPK implements Serializable {
 
         if (entr != glossPK.entr) return false;
         if (gloss != glossPK.gloss) return false;
-        if (lang != glossPK.lang) return false;
         if (sens != glossPK.sens) return false;
 
         return true;
@@ -68,9 +56,8 @@ public final class GlossPK implements Serializable {
 
     public int hashCode() {
         int result = entr;
-        result = 31 * result + sens;
-        result = 31 * result + gloss;
-        result = 31 * result + lang;
+        result = 31 * result + (int) sens;
+        result = 31 * result + (int) gloss;
         return result;
     }
 }

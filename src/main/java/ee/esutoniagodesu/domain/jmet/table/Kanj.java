@@ -9,13 +9,13 @@ import java.util.Collection;
 
 @Entity
 @Immutable
+@Table(name = "kanj", schema = "jmet")
 @IdClass(KanjPK.class)
-@Table(name = "Kanj", schema = "jmet")
 public final class Kanj implements Serializable {
 
-    private static final long serialVersionUID = 3093564061974227569L;
+    private static final long serialVersionUID = 7082462087936702622L;
     private int entr;
-    private int kanj;
+    private short kanj;
     private String txt;
     private Collection<Freq> freqs;
     private Entr entrByEntr;
@@ -55,11 +55,11 @@ public final class Kanj implements Serializable {
 
     @Id
     @Column(name = "kanj", nullable = false, insertable = true, updatable = true)
-    public int getKanj() {
+    public short getKanj() {
         return kanj;
     }
 
-    public void setKanj(int kanj) {
+    public void setKanj(short kanj) {
         this.kanj = kanj;
     }
 
@@ -124,7 +124,7 @@ public final class Kanj implements Serializable {
 
     public int hashCode() {
         int result = entr;
-        result = 31 * result + kanj;
+        result = 31 * result + (int) kanj;
         result = 31 * result + (txt != null ? txt.hashCode() : 0);
         return result;
     }

@@ -10,9 +10,9 @@ import java.io.Serializable;
 @Table(name = "pkfreq", schema = "jmet")
 public final class Pkfreq implements Serializable {
 
-    private static final long serialVersionUID = -5461415315437369864L;
+    private static final long serialVersionUID = -3283847873819910270L;
     private Integer entr;
-    private Integer kanj;
+    private Short kanj;
     private String txt;
     private Boolean p;
 
@@ -29,11 +29,11 @@ public final class Pkfreq implements Serializable {
 
     @Basic
     @Column(name = "kanj", nullable = true, insertable = true, updatable = true)
-    public Integer getKanj() {
+    public Short getKanj() {
         return kanj;
     }
 
-    public void setKanj(Integer kanj) {
+    public void setKanj(Short kanj) {
         this.kanj = kanj;
     }
 

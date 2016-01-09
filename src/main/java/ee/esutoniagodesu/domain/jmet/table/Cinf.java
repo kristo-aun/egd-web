@@ -6,13 +6,14 @@ import org.hibernate.annotations.Immutable;
 import javax.persistence.*;
 import java.io.Serializable;
 
+
 @Entity
 @Immutable
+@Table(name = "cinf", schema = "jmet")
 @IdClass(CinfPK.class)
-@Table(name = "Cinf", schema = "jmet")
 public final class Cinf implements Serializable {
 
-    private static final long serialVersionUID = -1918855857030352466L;
+    private static final long serialVersionUID = -4799968254892260629L;
     private int entr;
     private short kw;
     private String value;
@@ -96,7 +97,7 @@ public final class Cinf implements Serializable {
 
     public int hashCode() {
         int result = entr;
-        result = 31 * result + kw;
+        result = 31 * result + (int) kw;
         result = 31 * result + (value != null ? value.hashCode() : 0);
         result = 31 * result + (mctype != null ? mctype.hashCode() : 0);
         return result;

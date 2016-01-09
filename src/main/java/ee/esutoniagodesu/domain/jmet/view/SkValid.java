@@ -10,10 +10,10 @@ import java.io.Serializable;
 @Table(name = "sk_valid", schema = "jmet")
 public final class SkValid implements Serializable {
 
-    private static final long serialVersionUID = 4032118723417474657L;
+    private static final long serialVersionUID = -8919521483451248672L;
     private Integer entr;
-    private Integer sens;
-    private Integer kanj;
+    private Short sens;
+    private Short kanj;
     private String ktxt;
 
     @Id
@@ -29,11 +29,11 @@ public final class SkValid implements Serializable {
 
     @Basic
     @Column(name = "kanj", nullable = true, insertable = true, updatable = true)
-    public Integer getKanj() {
+    public Short getKanj() {
         return kanj;
     }
 
-    public void setKanj(Integer kanj) {
+    public void setKanj(Short kanj) {
         this.kanj = kanj;
     }
 
@@ -49,11 +49,11 @@ public final class SkValid implements Serializable {
 
     @Basic
     @Column(name = "sens", nullable = true, insertable = true, updatable = true)
-    public Integer getSens() {
+    public Short getSens() {
         return sens;
     }
 
-    public void setSens(Integer sens) {
+    public void setSens(Short sens) {
         this.sens = sens;
     }
 

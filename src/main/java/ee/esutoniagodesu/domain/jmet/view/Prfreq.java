@@ -10,9 +10,9 @@ import java.io.Serializable;
 @Table(name = "prfreq", schema = "jmet")
 public final class Prfreq implements Serializable {
 
-    private static final long serialVersionUID = -18318733851271493L;
+    private static final long serialVersionUID = 1985216204525625130L;
     private Integer entr;
-    private Integer rdng;
+    private Short rdng;
     private String txt;
     private Boolean p;
 
@@ -39,11 +39,11 @@ public final class Prfreq implements Serializable {
 
     @Basic
     @Column(name = "rdng", nullable = true, insertable = true, updatable = true)
-    public Integer getRdng() {
+    public Short getRdng() {
         return rdng;
     }
 
-    public void setRdng(Integer rdng) {
+    public void setRdng(Short rdng) {
         this.rdng = rdng;
     }
 

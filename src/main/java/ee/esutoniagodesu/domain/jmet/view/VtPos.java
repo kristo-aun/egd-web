@@ -10,10 +10,9 @@ import java.io.Serializable;
 @Table(name = "vt_pos", schema = "jmet")
 public final class VtPos implements Serializable {
 
-    private static final long serialVersionUID = 4381453926235116330L;
-
+    private static final long serialVersionUID = -7486929933498389919L;
     private Integer entr;
-    private Integer sens;
+    private Short sens;
     private String ptxt;
 
     @Id
@@ -39,11 +38,11 @@ public final class VtPos implements Serializable {
 
     @Basic
     @Column(name = "sens", nullable = true, insertable = true, updatable = true)
-    public Integer getSens() {
+    public Short getSens() {
         return sens;
     }
 
-    public void setSens(Integer sens) {
+    public void setSens(Short sens) {
         this.sens = sens;
     }
 

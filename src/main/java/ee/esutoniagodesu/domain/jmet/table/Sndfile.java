@@ -8,15 +8,15 @@ import java.util.Collection;
 
 @Entity
 @Immutable
-@Table(name = "Sndfile", schema = "jmet")
+@Table(name = "sndfile", schema = "jmet")
 public final class Sndfile implements Serializable {
 
-    private static final long serialVersionUID = 6347451385660548061L;
+    private static final long serialVersionUID = -481673765495198164L;
     private int id;
     private int vol;
     private String title;
     private String loc;
-    private Integer type;
+    private Short type;
     private String notes;
     private Collection<Snd> sndsById;
     private Sndvol sndvolByVol;
@@ -82,11 +82,11 @@ public final class Sndfile implements Serializable {
 
     @Basic
     @Column(name = "type", nullable = true, insertable = true, updatable = true)
-    public Integer getType() {
+    public Short getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(Short type) {
         this.type = type;
     }
 

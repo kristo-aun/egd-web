@@ -1,5 +1,6 @@
-package ee.esutoniagodesu;
+package ee.esutoniagodesu.dataworks;
 
+import ee.esutoniagodesu.Application;
 import ee.esutoniagodesu.domain.heisig.table.HeisigCoreKw;
 import ee.esutoniagodesu.repository.domain.heisig.HeisigCoreKwRepository;
 import ee.esutoniagodesu.service.HeisigService;

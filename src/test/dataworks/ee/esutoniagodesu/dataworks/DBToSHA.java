@@ -1,4 +1,4 @@
-package ee.esutoniagodesu;
+package ee.esutoniagodesu.dataworks;
 
 import ee.esutoniagodesu.bean.ProjectDAO;
 import ee.esutoniagodesu.domain.heisig.table.HeisigCoreKw;

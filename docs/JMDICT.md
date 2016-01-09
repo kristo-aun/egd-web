@@ -1,27 +1,16 @@
-# JMDict knowhow
-This guide goes through the process of getting JMDict data to PostgreSQL database.
-We'll also see how to get JMAudio
-
-Finally, we add supporting database objects to keep record of changes in data.
-
-
-Some minor adjustments need to be made in to schema for the JPA domain model to work.
-
-Composite keys are being used instead of sequences, which is a good practice, but complitates things at the webapp level.
-This makes mapping views to domain classes complicated. This breaks entity search functions in hibernate for example.
-
-Installing JMDictDB to
+# Using JMDict in EsutoniaGoDesu 
+This guide shows how to install JMDict data into a PostgreSQL database.
 
 Ownership of the JMDict software belongs to Electronic Dictionary Research and Development Group,
 Faculty of Information Technology, Monash University. The detail data copyright information are list as follows:
   - <a href="http://edrdg.org/~smg/">JMdictDB PostgreSQL documentation, schema design, etc</a>
 
 ## Environment
-- **Ubuntu 14.04**: Everything should work in all Debian-based OS-s.
+- **Ubuntu 14.04**: all commands here should work in other GNU/Linux distros as well.
 - **PostgreSQL 9.4**
-- **Python 3**
+- **Python 3.4.3**
 
-## Updating JMDict
+## Installing a brand new JMDict database
 JMDict is part of the egd-db Postgres database. 
 To serve both Estonian translations and features for various EsutoniaGoDesu's modules, 
 the JMDict data is duplicated in jmen nad jmet database schemas. 
@@ -66,24 +55,24 @@ and Examples files into it and recreate the necessary foreign
 key constraints and indexes which were disabled during loading
 for performance reasons.
 
-### Transfering newly imported data to your own database
+## Transfering newly imported data to your own database
 I will export jmnew.public schema to an SQL file without owner info, which can be imported to other databases. 
 
-Prepare schema for export
+### Prepare schema for export
 
     jmnew=# COMMENT ON SCHEMA jmen IS null;
     jmnew=# COMMENT ON EXTENSION plpgsql IS null;
     jmnew=# ALTER SCHEMA public RENAME TO jmen; 
     
-Dump schema to an SQL file
+### Dump schema to an SQL file
 
     pg_dump --host=localhost --port=5432 --username=jmdictdb --format=plain --blobs --verbose --no-owner --no-privileges --file="jmen.sql" --dbname=jmnew
 
-Drop the previous schema 
+### Drop the previous schema 
 
     DROP SCHEMA jmen;
 
-Import the schema
+### Import the schema
 
     psql --host=localhost --port=5432 --username=egdrole --dbname=egd --single-transaction --file "jmen.sql"
     
@@ -93,36 +82,43 @@ I'll delere all records from the table gloss, which is
 
 I'm using "et" suffic to identify the second schema, but you can use any string you like.
  
-Prepare the schema for a second export
+### Prepare the schema for a second export
 
     jmnew=# ALTER SCHEMA jmen RENAME TO jmet; 
     jmnew=# TRUNCATE jmet.gloss;
 
-Dump schema to an SQL file
+### Dump schema to an SQL file
 
     pg_dump --host=localhost --port=5432 --username=jmdictdb --format=plain --blobs --verbose --no-owner --no-privileges --file="jmet.sql" --dbname=jmnew
 
-Backup the old schema   
+### Backup your old schema   
 
     ALTER SCHEMA jmet RENAME TO jmet_bak; 
     
-Import the new schema
+### Import the new schema
     
     psql --host=localhost --port=5432 --username=egdrole --dbname=egd --single-transaction --file "jmet.sql"
 
+## Finalize the installation
 
-## Mapping CSV records to JMDict glosses
-
-## Final points
+### Final points
 - If the domain model has been changed, then ORM mapping must be updated as well.
 - You should keep a record of translation author, time and changes.
 
 - Comments about a particular translation have enormous value to users, but the design doesn't support adding contextual information.
 Therefore, in EGD, metainfo is being kept in a dedicated table in another schema.
 
-### Tips
+### ORM
+You can find the Hibernate mapping in src/main/java/ee/esutoniagodesu/domain/jmen.
+Composite keys are being used instead of sequences, which is a good practice, but complitates things at the persistence level.
+
+
+## Mapping CSV records to JMDict glosses
+
+
+#### Tips
 
 Remove prefix from all files recursively
-for f in TestSR*; do mv "$f" "CL${f#TestSR}"; done
-
-for f in EN_*; do mv "$f" "${f#EN_}"; done
+    
+    for f in EN_*; do mv "$f" "${f#EN_}"; done
+    

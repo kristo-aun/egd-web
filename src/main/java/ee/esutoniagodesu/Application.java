@@ -1,6 +1,7 @@
 package ee.esutoniagodesu;
 
 import ee.esutoniagodesu.config.Constants;
+import ee.esutoniagodesu.config.Profiles;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -10,7 +11,7 @@ import org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration;
 import org.springframework.boot.autoconfigure.dao.PersistenceExceptionTranslationAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.metadata.DataSourcePoolMetadataProvidersConfiguration;
-import org.springframework.boot.autoconfigure.web.ErrorMvcAutoConfiguration;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.MultipartAutoConfiguration;
 import org.springframework.boot.autoconfigure.websocket.WebSocketAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
@@ -24,12 +25,11 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Objects;
 
 @EnableAutoConfiguration(exclude = {
     AuditAutoConfiguration.class,
     CacheAutoConfiguration.class,
-    //DataSourceAutoConfiguration.class,
+    DataSourceAutoConfiguration.class,
     DataSourcePoolMetadataProvidersConfiguration.class,
     EndpointWebMvcHypermediaManagementContextConfiguration.class,
     EndpointWebMvcManagementContextConfiguration.class,
@@ -101,7 +101,7 @@ public class Application {
         if (!source.containsProperty("spring.profiles.active") &&
             !System.getenv().containsKey("SPRING_PROFILES_ACTIVE")) {
 
-            app.setAdditionalProfiles(Constants.SPRING_PROFILE_DEV);
+            app.setAdditionalProfiles(Profiles.SPRING_PROFILE_DEV);
         }
     }
 }

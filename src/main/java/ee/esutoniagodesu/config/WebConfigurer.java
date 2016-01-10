@@ -1,8 +1,6 @@
 package ee.esutoniagodesu.config;
 
 import ee.esutoniagodesu.web.filter.CachingHttpHeadersFilter;
-import ee.esutoniagodesu.web.filter.SimpleCORSFilter;
-import ee.esutoniagodesu.web.filter.gzip.GZipServletFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
@@ -19,8 +17,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import java.util.Arrays;
 import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Configuration of web application with Servlet 3.0 APIs.
@@ -38,19 +34,10 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
         log.info("Web application configuration, using profiles: {}", Arrays.toString(env.getActiveProfiles()));
         EnumSet<DispatcherType> disps = EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD, DispatcherType.ASYNC);
 
-        initCORSFilter(servletContext, disps);
-
-        if (env.acceptsProfiles(Constants.SPRING_PROFILE_PROD)) {
+        if (env.acceptsProfiles(Profiles.SPRING_PROFILE_PROD)) {
             initCachingHttpHeadersFilter(servletContext, disps);
-            initGzipFilter(servletContext, disps);
         }
         log.info("Web application fully configured");
-    }
-
-    private void initCORSFilter(ServletContext servletContext, EnumSet<DispatcherType> disps) {
-        FilterRegistration.Dynamic filter = servletContext.addFilter("corsFilter", new SimpleCORSFilter());
-        filter.addMappingForUrlPatterns(disps, true, "/*");
-        filter.setAsyncSupported(true);
     }
 
     /**
@@ -64,30 +51,6 @@ public class WebConfigurer implements ServletContextInitializer, EmbeddedServlet
         // CloudFoundry issue, see https://github.com/cloudfoundry/gorouter/issues/64
         mappings.add("json", "text/html;charset=utf-8");
         container.setMimeMappings(mappings);
-    }
-
-    /**
-     * Initializes the GZip filter.
-     */
-    private void initGzipFilter(ServletContext servletContext, EnumSet<DispatcherType> disps) {
-        log.debug("Registering GZip Filter");
-        FilterRegistration.Dynamic compressingFilter = servletContext.addFilter("gzipFilter", new GZipServletFilter());
-        Map<String, String> parameters = new HashMap<>();
-        compressingFilter.setInitParameters(parameters);
-        compressingFilter.addMappingForUrlPatterns(disps, true, "*.css");
-        compressingFilter.addMappingForUrlPatterns(disps, true, "*.json");
-        compressingFilter.addMappingForUrlPatterns(disps, true, "*.html");
-        compressingFilter.addMappingForUrlPatterns(disps, true, "*.js");
-
-        compressingFilter.addMappingForUrlPatterns(disps, true, "*.otf");
-        compressingFilter.addMappingForUrlPatterns(disps, true, "*.eot");
-        compressingFilter.addMappingForUrlPatterns(disps, true, "*.svg");
-        compressingFilter.addMappingForUrlPatterns(disps, true, "*.ttf");
-        compressingFilter.addMappingForUrlPatterns(disps, true, "*.woff");
-        compressingFilter.addMappingForUrlPatterns(disps, true, "*.woff2");
-
-        compressingFilter.addMappingForUrlPatterns(disps, true, "/api/*");
-        compressingFilter.setAsyncSupported(true);
     }
 
     /**

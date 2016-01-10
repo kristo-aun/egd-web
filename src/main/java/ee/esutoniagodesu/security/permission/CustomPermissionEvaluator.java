@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.access.PermissionEvaluator;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
 import java.io.Serializable;

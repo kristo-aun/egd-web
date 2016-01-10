@@ -1,6 +1,7 @@
 package ee.esutoniagodesu.domain;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import ee.esutoniagodesu.config.Constants;
 import ee.esutoniagodesu.web.rest.dto.View;
 import org.hibernate.envers.Audited;
 import org.springframework.data.annotation.CreatedBy;

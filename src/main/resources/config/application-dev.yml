@@ -12,6 +12,10 @@ server:
         client-auth: want
 
 spring:
+    jpa:
+        show_sql: false
+        properties:
+            hibernate.generate_statistics: true
     profiles:
         active: dev
     devtools:

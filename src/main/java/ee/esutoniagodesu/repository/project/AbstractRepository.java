@@ -3,32 +3,31 @@ package ee.esutoniagodesu.repository.project;
 import org.apache.log4j.Logger;
 import org.springframework.jdbc.core.*;
 import org.springframework.jdbc.object.StoredProcedure;
-import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;
 
-import javax.inject.Inject;
 import javax.sql.DataSource;
 import java.math.BigDecimal;
 import java.sql.*;
 import java.util.Map;
 
-@Repository
 public abstract class AbstractRepository {
 
     private static final Logger log = Logger.getLogger(AbstractRepository.class);
 
-    public AbstractRepository() {
-        log.debug("New instance of " + getClass());
-    }
+    protected final JdbcTemplate jdbcTemplate;
 
-    @Inject
-    protected JdbcTemplate jdbcTemplate;
+    public AbstractRepository(JdbcTemplate jdbcTemplate) {
+        log.debug("New instance of " + getClass());
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     protected DataSource getDataSource() {
         return jdbcTemplate.getDataSource();
     }
 
     private static String safeWrap(Object parameter) {
+        if (parameter == null) return null;
+
         if (parameter instanceof String) {
             return "\"" + parameter + '"';
         } else if (parameter instanceof byte[]) {
@@ -38,9 +37,15 @@ public abstract class AbstractRepository {
         }
     }
 
-    protected class CustomStoredProcedure extends StoredProcedure implements SqlProvider {
+    protected abstract class CustomStoredProcedure extends StoredProcedure implements SqlProvider {
+        public CustomStoredProcedure(String procedure) {
+            this(jdbcTemplate, procedure);
+        }
+
         public CustomStoredProcedure(JdbcTemplate jdbcTemplate, String procedure) {
             super(jdbcTemplate, procedure);
+            prepare();
+            compile();
         }
 
         public String getSql(Object... inParams) {
@@ -68,26 +73,22 @@ public abstract class AbstractRepository {
                 throw e;
             }
         }
+
+        public abstract void prepare();
     }
 
-    protected abstract class CustomCallableStatementCreator implements CallableStatementCreator, SqlProvider {
+    protected class CustomStatementBuilder implements SqlProvider {
 
-        private static final String prefix = "call ";
-        private StringBuilder parameters = new StringBuilder();
+        protected StringBuilder parameters = new StringBuilder();
         protected final String sql;
 
-        public CustomCallableStatementCreator(String sql) {
+        public CustomStatementBuilder(String sql) {
             Assert.notNull(sql, "Call string must not be null");
             this.sql = sql;
         }
 
-        public CallableStatement createCallableStatement(Connection con) throws SQLException {
-            return con.prepareCall(sql);
-        }
-
         public String getSql() {
-            String function = sql.substring(sql.indexOf(prefix) + prefix.length(), sql.indexOf("("));
-            return prefix + function + "(" + parameters.toString() + ")";
+            return this.sql;
         }
 
         public void setLong(PreparedStatement s, int index, Long x) throws SQLException {
@@ -108,6 +109,10 @@ public abstract class AbstractRepository {
 
         public void setTimestampWithTimezone(PreparedStatement s, int index, java.util.Date x) throws SQLException {
             setParameter(s, index, x, Types.TIMESTAMP_WITH_TIMEZONE);
+        }
+
+        public void setTimestamp(PreparedStatement s, int index, java.util.Date x) throws SQLException {
+            setParameter(s, index, x, Types.TIMESTAMP);
         }
 
         public void setParameter(PreparedStatement cs, int key, Object parameter, int otype) throws SQLException {
@@ -146,42 +151,56 @@ public abstract class AbstractRepository {
         }
     }
 
+    protected abstract class CustomCallableStatementCreator extends CustomStatementBuilder implements CallableStatementCreator {
+
+        private static final String prefix = "call ";
+
+        public CustomCallableStatementCreator(String sql) {
+            super(sql);
+        }
+
+        public CallableStatement createCallableStatement(Connection con) throws SQLException {
+            return con.prepareCall(sql);
+        }
+
+        @Override
+        public String getSql() {
+            String function = sql.substring(sql.indexOf(prefix) + prefix.length(), sql.indexOf("("));
+            return prefix + function + "(" + parameters.toString() + ")";
+        }
+    }
+
     public <T> T execute(CustomCallableStatementCreator csc, CallableStatementCallback<T> action) {
         try {
+            T result = jdbcTemplate.execute(csc, action);
             if (log.isDebugEnabled()) {
                 log.debug(csc.getSql());
             }
-            return jdbcTemplate.execute(csc, action);
+            return result;
         } catch (Exception e) {
             log.error(csc.getSql());
             throw e;
         }
     }
 
-    protected static class CustomPreparedStatementCreator implements PreparedStatementCreator, SqlProvider {
-
-        private final String sql;
+    protected abstract class CustomPreparedStatementCreator extends CustomStatementBuilder implements PreparedStatementCreator, SqlProvider {
 
         public CustomPreparedStatementCreator(String sql) {
-            Assert.notNull(sql, "SQL must not be null");
-            this.sql = sql;
+            super(sql);
         }
 
         public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
             return con.prepareStatement(this.sql);
         }
-
-        public String getSql() {
-            return this.sql;
-        }
     }
 
     public <T> T execute(CustomPreparedStatementCreator csc, PreparedStatementCallback<T> action) {
         try {
+            T result = jdbcTemplate.execute(csc, action);
             if (log.isDebugEnabled()) {
                 log.debug(csc.getSql());
             }
-            return jdbcTemplate.execute(csc, action);
+            return result;
         } catch (Exception e) {
             log.error(csc.getSql());
             throw e;

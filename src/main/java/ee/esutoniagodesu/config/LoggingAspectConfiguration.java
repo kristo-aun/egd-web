@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Profile;
 public class LoggingAspectConfiguration {
 
     @Bean
-    @Profile(Constants.SPRING_PROFILE_DEV)
+    @Profile(Profiles.SPRING_PROFILE_DEV)
     public LoggingAspect loggingAspect() {
         return new LoggingAspect();
     }

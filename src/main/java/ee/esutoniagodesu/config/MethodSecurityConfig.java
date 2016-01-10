@@ -29,7 +29,7 @@ public class MethodSecurityConfig {//extends GlobalMethodSecurityConfiguration {
         return rhi;
     }
 
-    @Bean
+    //@Bean
     public CustomPermissionEvaluator permissionEvaluator() {
         return new CustomPermissionEvaluator();
     }

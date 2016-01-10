@@ -15,22 +15,31 @@ class TikRow {
     List<Map.Entry<String, String>> est;
 }
 
+/**
+ * 1. jaga // abil -> List sens
+ * 2. eemalda + märgendid
+ * 3. jaga , abil -> list gloss
+ * 4. eralda gloss seest (kommentaar)
+ *
+ *
+ * 1. mitu sens on entr kohta
+ * 2. kui on <= kui list.sens.length ,siis mäpi järjest
+ * kui rohkem, siis esimesele sens-le tuleb rohkem gloss-e külge panna
+ */
 public class JCTest {
     /**
      * Mitu tühikut ja koma
      * Rohkem kui 1
      * spaces=5220
      * commas=1501
-     *
+     * <p>
      * Rohkem kui 2
      * spaces=3644
      * commas=539
-     *
+     * <p>
      * Rohkem kui 3
      * spaces=2427
      * commas=212
-     *
-     *
      */
     @Test
     public void tiktable() throws FileNotFoundException {
@@ -41,27 +50,34 @@ public class JCTest {
 
         TikRow a;
         int spaces = 0, commas = 0;
+        String line = null;
         while (sc.hasNext()) {
-            String line = sc.nextLine();
-            String[] arr = line.split("\t");
-            if (arr.length != 4) throw new RuntimeException(line);
-            a = new TikRow();
+            try {
+                line = sc.nextLine();
+                String[] arr = line.split("\t");
+                if (arr.length != 4) throw new RuntimeException(line);
+                a = new TikRow();
 
-            a.jatikId = arr[0].trim();
-            a.yomi = arr[1].trim();
-            a.jap = arr[2].trim();
-            a.et = arr[3].trim();
-            a.est = extract(arr[3].trim());
+                a.jatikId = arr[0].trim();
+                a.yomi = arr[1].trim();
+                a.jap = arr[2].trim();
+                a.et = arr[3].trim();
+                a.est = extract(arr[3].trim());
 
-            int spaceCount = StringUtils.countOccurrencesOf(a.et, " ");
-            int commaCount = StringUtils.countOccurrencesOf(a.et, ",");
 
-            if (spaceCount > 3) {
-                spaces++;
-            }
+                int spaceCount = StringUtils.countOccurrencesOf(a.et, " ");
+                int commaCount = StringUtils.countOccurrencesOf(a.et, ",");
 
-            if (commaCount > 3) {
-                commas++;
+                if (spaceCount > 3) {
+                    spaces++;
+                }
+
+                if (commaCount > 3) {
+                    commas++;
+                }
+            } catch (Exception e) {
+                System.out.println("line: \n" + line);
+                throw e;
             }
         }
 
@@ -101,7 +117,7 @@ public class JCTest {
     private static Map.Entry<String, String> bracketsSeparated(String s) {
         String betw = s.substring(s.indexOf("("), s.indexOf(")") + 1);
         String arr = s.replace(betw, "").trim();
-        return toEntry(arr, betw.substring(betw.indexOf("(")+1, betw.indexOf(")")));
+        return toEntry(arr, betw.substring(betw.indexOf("(") + 1, betw.indexOf(")")));
     }
 
     private static boolean commaBetweenBrackets(String s) {
@@ -121,20 +137,20 @@ public class JCTest {
         OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(outPath), "UTF-8");
         BufferedWriter writer = new BufferedWriter(osw);
         String line = reader.readLine();
-        while(line != null) {
+        while (line != null) {
 
             String[] arr = line.split(";");
 
             List<String> constit = new ArrayList<>();
             if (arr.length > 1) {
 
-                for (int i=1; i<arr.length;i++) {
+                for (int i = 1; i < arr.length; i++) {
                     if (!constit.contains(arr[i]) && !constit.contains(arr[i].toLowerCase())) {
                         constit.add(arr[i]);
                     }
                 }
 
-                if (constit.size() != arr.length-1) {
+                if (constit.size() != arr.length - 1) {
                     System.out.println("leitud topelt: kanji=" + arr[0]);
                 }
             }

@@ -1,6 +1,5 @@
 package ee.esutoniagodesu.domain.jmen.table;
 
-import ee.esutoniagodesu.domain.jmen.pk.EN_FldPK;
 import ee.esutoniagodesu.domain.jmen.pk.EN_FreqPK;
 import org.hibernate.annotations.Immutable;
 

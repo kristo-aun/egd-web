@@ -4,10 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.boot.context.embedded.MultipartConfigFactory;
-import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
 import org.springframework.web.multipart.support.MultipartFilter;
 
 import javax.servlet.MultipartConfigElement;
@@ -16,16 +14,9 @@ import javax.servlet.MultipartConfigElement;
  * Configuration of web application with Servlet 3.0 APIs.
  */
 @Configuration
-public class MultipartConfigurer implements EnvironmentAware {
+public class MultipartConfigurer {
 
     private static final Logger log = LoggerFactory.getLogger(MultipartConfigurer.class);
-
-    private static String tempUploadFolder;
-
-    @Override
-    public void setEnvironment(Environment env) {
-        tempUploadFolder = env.getProperty("app.files.path") + "temp-uploads/";
-    }
 
     /*
     @Bean(name = "multipartResolver")
@@ -44,7 +35,7 @@ public class MultipartConfigurer implements EnvironmentAware {
         log.debug("New instance of " + MultipartConfigFactory.class);
         MultipartConfigFactory factory = new MultipartConfigFactory();
         factory.setMaxFileSize("128MB");
-        factory.setLocation(tempUploadFolder);
+        factory.setLocation(System.getProperty("java.io.tmpdir"));
         factory.setMaxRequestSize("128MB");
         return factory.createMultipartConfig();
     }

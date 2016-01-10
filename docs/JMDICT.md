@@ -5,6 +5,10 @@ Ownership of the JMDict software belongs to Electronic Dictionary Research and D
 Faculty of Information Technology, Monash University. The detail data copyright information are list as follows:
   - <a href="http://edrdg.org/~smg/">JMdictDB PostgreSQL documentation, schema design, etc</a>
 
+*The JMdictDB project is an informal project to put the contents 
+of Jim Breen's JMdict Japanese-English dictionary data  
+into a database.*
+
 ## Environment
 - **Ubuntu 14.04**: all commands here should work in other GNU/Linux distros as well.
 - **PostgreSQL 9.4**
@@ -14,18 +18,15 @@ Faculty of Information Technology, Monash University. The detail data copyright 
 JMDict is part of the egd-db Postgres database. 
 To serve both Estonian translations and features for various EsutoniaGoDesu's modules, 
 the JMDict data is duplicated in jmen nad jmet database schemas. 
-These schemas are not linked to other egd-db objects, thus can be replaced at any time.
+These schemas are kept independent from other egd-db shcemas, thus can be easily replaced.
 
-Make sure you have a full backup of your database first!
-
-*The JMdictDB project is an informal project to put the contents 
-of Jim Breen's JMdict Japanese-English dictionary data  
-into a database.*
+Make sure you have a full backup of your database!
 
 ### Install Python3
-...
 
-### Download source code, latest development version (tip.tar.gz) from [EDRDG](http://edrdg.org/~smg/)
+    sudo apt-get install python3.4
+
+### Download JMDictDB source code, latest development version (tip.tar.gz) from [EDRDG](http://edrdg.org/~smg/)
 
     wget http://edrdg.org/~smg/cgi-bin/hgweb-jmdictdb.cgi/archive/tip.tar.gz
     
@@ -45,7 +46,7 @@ After we have exported the jmdict schema to a backup file, these users can be de
     echo "localhost:*:*:jmdictdb:changeit" >> ~/.pgpass
     echo "localhost:*:*:jmdictdbv:changeit" >> ~/.pgpass
 
-### To load JMdict, JMnedict, and Examples on a Unix-like machine, run 
+### Load JMdict, JMnedict, and Examples 
     
     make loadall
 
@@ -55,16 +56,16 @@ and Examples files into it and recreate the necessary foreign
 key constraints and indexes which were disabled during loading
 for performance reasons.
 
-## Transfering newly imported data to your own database
+## Transfer newly imported data to a different database
 I will export jmnew.public schema to an SQL file without owner info, which can be imported to other databases. 
 
-### Prepare schema for export
+### Prepare the schema for export
 
     jmnew=# COMMENT ON SCHEMA jmen IS null;
     jmnew=# COMMENT ON EXTENSION plpgsql IS null;
     jmnew=# ALTER SCHEMA public RENAME TO jmen; 
     
-### Dump schema to an SQL file
+### Dump the schema to an SQL file
 
     pg_dump --host=localhost --port=5432 --username=jmdictdb --format=plain --blobs --verbose --no-owner --no-privileges --file="jmen.sql" --dbname=jmnew
 
@@ -78,7 +79,7 @@ I will export jmnew.public schema to an SQL file without owner info, which can b
     
     
 ## Importing a JMDict with empty "gloss". You can translate this schema to your own language     
-I'll delere all records from the table gloss, which is 
+I'll delere all records from the table gloss.
 
 I'm using "et" suffic to identify the second schema, but you can use any string you like.
  
@@ -87,11 +88,11 @@ I'm using "et" suffic to identify the second schema, but you can use any string 
     jmnew=# ALTER SCHEMA jmen RENAME TO jmet; 
     jmnew=# TRUNCATE jmet.gloss;
 
-### Dump schema to an SQL file
+### Dump the schema to an SQL file
 
     pg_dump --host=localhost --port=5432 --username=jmdictdb --format=plain --blobs --verbose --no-owner --no-privileges --file="jmet.sql" --dbname=jmnew
 
-### Backup your old schema   
+### Backup your old schema if necessary   
 
     ALTER SCHEMA jmet RENAME TO jmet_bak; 
     

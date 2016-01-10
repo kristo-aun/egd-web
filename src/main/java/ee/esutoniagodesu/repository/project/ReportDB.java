@@ -1,7 +1,9 @@
 package ee.esutoniagodesu.repository.project;
 
 import ee.esutoniagodesu.domain.publik.view.VStats;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.CallableStatementCallback;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCallback;
 import org.springframework.stereotype.Repository;
 
@@ -10,6 +12,11 @@ import java.util.*;
 
 @Repository
 public class ReportDB extends AbstractRepository {
+
+    @Autowired
+    public ReportDB(JdbcTemplate jdbcTemplate) {
+        super(jdbcTemplate);
+    }
 
     public List<Map<String, ?>> getTofuTranslatedByUser(String uuid) {
 
@@ -53,7 +60,7 @@ public class ReportDB extends AbstractRepository {
             " lesson_no, story, heisig_comment, koohii_story_1, koohii_story_2," +
             " on_yomi, kun_yomi, example_words, keyword_jp_sentence from v_heisig4";
 
-        CustomPreparedStatementCreator sc = new CustomPreparedStatementCreator(sql);
+        CustomPreparedStatementCreator sc = new CustomPreparedStatementCreator(sql) {};
 
         PreparedStatementCallback<List<Map<String, ?>>> cb = s -> {
             ResultSet rs = s.executeQuery();
@@ -101,7 +108,7 @@ public class ReportDB extends AbstractRepository {
             " jinmei_seq, jouyou_radical, jouyou_year_added, jouyou_old_kanji," +
             " jouyou_meaning_en, jouyou_grade, jouyou_grade_seq from v_kanji";
 
-        CustomPreparedStatementCreator sc = new CustomPreparedStatementCreator(sql);
+        CustomPreparedStatementCreator sc = new CustomPreparedStatementCreator(sql) {};
 
         PreparedStatementCallback<List<Map<String, ?>>> cb = s -> {
             ResultSet rs = s.executeQuery();
@@ -138,7 +145,7 @@ public class ReportDB extends AbstractRepository {
     public VStats getStats() {
 
         String sql = "select * from v_stats";
-        CustomPreparedStatementCreator sc = new CustomPreparedStatementCreator(sql);
+        CustomPreparedStatementCreator sc = new CustomPreparedStatementCreator(sql) {};
 
         PreparedStatementCallback<VStats> cb = s -> {
             ResultSet rs = s.executeQuery();
@@ -211,7 +218,7 @@ public class ReportDB extends AbstractRepository {
 
     public List<Map<String, ?>> getCountGlossToSumFreqRatio() {
         String sql = "SELECT count_gloss, sum_freq, freq_ratio FROM public.v_count_gloss_to_sum_freq";
-        CustomPreparedStatementCreator sc = new CustomPreparedStatementCreator(sql);
+        CustomPreparedStatementCreator sc = new CustomPreparedStatementCreator(sql) {};
 
         PreparedStatementCallback<List<Map<String, ?>>> cb = s -> {
             ResultSet rs = s.executeQuery();

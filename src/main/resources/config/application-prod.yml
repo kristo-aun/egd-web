@@ -1,5 +1,8 @@
 app:
     url: https://momo.koodur.com
+    http:
+        cache:
+            timeToLiveInDays: 31
 
 spring:
     profiles:
@@ -14,6 +17,4 @@ spring:
     thymeleaf:
         cache: true
 
-http:
-    cache:
-        timeToLiveInDays: 31
+

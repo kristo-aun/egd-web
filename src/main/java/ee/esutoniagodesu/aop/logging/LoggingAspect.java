@@ -1,6 +1,7 @@
 package ee.esutoniagodesu.aop.logging;
 
 import ee.esutoniagodesu.config.Constants;
+import ee.esutoniagodesu.config.Profiles;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -31,7 +32,7 @@ public class LoggingAspect {
 
     @AfterThrowing(pointcut = "loggingPointcut()", throwing = "e")
     public void logAfterThrowing(JoinPoint joinPoint, Throwable e) {
-        if (env.acceptsProfiles(Constants.SPRING_PROFILE_DEV)) {
+        if (env.acceptsProfiles(Profiles.SPRING_PROFILE_DEV)) {
             log.error("Exception in {}.{}() with cause = {}", joinPoint.getSignature().getDeclaringTypeName(),
                 joinPoint.getSignature().getName(), e.getCause(), e);
         } else {

@@ -2,7 +2,6 @@ package ee.esutoniagodesu.service;
 
 import com.google.common.base.Joiner;
 import ee.esutoniagodesu.domain.ac.table.EAuthority;
-import ee.esutoniagodesu.security.permission.CustomPermissionEvaluator;
 import ee.esutoniagodesu.security.permission.Permission;
 import ee.esutoniagodesu.util.JCString;
 import org.apache.log4j.Logger;
@@ -44,15 +43,6 @@ public class SHAFileService implements EnvironmentAware {
         Assert.notNull(filesPath);
     }
 
-    @Inject
-    private CustomPermissionEvaluator pe;
-
-    public Map.Entry<Properties, File> authorizedGetWithProperties(String sha256sum) throws IOException {
-        Map.Entry<Properties, File> entry = getWithProperties(sha256sum);
-        pe.check(entry.getKey(), Permission.shafile_read);
-        return entry;
-    }
-
     public Map.Entry<Properties, File> getWithProperties(String sha256sum) throws IOException {
         Properties properties = getProperties(sha256sum);
         return new AbstractMap.SimpleImmutableEntry<>(properties, get(sha256sum));
@@ -68,12 +58,6 @@ public class SHAFileService implements EnvironmentAware {
         }
         prop.load(new FileInputStream(path));
         return prop;
-    }
-
-    public File authorizedGet(String sha256sum) throws IOException {
-        Map.Entry<Properties, File> entry = getWithProperties(sha256sum);
-        pe.check(entry.getKey(), Permission.shafile_read);
-        return entry.getValue();
     }
 
     public File get(String sha256sum) {

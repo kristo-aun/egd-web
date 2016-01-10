@@ -19,8 +19,8 @@ public class IntegrationServerConfiguration implements EnvironmentAware {
 
     @Override
     public void setEnvironment(Environment env) {
-        this.microsoftTranslatePropertyResolver = new RelaxedPropertyResolver(env, "microsoft.translate-service.");
-        this.googleTranslatePropertyResolver = new RelaxedPropertyResolver(env, "google.translate-service.");
+        this.microsoftTranslatePropertyResolver = new RelaxedPropertyResolver(env, "app.translate-service.microsoft.");
+        this.googleTranslatePropertyResolver = new RelaxedPropertyResolver(env, "app.translate-service.google.");
         microsoftTranslate();
         googleTranslate();
     }

@@ -13,9 +13,8 @@
 
 spring:
     jpa:
-        database-platform: org.hibernate.dialect.PostgreSQL9Dialect
         database: POSTGRESQL
-        show_sql: false
+        database-platform: org.hibernate.dialect.PostgreSQL9Dialect
         open-in-view: false
         hibernate:
             ddl-auto: none
@@ -23,7 +22,6 @@ spring:
         properties:
             hibernate.cache.use_second_level_cache: false
             hibernate.cache.use_query_cache: false
-            hibernate.generate_statistics: false
             hibernate.hbm2ddl.auto: validate
     messages:
         basename: classpath:/i18n/messages
@@ -35,11 +33,17 @@ spring:
     thymeleaf:
         mode: XHTML
 
+server:
+    compression:
+        enabled: true
+        mime-types: text/html,text/xml,text/plain,text/css, application/javascript, application/json
+
 security:
     basic:
         enabled: false
 
-async:
-    corePoolSize: 2
-    maxPoolSize: 10
-    queueCapacity: 10000
+app:
+    async:
+        corePoolSize: 2
+        maxPoolSize: 10
+        queueCapacity: 10000

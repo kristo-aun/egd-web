@@ -7,7 +7,6 @@ import ee.esutoniagodesu.pojo.test.compound.FilterCompoundSubmitDTO;
 import ee.esutoniagodesu.repository.domain.freq.TofuSentenceRepository;
 import ee.esutoniagodesu.repository.project.CoreDB;
 import ee.esutoniagodesu.security.SecurityUtils;
-import ee.esutoniagodesu.security.permission.CustomPermissionEvaluator;
 import ee.esutoniagodesu.security.permission.Permission;
 import ee.esutoniagodesu.util.PaginationUtil;
 import org.slf4j.Logger;
@@ -41,15 +40,12 @@ public class TofuService {
         return SecurityUtils.getUserUuid();
     }
 
-    @Inject
-    private CustomPermissionEvaluator CPE;
-
     @Transactional(readOnly = false)
     public TofuSentenceTranslation saveTranslation(TofuSentenceTranslation translation) {
         log.debug("saveTranslation: {}", translation);
         if (translation.getId() != null) {
             TofuSentenceTranslation tr = dao.find(TofuSentenceTranslation.class, translation.getId());
-            CPE.check(tr, Permission.tofu_translation_save);
+            //CPE.check(tr, Permission.tofu_translation_save);
         }
         translation.setCreatedBy(uuid());
         return dao.save(translation);

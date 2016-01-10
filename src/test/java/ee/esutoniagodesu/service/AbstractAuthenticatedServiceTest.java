@@ -2,6 +2,7 @@ package ee.esutoniagodesu.service;
 
 import ee.esutoniagodesu.Application;
 import ee.esutoniagodesu.config.Constants;
+import ee.esutoniagodesu.config.Profiles;
 import ee.esutoniagodesu.security.SecurityUtils;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ActiveProfiles(profiles = {Constants.SPRING_PROFILE_DEV, Constants.SPRING_PROFILE_UNIT})
+@ActiveProfiles(profiles = {Profiles.SPRING_PROFILE_DEV, Profiles.SPRING_PROFILE_UNIT, "dev-secret"})
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebAppConfiguration

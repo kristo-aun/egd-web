@@ -1,22 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <configuration scan="true">
-
-    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
-    <conversionRule conversionWord="wex" converterClass="org.springframework.boot.logging.logback.WhitespaceThrowableProxyConverter"/>
-    <conversionRule conversionWord="wEx" converterClass="org.springframework.boot.logging.logback.ExtendedWhitespaceThrowableProxyConverter"/>
-
-    <property name="LOG_PATH" value="${catalina.base}/logs/apps/egd"/>
-
-    <property name="CONSOLE_LOG_PATTERN" value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr([%15.15t]){faint} %clr(%logger{39}.%M:%L){cyan} %clr(-){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
-
-
-    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <charset>utf-8</charset>
-            <Pattern>${CONSOLE_LOG_PATTERN}</Pattern>
-        </encoder>
-    </appender>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
 
     <logger name="ee.esutoniagodesu" level="@logback.loglevel@"/>
 

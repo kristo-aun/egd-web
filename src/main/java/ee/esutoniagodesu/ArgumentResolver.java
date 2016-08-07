@@ -32,7 +32,7 @@ public class ArgumentResolver {
 
     public static Properties secretProperties(String profile) {
         YamlPropertiesFactoryBean yaml = new YamlPropertiesFactoryBean();
-        yaml.setResources(new ClassPathResource("config/secret-" + profile + ".yml"));
+        yaml.setResources(new ClassPathResource("config/application-" + profile + "-secret.yml"));
         yaml.afterPropertiesSet();
         return yaml.getObject();
     }

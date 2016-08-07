@@ -1,5 +1,7 @@
 package ee.esutoniagodesu.service;
 
+import com.atilika.kuromoji.ipadic.Token;
+import com.atilika.kuromoji.ipadic.Tokenizer;
 import com.google.common.base.Joiner;
 import ee.esutoniagodesu.bean.ProjectDAO;
 import ee.esutoniagodesu.domain.jmen.view.EN_Essum;
@@ -7,8 +9,6 @@ import ee.esutoniagodesu.repository.project.JMDictEnDB;
 import ee.esutoniagodesu.util.lang.lingv.JapaneseCharacter;
 import ee.esutoniagodesu.web.rest.dto.VocabularyDTO;
 import org.apache.log4j.Logger;
-import org.atilika.kuromoji.Token;
-import org.atilika.kuromoji.Tokenizer;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +32,7 @@ public class KuromojiService {
 
     private Tokenizer tokenizer() {
         if (_tokenizer == null) {
-            _tokenizer = Tokenizer.builder().build();
+            _tokenizer = new Tokenizer();
         }
         return _tokenizer;
     }

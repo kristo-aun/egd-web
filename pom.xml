@@ -136,11 +136,9 @@
             <version>${com.kawao.kakasi}</version>
         </dependency>
         <dependency>
-            <groupId>org.atilika.kuromoji</groupId>
-            <artifactId>kuromoji</artifactId>
-            <version>${org.atilika.kuromoji}</version>
-            <type>jar</type>
-            <scope>compile</scope>
+            <groupId>com.atilika.kuromoji</groupId>
+            <artifactId>kuromoji-ipadic</artifactId>
+            <version>0.9.0</version>
         </dependency>
         <dependency>
             <groupId>com.memetix</groupId>
